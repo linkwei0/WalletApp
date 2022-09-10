@@ -1,0 +1,919 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0347C6D80213D1703D26E4C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C21EA8E96B72C4802E1829A /* GoogleService-Info.plist */; };
+		20AFC9DABE9D10BA13D4EA9D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C26A6EFB3F22B9B315A4C64E /* FirebaseAnalytics */; };
+		2BAF3AB9103B9C7E0EDF9159 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B99DCEF982FB85250B83FC /* LaunchScreen.storyboard */; };
+		47D5AAB0970016AE80C6CD2A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DBCDF957515301007BBED1 /* SceneDelegate.swift */; };
+		47F91C1CB2EF891041413FB9 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = F9267EC4DE35C4D6E3351A89 /* PromiseKit */; };
+		516D0A28340BD7DD9F5426E1 /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = A127DEBF4B92FE752662C53D /* Rswift */; };
+		5DAA314B456F424FE568E575 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791919EB030A8BC258B1C6C8 /* Assets.xcassets */; };
+		667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1FBC436FDCC8156A546617 /* UIFont+AppFonts.swift */; };
+		846CF4843FBADADFDC31A9AA /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C93743B27CC7A01917D37E90 /* NotificationBannerSwift */; };
+		87D7ABFB2478479E8EA843C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CDCBF421BD6307D6F05C6E79 /* SnapKit */; };
+		94D96F815CD008BEB0C09761 /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B8B76E9F5D8CB2B83CB925 /* UIColor+AppColors.swift */; };
+		9A32E2C8DECEAED44F46C12E /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 766C730A54DE429F74C0C621 /* Alamofire */; };
+		A2A7597309619BF284FF8393 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86CBF7B4048D067D021A9C61 /* Manrope-Regular.ttf */; };
+		A7A666F95BF9A61A2BB672EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B62E1CE03D0FB11A5083B8 /* AppDelegate.swift */; };
+		AA9AC91BEFAD8DB545955CEA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C85B8CCA73C953BB0821C0EB /* Lottie */; };
+		ADAFAE2A28CC6EA500279E73 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAFAE2928CC6EA500279E73 /* R.generated.swift */; };
+		D42EF6240DAA370EF9FBAE42 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 52FD305D0291121776449BE9 /* FirebaseMessaging */; };
+		D4E984D84248598CB36968FB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6B5117F59FD5AA09D540837D /* Kingfisher */; };
+		E047C52CD720E2B4B11E5F96 /* Manrope-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53894DAE069222CA552D100D /* Manrope-ExtraBold.ttf */; };
+		ECCAF5C13F019758D88B7656 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = E9E699BC2776BA6541F775F7 /* FirebaseCrashlytics */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01B62E1CE03D0FB11A5083B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0FB7E703B35D13FCD3991A6A /* WalletApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WalletApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D1FBC436FDCC8156A546617 /* UIFont+AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+AppFonts.swift"; sourceTree = "<group>"; };
+		4C21EA8E96B72C4802E1829A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		53894DAE069222CA552D100D /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
+		61C7C91A316EB6BD4CD28BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		791919EB030A8BC258B1C6C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7D095FBC2B3C400940FB49F1 /* WalletApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalletApp.entitlements; sourceTree = "<group>"; };
+		86CBF7B4048D067D021A9C61 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
+		ADAFAE2928CC6EA500279E73 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		B6DBCDF957515301007BBED1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C8B8B76E9F5D8CB2B83CB925 /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
+		CFF34EA2799C9B19EE3EFD8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93E1ED780DC7F1CA6625E761 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A32E2C8DECEAED44F46C12E /* Alamofire in Frameworks */,
+				87D7ABFB2478479E8EA843C3 /* SnapKit in Frameworks */,
+				47F91C1CB2EF891041413FB9 /* PromiseKit in Frameworks */,
+				516D0A28340BD7DD9F5426E1 /* Rswift in Frameworks */,
+				AA9AC91BEFAD8DB545955CEA /* Lottie in Frameworks */,
+				846CF4843FBADADFDC31A9AA /* NotificationBannerSwift in Frameworks */,
+				D4E984D84248598CB36968FB /* Kingfisher in Frameworks */,
+				20AFC9DABE9D10BA13D4EA9D /* FirebaseAnalytics in Frameworks */,
+				ECCAF5C13F019758D88B7656 /* FirebaseCrashlytics in Frameworks */,
+				D42EF6240DAA370EF9FBAE42 /* FirebaseMessaging in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		332844EDBC21AAA586CC727F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3984FB1A96DB4204B9AA8CCF /* Fonts */,
+				791919EB030A8BC258B1C6C8 /* Assets.xcassets */,
+				ADAFAE2928CC6EA500279E73 /* R.generated.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3984FB1A96DB4204B9AA8CCF /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				53894DAE069222CA552D100D /* Manrope-ExtraBold.ttf */,
+				86CBF7B4048D067D021A9C61 /* Manrope-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4111D35D1FF19424199B44AD /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E8F5F6A0EE7C33847AC83EA6 /* Application */,
+				CDE7E08324BAEB9CD9D61E42 /* Extensions */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		834E814CDBC7962F28D01AE9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4C21EA8E96B72C4802E1829A /* GoogleService-Info.plist */,
+				61C7C91A316EB6BD4CD28BBF /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A753FAD1A6F4F847D005ABA1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0FB7E703B35D13FCD3991A6A /* WalletApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CDE7E08324BAEB9CD9D61E42 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C8B8B76E9F5D8CB2B83CB925 /* UIColor+AppColors.swift */,
+				2D1FBC436FDCC8156A546617 /* UIFont+AppFonts.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D14BD1C54EF1C9E9008EE4A4 /* WalletApp */ = {
+			isa = PBXGroup;
+			children = (
+				332844EDBC21AAA586CC727F /* Resources */,
+				4111D35D1FF19424199B44AD /* Sources */,
+				834E814CDBC7962F28D01AE9 /* Supporting Files */,
+				7D095FBC2B3C400940FB49F1 /* WalletApp.entitlements */,
+			);
+			path = WalletApp;
+			sourceTree = "<group>";
+		};
+		E8F5F6A0EE7C33847AC83EA6 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				01B62E1CE03D0FB11A5083B8 /* AppDelegate.swift */,
+				D8B99DCEF982FB85250B83FC /* LaunchScreen.storyboard */,
+				B6DBCDF957515301007BBED1 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		FED33A8B52A27F8346DF8532 = {
+			isa = PBXGroup;
+			children = (
+				D14BD1C54EF1C9E9008EE4A4 /* WalletApp */,
+				A753FAD1A6F4F847D005ABA1 /* Products */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A13506D6B50161E8158BE992 /* WalletApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C75DD31205BD0D060CD9AEA5 /* Build configuration list for PBXNativeTarget "WalletApp" */;
+			buildPhases = (
+				6B2956569DFAE78BD7104CDC /* R.Swift */,
+				213A787CBF5A6794E2E006B7 /* SwiftLint */,
+				D25C0574BC20F4CDD1BE166F /* Sources */,
+				A335580718810FB4C2DCFE7F /* Resources */,
+				93E1ED780DC7F1CA6625E761 /* Frameworks */,
+				2D06A2230492C98C1F59DBBA /* Highlight TODOs and FIXMEs */,
+				D4379749AE710D9CC7D480B3 /* Crashlytics */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WalletApp;
+			packageProductDependencies = (
+				766C730A54DE429F74C0C621 /* Alamofire */,
+				CDCBF421BD6307D6F05C6E79 /* SnapKit */,
+				F9267EC4DE35C4D6E3351A89 /* PromiseKit */,
+				A127DEBF4B92FE752662C53D /* Rswift */,
+				C85B8CCA73C953BB0821C0EB /* Lottie */,
+				C93743B27CC7A01917D37E90 /* NotificationBannerSwift */,
+				6B5117F59FD5AA09D540837D /* Kingfisher */,
+				C26A6EFB3F22B9B315A4C64E /* FirebaseAnalytics */,
+				E9E699BC2776BA6541F775F7 /* FirebaseCrashlytics */,
+				52FD305D0291121776449BE9 /* FirebaseMessaging */,
+			);
+			productName = WalletApp;
+			productReference = 0FB7E703B35D13FCD3991A6A /* WalletApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		950A9AEC522D3F4BCDEDE8D5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					A13506D6B50161E8158BE992 = {
+						DevelopmentTeam = UL6FX35328;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 75AB922601CD68E0470D5138 /* Build configuration list for PBXProject "WalletApp" */;
+			compatibilityVersion = "Xcode 10.0";
+			developmentRegion = ru;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				ru,
+			);
+			mainGroup = FED33A8B52A27F8346DF8532;
+			packageReferences = (
+				2DAAF72BE08BAD7B32D76E91 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				186CBF27B60B20040C40AFD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				CB03EDE20C2F84765F726F9B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				A0136F3D8243026D2D9C3138 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				51309A80B8FA2E5173C75AC1 /* XCRemoteSwiftPackageReference "NotificationBanner" */,
+				0AD03C9D0C2AA617302F56C9 /* XCRemoteSwiftPackageReference "PromiseKit" */,
+				023E4D35660222159A47F5ED /* XCRemoteSwiftPackageReference "R.swift" */,
+				7360A44898ADCF7238EB0F2C /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A13506D6B50161E8158BE992 /* WalletApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A335580718810FB4C2DCFE7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DAA314B456F424FE568E575 /* Assets.xcassets in Resources */,
+				0347C6D80213D1703D26E4C1 /* GoogleService-Info.plist in Resources */,
+				2BAF3AB9103B9C7E0EDF9159 /* LaunchScreen.storyboard in Resources */,
+				E047C52CD720E2B4B11E5F96 /* Manrope-ExtraBold.ttf in Resources */,
+				A2A7597309619BF284FF8393 /* Manrope-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		213A787CBF5A6794E2E006B7 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		2D06A2230492C98C1F59DBBA /* Highlight TODOs and FIXMEs */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Highlight TODOs and FIXMEs";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) \\( -not -path \"*/Pods/*\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"\n";
+		};
+		6B2956569DFAE78BD7104CDC /* R.Swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = R.Swift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/$TARGET_NAME/Resources/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which rswift >/dev/null; then\n  rswift generate \"$SRCROOT/$TARGET_NAME/Resources/R.generated.swift\"\nelse\n  echo \"error: R.swift not installed; run 'mint bootstrap' to install\"\n  return -1\nfi\n";
+		};
+		D4379749AE710D9CC7D480B3 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D25C0574BC20F4CDD1BE166F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7A666F95BF9A61A2BB672EA /* AppDelegate.swift in Sources */,
+				47D5AAB0970016AE80C6CD2A /* SceneDelegate.swift in Sources */,
+				ADAFAE2A28CC6EA500279E73 /* R.generated.swift in Sources */,
+				94D96F815CD008BEB0C09761 /* UIColor+AppColors.swift in Sources */,
+				667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D8B99DCEF982FB85250B83FC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CFF34EA2799C9B19EE3EFD8A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1B1719A054D5581ED8A7A42F /* Staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.5;
+			};
+			name = Staging;
+		};
+		1F13190B06333FC5D215BDD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = incremental;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.5;
+			};
+			name = Debug;
+		};
+		293F82075C2C7D5F5EE77761 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WalletApp/WalletApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UL6FX35328;
+				INFOPLIST_FILE = "WalletApp/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = start.WalletApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Staging;
+		};
+		3CAEB6219DFB530AF0684984 /* Develop */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_COMPILATION_MODE = incremental;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.5;
+			};
+			name = Develop;
+		};
+		721B66B4463AC1B0323B112A /* Develop */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WalletApp/WalletApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UL6FX35328;
+				INFOPLIST_FILE = "WalletApp/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = start.WalletApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Develop;
+		};
+		924715C3118D8852342F0BA9 /* Enterprise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.5;
+			};
+			name = Enterprise;
+		};
+		A76C70606B9ECB38DA63C7D4 /* Enterprise */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WalletApp/WalletApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UL6FX35328;
+				INFOPLIST_FILE = "WalletApp/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = start.WalletApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Enterprise;
+		};
+		BC134A0A3A674FEEF75E48F0 /* Live */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.5;
+			};
+			name = Live;
+		};
+		C93C877FF1696FC985FEDAAE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WalletApp/WalletApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UL6FX35328;
+				INFOPLIST_FILE = "WalletApp/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = start.WalletApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		FC5CA6F8B516B50949243C76 /* Live */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = WalletApp/WalletApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UL6FX35328;
+				INFOPLIST_FILE = "WalletApp/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = start.WalletApp;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Live;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		75AB922601CD68E0470D5138 /* Build configuration list for PBXProject "WalletApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F13190B06333FC5D215BDD7 /* Debug */,
+				3CAEB6219DFB530AF0684984 /* Develop */,
+				924715C3118D8852342F0BA9 /* Enterprise */,
+				BC134A0A3A674FEEF75E48F0 /* Live */,
+				1B1719A054D5581ED8A7A42F /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Develop;
+		};
+		C75DD31205BD0D060CD9AEA5 /* Build configuration list for PBXNativeTarget "WalletApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C93C877FF1696FC985FEDAAE /* Debug */,
+				721B66B4463AC1B0323B112A /* Develop */,
+				A76C70606B9ECB38DA63C7D4 /* Enterprise */,
+				FC5CA6F8B516B50949243C76 /* Live */,
+				293F82075C2C7D5F5EE77761 /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Develop;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		023E4D35660222159A47F5ED /* XCRemoteSwiftPackageReference "R.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.Library";
+			requirement = {
+				kind = exactVersion;
+				version = 5.4.0;
+			};
+		};
+		0AD03C9D0C2AA617302F56C9 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				kind = exactVersion;
+				version = 6.15.3;
+			};
+		};
+		186CBF27B60B20040C40AFD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 8.8.1;
+			};
+		};
+		2DAAF72BE08BAD7B32D76E91 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = exactVersion;
+				version = 5.4.4;
+			};
+		};
+		51309A80B8FA2E5173C75AC1 /* XCRemoteSwiftPackageReference "NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Daltron/NotificationBanner";
+			requirement = {
+				kind = exactVersion;
+				version = 3.0.6;
+			};
+		};
+		7360A44898ADCF7238EB0F2C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.1;
+			};
+		};
+		A0136F3D8243026D2D9C3138 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 3.2.3;
+			};
+		};
+		CB03EDE20C2F84765F726F9B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 7.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		52FD305D0291121776449BE9 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 186CBF27B60B20040C40AFD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		6B5117F59FD5AA09D540837D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CB03EDE20C2F84765F726F9B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		766C730A54DE429F74C0C621 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2DAAF72BE08BAD7B32D76E91 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		A127DEBF4B92FE752662C53D /* Rswift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 023E4D35660222159A47F5ED /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = Rswift;
+		};
+		C26A6EFB3F22B9B315A4C64E /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 186CBF27B60B20040C40AFD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		C85B8CCA73C953BB0821C0EB /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0136F3D8243026D2D9C3138 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		C93743B27CC7A01917D37E90 /* NotificationBannerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 51309A80B8FA2E5173C75AC1 /* XCRemoteSwiftPackageReference "NotificationBanner" */;
+			productName = NotificationBannerSwift;
+		};
+		CDCBF421BD6307D6F05C6E79 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7360A44898ADCF7238EB0F2C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		E9E699BC2776BA6541F775F7 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 186CBF27B60B20040C40AFD6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		F9267EC4DE35C4D6E3351A89 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AD03C9D0C2AA617302F56C9 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 950A9AEC522D3F4BCDEDE8D5 /* Project object */;
+}

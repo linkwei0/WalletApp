@@ -1,0 +1,139 @@
+---
+name: WalletApp
+options:
+  xcodeVersion: 12.5
+configs:
+  Enterprise: release
+  Live: release
+  Staging: release
+  Develop: debug
+  Debug: debug
+options:
+  deploymentTarget:
+    iOS: '13.0'
+  defaultConfig: Develop
+  bundleIdPrefix: ru
+  groupSortPosition: top
+  developmentLanguage: "ru"
+  enableBaseInternationalization: true
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  groupOrdering:
+    - order: [Sources, Resources, Tests, Supporting Files]
+    - pattern: 'Sources'
+      order: [Application, Common, Protocols, Extensions, Model, Modules, Views, Services, Utils]
+settings:
+  base:
+    SWIFT_VERSION: 5.5
+    DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    MTL_ENABLE_DEBUG_INFO: 'YES'
+    ENABLE_BITCODE: 'NO'
+    SWIFT_COMPILATION_MODE: wholemodule
+    SUPPORTS_MACCATALYST: 'NO'
+  configs:
+    Debug:
+      SWIFT_COMPILATION_MODE: "incremental"
+    Develop:
+      SWIFT_COMPILATION_MODE: "incremental"
+    Staging:
+      SWIFT_COMPILATION_MODE: "wholemodule"
+    Live:
+      SWIFT_COMPILATION_MODE: "wholemodule"
+    Enterprise:
+      SWIFT_COMPILATION_MODE: "wholemodule"
+packages:
+  Alamofire:
+    url: https://github.com/Alamofire/Alamofire
+    version: 5.4.4
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    version: 5.0.1
+  PromiseKit:
+    url: https://github.com/mxcl/PromiseKit
+    version: 6.15.3
+  Rswift:
+    url: https://github.com/mac-cain13/R.swift.Library
+    version: 5.4.0
+  Lottie:
+    url: https://github.com/airbnb/lottie-ios
+    version: 3.2.3
+  NotificationBannerSwift:
+    url: https://github.com/Daltron/NotificationBanner
+    version: 3.0.6
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    version: 8.8.1
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher.git
+    version: 7.1.2
+targets:
+  WalletApp:
+    type: application
+    platform: iOS
+    dependencies:
+    - package: Alamofire
+    - package: SnapKit
+    - package: PromiseKit
+    - package: Rswift
+    - package: Lottie
+    - package: NotificationBannerSwift
+    - package: Kingfisher
+    - package: Firebase
+      product: FirebaseAnalytics
+    - package: Firebase
+      product: FirebaseCrashlytics
+    - package: Firebase
+      product: FirebaseMessaging
+    sources:
+    - WalletApp
+    entitlements:
+      path: WalletApp/WalletApp.entitlements
+      properties:
+        aps-environment: development
+    settings:
+      base:
+        MARKETING_VERSION: 3.0.0
+        CURRENT_PROJECT_VERSION: 1
+        TARGETED_DEVICE_FAMILY: 1
+        VERSIONING_SYSTEM: apple-generic
+        PRODUCT_BUNDLE_IDENTIFIER: start.WalletApp
+        DEVELOPMENT_TEAM: UL6FX35328
+        CODE_SIGN_STYLE: Automatic
+    preBuildScripts:
+    - script: "if which rswift >/dev/null; then\n  rswift generate \"$SRCROOT/$TARGET_NAME/Resources/R.generated.swift\"\nelse\n  echo \"error: R.swift not installed; run 'mint bootstrap' to install\"\n  return -1\nfi\n"
+      name: R.Swift
+      inputFiles:
+      - "$TEMP_DIR/rswift-lastrun"
+      outputFiles:
+      - "$SRCROOT/$TARGET_NAME/Resources/R.generated.swift"
+    - script: "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n"
+      name: SwiftLint
+    postBuildScripts:
+    - script: |
+        TAGS="TODO:|FIXME:"
+        echo "searching ${SRCROOT} for ${TAGS}"
+        find "${SRCROOT}" \( -name "*.swift" \) \( -not -path "*/Pods/*" \) -print0 | xargs -0 egrep --with-filename --line-number --only-matching "($TAGS).*\$" | perl -p -e "s/($TAGS)/ warning: \$1/"
+      name: Highlight TODOs and FIXMEs
+    - script: "${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run"
+      name: Crashlytics
+      inputFiles:
+      - "${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}"
+      - "$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)"
+schemes:
+  WalletApp:
+    build:
+      targets:
+        WalletApp: all
+    run:
+      config: Debug
+      environmentVariables:
+      - variable: OS_ACTIVITY_MODE
+      - value: disable
+      - isEnabled: false
+    profile:
+      config: Develop
+    analyze:
+      config: Develop
+    archive:
+      config: Enterprise
