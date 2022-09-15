@@ -668,6 +668,21 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.image` struct is generated, and contains static references to 1 images.
+  struct image {
+    /// Image `pig-bank-image`.
+    static let pigBankImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "pig-bank-image")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "pig-bank-image", bundle: ..., traitCollection: ...)`
+    static func pigBankImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.pigBankImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
   /// This `R.info` struct is generated, and contains static references to 1 properties.
   struct info {
     struct uiApplicationSceneManifest {
@@ -690,6 +705,77 @@ struct R: Rswift.Validatable {
         }
 
         fileprivate init() {}
+      }
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  struct string {
+    /// This `R.string.bank` struct is generated, and contains static references to 4 localization keys.
+    struct bank {
+      /// Value: Заработал
+      static let bankBottomBarExpenseTitle = Rswift.StringResource(key: "bank.bottom.bar.expense.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Кошелек
+      static let bankTitle = Rswift.StringResource(key: "bank.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Потратил
+      static let bankBottomBarIncomeTitle = Rswift.StringResource(key: "bank.bottom.bar.income.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Профиль
+      static let bankBottomBarProfileTitle = Rswift.StringResource(key: "bank.bottom.bar.profile.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: Заработал
+      static func bankBottomBarExpenseTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("bank.bottom.bar.expense.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
+          return "bank.bottom.bar.expense.title"
+        }
+
+        return NSLocalizedString("bank.bottom.bar.expense.title", tableName: "Bank", bundle: bundle, comment: "")
+      }
+
+      /// Value: Кошелек
+      static func bankTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("bank.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
+          return "bank.title"
+        }
+
+        return NSLocalizedString("bank.title", tableName: "Bank", bundle: bundle, comment: "")
+      }
+
+      /// Value: Потратил
+      static func bankBottomBarIncomeTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("bank.bottom.bar.income.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
+          return "bank.bottom.bar.income.title"
+        }
+
+        return NSLocalizedString("bank.bottom.bar.income.title", tableName: "Bank", bundle: bundle, comment: "")
+      }
+
+      /// Value: Профиль
+      static func bankBottomBarProfileTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("bank.bottom.bar.profile.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
+          return "bank.bottom.bar.profile.title"
+        }
+
+        return NSLocalizedString("bank.bottom.bar.profile.title", tableName: "Bank", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

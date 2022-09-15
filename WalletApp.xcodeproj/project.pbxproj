@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01B464936DBA2876007702C8 /* CoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A71140A2A2E5AC32155B11 /* CoreDataProtocol.swift */; };
 		0347C6D80213D1703D26E4C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4C21EA8E96B72C4802E1829A /* GoogleService-Info.plist */; };
+		044AAA06414C985EC6A28DDE /* BankCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB7B82125F614F9F931E50C /* BankCoordinator.swift */; };
 		20AFC9DABE9D10BA13D4EA9D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C26A6EFB3F22B9B315A4C64E /* FirebaseAnalytics */; };
 		2BAF3AB9103B9C7E0EDF9159 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B99DCEF982FB85250B83FC /* LaunchScreen.storyboard */; };
+		4701ACA4595B688DD92F54D4 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F82B87CEA88A33E6B7A50AFB /* Coordinator.swift */; };
 		47D5AAB0970016AE80C6CD2A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DBCDF957515301007BBED1 /* SceneDelegate.swift */; };
 		47F91C1CB2EF891041413FB9 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = F9267EC4DE35C4D6E3351A89 /* PromiseKit */; };
 		516D0A28340BD7DD9F5426E1 /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = A127DEBF4B92FE752662C53D /* Rswift */; };
+		54DE49CCF7C9801EA886D986 /* Bank.strings in Resources */ = {isa = PBXBuildFile; fileRef = 997D571B90A96DAEF0F7F578 /* Bank.strings */; };
+		5C5D3F68141ED5E3E2B33308 /* BankBottomBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D19B1244D7A50760E9C83 /* BankBottomBarItemType.swift */; };
 		5DAA314B456F424FE568E575 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 791919EB030A8BC258B1C6C8 /* Assets.xcassets */; };
 		667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1FBC436FDCC8156A546617 /* UIFont+AppFonts.swift */; };
+		6EE05B5E9B884EF82B2BCB68 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136378405D788CD2ACB8EAD7 /* ExpenseViewController.swift */; };
+		786DF378C499D27B8F7C1FDC /* BankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDE80D563C08B3A0B79C13E2 /* BankViewController.swift */; };
 		846CF4843FBADADFDC31A9AA /* NotificationBannerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C93743B27CC7A01917D37E90 /* NotificationBannerSwift */; };
 		87D7ABFB2478479E8EA843C3 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CDCBF421BD6307D6F05C6E79 /* SnapKit */; };
 		94D96F815CD008BEB0C09761 /* UIColor+AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B8B76E9F5D8CB2B83CB925 /* UIColor+AppColors.swift */; };
@@ -22,27 +29,74 @@
 		A2A7597309619BF284FF8393 /* Manrope-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86CBF7B4048D067D021A9C61 /* Manrope-Regular.ttf */; };
 		A7A666F95BF9A61A2BB672EA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B62E1CE03D0FB11A5083B8 /* AppDelegate.swift */; };
 		AA9AC91BEFAD8DB545955CEA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C85B8CCA73C953BB0821C0EB /* Lottie */; };
-		ADAFAE2A28CC6EA500279E73 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAFAE2928CC6EA500279E73 /* R.generated.swift */; };
+		AD15B5CC28D2FAAC002B1834 /* BankBottomBarItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5CB28D2FAAC002B1834 /* BankBottomBarItemView.swift */; };
+		AD15B5CE28D2FAFD002B1834 /* BankBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5CD28D2FAFD002B1834 /* BankBottomBarView.swift */; };
+		AD15B5D028D2FB51002B1834 /* BankBottomBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5CF28D2FB51002B1834 /* BankBottomBarConfiguration.swift */; };
+		AD15B5D528D2FBC4002B1834 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5D428D2FBC4002B1834 /* CommonButton.swift */; };
+		AD15B5D728D2FC0F002B1834 /* CommonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5D628D2FC0F002B1834 /* CommonButtonStyle.swift */; };
+		AD15B5D928D2FC3A002B1834 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5D828D2FC3A002B1834 /* Label.swift */; };
+		AD15B5DB28D2FC51002B1834 /* TextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5DA28D2FC51002B1834 /* TextStyle.swift */; };
+		AD15B5DD28D2FCB5002B1834 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5DC28D2FCB5002B1834 /* UIView+Shadow.swift */; };
+		AD15B5DF28D2FCDF002B1834 /* HighlightableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5DE28D2FCDF002B1834 /* HighlightableButton.swift */; };
+		AD15B5E128D2FD51002B1834 /* BankViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5E028D2FD51002B1834 /* BankViewModel.swift */; };
+		AD15B5E328D300B9002B1834 /* IncomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5E228D300B9002B1834 /* IncomeCoordinator.swift */; };
+		AD15B5E528D30196002B1834 /* ExpenseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5E428D30196002B1834 /* ExpenseCoordinator.swift */; };
+		AD15B5E728D301F4002B1834 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5E628D301F4002B1834 /* ProfileCoordinator.swift */; };
+		AD15B5E928D303D5002B1834 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD15B5E828D303D5002B1834 /* R.generated.swift */; };
+		C4F9365A9B8D8EFD353672CB /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F18DA77E6550C2FCBC4DB2D /* Wallet.swift */; };
+		D2AC800FE84CB9D96F78FDA6 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2D02BBC63D962FAE5A32E0 /* ProfileViewController.swift */; };
+		D3D5CB766B0602B9379CFCBA /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33CD49EEFAC0095BDA86DF9 /* MainCoordinator.swift */; };
 		D42EF6240DAA370EF9FBAE42 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 52FD305D0291121776449BE9 /* FirebaseMessaging */; };
 		D4E984D84248598CB36968FB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6B5117F59FD5AA09D540837D /* Kingfisher */; };
 		E047C52CD720E2B4B11E5F96 /* Manrope-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53894DAE069222CA552D100D /* Manrope-ExtraBold.ttf */; };
+		E1CC163D7BBC4B3163D3C907 /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = C15D9E5DDF34CE26FA5CF969 /* AppDependency.swift */; };
 		ECCAF5C13F019758D88B7656 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = E9E699BC2776BA6541F775F7 /* FirebaseCrashlytics */; };
+		EEEA899ADD5E40069F40FFC8 /* IncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F096774C2B6DCF24B2C148F /* IncomeViewController.swift */; };
+		F27BBB51673E69BE2F80A194 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FF44D5DE40794ABF4F39C1 /* BaseViewController.swift */; };
+		F44E486688C3933E89BF65E2 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE861A689FAB47B1226711C1 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		01B62E1CE03D0FB11A5083B8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0F096774C2B6DCF24B2C148F /* IncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewController.swift; sourceTree = "<group>"; };
 		0FB7E703B35D13FCD3991A6A /* WalletApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WalletApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		136378405D788CD2ACB8EAD7 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		2D1FBC436FDCC8156A546617 /* UIFont+AppFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+AppFonts.swift"; sourceTree = "<group>"; };
+		3F18DA77E6550C2FCBC4DB2D /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		4B7D19B1244D7A50760E9C83 /* BankBottomBarItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankBottomBarItemType.swift; sourceTree = "<group>"; };
 		4C21EA8E96B72C4802E1829A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		53894DAE069222CA552D100D /* Manrope-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-ExtraBold.ttf"; sourceTree = "<group>"; };
 		61C7C91A316EB6BD4CD28BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6EB7B82125F614F9F931E50C /* BankCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCoordinator.swift; sourceTree = "<group>"; };
 		791919EB030A8BC258B1C6C8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D095FBC2B3C400940FB49F1 /* WalletApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalletApp.entitlements; sourceTree = "<group>"; };
 		86CBF7B4048D067D021A9C61 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
-		ADAFAE2928CC6EA500279E73 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		997D571B90A96DAEF0F7F578 /* Bank.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Bank.strings; sourceTree = "<group>"; };
+		AC2D02BBC63D962FAE5A32E0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AD15B5CB28D2FAAC002B1834 /* BankBottomBarItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankBottomBarItemView.swift; sourceTree = "<group>"; };
+		AD15B5CD28D2FAFD002B1834 /* BankBottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankBottomBarView.swift; sourceTree = "<group>"; };
+		AD15B5CF28D2FB51002B1834 /* BankBottomBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankBottomBarConfiguration.swift; sourceTree = "<group>"; };
+		AD15B5D428D2FBC4002B1834 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
+		AD15B5D628D2FC0F002B1834 /* CommonButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButtonStyle.swift; sourceTree = "<group>"; };
+		AD15B5D828D2FC3A002B1834 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		AD15B5DA28D2FC51002B1834 /* TextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyle.swift; sourceTree = "<group>"; };
+		AD15B5DC28D2FCB5002B1834 /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
+		AD15B5DE28D2FCDF002B1834 /* HighlightableButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightableButton.swift; sourceTree = "<group>"; };
+		AD15B5E028D2FD51002B1834 /* BankViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankViewModel.swift; sourceTree = "<group>"; };
+		AD15B5E228D300B9002B1834 /* IncomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCoordinator.swift; sourceTree = "<group>"; };
+		AD15B5E428D30196002B1834 /* ExpenseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCoordinator.swift; sourceTree = "<group>"; };
+		AD15B5E628D301F4002B1834 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		AD15B5E828D303D5002B1834 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		B6DBCDF957515301007BBED1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		C15D9E5DDF34CE26FA5CF969 /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
 		C8B8B76E9F5D8CB2B83CB925 /* UIColor+AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+AppColors.swift"; sourceTree = "<group>"; };
+		CDE80D563C08B3A0B79C13E2 /* BankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankViewController.swift; sourceTree = "<group>"; };
 		CFF34EA2799C9B19EE3EFD8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DE861A689FAB47B1226711C1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		F33CD49EEFAC0095BDA86DF9 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		F7A71140A2A2E5AC32155B11 /* CoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProtocol.swift; sourceTree = "<group>"; };
+		F82B87CEA88A33E6B7A50AFB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		F9FF44D5DE40794ABF4F39C1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,12 +120,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C70FF94A1F2B96AAC07FC2A /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				997D571B90A96DAEF0F7F578 /* Bank.strings */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
 		332844EDBC21AAA586CC727F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				3984FB1A96DB4204B9AA8CCF /* Fonts */,
+				2C70FF94A1F2B96AAC07FC2A /* Strings */,
 				791919EB030A8BC258B1C6C8 /* Assets.xcassets */,
-				ADAFAE2928CC6EA500279E73 /* R.generated.swift */,
+				AD15B5E828D303D5002B1834 /* R.generated.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -88,10 +151,55 @@
 		4111D35D1FF19424199B44AD /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				AD15B5D128D2FBA4002B1834 /* Views */,
 				E8F5F6A0EE7C33847AC83EA6 /* Application */,
 				CDE7E08324BAEB9CD9D61E42 /* Extensions */,
+				49AFAD66B48F90C2FB762248 /* Model */,
+				9E755B8AD94DE84A13EE263A /* Services */,
+				6918AF4A65E90FFEB0F85EE6 /* Utils */,
+				853B35075060212F30B1D952 /* Base */,
+				4C1768191E1FCFBF47E4E3A0 /* Scenes */,
 			);
 			path = Sources;
+			sourceTree = "<group>";
+		};
+		42AA792B06F549FF31A86DE7 /* Bank */ = {
+			isa = PBXGroup;
+			children = (
+				A6AA281F1ACCEF3AC5D605D5 /* Main */,
+				BEA9E140E3129874542C9812 /* Bottom Bar */,
+				6EB7B82125F614F9F931E50C /* BankCoordinator.swift */,
+				CDE80D563C08B3A0B79C13E2 /* BankViewController.swift */,
+				AD15B5E028D2FD51002B1834 /* BankViewModel.swift */,
+			);
+			path = Bank;
+			sourceTree = "<group>";
+		};
+		49AFAD66B48F90C2FB762248 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3F18DA77E6550C2FCBC4DB2D /* Wallet.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4C1768191E1FCFBF47E4E3A0 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				42AA792B06F549FF31A86DE7 /* Bank */,
+				ABAC0EE927EE17E7DF6234E1 /* Income */,
+				C8F730AED7249AE4058BE825 /* Expense */,
+				F6DB5EEBE52C3BCCD7E22E5A /* Profile */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		6918AF4A65E90FFEB0F85EE6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C15D9E5DDF34CE26FA5CF969 /* AppDependency.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		834E814CDBC7962F28D01AE9 /* Supporting Files */ = {
@@ -103,6 +211,31 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		853B35075060212F30B1D952 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F9FF44D5DE40794ABF4F39C1 /* BaseViewController.swift */,
+				F82B87CEA88A33E6B7A50AFB /* Coordinator.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		9E755B8AD94DE84A13EE263A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				EDC724B124D9E8D514266EB6 /* Core Data */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A6AA281F1ACCEF3AC5D605D5 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				F33CD49EEFAC0095BDA86DF9 /* MainCoordinator.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		A753FAD1A6F4F847D005ABA1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,11 +244,69 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		ABAC0EE927EE17E7DF6234E1 /* Income */ = {
+			isa = PBXGroup;
+			children = (
+				0F096774C2B6DCF24B2C148F /* IncomeViewController.swift */,
+				AD15B5E228D300B9002B1834 /* IncomeCoordinator.swift */,
+			);
+			path = Income;
+			sourceTree = "<group>";
+		};
+		AD15B5D128D2FBA4002B1834 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD15B5D328D2FBB9002B1834 /* Label */,
+				AD15B5D228D2FBAE002B1834 /* Button */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD15B5D228D2FBAE002B1834 /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				AD15B5D428D2FBC4002B1834 /* CommonButton.swift */,
+				AD15B5D628D2FC0F002B1834 /* CommonButtonStyle.swift */,
+				AD15B5DE28D2FCDF002B1834 /* HighlightableButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		AD15B5D328D2FBB9002B1834 /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				AD15B5D828D2FC3A002B1834 /* Label.swift */,
+				AD15B5DA28D2FC51002B1834 /* TextStyle.swift */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
+		BEA9E140E3129874542C9812 /* Bottom Bar */ = {
+			isa = PBXGroup;
+			children = (
+				4B7D19B1244D7A50760E9C83 /* BankBottomBarItemType.swift */,
+				AD15B5CB28D2FAAC002B1834 /* BankBottomBarItemView.swift */,
+				AD15B5CD28D2FAFD002B1834 /* BankBottomBarView.swift */,
+				AD15B5CF28D2FB51002B1834 /* BankBottomBarConfiguration.swift */,
+			);
+			path = "Bottom Bar";
+			sourceTree = "<group>";
+		};
+		C8F730AED7249AE4058BE825 /* Expense */ = {
+			isa = PBXGroup;
+			children = (
+				136378405D788CD2ACB8EAD7 /* ExpenseViewController.swift */,
+				AD15B5E428D30196002B1834 /* ExpenseCoordinator.swift */,
+			);
+			path = Expense;
+			sourceTree = "<group>";
+		};
 		CDE7E08324BAEB9CD9D61E42 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				C8B8B76E9F5D8CB2B83CB925 /* UIColor+AppColors.swift */,
 				2D1FBC436FDCC8156A546617 /* UIFont+AppFonts.swift */,
+				AD15B5DC28D2FCB5002B1834 /* UIView+Shadow.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -139,6 +330,24 @@
 				B6DBCDF957515301007BBED1 /* SceneDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		EDC724B124D9E8D514266EB6 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				DE861A689FAB47B1226711C1 /* CoreDataManager.swift */,
+				F7A71140A2A2E5AC32155B11 /* CoreDataProtocol.swift */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		F6DB5EEBE52C3BCCD7E22E5A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				AC2D02BBC63D962FAE5A32E0 /* ProfileViewController.swift */,
+				AD15B5E628D301F4002B1834 /* ProfileCoordinator.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		FED33A8B52A27F8346DF8532 = {
@@ -235,6 +444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DAA314B456F424FE568E575 /* Assets.xcassets in Resources */,
+				54DE49CCF7C9801EA886D986 /* Bank.strings in Resources */,
 				0347C6D80213D1703D26E4C1 /* GoogleService-Info.plist in Resources */,
 				2BAF3AB9103B9C7E0EDF9159 /* LaunchScreen.storyboard in Resources */,
 				E047C52CD720E2B4B11E5F96 /* Manrope-ExtraBold.ttf in Resources */,
@@ -328,11 +538,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD15B5DF28D2FCDF002B1834 /* HighlightableButton.swift in Sources */,
 				A7A666F95BF9A61A2BB672EA /* AppDelegate.swift in Sources */,
+				AD15B5E928D303D5002B1834 /* R.generated.swift in Sources */,
+				E1CC163D7BBC4B3163D3C907 /* AppDependency.swift in Sources */,
+				5C5D3F68141ED5E3E2B33308 /* BankBottomBarItemType.swift in Sources */,
+				044AAA06414C985EC6A28DDE /* BankCoordinator.swift in Sources */,
+				AD15B5D528D2FBC4002B1834 /* CommonButton.swift in Sources */,
+				AD15B5D028D2FB51002B1834 /* BankBottomBarConfiguration.swift in Sources */,
+				AD15B5E328D300B9002B1834 /* IncomeCoordinator.swift in Sources */,
+				786DF378C499D27B8F7C1FDC /* BankViewController.swift in Sources */,
+				AD15B5E728D301F4002B1834 /* ProfileCoordinator.swift in Sources */,
+				AD15B5DD28D2FCB5002B1834 /* UIView+Shadow.swift in Sources */,
+				F27BBB51673E69BE2F80A194 /* BaseViewController.swift in Sources */,
+				AD15B5D928D2FC3A002B1834 /* Label.swift in Sources */,
+				AD15B5D728D2FC0F002B1834 /* CommonButtonStyle.swift in Sources */,
+				AD15B5CE28D2FAFD002B1834 /* BankBottomBarView.swift in Sources */,
+				AD15B5CC28D2FAAC002B1834 /* BankBottomBarItemView.swift in Sources */,
+				AD15B5E128D2FD51002B1834 /* BankViewModel.swift in Sources */,
+				4701ACA4595B688DD92F54D4 /* Coordinator.swift in Sources */,
+				F44E486688C3933E89BF65E2 /* CoreDataManager.swift in Sources */,
+				01B464936DBA2876007702C8 /* CoreDataProtocol.swift in Sources */,
+				6EE05B5E9B884EF82B2BCB68 /* ExpenseViewController.swift in Sources */,
+				EEEA899ADD5E40069F40FFC8 /* IncomeViewController.swift in Sources */,
+				AD15B5DB28D2FC51002B1834 /* TextStyle.swift in Sources */,
+				D3D5CB766B0602B9379CFCBA /* MainCoordinator.swift in Sources */,
+				D2AC800FE84CB9D96F78FDA6 /* ProfileViewController.swift in Sources */,
 				47D5AAB0970016AE80C6CD2A /* SceneDelegate.swift in Sources */,
-				ADAFAE2A28CC6EA500279E73 /* R.generated.swift in Sources */,
 				94D96F815CD008BEB0C09761 /* UIColor+AppColors.swift in Sources */,
+				AD15B5E528D30196002B1834 /* ExpenseCoordinator.swift in Sources */,
 				667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */,
+				C4F9365A9B8D8EFD353672CB /* Wallet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
