@@ -47,8 +47,9 @@ class BankViewController: BaseViewController {
     mainPigImage.clipsToBounds = true
     mainPigImage.contentMode = .scaleAspectFit
     mainPigImage.snp.makeConstraints { make in
+      make.centerY.equalToSuperview().offset(-72)
       make.leading.trailing.equalToSuperview().inset(72)
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(-32)
+      make.size.equalTo(120).priority(750)
     }
   }
   
@@ -57,8 +58,8 @@ class BankViewController: BaseViewController {
     bankTitle.text = viewModel.currentBank
     bankTitle.textAlignment = .center
     bankTitle.snp.makeConstraints { make in
+      make.top.equalTo(mainPigImage.snp.bottom).offset(4)
       make.leading.trailing.equalToSuperview().inset(32)
-      make.top.equalTo(mainPigImage.snp.bottom).inset(64)
     }
   }
   
