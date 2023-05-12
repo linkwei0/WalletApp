@@ -1,0 +1,15 @@
+/* 
+  Calculation.strings
+  WalletApp
+*/
+
+"calculation.zero" = "0";
+"calculation.one" = "1";
+"calculation.two" = "2";
+"calculation.three" = "3";
+"calculation.four" = "4";
+"calculation.five" = "5";
+"calculation.six" = "6";
+"calculation.seven" = "7";
+"calculation.eight" = "8";
+"calculation.nine" = "9";

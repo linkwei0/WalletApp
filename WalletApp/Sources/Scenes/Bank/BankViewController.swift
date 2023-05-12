@@ -57,6 +57,7 @@ class BankViewController: BaseViewController {
     view.addSubview(bankTitle)
     bankTitle.text = viewModel.currentBank
     bankTitle.textAlignment = .center
+    bankTitle.textColor = .baseWhite
     bankTitle.snp.makeConstraints { make in
       make.top.equalTo(mainPigImage.snp.bottom).offset(4)
       make.leading.trailing.equalToSuperview().inset(32)

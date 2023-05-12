@@ -14,7 +14,6 @@ class BankBottomBarView: UIView {
     CGSize(width: UIView.noIntrinsicMetric, height: 56)
   }
   
-  private let backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
   private let stackView = UIStackView()
   
   private let bottomBarItems: [BankBottomBarItemType]
@@ -53,12 +52,9 @@ class BankBottomBarView: UIView {
   }
   
   private func setupBackgroundView() {
-    addSubview(backgroundView)
-    backgroundView.layer.cornerRadius = 16
-    backgroundView.clipsToBounds = true
-    backgroundView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
-    }
+    layer.borderWidth = 2.0
+    layer.borderColor = UIColor.baseWhite.cgColor
+    backgroundColor = .accentDark
   }
   
   private func setupStackView() {

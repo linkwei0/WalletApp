@@ -5,7 +5,7 @@
 
 import UIKit
 
-enum BankBottomBarItemType {
+enum BankBottomBarItemType: CaseIterable {
   case income, expense, profile
   
   var title: String {
@@ -33,14 +33,14 @@ enum BankBottomBarItemType {
   var color: UIColor {
     switch self {
     default:
-      return .accent
+      return .baseWhite
     }
   }
   
   var highlightColor: UIColor {
     switch self {
     default:
-      return .accentFaded
+      return .baseWhite
     }
   }
 }

@@ -3,8 +3,8 @@
   WalletApp
 */
 
-"bank.title" = "Кошелек";
+"bank.title" = "Общая сумма";
 
-"bank.bottom.bar.income.title" = "Потратил";
-"bank.bottom.bar.expense.title" = "Заработал";
+"bank.bottom.bar.income.title" = "Расход";
+"bank.bottom.bar.expense.title" = "Доход";
 "bank.bottom.bar.profile.title" = "Профиль";
