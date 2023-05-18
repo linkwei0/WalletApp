@@ -8,7 +8,23 @@ import UIKit
 class IncomeViewController: BaseViewController {
   // MARK: - Properties
   
-  private let calculationView = CalculationView()
+  private let calculationView: CalculationView
+  
+  private let viewModel: IncomeViewModel
+  
+  // MARK: - Init
+  
+  init(viewModel: IncomeViewModel) {
+    self.viewModel = viewModel
+    calculationView = CalculationView(viewModel: viewModel.calculationViewModel)
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    self.viewModel = IncomeViewModel(currentBank: "")
+    calculationView = CalculationView(viewModel: viewModel.calculationViewModel)
+    super.init(coder: coder)
+  }
   
   // MARK: - Lifecycle
   
@@ -17,7 +33,7 @@ class IncomeViewController: BaseViewController {
     setup()
   }
   
-  // MARK: - Setups
+  // MARK: - Setup
   
   private func setup() {
     setupCalculationView()
@@ -29,5 +45,9 @@ class IncomeViewController: BaseViewController {
       make.top.leading.trailing.equalToSuperview()
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12)
     }
+  }
+  
+  deinit {
+    print("VC deinit")
   }
 }

@@ -19,23 +19,51 @@ class CustomCalculationView: UIView {
   weak var delegate: CustomCalculationViewDelegate?
   
   private let historyTableView = UITableView()
-  let currentSignLabel = Label(textStyle: .bodyBold)
-  let supportingValueLabel = Label(textStyle: .bodyBold)
-  let currentValueLabel = Label(textStyle: .header1)
+  private let currentSignLabel = Label(textStyle: .bodyBold)
+  private let supportingValueLabel = Label(textStyle: .bodyBold)
+  private let currentValueLabel = Label(textStyle: .header1)
   private let checkButton = UIButton(type: .system)
   private let allClearButton = UIButton(type: .system)
   private let clearButton = UIButton(type: .system)
   
+  private let collectionType: CollectionType
+  
+  private let viewModel: CustomCalculationViewViewModel
+  
   // MARK: - Init
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  init(viewModel: CustomCalculationViewViewModel, collectionType: CollectionType) {
+    self.viewModel = viewModel
+    self.collectionType = collectionType
+    super.init(frame: .zero)
     setup()
+    bindToViewModel()
   }
   
   required init?(coder: NSCoder) {
+    self.viewModel = CustomCalculationViewViewModel()
+    self.collectionType = .income
     super.init(coder: coder)
     setup()
+    bindToViewModel()
+  }
+  
+  private func bindToViewModel() {
+    viewModel.onUpdateCurrentValue = { [weak self] value in
+      self?.currentValueLabel.text = value
+    }
+    
+    viewModel.onUpdateAllValues = { [weak self] currentValue, currentSign in
+      self?.currentSignLabel.text = currentSign
+      self?.supportingValueLabel.text = currentValue
+      self?.currentValueLabel.text = ""
+    }
+    
+    viewModel.onUpdateUIAfterEqual = { [weak self] resultValue in
+      self?.currentValueLabel.text = resultValue
+      self?.currentSignLabel.text = ""
+      self?.supportingValueLabel.text = ""
+    }
   }
   
   // MARK: - Setup
@@ -52,7 +80,7 @@ class CustomCalculationView: UIView {
   
   private func setupCurrentSignLabel() {
     addSubview(currentSignLabel)
-    currentSignLabel.textColor = .baseWhite
+    currentSignLabel.textColor = collectionType == .income ? .baseWhite : .baseBlack
     currentSignLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(16)
       make.bottom.equalToSuperview().inset(5)
@@ -62,7 +90,7 @@ class CustomCalculationView: UIView {
   
   private func setupSupportingValueLabel() {
     addSubview(supportingValueLabel)
-    supportingValueLabel.textColor = .baseWhite
+    supportingValueLabel.textColor = collectionType == .income ? .baseWhite : .baseBlack
     supportingValueLabel.textAlignment = .left
     supportingValueLabel.adjustsFontSizeToFitWidth = true
     supportingValueLabel.snp.makeConstraints { make in
@@ -76,7 +104,7 @@ class CustomCalculationView: UIView {
     addSubview(checkButton)
     let image = R.image.checkButton()?.withRenderingMode(.alwaysTemplate)
     checkButton.setImage(image, for: .normal)
-    checkButton.tintColor = .baseWhite
+    checkButton.tintColor = collectionType == .income ? .baseWhite : .baseBlack
     checkButton.addTarget(self, action: #selector(didTapCheckButton), for: .touchUpInside)
     
     checkButton.snp.makeConstraints { make in
@@ -90,7 +118,7 @@ class CustomCalculationView: UIView {
     addSubview(allClearButton)
     let image = R.image.allClearButton()?.withRenderingMode(.alwaysTemplate)
     allClearButton.setImage(image, for: .normal)
-    allClearButton.tintColor = .baseWhite
+    allClearButton.tintColor = collectionType == .income ? .baseWhite : .baseBlack
     allClearButton.addTarget(self, action: #selector(didTapAllClearButton), for: .touchUpInside)
     
     allClearButton.snp.makeConstraints { make in
@@ -104,7 +132,7 @@ class CustomCalculationView: UIView {
     addSubview(clearButton)
     let image = R.image.clearButton()?.withRenderingMode(.alwaysTemplate)
     clearButton.setImage(image, for: .normal)
-    clearButton.tintColor = .baseWhite
+    clearButton.tintColor = collectionType == .income ? .baseWhite : .baseBlack
     clearButton.addTarget(self, action: #selector(handleClearButton), for: .touchUpInside)
     
     clearButton.snp.makeConstraints { make in
@@ -116,7 +144,7 @@ class CustomCalculationView: UIView {
   
   private func setupCurrentValueLabel() {
     addSubview(currentValueLabel)
-    currentValueLabel.textColor = .baseWhite
+    currentValueLabel.textColor = collectionType == .income ? .baseWhite : .baseBlack
     currentValueLabel.textAlignment = .center
     currentValueLabel.adjustsFontSizeToFitWidth = true
     currentValueLabel.snp.makeConstraints { make in
@@ -132,26 +160,30 @@ class CustomCalculationView: UIView {
     historyTableView.dataSource = self
     historyTableView.delegate = self
     historyTableView.backgroundColor = .accent
-    historyTableView.separatorStyle = .none
+    historyTableView.separatorStyle = .singleLine
+    historyTableView.rowHeight = 50
+    historyTableView.separatorColor = collectionType == .income ? .baseWhite : .baseBlack
+    historyTableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    historyTableView.isScrollEnabled = false
     historyTableView.snp.makeConstraints { make in
       make.top.equalToSuperview()
       make.leading.trailing.equalToSuperview()
-      make.bottom.equalTo(currentValueLabel.snp.top).inset(-24)
+      make.bottom.equalTo(currentValueLabel.snp.top).inset(-14)
     }
   }
   
   // MARK: - IBActions
   
   @objc private func didTapCheckButton() {
-    delegate?.didTapCheckButton(self, with: currentValueLabel.text ?? "")
+    viewModel.onDidTapCheckButton(currentValueLabel.text ?? "")
   }
   
   @objc private func handleClearButton() {
-    delegate?.didTapClearButton(self, text: currentValueLabel.text ?? "")
+    viewModel.onDidTapClearButton(value: currentValueLabel.text ?? "")
   }
   
   @objc private func didTapAllClearButton() {
-    delegate?.didTapAllClearButton(self)
+    viewModel.onDidTapAllClearButton()
   }
 }
 
@@ -159,11 +191,15 @@ class CustomCalculationView: UIView {
 
 extension CustomCalculationView: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
+    return 4
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    return UITableViewCell()
+    let cell = UITableViewCell()
+    cell.textLabel?.text = "Test table cell"
+    cell.textLabel?.textColor = collectionType == .income ? .baseWhite : .baseBlack
+    cell.backgroundColor = .accent
+    return cell
   }
 }
 
@@ -171,6 +207,7 @@ extension CustomCalculationView: UITableViewDataSource {
 
 extension CustomCalculationView: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // TODO: - segue to detail about day of order
     print(indexPath.row)
   }
 }

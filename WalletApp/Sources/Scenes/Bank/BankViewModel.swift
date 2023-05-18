@@ -6,12 +6,12 @@
 import Foundation
 
 protocol BankViewModelDelegate: AnyObject {
-  func bankViewModelDidRequestToShowIncome(_ viewModel: BankViewModel)
-  func bankViewModelDidRequestToShowExpense(_ viewModel: BankViewModel)
+  func bankViewModelDidRequestToShowIncome(_ viewModel: BankViewModel, currentBank: String)
+  func bankViewModelDidRequestToShowExpense(_ viewModel: BankViewModel, currentBank: String)
   func bankViewModelDidRequestToShowProfile(_ viewModel: BankViewModel)
 }
 
-class BankViewModel {
+final class BankViewModel {
   // MARK: - Properties
   
   weak var delegate: BankViewModelDelegate?
@@ -20,16 +20,14 @@ class BankViewModel {
     return .main
   }
   
-  var currentBank: String {
-    return "132004 руб"
-  }
+  private(set) var currentBank = "142800$"
   
   func didSelectBottomBarItem(_ itemType: BankBottomBarItemType) {
     switch itemType {
     case .income:
-      delegate?.bankViewModelDidRequestToShowIncome(self)
+      delegate?.bankViewModelDidRequestToShowIncome(self, currentBank: currentBank)
     case .expense:
-      delegate?.bankViewModelDidRequestToShowExpense(self)
+      delegate?.bankViewModelDidRequestToShowExpense(self, currentBank: currentBank)
     case .profile:
       delegate?.bankViewModelDidRequestToShowProfile(self)
     }

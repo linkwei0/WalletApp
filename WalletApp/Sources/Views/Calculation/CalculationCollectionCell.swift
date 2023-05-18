@@ -5,20 +5,26 @@
 
 import UIKit
 
-class CalculationItemCell: UICollectionViewCell {
+class CalculationCollectionCell: UICollectionViewCell {
   // MARK: - Properties
-  
-  var onDidTap: ((_ itemType: CalculationItemType) -> Void)?
-  
+    
   private(set) var itemType: CalculationItemType?
-  
   private let iconImageView = UIImageView()
+  
+  private var viewModel: CalculationCollectionCellViewModel?
   
   // MARK: - Init
   
   override init(frame: CGRect) {
     super.init(frame: frame)
     setup()
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapCell))
+    addGestureRecognizer(tap)
+  }
+  
+  @objc private func didTapCell() {
+    viewModel?.didTapCell()
   }
   
   required init?(coder: NSCoder) {
@@ -27,8 +33,13 @@ class CalculationItemCell: UICollectionViewCell {
   
   // MARK: - Configure
   
-  func configure(with itemType: CalculationItemType) {
-    iconImageView.image = itemType.iconImage?.withRenderingMode(.alwaysTemplate)
+  func configure(with viewModel: CalculationCollectionCellViewModel) {
+    self.viewModel = viewModel
+    
+    layer.borderColor = viewModel.borderColor.cgColor
+    backgroundColor = viewModel.backgroundColor
+    iconImageView.tintColor = viewModel.tintColor
+    iconImageView.image = viewModel.iconImage?.withRenderingMode(.alwaysTemplate)
   }
   
   // MARK: - Setup
@@ -41,15 +52,12 @@ class CalculationItemCell: UICollectionViewCell {
   private func setupBackground() {
     layer.cornerRadius = 25
     layer.borderWidth = 2.5
-    layer.borderColor = UIColor.baseWhite.cgColor
-    backgroundColor = .accentDark
   }
   
   private func setupIconImage() {
     contentView.addSubview(iconImageView)
-    iconImageView.tintColor = .baseWhite
     iconImageView.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(16)
+      make.edges.equalToSuperview().inset(12)
     }
   }
 }

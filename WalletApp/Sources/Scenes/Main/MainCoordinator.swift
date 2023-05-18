@@ -5,14 +5,14 @@
 
 import UIKit
 
-class MainCoordinator: Coordinator {
+final class MainCoordinator: Coordinator {
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
   
-  let navigationController: UINavigationController
+  let navigationController: NavigationController
   let appDependency: AppDependency
   
-  required init(navigationController: UINavigationController, appDependency: AppDependency = AppDependency()) {
+  required init(navigationController: NavigationController, appDependency: AppDependency = AppDependency()) {
     self.navigationController = navigationController
     self.appDependency = appDependency
   }

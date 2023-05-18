@@ -5,16 +5,27 @@
 
 import UIKit
 
-class IncomeCoordinator: Coordinator {
+struct IncomeCoordinatorConfiguration {
+  let currentBank: String
+}
+
+final class IncomeCoordinator: ConfigurableCoordinator {
+  typealias Configuration = IncomeCoordinatorConfiguration
+  
+  // MARK: - Properties
+  
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
   
-  let navigationController: UINavigationController
+  let navigationController: NavigationController
   let appDependency: AppDependency
   
-  required init(navigationController: UINavigationController, appDependency: AppDependency) {
+  private let configuration: Configuration
+  
+  required init(navigationController: NavigationController, appDependency: AppDependency, configuration: Configuration) {
     self.navigationController = navigationController
     self.appDependency = appDependency
+    self.configuration = configuration
   }
   
   func start(_ animated: Bool) {
@@ -22,7 +33,10 @@ class IncomeCoordinator: Coordinator {
   }
   
   private func showIncomeScreen(animated: Bool) {
-    let incomeVC = IncomeViewController()
+    let incomeViewModel = IncomeViewModel(currentBank: configuration.currentBank)
+    let incomeVC = IncomeViewController(viewModel: incomeViewModel)
+    incomeVC.navigationItem.title = configuration.currentBank
+    addPopObserver(for: incomeVC)
     navigationController.pushViewController(incomeVC, animated: animated)
   }
 }

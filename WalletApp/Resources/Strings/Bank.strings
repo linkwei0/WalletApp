@@ -3,7 +3,7 @@
   WalletApp
 */
 
-"bank.title" = "Общая сумма";
+"bank.title" = "Меню";
 
 "bank.bottom.bar.income.title" = "Расход";
 "bank.bottom.bar.expense.title" = "Доход";
