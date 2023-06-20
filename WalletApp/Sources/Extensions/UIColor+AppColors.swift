@@ -15,6 +15,7 @@ extension UIColor {
   static let accentLight = R.color.accentLight.uiColor
   static let accentDark = R.color.accentDark.uiColor
   static let accentFaded = R.color.accentFaded.uiColor
+  static let blueLight = R.color.blueLight.uiColor
 
   static let accentGreen = R.color.accentGreen.uiColor
   static let accentGreenLight = R.color.accentGreenLight.uiColor

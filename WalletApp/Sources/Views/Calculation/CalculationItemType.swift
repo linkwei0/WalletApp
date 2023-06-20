@@ -12,7 +12,8 @@ enum SelectedType {
 enum CalculationItemType: Int {
   case clear, zero, one, two, three, four, five,
        six, seven, eight, nine, equal,
-       minus, plus, multiply, divide, comma
+       minus, plus, multiply, divide, comma,
+       empty, clearAC, percent, back
   
   var stringValue: String {
     switch self {
@@ -50,13 +51,61 @@ enum CalculationItemType: Int {
       return ","
     case .clear:
       return ""
+    case .empty:
+      return ""
+    case .clearAC:
+      return "AC"
+    case .percent:
+      return "%"
+    case .back:
+      return "back"
     }
   }
   
-  var textColor: UIColor {
+  var tintColor: UIColor {
     switch self {
-    default:
-      return .baseBlack
+    case .clear:
+      return UIColor.baseWhite
+    case .zero:
+      return UIColor.baseWhite
+    case .one:
+      return UIColor.baseWhite
+    case .two:
+      return UIColor.baseWhite
+    case .three:
+      return UIColor.baseWhite
+    case .four:
+      return UIColor.baseWhite
+    case .five:
+      return UIColor.baseWhite
+    case .six:
+      return UIColor.baseWhite
+    case .seven:
+      return UIColor.baseWhite
+    case .eight:
+      return UIColor.baseWhite
+    case .nine:
+      return UIColor.baseWhite
+    case .equal:
+      return UIColor.accentRedFaded
+    case .minus:
+      return UIColor.accentRedFaded
+    case .plus:
+      return UIColor.accentRedFaded
+    case .multiply:
+      return UIColor.accentRedFaded
+    case .divide:
+      return UIColor.accentRedFaded
+    case .comma:
+      return UIColor.baseWhite
+    case .empty:
+      return UIColor.baseWhite
+    case .clearAC:
+      return UIColor.accentRedLight
+    case .percent:
+      return UIColor.accentRedLight
+    case .back:
+      return UIColor.baseWhite
     }
   }
   
@@ -103,6 +152,14 @@ enum CalculationItemType: Int {
       return R.image.divideButton()
     case .comma:
       return R.image.commaButton()
+    case .empty:
+      return nil
+    case .clearAC:
+      return R.image.cleanAllButton()
+    case .percent:
+      return R.image.precentButton()
+    case .back:
+      return R.image.backButton()
     }
   }
 }

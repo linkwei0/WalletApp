@@ -5,13 +5,13 @@
 
 import UIKit
 
-class CalculationCollectionCell: UICollectionViewCell {
+class CalculationCell: UICollectionViewCell {
   // MARK: - Properties
     
   private(set) var itemType: CalculationItemType?
   private let iconImageView = UIImageView()
   
-  private var viewModel: CalculationCollectionCellViewModel?
+  private var viewModel: CalculationCellViewModel?
   
   // MARK: - Init
   
@@ -33,11 +33,9 @@ class CalculationCollectionCell: UICollectionViewCell {
   
   // MARK: - Configure
   
-  func configure(with viewModel: CalculationCollectionCellViewModel) {
+  func configure(with viewModel: CalculationCellViewModel) {
     self.viewModel = viewModel
     
-    layer.borderColor = viewModel.borderColor.cgColor
-    backgroundColor = viewModel.backgroundColor
     iconImageView.tintColor = viewModel.tintColor
     iconImageView.image = viewModel.iconImage?.withRenderingMode(.alwaysTemplate)
   }
@@ -51,7 +49,7 @@ class CalculationCollectionCell: UICollectionViewCell {
   
   private func setupBackground() {
     layer.cornerRadius = 25
-    layer.borderWidth = 2.5
+    backgroundColor = UIColor.blueLight
   }
   
   private func setupIconImage() {

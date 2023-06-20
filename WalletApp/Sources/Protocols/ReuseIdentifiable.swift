@@ -11,7 +11,7 @@ protocol ReuseIdentifiable {
   static var reuseIdentifiable: String { get }
 }
 
-extension ReuseIdentifiable {
+extension ReuseIdentifiable where Self: UIView {
   static var reuseIdentifiable: String {
     String(describing: self)
   }

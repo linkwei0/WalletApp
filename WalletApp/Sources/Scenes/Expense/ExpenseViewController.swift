@@ -30,6 +30,7 @@ class ExpenseViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .accentDark
     setup()
   }
   
@@ -43,7 +44,7 @@ class ExpenseViewController: BaseViewController {
     view.addSubview(calculationView)
     calculationView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(12)
+      make.bottom.equalTo(view.snp.bottom)
     }
   }
 }

@@ -7,16 +7,16 @@
 
 import UIKit
 
-protocol CalculationCollectionCellViewModelDelegate: AnyObject {
-  func collectionCellViewModelDidRequetsToUpdateValue(_ viewModel: CalculationCollectionCellViewModel,
-                                                      itemType: CalculationItemType)
+protocol CalculationCellViewModelDelegate: AnyObject {
+  func cellViewModelDidRequetsToUpdateValue(_ viewModel: CalculationCellViewModel,
+                                            with itemType: CalculationItemType)
 }
 
-final class CalculationCollectionCellViewModel {
-  weak var delegate: CalculationCollectionCellViewModelDelegate?
+final class CalculationCellViewModel {
+  weak var delegate: CalculationCellViewModelDelegate?
   
   // MARK: - Properties
-  
+    
   private let collectionType: CollectionType
   private let itemType: CalculationItemType
   
@@ -25,7 +25,7 @@ final class CalculationCollectionCellViewModel {
   }
   
   var tintColor: UIColor {
-    collectionType == .income ? UIColor.baseWhite : UIColor.baseBlack
+      return itemType.tintColor
   }
   
   var borderColor: UIColor {
@@ -46,6 +46,6 @@ final class CalculationCollectionCellViewModel {
   // MARK: - Public methods
   
   func didTapCell() {
-    delegate?.collectionCellViewModelDidRequetsToUpdateValue(self, itemType: itemType)
+    delegate?.cellViewModelDidRequetsToUpdateValue(self, with: itemType)
   }
 }

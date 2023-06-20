@@ -11,23 +11,30 @@ enum Sign: String {
   case minus = "-", plus = "+", multiply = "x", divide = "/"
 }
 
+protocol CalculationViewViewModelDelegate: AnyObject {
+  func calculationViewModelDidRequestToUpdateValue(_ viewModel: CalculationViewViewModel,
+                                                   with value: String)
+  func calculationViewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewViewModel,
+                                                       with value: String, sign: String)
+  func calculationViewModelDidRequestToUpdateAfterEqual(_ viewModel: CalculationViewViewModel,
+                                                        with value: String)
+}
+
 final class CalculationViewViewModel {
   // MARK: - Properties
   
-  var onUpdateCurrentValue: ((String) -> Void)?
-  var onUpdateAllValues: ((String, String) -> Void)?
-  var onUpdateUIAfterEqual: ((String) -> Void)?
+  weak var delegate: CalculationViewViewModelDelegate?
   
-  let customViewViewModel = CustomCalculationViewViewModel()
+  let expressionViewModel = ExpressionViewViewModel()
   
   private(set) var collectionType: CollectionType
-  
   private(set) var calculationButtons: [[CalculationItemType]] =
   [
-    [.seven, .eight, .nine, .divide],
-    [.four, .five, .six, .multiply],
-    [.one, .two, .three, .minus],
-    [.zero, .comma, .equal, .plus]
+    [.clearAC, .empty, .percent, .divide],
+    [.seven, .eight, .nine, .multiply],
+    [.four, .five, .six, .minus],
+    [.one, .two, .three, .plus],
+    [.back, .zero, .comma, .equal]
   ]
   
   private let setOfNumbers: Set<String> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -37,26 +44,27 @@ final class CalculationViewViewModel {
   
   init(collectionType: CollectionType) {
     self.collectionType = collectionType
+    delegate = expressionViewModel
   }
     
   // MARK: - Public methods
   
-  func configureItemType(_ indexPath: IndexPath) -> CalculationCollectionCellViewModel {
+  func configureItemType(_ indexPath: IndexPath) -> CalculationCellViewModel {
     let itemType = calculationButtons[indexPath.section][indexPath.row]
-    let cellViewModel = CalculationCollectionCellViewModel(collectionType: collectionType,
-                                                           itemType: itemType)
+    let cellViewModel = CalculationCellViewModel(collectionType: collectionType,
+                                                 itemType: itemType)
     cellViewModel.delegate = self
     return cellViewModel
   }
   
-  func didUpdateCurrentValue(with itemType: CalculationItemType) {
+  func updateCurrentValue(with itemType: CalculationItemType) {
     let itemStringValue = itemType.stringValue
-    let currentValue = customViewViewModel.currentValue
-    let supportingValue = customViewViewModel.suppotingValue
-    let previousSign = customViewViewModel.previosSign
+    let currentValue = expressionViewModel.currentValue.value
+    let supportingValue = expressionViewModel.supprotingValue.value
+    let previousSign = expressionViewModel.previousSign.value
         
     if setOfNumbers.contains(itemStringValue) {
-      customViewViewModel.updateCurrentValue(currentValue + itemStringValue)
+      delegate?.calculationViewModelDidRequestToUpdateValue(self, with: currentValue + itemStringValue)
     }
     
     if setOfSigns.contains(itemStringValue) && !currentValue.isEmpty {
@@ -64,7 +72,7 @@ final class CalculationViewViewModel {
       if let sign = Sign(rawValue: previousSign) {
         updateValue = handleChainOfSigns(supportingValue, currentValue, sign)
       }
-      customViewViewModel.updateAllValue(updateValue, itemStringValue)
+      delegate?.calculationViewModelDidRequestToUpdateAllValues(self, with: updateValue, sign: itemStringValue)
     }
     
     if itemStringValue == ",", !currentValue.contains(".") {
@@ -84,7 +92,7 @@ final class CalculationViewViewModel {
     var resultValue: Double
     let value1 = Double(prevValue) ?? 0
     let value2 = Double(currentValue) ?? 0
-    print(prevValue, currentValue, currentSign)
+
     switch currentSign {
     case .plus:
       resultValue = value1 + value2
@@ -112,7 +120,7 @@ final class CalculationViewViewModel {
     } else {
       updateValue += "."
     }
-    customViewViewModel.updateCurrentValue(updateValue)
+    delegate?.calculationViewModelDidRequestToUpdateValue(self, with: updateValue)
   }
   
   private func handleEqualButton(_ resultValue: String, _ prevValue: String, _ currentSign: Sign) {
@@ -132,19 +140,19 @@ final class CalculationViewViewModel {
     }
         
     if updateValue.truncatingRemainder(dividingBy: 1) == 0 {
-      customViewViewModel.updateAfterEqual(String(Int(updateValue)))
+      delegate?.calculationViewModelDidRequestToUpdateAfterEqual(self, with: String(Int(updateValue)))
     } else {
       let roundedNumber = round(updateValue * 1000) / 1000
-      customViewViewModel.updateAfterEqual(String(roundedNumber))
+      delegate?.calculationViewModelDidRequestToUpdateAfterEqual(self, with: String(roundedNumber))
     }
   }
 }
 
 // MARK: - CalculationCollectionCellViewModelDelegate
 
-extension CalculationViewViewModel: CalculationCollectionCellViewModelDelegate {
-  func collectionCellViewModelDidRequetsToUpdateValue(_ viewModel: CalculationCollectionCellViewModel,
-                                                      itemType: CalculationItemType) {
-    didUpdateCurrentValue(with: itemType)
+extension CalculationViewViewModel: CalculationCellViewModelDelegate {
+  func cellViewModelDidRequetsToUpdateValue(_ viewModel: CalculationCellViewModel,
+                                            with itemType: CalculationItemType) {
+    updateCurrentValue(with: itemType)
   }
 }
