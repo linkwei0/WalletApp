@@ -106,7 +106,7 @@ struct R: Rswift.Validatable {
   }
   #endif
 
-  /// This `R.color` struct is generated, and contains static references to 26 colors.
+  /// This `R.color` struct is generated, and contains static references to 29 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
@@ -136,6 +136,12 @@ struct R: Rswift.Validatable {
     static let baseBlack = Rswift.ColorResource(bundle: R.hostingBundle, name: "baseBlack")
     /// Color `baseWhite`.
     static let baseWhite = Rswift.ColorResource(bundle: R.hostingBundle, name: "baseWhite")
+    /// Color `blueLight`.
+    static let blueLight = Rswift.ColorResource(bundle: R.hostingBundle, name: "blueLight")
+    /// Color `expenseBtnColor`.
+    static let expenseBtnColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "expenseBtnColor")
+    /// Color `incomeBtnColor`.
+    static let incomeBtnColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "incomeBtnColor")
     /// Color `lessonTypeIndividual`.
     static let lessonTypeIndividual = Rswift.ColorResource(bundle: R.hostingBundle, name: "lessonTypeIndividual")
     /// Color `lessonTypeLaboratory`.
@@ -284,6 +290,33 @@ struct R: Rswift.Validatable {
     @available(iOS 11.0, *)
     static func baseWhite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.baseWhite, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "blueLight", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func blueLight(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.blueLight, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "expenseBtnColor", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func expenseBtnColor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.expenseBtnColor, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "incomeBtnColor", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func incomeBtnColor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.incomeBtnColor, compatibleWith: traitCollection)
     }
     #endif
 
@@ -508,6 +541,30 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(watchOS)
+    /// `UIColor(named: "blueLight", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func blueLight(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.blueLight.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "expenseBtnColor", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func expenseBtnColor(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.expenseBtnColor.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "incomeBtnColor", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func incomeBtnColor(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.incomeBtnColor.name)
+    }
+    #endif
+
+    #if os(watchOS)
     /// `UIColor(named: "lessonTypeIndividual", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
     static func lessonTypeIndividual(_: Void = ()) -> UIKit.UIColor? {
@@ -668,15 +725,240 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 1 images.
+  /// This `R.image` struct is generated, and contains static references to 26 images.
   struct image {
+    /// Image `all-clear-button`.
+    static let allClearButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "all-clear-button")
+    /// Image `back-button`.
+    static let backButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "back-button")
+    /// Image `check-button`.
+    static let checkButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "check-button")
+    /// Image `clean-all-button`.
+    static let cleanAllButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "clean-all-button")
+    /// Image `clear-button`.
+    static let clearButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "clear-button")
+    /// Image `comma-button`.
+    static let commaButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "comma-button")
+    /// Image `divide-button`.
+    static let divideButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "divide-button")
+    /// Image `eight-button`.
+    static let eightButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "eight-button")
+    /// Image `equal-button`.
+    static let equalButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "equal-button")
+    /// Image `five-button`.
+    static let fiveButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "five-button")
+    /// Image `four-button`.
+    static let fourButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "four-button")
+    /// Image `green-arrow`.
+    static let greenArrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "green-arrow")
+    /// Image `minus-button`.
+    static let minusButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "minus-button")
+    /// Image `multiply-button`.
+    static let multiplyButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "multiply-button")
+    /// Image `nine-button`.
+    static let nineButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "nine-button")
+    /// Image `one-button`.
+    static let oneButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "one-button")
     /// Image `pig-bank-image`.
     static let pigBankImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "pig-bank-image")
+    /// Image `plus-button`.
+    static let plusButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "plus-button")
+    /// Image `plus-minus-button`.
+    static let plusMinusButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "plus-minus-button")
+    /// Image `precent-button`.
+    static let precentButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "precent-button")
+    /// Image `red-arrow`.
+    static let redArrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "red-arrow")
+    /// Image `seven-button`.
+    static let sevenButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "seven-button")
+    /// Image `six-button`.
+    static let sixButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "six-button")
+    /// Image `three-button`.
+    static let threeButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "three-button")
+    /// Image `two-button`.
+    static let twoButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "two-button")
+    /// Image `zero-button`.
+    static let zeroButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "zero-button")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "all-clear-button", bundle: ..., traitCollection: ...)`
+    static func allClearButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.allClearButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "back-button", bundle: ..., traitCollection: ...)`
+    static func backButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "check-button", bundle: ..., traitCollection: ...)`
+    static func checkButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checkButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "clean-all-button", bundle: ..., traitCollection: ...)`
+    static func cleanAllButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.cleanAllButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "clear-button", bundle: ..., traitCollection: ...)`
+    static func clearButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.clearButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "comma-button", bundle: ..., traitCollection: ...)`
+    static func commaButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.commaButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "divide-button", bundle: ..., traitCollection: ...)`
+    static func divideButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.divideButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "eight-button", bundle: ..., traitCollection: ...)`
+    static func eightButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.eightButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "equal-button", bundle: ..., traitCollection: ...)`
+    static func equalButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.equalButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "five-button", bundle: ..., traitCollection: ...)`
+    static func fiveButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.fiveButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "four-button", bundle: ..., traitCollection: ...)`
+    static func fourButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.fourButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "green-arrow", bundle: ..., traitCollection: ...)`
+    static func greenArrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.greenArrow, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "minus-button", bundle: ..., traitCollection: ...)`
+    static func minusButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.minusButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "multiply-button", bundle: ..., traitCollection: ...)`
+    static func multiplyButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.multiplyButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "nine-button", bundle: ..., traitCollection: ...)`
+    static func nineButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.nineButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "one-button", bundle: ..., traitCollection: ...)`
+    static func oneButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.oneButton, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "pig-bank-image", bundle: ..., traitCollection: ...)`
     static func pigBankImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.pigBankImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "plus-button", bundle: ..., traitCollection: ...)`
+    static func plusButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.plusButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "plus-minus-button", bundle: ..., traitCollection: ...)`
+    static func plusMinusButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.plusMinusButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "precent-button", bundle: ..., traitCollection: ...)`
+    static func precentButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.precentButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "red-arrow", bundle: ..., traitCollection: ...)`
+    static func redArrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.redArrow, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "seven-button", bundle: ..., traitCollection: ...)`
+    static func sevenButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.sevenButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "six-button", bundle: ..., traitCollection: ...)`
+    static func sixButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.sixButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "three-button", bundle: ..., traitCollection: ...)`
+    static func threeButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.threeButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "two-button", bundle: ..., traitCollection: ...)`
+    static func twoButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.twoButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "zero-button", bundle: ..., traitCollection: ...)`
+    static func zeroButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.zeroButton, compatibleWith: traitCollection)
     }
     #endif
 
@@ -713,20 +995,24 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
-    /// This `R.string.bank` struct is generated, and contains static references to 4 localization keys.
+    /// This `R.string.bank` struct is generated, and contains static references to 6 localization keys.
     struct bank {
-      /// Value: Заработал
+      /// Value: Доходы
       static let bankBottomBarExpenseTitle = Rswift.StringResource(key: "bank.bottom.bar.expense.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
-      /// Value: Кошелек
-      static let bankTitle = Rswift.StringResource(key: "bank.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
-      /// Value: Потратил
-      static let bankBottomBarIncomeTitle = Rswift.StringResource(key: "bank.bottom.bar.income.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Общий баланс
+      static let balanceViewTotalTitle = Rswift.StringResource(key: "balance.view.total.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Общий доход
+      static let balanceViewIncomeTitle = Rswift.StringResource(key: "balance.view.income.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Общий расход
+      static let balanceViewExpenseTitle = Rswift.StringResource(key: "balance.view.expense.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Профиль
       static let bankBottomBarProfileTitle = Rswift.StringResource(key: "bank.bottom.bar.profile.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Расходы
+      static let bankBottomBarIncomeTitle = Rswift.StringResource(key: "bank.bottom.bar.income.title", tableName: "Bank", bundle: R.hostingBundle, locales: [], comment: nil)
 
-      /// Value: Заработал
+      /// Value: Доходы
       static func bankBottomBarExpenseTitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
           return NSLocalizedString("bank.bottom.bar.expense.title", tableName: "Bank", bundle: hostingBundle, comment: "")
@@ -739,30 +1025,43 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("bank.bottom.bar.expense.title", tableName: "Bank", bundle: bundle, comment: "")
       }
 
-      /// Value: Кошелек
-      static func bankTitle(preferredLanguages: [String]? = nil) -> String {
+      /// Value: Общий баланс
+      static func balanceViewTotalTitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("bank.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("balance.view.total.title", tableName: "Bank", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
-          return "bank.title"
+          return "balance.view.total.title"
         }
 
-        return NSLocalizedString("bank.title", tableName: "Bank", bundle: bundle, comment: "")
+        return NSLocalizedString("balance.view.total.title", tableName: "Bank", bundle: bundle, comment: "")
       }
 
-      /// Value: Потратил
-      static func bankBottomBarIncomeTitle(preferredLanguages: [String]? = nil) -> String {
+      /// Value: Общий доход
+      static func balanceViewIncomeTitle(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("bank.bottom.bar.income.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+          return NSLocalizedString("balance.view.income.title", tableName: "Bank", bundle: hostingBundle, comment: "")
         }
 
         guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
-          return "bank.bottom.bar.income.title"
+          return "balance.view.income.title"
         }
 
-        return NSLocalizedString("bank.bottom.bar.income.title", tableName: "Bank", bundle: bundle, comment: "")
+        return NSLocalizedString("balance.view.income.title", tableName: "Bank", bundle: bundle, comment: "")
+      }
+
+      /// Value: Общий расход
+      static func balanceViewExpenseTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("balance.view.expense.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
+          return "balance.view.expense.title"
+        }
+
+        return NSLocalizedString("balance.view.expense.title", tableName: "Bank", bundle: bundle, comment: "")
       }
 
       /// Value: Профиль
@@ -776,6 +1075,175 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("bank.bottom.bar.profile.title", tableName: "Bank", bundle: bundle, comment: "")
+      }
+
+      /// Value: Расходы
+      static func bankBottomBarIncomeTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("bank.bottom.bar.income.title", tableName: "Bank", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Bank", preferredLanguages: preferredLanguages) else {
+          return "bank.bottom.bar.income.title"
+        }
+
+        return NSLocalizedString("bank.bottom.bar.income.title", tableName: "Bank", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
+    /// This `R.string.calculation` struct is generated, and contains static references to 10 localization keys.
+    struct calculation {
+      /// Value: 0
+      static let calculationZero = Rswift.StringResource(key: "calculation.zero", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 1
+      static let calculationOne = Rswift.StringResource(key: "calculation.one", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 2
+      static let calculationTwo = Rswift.StringResource(key: "calculation.two", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 3
+      static let calculationThree = Rswift.StringResource(key: "calculation.three", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 4
+      static let calculationFour = Rswift.StringResource(key: "calculation.four", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 5
+      static let calculationFive = Rswift.StringResource(key: "calculation.five", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 6
+      static let calculationSix = Rswift.StringResource(key: "calculation.six", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 7
+      static let calculationSeven = Rswift.StringResource(key: "calculation.seven", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 8
+      static let calculationEight = Rswift.StringResource(key: "calculation.eight", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: 9
+      static let calculationNine = Rswift.StringResource(key: "calculation.nine", tableName: "Calculation", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: 0
+      static func calculationZero(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.zero", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.zero"
+        }
+
+        return NSLocalizedString("calculation.zero", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 1
+      static func calculationOne(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.one", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.one"
+        }
+
+        return NSLocalizedString("calculation.one", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 2
+      static func calculationTwo(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.two", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.two"
+        }
+
+        return NSLocalizedString("calculation.two", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 3
+      static func calculationThree(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.three", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.three"
+        }
+
+        return NSLocalizedString("calculation.three", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 4
+      static func calculationFour(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.four", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.four"
+        }
+
+        return NSLocalizedString("calculation.four", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 5
+      static func calculationFive(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.five", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.five"
+        }
+
+        return NSLocalizedString("calculation.five", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 6
+      static func calculationSix(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.six", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.six"
+        }
+
+        return NSLocalizedString("calculation.six", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 7
+      static func calculationSeven(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.seven", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.seven"
+        }
+
+        return NSLocalizedString("calculation.seven", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 8
+      static func calculationEight(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.eight", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.eight"
+        }
+
+        return NSLocalizedString("calculation.eight", tableName: "Calculation", bundle: bundle, comment: "")
+      }
+
+      /// Value: 9
+      static func calculationNine(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("calculation.nine", tableName: "Calculation", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Calculation", preferredLanguages: preferredLanguages) else {
+          return "calculation.nine"
+        }
+
+        return NSLocalizedString("calculation.nine", tableName: "Calculation", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

@@ -32,12 +32,36 @@ class SimpleTableViewDataSoruce<ViewModel>: NSObject, UITableViewDataSource {
   }
 }
 
-extension SimpleTableViewDataSoruce where ViewModel == HistoryCellViewModelProtocol {
+// MARK: - OperationCellViewModelProtocol
+extension SimpleTableViewDataSoruce where ViewModel == OperationCellViewModelProtocol {
   static func make(for cellViewModels: [ViewModel],
-                   reuseIdentifier: String = HistoryCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+                   reuseIdentifier: String = OperationCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
     return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
                                      cellViewModels: cellViewModels) { viewModel, cell in
-      (cell as? HistoryCell)?.viewModel = viewModel
+      (cell as? OperationCell)?.viewModel = viewModel
+    }
+  }
+}
+
+// MARK: - CreateWalletCellViewModelProtocol
+extension SimpleTableViewDataSoruce where ViewModel == CreateWalletCellViewModelProtocol {
+  static func make(for cellViewModels: [ViewModel],
+                   reuseIdentifier: String = CreateWalletCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
+                                     cellViewModels: cellViewModels) { viewModel, cell in
+      (cell as? CreateWalletCell)?.viewModel = viewModel
+    }
+  }
+}
+
+// MARK: - WalletCellViewModelProtocol
+extension SimpleTableViewDataSoruce where ViewModel == WalletCellViewModelProtocol {
+  static func make(for cellViewModels: [ViewModel],
+                   reuseIdentifier: String = WalletCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
+                                     cellViewModels: cellViewModels) { viewModel, cell in
+      guard let cell = (cell as? WalletCell) else { return }
+      cell.configure(with: viewModel)
     }
   }
 }

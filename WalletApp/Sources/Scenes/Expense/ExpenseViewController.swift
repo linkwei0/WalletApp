@@ -21,16 +21,13 @@ class ExpenseViewController: BaseViewController {
   }
   
   required init?(coder: NSCoder) {
-    self.viewModel = ExpenseViewModel(currentBank: "")
-    calculationView = CalculationView(viewModel: viewModel.calculationViewModel)
-    super.init(coder: coder)
+    fatalError("init(coder:) has not been implemented")
   }
-
+  
   // MARK: - Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .accentDark
     setup()
   }
   

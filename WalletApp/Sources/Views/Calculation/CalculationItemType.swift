@@ -5,15 +5,11 @@
 
 import UIKit
 
-enum SelectedType {
-  case income, expense
-}
-
 enum CalculationItemType: Int {
   case clear, zero, one, two, three, four, five,
        six, seven, eight, nine, equal,
        minus, plus, multiply, divide, comma,
-       empty, clearAC, percent, back
+       plusMinus, clearAC, percent, back
   
   var stringValue: String {
     switch self {
@@ -51,7 +47,7 @@ enum CalculationItemType: Int {
       return ","
     case .clear:
       return ""
-    case .empty:
+    case .plusMinus:
       return ""
     case .clearAC:
       return "AC"
@@ -98,8 +94,8 @@ enum CalculationItemType: Int {
       return UIColor.accentRedFaded
     case .comma:
       return UIColor.baseWhite
-    case .empty:
-      return UIColor.baseWhite
+    case .plusMinus:
+      return UIColor.accentRedLight
     case .clearAC:
       return UIColor.accentRedLight
     case .percent:
@@ -152,8 +148,8 @@ enum CalculationItemType: Int {
       return R.image.divideButton()
     case .comma:
       return R.image.commaButton()
-    case .empty:
-      return nil
+    case .plusMinus:
+      return R.image.plusMinusButton()
     case .clearAC:
       return R.image.cleanAllButton()
     case .percent:

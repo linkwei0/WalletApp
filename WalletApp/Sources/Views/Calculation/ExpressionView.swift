@@ -2,8 +2,6 @@
 //  CustomCalculationView.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 11.05.2023.
-//
 
 import UIKit
 
@@ -20,7 +18,8 @@ class ExpressionView: UIView {
   
   private var dataSource: SimpleTableViewDataSoruce<ExpressionViewViewModel>?
   
-  private let historyTableView = UITableView()
+  private let operationsTableView = UITableView()
+  private let containerView = UIView()
   private let currentSignLabel = Label(textStyle: .header1)
   private let supportingValueLabel = Label(textStyle: .header1)
   private let currentValueLabel = Label(textStyle: .header1)
@@ -50,69 +49,72 @@ class ExpressionView: UIView {
   // MARK: - Setup
   
   private func setup() {
-    setupHistoryTableView()
-    setupCurrentValueLabel()
-    setupSupportingValueLabel()
+    setupOperationsTableView()
+    setupContainerView()
     setupCurrentSignLabel()
+    setupSupportingValueLabel()
+    setupCurrentValueLabel()
+  }
+  
+  private func setupOperationsTableView() {
+    addSubview(operationsTableView)
+    operationsTableView.separatorStyle = .none
+    operationsTableView.rowHeight = 50
+    operationsTableView.backgroundColor = .accentLight
+    operationsTableView.snp.makeConstraints { make in
+      make.top.leading.trailing.equalToSuperview()
+      make.height.equalToSuperview().multipliedBy(0.850)
+    }
+  }
+  
+  private func setupContainerView() {
+    addSubview(containerView)
+    containerView.backgroundColor = .shade2
+    containerView.layer.cornerRadius = 16
+    containerView.snp.makeConstraints { make in
+      make.top.equalTo(operationsTableView.snp.bottom).offset(-16)
+      make.leading.trailing.equalToSuperview()
+      make.bottom.equalToSuperview().inset(8)
+    }
   }
   
   private func setupCurrentSignLabel() {
-    addSubview(currentSignLabel)
-    currentSignLabel.textColor = collectionType == .income ? .baseWhite : .baseBlack
+    containerView.addSubview(currentSignLabel)
+    currentSignLabel.textColor = .baseWhite
     currentSignLabel.snp.makeConstraints { make in
-      make.leading.equalToSuperview()
-      make.trailing.equalTo(supportingValueLabel.snp.leading).offset(-1)
-      make.centerY.equalTo(supportingValueLabel.snp.centerY)
-      make.size.equalTo(20)
+      make.leading.equalToSuperview().inset(8)
+      make.centerY.equalToSuperview()
+      make.size.equalTo(15)
     }
   }
   
   private func setupSupportingValueLabel() {
-    addSubview(supportingValueLabel)
-    supportingValueLabel.textColor = collectionType == .income ? .baseWhite : .baseBlack
+    containerView.addSubview(supportingValueLabel)
+    supportingValueLabel.textColor = .baseWhite
     supportingValueLabel.textAlignment = .left
     supportingValueLabel.adjustsFontSizeToFitWidth = true
     supportingValueLabel.snp.makeConstraints { make in
-      make.trailing.equalTo(currentValueLabel.snp.leading).offset(-4)
-      make.bottom.equalTo(currentValueLabel.snp.bottom)
+      make.leading.equalTo(currentSignLabel.snp.trailing).offset(6)
+      make.centerY.equalTo(currentSignLabel.snp.centerY)
+      make.width.equalToSuperview().multipliedBy(0.350)
     }
   }
   
   private func setupCurrentValueLabel() {
-    addSubview(currentValueLabel)
-    currentValueLabel.textColor = collectionType == .income ? .baseWhite : .baseBlack
+    containerView.addSubview(currentValueLabel)
+    currentValueLabel.textColor = .baseWhite
     currentValueLabel.textAlignment = .right
-    currentValueLabel.font = UIFont.header1?.withSize(60)
-    currentValueLabel.layer.borderColor = collectionType == .income ? UIColor.baseWhite.cgColor : UIColor.baseBlack.cgColor
+    currentValueLabel.font = UIFont.header1?.withSize(45)
     currentValueLabel.clipsToBounds = true
     currentValueLabel.adjustsFontSizeToFitWidth = true
     currentValueLabel.snp.makeConstraints { make in
-      make.top.equalTo(historyTableView.snp.bottom).offset(6)
-      make.bottom.equalToSuperview().inset(8)
-      make.trailing.equalToSuperview()
-      make.width.equalToSuperview().multipliedBy(0.6)
-    }
-  }
-  
-  private func setupHistoryTableView() {
-    addSubview(historyTableView)
-    historyTableView.dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    historyTableView.delegate = self
-    
-    historyTableView.backgroundColor = .accentDark
-    historyTableView.separatorStyle = .none
-    historyTableView.rowHeight = 25
-    historyTableView.separatorColor = collectionType == .income ? .baseWhite : .baseBlack
-    historyTableView.isScrollEnabled = false
-    historyTableView.snp.makeConstraints { make in
-      make.top.equalToSuperview()
-      make.leading.trailing.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.65)
+      make.leading.equalTo(supportingValueLabel.snp.trailing).inset(8)
+      make.centerY.equalTo(supportingValueLabel.snp.centerY)
+      make.trailing.equalToSuperview().inset(8)
     }
   }
   
   // MARK: - Bindables
-  
   private func bindToViewModel() {
     viewModel.currentValue.bind { [weak self] value in
       self?.currentValueLabel.text = value
@@ -126,15 +128,6 @@ class ExpressionView: UIView {
       self?.currentSignLabel.text = sign
     }
     
-    viewModel.getHistories()
-  }
-}
-
-// MARK: - UITableViewDelegate
-
-extension ExpressionView: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    // TODO: - segue to detail about day of order
-    print(indexPath.row)
+    viewModel.getOperations()
   }
 }

@@ -10,11 +10,11 @@ final class MainCoordinator: Coordinator {
   var onDidFinish: (() -> Void)?
   
   let navigationController: NavigationController
-  let appDependency: AppDependency
+  let appFactory: AppFactory
   
-  required init(navigationController: NavigationController, appDependency: AppDependency = AppDependency()) {
+  required init(navigationController: NavigationController, appFactory: AppFactory = AppFactory()) {
     self.navigationController = navigationController
-    self.appDependency = appDependency
+    self.appFactory = appFactory
   }
   
   func start(_ animated: Bool) {
@@ -22,6 +22,6 @@ final class MainCoordinator: Coordinator {
   }
   
   private func showBankScreen(animated: Bool) {
-    show(BankCoordinator.self, animated: animated)
+    show(WalletsCoordinator.self, animated: animated)
   }
 }

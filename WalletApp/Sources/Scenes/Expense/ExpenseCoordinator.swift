@@ -18,13 +18,13 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
   var onDidFinish: (() -> Void)?
   
   let navigationController: NavigationController
-  let appDependency: AppDependency
+  let appFactory: AppFactory
   
   private let configuration: Configuration
   
-  required init(navigationController: NavigationController, appDependency: AppDependency, configuration: Configuration) {
+  required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
-    self.appDependency = appDependency
+    self.appFactory = appFactory
     self.configuration = configuration
   }
   
@@ -33,7 +33,11 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
   }
   
   private func showExpenseScreen(animated: Bool) {
-    let expenseViewModel = ExpenseViewModel(currentBank: configuration.currentBank)
+    let coreDataStack = CoreDataStack()
+    let localDataSource: LocalDataSourceProtocol = LocalDataSource(coreDataStack: coreDataStack)
+    let useCase = UseCaseProvider(localDataSource: localDataSource)
+    let interactor = CalculationInteractor(useCaseProvider: useCase)
+    let expenseViewModel = ExpenseViewModel(interactor: interactor, currentBank: configuration.currentBank)
     let expenseVC = ExpenseViewController(viewModel: expenseViewModel)
     expenseVC.navigationItem.title = configuration.currentBank
     navigationController.pushViewController(expenseVC, animated: animated)

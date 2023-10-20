@@ -18,13 +18,13 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   var onDidFinish: (() -> Void)?
   
   let navigationController: NavigationController
-  let appDependency: AppDependency
+  let appFactory: AppFactory
   
   private let configuration: Configuration
   
-  required init(navigationController: NavigationController, appDependency: AppDependency, configuration: Configuration) {
+  required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
-    self.appDependency = appDependency
+    self.appFactory = appFactory
     self.configuration = configuration
   }
   
@@ -33,7 +33,11 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   }
   
   private func showIncomeScreen(animated: Bool) {
-    let incomeViewModel = IncomeViewModel(currentBank: configuration.currentBank)
+    let coreDataStack = CoreDataStack()
+    let localDataSource = LocalDataSource(coreDataStack: coreDataStack)
+    let useCase = UseCaseProvider(localDataSource: localDataSource)
+    let interactor = CalculationInteractor(useCaseProvider: useCase)
+    let incomeViewModel = IncomeViewModel(interactor: interactor, currentBank: configuration.currentBank)
     let incomeVC = IncomeViewController(viewModel: incomeViewModel)
     incomeVC.navigationItem.title = configuration.currentBank
     addPopObserver(for: incomeVC)

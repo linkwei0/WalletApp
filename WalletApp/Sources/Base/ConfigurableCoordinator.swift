@@ -2,20 +2,16 @@
 //  ConfigurableCoordinator.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 14.05.2023.
-//
 
 import Foundation
 
 protocol ConfigurableCoordinator: Coordinator {
   associatedtype Configuration
-  
-  init(navigationController: NavigationController,
-       appDependency: AppDependency, configuration: Configuration)
+  init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration)
 }
 
 extension ConfigurableCoordinator {
-  init(navigationController: NavigationController, appDependency: AppDependency) {
+  init(navigationController: NavigationController, appFactory: AppFactory) {
     fatalError("Use init with configuration for this coordinator")
   }
 }

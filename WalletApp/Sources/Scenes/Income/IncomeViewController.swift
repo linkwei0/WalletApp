@@ -7,13 +7,11 @@ import UIKit
 
 class IncomeViewController: BaseViewController {
   // MARK: - Properties
-  
   private let calculationView: CalculationView
   
   private let viewModel: IncomeViewModel
   
   // MARK: - Init
-  
   init(viewModel: IncomeViewModel) {
     self.viewModel = viewModel
     calculationView = CalculationView(viewModel: viewModel.calculationViewModel)
@@ -21,21 +19,17 @@ class IncomeViewController: BaseViewController {
   }
   
   required init?(coder: NSCoder) {
-    self.viewModel = IncomeViewModel(currentBank: "")
-    calculationView = CalculationView(viewModel: viewModel.calculationViewModel)
-    super.init(coder: coder)
+    fatalError("init(coder:) has not been implemented")
   }
   
   // MARK: - Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .accentDark
+    view.backgroundColor = .accentLight
     setup()
   }
   
   // MARK: - Setup
-  
   private func setup() {
     setupCalculationView()
   }

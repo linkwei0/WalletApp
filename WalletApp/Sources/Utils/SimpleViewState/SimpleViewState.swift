@@ -21,4 +21,11 @@ enum SimpleViewState<Entity> {
       return []
     }
   }
+  
+  var isInitialPage: Bool {
+    switch self {
+    case .initial, .populated, .empty, .error:
+      return true
+    }
+  }
 }

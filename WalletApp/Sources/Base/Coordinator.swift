@@ -6,11 +6,11 @@
 import UIKit
 
 protocol Coordinator: AnyObject {
-  init(navigationController: NavigationController, appDependency: AppDependency)
+  init(navigationController: NavigationController, appFactory: AppFactory)
   
   var childCoordinator: [Coordinator] { get set }
   var navigationController: NavigationController { get }
-  var appDependency: AppDependency { get }
+  var appFactory: AppFactory { get }
   var onDidFinish: (() -> Void)? { get set }
   
   func show<T: Coordinator>(_ type: T.Type, animated: Bool) -> T
@@ -36,14 +36,16 @@ extension Coordinator {
   
   @discardableResult
   func show<T: Coordinator>(_ type: T.Type, animated: Bool) -> T {
-    let coordinator = T(navigationController: navigationController, appDependency: appDependency)
+    let coordinator = T(navigationController: navigationController, appFactory: appFactory)
     startCoordinator(coordinator, animated: animated)
     return coordinator
   }
   
   @discardableResult
   func show<T: ConfigurableCoordinator>(_ type: T.Type, configuration: T.Configuration, animated: Bool) -> T {
-    let coordinator = T(navigationController: navigationController, appDependency: appDependency, configuration: configuration)
+    let coordinator = T(navigationController: navigationController,
+                        appFactory: appFactory,
+                        configuration: configuration)
     startCoordinator(coordinator, animated: animated)
     return coordinator
   }

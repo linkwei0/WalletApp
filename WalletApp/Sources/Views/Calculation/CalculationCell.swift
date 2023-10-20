@@ -48,7 +48,7 @@ class CalculationCell: UICollectionViewCell {
   }
   
   private func setupBackground() {
-    layer.cornerRadius = 25
+    layer.cornerRadius = 16
     backgroundColor = UIColor.blueLight
   }
   

@@ -14,7 +14,6 @@ extension UIView {
     let maskLayer = CAShapeLayer()
     maskLayer.path = path.cgPath
     maskLayer.lineWidth = 2.0
-    maskLayer.strokeColor = UIColor.red.cgColor
     
     self.layer.mask = maskLayer
   }

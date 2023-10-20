@@ -10,12 +10,11 @@ class ProfileCoordinator: Coordinator {
   var onDidFinish: (() -> Void)?
   
   let navigationController: NavigationController
-  let appDependency: AppDependency
+  let appFactory: AppFactory
   
-  
-  required init(navigationController: NavigationController, appDependency: AppDependency) {
+  required init(navigationController: NavigationController, appFactory: AppFactory) {
     self.navigationController = navigationController
-    self.appDependency = appDependency
+    self.appFactory = appFactory
   }
   
   func start(_ animated: Bool) {

@@ -13,6 +13,6 @@ class BaseViewController: UIViewController {
   }
   
   private func setup() {
-    view.backgroundColor = .accent
+    view.backgroundColor = .baseWhite
   }
 }

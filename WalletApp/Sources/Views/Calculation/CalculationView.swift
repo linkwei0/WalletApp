@@ -11,17 +11,16 @@ enum CollectionType {
 
 class CalculationView: UIView {
   // MARK: - Properties
-  
+  private let operationsTableView = UITableView()
   private let containerView = UIView()
   private let buttonsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
   private let expressionView: ExpressionView
   private let expressionActionButton = UIButton(type: .system)
   
-  private let viewModel: CalculationViewViewModel
+  private let viewModel: CalculationViewModel
   
   // MARK: - Init
-  
-  init(viewModel: CalculationViewViewModel) {
+  init(viewModel: CalculationViewModel) {
     self.viewModel = viewModel
     self.expressionView = ExpressionView(viewModel: viewModel.expressionViewModel,
                                          collectionType: viewModel.collectionType)
@@ -30,25 +29,38 @@ class CalculationView: UIView {
   }
   
   required init?(coder: NSCoder) {
-    self.viewModel = CalculationViewViewModel(collectionType: .income)
-    self.expressionView = ExpressionView(viewModel: viewModel.expressionViewModel, collectionType: .income)
-    super.init(coder: coder)
-    setup()
+    fatalError("init(coder:) has not been implemented")
   }
   
   override func draw(_ rect: CGRect) {
     super.draw(rect)
-    containerView.addShadow(offset: CGSize(width: 20, height: 20), radius: 6)
-    containerView.cornerRadius(usingCorner: [.topLeft, .topRight], cornerRadius: CGSize(width: 26, height: 26))
+    containerView.cornerRadius(usingCorner: [.topLeft, .topRight], cornerRadius: CGSize(width: 24, height: 24))
   }
   
   // MARK: - Setup
-  
   private func setup() {
+    setupOperationsTableView()
     setupContainerView()
     setupAddButton()
     setupCollectionView()
     setupExpressionView()
+    
+    setupBindables()
+  }
+  
+  private func setupOperationsTableView() {
+    addSubview(operationsTableView)
+    operationsTableView.dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
+    operationsTableView.backgroundColor = .accentLight
+    operationsTableView.separatorStyle = .none
+    operationsTableView.rowHeight = 25
+    operationsTableView.separatorColor = viewModel.collectionType == .income ? .baseWhite : .baseBlack
+    operationsTableView.isScrollEnabled = false
+    operationsTableView.snp.makeConstraints { make in
+      make.top.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
+      make.height.equalToSuperview().multipliedBy(0.4)
+    }
   }
   
   private func setupContainerView() {
@@ -56,7 +68,7 @@ class CalculationView: UIView {
     containerView.backgroundColor = .accent
     containerView.snp.makeConstraints { make in
       make.bottom.leading.trailing.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.695)
+      make.height.equalToSuperview().multipliedBy(0.515)
     }
   }
   
@@ -68,11 +80,11 @@ class CalculationView: UIView {
     expressionActionButton.setTitleColor(.baseWhite, for: .normal)
     expressionActionButton.backgroundColor = .accentDark
     expressionActionButton.layer.cornerRadius = 12
-    expressionActionButton.layer.borderWidth = 2.0
+    expressionActionButton.layer.borderWidth = 1.5
     expressionActionButton.layer.borderColor = UIColor.baseWhite.cgColor
     expressionActionButton.snp.makeConstraints { make in
-      make.leading.trailing.equalToSuperview().inset(16)
-      make.height.equalTo(60)
+      make.leading.trailing.equalToSuperview().inset(44)
+      make.height.equalTo(45)
       make.bottom.equalToSuperview().inset(32)
     }
   }
@@ -85,7 +97,7 @@ class CalculationView: UIView {
     buttonsCollectionView.isScrollEnabled = false
     buttonsCollectionView.snp.makeConstraints { make in
       make.top.equalToSuperview().inset(6)
-      make.leading.trailing.equalToSuperview().inset(12)
+      make.leading.trailing.equalToSuperview().inset(46)
       make.bottom.equalTo(expressionActionButton.snp.top).offset(-10)
     }
     
@@ -103,10 +115,28 @@ class CalculationView: UIView {
       make.bottom.equalTo(containerView.snp.top).offset(-4)
     }
   }
+  
+  // MARK: - Private methods
+  private func configureOperationsTableView(withState state: SimpleViewState<OperationModel>) {
+    switch state {
+    case .initial, .populated:
+      return
+    case .empty:
+      return
+    case .error(let error):
+      return
+    }
+  }
+  
+  // MARK: - Bindables
+  private func setupBindables() {
+    viewModel.viewState.bind { [weak self] state in
+      guard let strongSelf = self else { return }
+    }
+  }
 }
 
 // MARK: - UICollectionViewDataSource
-
 extension CalculationView: UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 5
@@ -126,11 +156,10 @@ extension CalculationView: UICollectionViewDataSource {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-
 extension CalculationView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let size = (self.frame.width - 80) / 4
+    let size = (self.frame.width - 175) / 4
     return CGSize(width: size, height: size)
   }
   

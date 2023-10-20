@@ -11,11 +11,15 @@ final class ExpenseViewModel {
   // MARK: - Properties
   
   private var currentBank: String
-  private(set) var calculationViewModel = CalculationViewViewModel(collectionType: .expense)
+  private(set) var calculationViewModel: CalculationViewModel
+
+  private let interactor: CalculationInteractorProtocol
   
   // MARK: - Init
   
-  init(currentBank: String) {
+  init(interactor: CalculationInteractorProtocol, currentBank: String) {
+    self.interactor = interactor
     self.currentBank = currentBank
+    self.calculationViewModel = CalculationViewModel(interactor: interactor, collectionType: .expense)
   }
 }
