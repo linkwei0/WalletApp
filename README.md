@@ -1,7 +1,7 @@
-- Установить локально XcodeGen, R.Swift и SwiftLint.
+- Install XcodeGen, R.Swift and SwiftLint locally.
 
-Если при запуске необходимые библиотеки не подключились:
-- Удалить xcodeproj
-- В терминале перейти к проекту
-- Выполнить команду "xcodegen generate"
-- Открыть файл проекта и запустить
+If the necessary libraries are not connected at startup:
+- Remove xcodeproj
+- In the terminal, go to the project
+- Run the command "xcodegen generate"
+- Open the project file and run
