@@ -2,8 +2,6 @@
 //  BalanceView.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 10.10.2023.
-//
 
 import UIKit
 
@@ -16,10 +14,10 @@ class BalanceView: UIView {
   private let titleExpenseLabel = Label(textStyle: .footnote)
   private let expenseLabel = Label(textStyle: .bodyBold)
   
-  private let viewModel: BalanceViewViewModel
+  private let viewModel: BalanceViewModel
   
   // MARK: - Init
-  init(viewModel: BalanceViewViewModel) {
+  init(viewModel: BalanceViewModel) {
     self.viewModel = viewModel
     super.init(frame: .zero)
     setup()

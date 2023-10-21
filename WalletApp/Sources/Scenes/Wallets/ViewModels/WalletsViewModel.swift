@@ -18,7 +18,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
     return viewState.value.currentEntities.compactMap { WalletCellViewModel($0) }
   }
   
-  let balanceViewModel = BalanceViewViewModel()
+  let balanceViewModel = BalanceViewModel()
       
   private(set) var viewState: Bindable<SimpleViewState<WalletModel>> = Bindable(.initial)
   

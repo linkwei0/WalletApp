@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BalanceViewViewModel {
+class BalanceViewModel {
   private(set) var balance: Bindable<BalanceModel> = Bindable(BalanceModel())
   
   // MARK: - Public methods

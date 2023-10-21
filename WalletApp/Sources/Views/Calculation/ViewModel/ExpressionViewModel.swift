@@ -2,36 +2,47 @@
 //  CustomCalculationViewViewModel.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 15.05.2023.
-//
 
 import Foundation
 
-final class ExpressionViewViewModel {
+final class ExpressionViewModel: SimpleViewStateProcessable {
   // MARK: - Properties
-  
+  private(set) var viewState: Bindable<SimpleViewState<OperationModel>> = Bindable(.initial)
   private(set) var currentValue: Bindable<String> = Bindable("")
   private(set) var supprotingValue: Bindable<String> = Bindable("")
   private(set) var previousSign: Bindable<String> = Bindable("")
   
-  // MARK: - Public methods
+  private let interactor: CalculationInteractorProtocol
   
+  // MARK: - Init
+  init(interactor: CalculationInteractorProtocol) {
+    self.interactor = interactor
+  }
+  
+  // MARK: - Public methods
   func getOperations() {
     fetchOperations()
   }
   
   // MARK: - Private methods
-  
   private func fetchOperations() {
-    // TODO: - call to database
+    interactor.getOperations { result in
+      switch result {
+      case .success(let operations):
+        self.viewState.value = self.processResult(operations)
+      case .failure(let error):
+        print("Failed to fetch operations")
+      }
+    }
   }
 }
 
 // MARK: - CalculationViewViewModelDelegate
-
-extension ExpressionViewViewModel: CalculationViewModelDelegate {
+extension ExpressionViewModel: CalculationViewModelDelegate {
   func calculationViewModelDidRequestToUpdateValue(_ viewModel: CalculationViewModel, with value: String) {
-    currentValue.value = value
+    if value.count <= 7 {
+      currentValue.value = value
+    }
   }
   
   func calculationViewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewModel,
