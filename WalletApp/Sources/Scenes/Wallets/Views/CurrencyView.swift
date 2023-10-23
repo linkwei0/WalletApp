@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CurrenciesView: UIView {
+class CurrencyView: UIView {
   // MARK: - Properties
   private let stackView = UIStackView()
   
