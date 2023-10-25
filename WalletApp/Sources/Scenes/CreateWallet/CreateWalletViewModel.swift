@@ -5,43 +5,6 @@
 
 import Foundation
 
-enum CreateWalletForm {
-  case name, currency, balance
-  
-  var title: String {
-    switch self {
-    case .name:
-      return "Название"
-    case .currency:
-      return "Валюта"
-    case .balance:
-      return "Баланс"
-    }
-  }
-  
-  var placeholder: String {
-    switch self {
-    case .name:
-      return "Введите название кошелька"
-    case .currency:
-      return "Выберите валюту"
-    case .balance:
-      return "Изначальный баланс"
-    }
-  }
-  
-  var tag: Int {
-    switch self {
-    case .name:
-      return 0
-    case .currency:
-      return 1
-    case .balance:
-      return 2
-    }
-  }
-}
-
 protocol CreateWalletViewModelDelegate: AnyObject {
   func viewModelDidRequestToWalletsScreen(_ viewModel: CreateWalletViewModel, wallet: WalletModel)
 }
@@ -86,16 +49,21 @@ class CreateWalletViewModel {
 
 // MARK: - CreateWalletCellViewModelDelegate
 extension CreateWalletViewModel: CreateWalletCellViewModelDelegate {
-  func createWalletCellViewModelDidChangeTextField(with textFieldTag: Int, text: String) {
-    switch textFieldTag {
-    case 0:
+  func createWalletCellViewModelDidChangeTextField(_ viewModel: CreateWalletCellViewModel,
+                                                   with textFieldTag: Int, text: String) {
+    guard let typeForm = CreateWalletForm(rawValue: textFieldTag) else { return }
+    switch typeForm {
+    case .name:
       wallet.name = text
-    case 1:
-      wallet.currency = text
-    case 2:
+    case .balance:
       wallet.balance = Decimal(string: text) ?? 0
-    default:
-      return
+    case .currency:
+      break
     }
+  }
+  
+  func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
+                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencyType) {
+    wallet.currency = selectedCurrency.currencyType
   }
 }

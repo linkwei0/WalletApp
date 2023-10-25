@@ -49,7 +49,8 @@ extension SimpleTableViewDataSoruce where ViewModel == CreateWalletCellViewModel
                    reuseIdentifier: String = CreateWalletCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
     return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
                                      cellViewModels: cellViewModels) { viewModel, cell in
-      (cell as? CreateWalletCell)?.viewModel = viewModel
+      guard let cell = (cell as? CreateWalletCell) else { return }
+      cell.configure(with: viewModel)
     }
   }
 }

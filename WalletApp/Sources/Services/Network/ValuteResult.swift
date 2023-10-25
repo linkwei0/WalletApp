@@ -25,16 +25,9 @@ struct Valute: Decodable {
 
 // MARK: - Currency
 struct ValuteResult: Decodable {
-//    let date, previousDate: Date
-//    let previousURL: String
-//    let timestamp: Date
     let result: [String: Valute]
 
     enum CodingKeys: String, CodingKey {
-//        case date = "Date"
-//        case previousDate = "PreviousDate"
-//        case previousURL = "PreviousURL"
-//        case timestamp = "Timestamp"
         case result = "Valute"
     }
 }

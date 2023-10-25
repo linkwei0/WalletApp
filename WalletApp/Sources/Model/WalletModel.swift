@@ -30,7 +30,7 @@ extension WalletModel {
   init() {
     self.id = UUID().hashValue
     self.name = ""
-    self.currency = ""
+    self.currency = "RUB"
     self.balance = 0
     self.totalSpent = 0
     self.totalEarned = 0
