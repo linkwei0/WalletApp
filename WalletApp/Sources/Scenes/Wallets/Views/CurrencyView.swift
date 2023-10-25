@@ -53,7 +53,7 @@ class CurrencyView: UIView {
   }
   
   private func configureCurrencyStackView(with currency: CurrencyModelView) -> UIStackView {
-    let imageView = UIImageView(image: CurrencyModel.CurrencyDescription(rawValue: currency.description)?.iconImage)
+    let imageView = UIImageView(image: CurrencyModelView.WalletsCurrencyType(rawValue: currency.code)?.iconImage)
     imageView.tintColor = .baseWhite
     
     let valueLabel = Label(textStyle: .footnoteBold)

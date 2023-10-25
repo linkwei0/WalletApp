@@ -2,8 +2,6 @@
 //  CreateWalletInteractor.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 15.10.2023.
-//
 
 import Foundation
 

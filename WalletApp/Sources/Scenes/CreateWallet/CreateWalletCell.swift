@@ -9,7 +9,7 @@ class CreateWalletCell: UITableViewCell {
   // MARK: - Properties
   private let containerView = UIView()
   private let titleLabel = Label(textStyle: .body)
-  private let currencySegmentedControl = UISegmentedControl(items: CurrencyModel.CurrencyDescription.allCases.map(\.iconImage))
+  private let currencySegmentedControl = UISegmentedControl(items: CurrencyModelView.CreateWalletCurrencyType.allCases.map(\.iconImage))
   private let contentTextField = UITextField()
   
   private var viewModel: CreateWalletCellViewModelProtocol?
@@ -71,6 +71,7 @@ class CreateWalletCell: UITableViewCell {
     currencySegmentedControl.selectedSegmentIndex = 0
     currencySegmentedControl.setTitleTextAttributes([.font: UIFont.body ?? .systemFont(ofSize: 16)], for: .normal)
     currencySegmentedControl.setTitleTextAttributes([.font: UIFont.body ?? .systemFont(ofSize: 16)], for: .selected)
+    currencySegmentedControl.addTarget(self, action: #selector(didSelectCurrency(_:)), for: .valueChanged)
     currencySegmentedControl.snp.makeConstraints { make in
       make.centerY.equalTo(titleLabel.snp.centerY)
       make.leading.equalTo(titleLabel.snp.trailing).offset(16)
@@ -98,6 +99,11 @@ class CreateWalletCell: UITableViewCell {
   // MARK: - Selectors
   @objc private func textFieldDidChange(_ textField: UITextField) {
     viewModel?.textFieldDidChange(with: textField.tag, text: textField.text ?? "")
+  }
+  
+  @objc private func didSelectCurrency(_ segmentedControl: UISegmentedControl) {
+    guard let selected = CurrencyModelView.CreateWalletCurrencyType(rawValue: segmentedControl.selectedSegmentIndex) else { return }
+    viewModel?.segmentedControlDidChange(with: selected)
   }
 }
 
