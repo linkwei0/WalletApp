@@ -6,11 +6,12 @@
 import UIKit
 
 struct ExpenseCoordinatorConfiguration {
-  let currentBank: String
+  let wallet: WalletModel
 }
 
 final class ExpenseCoordinator: ConfigurableCoordinator {
   typealias Configuration = ExpenseCoordinatorConfiguration
+  typealias Factory = HasExpenseFactory
   
   // MARK: - Properties
   
@@ -20,11 +21,13 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
   let navigationController: NavigationController
   let appFactory: AppFactory
   
+  private let factory: Factory
   private let configuration: Configuration
   
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
+    self.factory = appFactory
     self.configuration = configuration
   }
   
@@ -33,13 +36,9 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
   }
   
   private func showExpenseScreen(animated: Bool) {
-    let coreDataStack = CoreDataStack()
-    let localDataSource: LocalDataSourceProtocol = LocalDataSource(coreDataStack: coreDataStack)
-    let useCase = UseCaseProvider(localDataSource: localDataSource)
-    let interactor = CalculationInteractor(useCaseProvider: useCase)
-    let expenseViewModel = ExpenseViewModel(interactor: interactor, currentBank: configuration.currentBank)
-    let expenseVC = ExpenseViewController(viewModel: expenseViewModel)
-    expenseVC.navigationItem.title = configuration.currentBank
+    let expenseVC = factory.expenseFactory.makeModule(with: configuration.wallet)
+    expenseVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue
+    addPopObserver(for: expenseVC)
     navigationController.pushViewController(expenseVC, animated: animated)
   }
 }

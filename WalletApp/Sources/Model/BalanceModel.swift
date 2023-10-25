@@ -6,9 +6,15 @@
 import Foundation
 
 struct BalanceModel {
-  var totalBalance: Int
-  var totalIncome: Int
-  var totalExpense: Int
+  var totalBalance: Double
+  var totalIncome: Double
+  var totalExpense: Double
+  
+  init(totalBalance: Decimal, totalIncome: Decimal, totalExpense: Decimal) {
+    self.totalBalance = NSDecimalNumber(decimal: totalBalance).doubleValue
+    self.totalIncome = NSDecimalNumber(decimal: totalIncome).doubleValue
+    self.totalExpense = NSDecimalNumber(decimal: totalExpense).doubleValue
+  }
 }
 
 extension BalanceModel {

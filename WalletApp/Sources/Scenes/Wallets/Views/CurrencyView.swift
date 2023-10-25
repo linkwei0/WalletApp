@@ -2,8 +2,6 @@
 //  CurrenciesView.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 11.10.2023.
-//
 
 import UIKit
 
@@ -11,19 +9,22 @@ class CurrencyView: UIView {
   // MARK: - Properties
   private let stackView = UIStackView()
   
+  private let viewModel: CurrencyViewModel
+  
   // MARK: - Init
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+  init(viewModel: CurrencyViewModel) {
+    self.viewModel = viewModel
+    super.init(frame: .zero)
     setup()
+    setupBindables()
   }
   
   required init?(coder: NSCoder) {
-    super.init(coder: coder)
-    setup()
+    fatalError("init(coder:) has not been implemented")
   }
-  
-  // MARK: - Public methods
-  func configure(with currencies: [CurrencyModel]) {
+
+  // MARK: - Configure
+  private func configure(with currencies: [CurrencyModelView]) {
     stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
     currencies.forEach { stackView.addArrangedSubview(configureCurrencyStackView(with: $0)) }
   }
@@ -35,7 +36,7 @@ class CurrencyView: UIView {
   }
   
   private func setupBackground() {
-    backgroundColor = .systemGray6
+    backgroundColor = .systemGray4
     layer.cornerRadius = 12
   }
   
@@ -51,12 +52,11 @@ class CurrencyView: UIView {
     }
   }
   
-  private func configureCurrencyStackView(with currency: CurrencyModel) -> UIStackView {
-    let titleLabel = Label(textStyle: .body)
-    titleLabel.text = currency.code
-    titleLabel.textColor = .baseWhite
+  private func configureCurrencyStackView(with currency: CurrencyModelView) -> UIStackView {
+    let imageView = UIImageView(image: CurrencyModel.CurrencyDescription(rawValue: currency.description)?.iconImage)
+    imageView.tintColor = .baseWhite
     
-    let valueLabel = Label(textStyle: .bodyBold)
+    let valueLabel = Label(textStyle: .footnoteBold)
     valueLabel.text = "\(currency.value)"
     
     let arrow = UIImageView(image: currency.isIncrease ? R.image.greenArrow() : R.image.redArrow())
@@ -66,8 +66,15 @@ class CurrencyView: UIView {
     stackView.alignment = .center
     stackView.spacing = 5
     
-    [titleLabel, valueLabel, arrow].forEach { stackView.addArrangedSubview($0) }
+    [imageView, valueLabel, arrow].forEach { stackView.addArrangedSubview($0) }
     
     return stackView
+  }
+  
+  // MARK: - Bindables
+  private func setupBindables() {
+    viewModel.currencies.bind { [weak self] currency in
+      self?.configure(with: currency)
+    }
   }
 }

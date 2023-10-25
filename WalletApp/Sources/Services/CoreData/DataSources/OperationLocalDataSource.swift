@@ -2,13 +2,11 @@
 //  OperationLocalDataSource.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 20.09.2023.
-//
 
 import CoreData
 
 protocol OperationLocalDataSourceProtocol {
-  func getOperations(completion: @escaping (Result<[OperationModel], Error>) -> Void)
+  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void)
   func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
   func deleteOperation(with id: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -20,8 +18,9 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
     self.coreDataStack = coreDataStack
   }
   
-  func getOperations(completion: @escaping (Result<[OperationModel], Error>) -> Void) {
-    let operations = coreDataStack.getAllObjectsOfType(OperationModel.PersistentModel.self)
+  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
+    let operations = coreDataStack.getObjectByValue(columnName: #keyPath(CDOperation.walletId),
+                                                value: String(wallet.id), type: CDOperation.self)
     completion(.success(operations.compactMap { $0.makeDomain() }))
   }
   

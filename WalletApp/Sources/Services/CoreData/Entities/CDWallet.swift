@@ -2,8 +2,6 @@
 //  CDWallet.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 12.10.2023.
-//
 
 import Foundation
 

@@ -6,11 +6,12 @@
 import UIKit
 
 struct IncomeCoordinatorConfiguration {
-  let currentBank: String
+  let wallet: WalletModel
 }
 
 final class IncomeCoordinator: ConfigurableCoordinator {
   typealias Configuration = IncomeCoordinatorConfiguration
+  typealias Factory = HasIncomeFactory
   
   // MARK: - Properties
   
@@ -20,11 +21,13 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   let navigationController: NavigationController
   let appFactory: AppFactory
   
+  private let factory: Factory
   private let configuration: Configuration
   
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
+    self.factory = appFactory
     self.configuration = configuration
   }
   
@@ -33,14 +36,23 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   }
   
   private func showIncomeScreen(animated: Bool) {
-    let coreDataStack = CoreDataStack()
-    let localDataSource = LocalDataSource(coreDataStack: coreDataStack)
-    let useCase = UseCaseProvider(localDataSource: localDataSource)
-    let interactor = CalculationInteractor(useCaseProvider: useCase)
-    let incomeViewModel = IncomeViewModel(interactor: interactor, currentBank: configuration.currentBank)
-    let incomeVC = IncomeViewController(viewModel: incomeViewModel)
-    incomeVC.navigationItem.title = configuration.currentBank
+    let incomeVC = factory.incomeFactory.makeModule(with: configuration.wallet)
+    incomeVC.viewModel.delegate = self
+    incomeVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue
     addPopObserver(for: incomeVC)
     navigationController.pushViewController(incomeVC, animated: animated)
+  }
+}
+
+// MARK: - IncomeViewModelDelegate
+extension IncomeCoordinator: IncomeViewModelDelegate {
+  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel) {
+    let categoryViewModel = CategoryPickerViewModel()
+    let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
+    categoryPickerController.modalPresentationStyle = .overCurrentContext
+    categoryPickerController.onDidSelectCategory = { [weak viewModel] category in
+      viewModel?.didSelectCategory(category)
+    }
+    navigationController.present(categoryPickerController, animated: false)
   }
 }

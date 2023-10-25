@@ -9,14 +9,17 @@ import Foundation
 
 class UseCaseProvider: UseCaseProviderProtocol {
   private let localDataSource: LocalDataSourceProtocol
+  private let remoteDataSource: RemoteDataSourceProtocol
   
-  init(localDataSource: LocalDataSourceProtocol) {
+  init(localDataSource: LocalDataSourceProtocol, remoteDataSource: RemoteDataSourceProtocol) {
     self.localDataSource = localDataSource
+    self.remoteDataSource = remoteDataSource
   }
   
   func walletUseCase() -> WalletUseCaseProtocol {
     let localDataSource = localDataSource.walletDataSource()
-    return WalletRepository(localDataSource: localDataSource)
+    let remoteDataSource = remoteDataSource.walletDataSource()
+    return WalletRepository(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
   }
   
   func operationUseCase() -> OperationUseCaseProtocol {

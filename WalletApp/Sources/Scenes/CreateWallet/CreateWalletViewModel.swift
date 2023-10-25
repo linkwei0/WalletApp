@@ -2,12 +2,10 @@
 //  CreateWalletViewModel.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 11.10.2023.
-//
 
 import Foundation
 
-enum Form {
+enum CreateWalletForm {
   case name, currency, balance
   
   var title: String {
@@ -62,7 +60,7 @@ class CreateWalletViewModel {
   
   private var wallet = WalletModel()
   
-  private let contentForm: [Form] = [.name, .currency, .balance]
+  private let contentForm: [CreateWalletForm] = [.name, .currency, .balance]
   
   private let interactor: CreateWalletInteractor
   

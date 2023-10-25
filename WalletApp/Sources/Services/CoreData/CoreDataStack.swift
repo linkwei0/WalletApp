@@ -29,11 +29,10 @@ final class CoreDataStack {
     try saveWriteContext()
   }
   
-  func getObjectByValue<Entity: NSManagedObject>(columnName: String, value: String, type: Entity.Type,
-                                                 context: NSManagedObjectContext) -> [Entity] {
+  func getObjectByValue<Entity: NSManagedObject>(columnName: String, value: String, type: Entity.Type) -> [Entity] {
     let fetchRequest = createFetchRequest(columnName: columnName, value: value, objectType: type)
     do {
-      return try context.fetch(fetchRequest)
+      return try readContext.fetch(fetchRequest)
     } catch {
       return []
     }
@@ -70,6 +69,16 @@ final class CoreDataStack {
     } catch {
       writeContext.rollback()
       throw error
+    }
+  }
+  
+  private func getObjectByValue<Entity: NSManagedObject>(columnName: String, value: String, type: Entity.Type,
+                                                         context: NSManagedObjectContext) -> [Entity] {
+    let fetchRequest = createFetchRequest(columnName: columnName, value: value, objectType: type)
+    do {
+      return try context.fetch(fetchRequest)
+    } catch {
+      return []
     }
   }
 }

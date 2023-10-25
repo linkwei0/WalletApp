@@ -2,15 +2,13 @@
 //  HistoryCell.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 20.06.2023.
-//
 
 import UIKit
 
 class OperationCell: UITableViewCell {
   // MARK: - Properties
-  
-  private let titleLabel = Label(textStyle: .footnoteBold)
+  private let titleLabel = Label(textStyle: .footnote)
+  private let amountLabel = Label(textStyle: .footnoteBold)
   
   var viewModel: OperationCellViewModelProtocol? {
     didSet {
@@ -19,21 +17,26 @@ class OperationCell: UITableViewCell {
   }
   
   // MARK: - Init
-  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    setupUI()
+    setup()
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
-    setupUI()
+    setup()
   }
   
-  // MARK: - Setup UI
-  
-  private func setupUI() {
+  // MARK: - Setup
+  private func setup() {
+    setupContainer()
     setupTitleLabel()
+    setupAmountLabel()
+  }
+  
+  private func setupContainer() {
+    selectionStyle = .none
+    backgroundColor = .accentLight
   }
   
   private func setupTitleLabel() {
@@ -41,16 +44,25 @@ class OperationCell: UITableViewCell {
     titleLabel.textAlignment = .left
     titleLabel.numberOfLines = 0
     titleLabel.snp.makeConstraints { make in
-      make.left.equalToSuperview().inset(12)
+      make.leading.equalToSuperview().inset(4)
+      make.centerY.equalToSuperview()
+    }
+  }
+  
+  private func setupAmountLabel() {
+    contentView.addSubview(amountLabel)
+    amountLabel.textAlignment = .right
+    amountLabel.numberOfLines = 0
+    amountLabel.snp.makeConstraints { make in
+      make.trailing.equalToSuperview().inset(4)
       make.centerY.equalToSuperview()
     }
   }
   
   // MARK: - Bindables
-  
   private func setupBindables() {
     guard let viewModel = viewModel else { return }
     titleLabel.text = viewModel.name
-    titleLabel.tintColor = viewModel.tintColor
+    amountLabel.text = viewModel.amount
   }
 }

@@ -2,14 +2,8 @@
 //  CalculationViewViewModel.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 26.01.2023.
-//
 
 import Foundation
-
-enum Sign: String {
-  case minus = "-", plus = "+", multiply = "x", divide = "/"
-}
 
 protocol CalculationViewModelDelegate: AnyObject {
   func calculationViewModelDidRequestToUpdateValue(_ viewModel: CalculationViewModel,
@@ -20,23 +14,21 @@ protocol CalculationViewModelDelegate: AnyObject {
                                                         with value: String)
 }
 
+protocol CalculationViewModelCategoryDelegate: AnyObject {
+  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel)
+}
+
 final class CalculationViewModel: SimpleViewStateProcessable {
   // MARK: - Properties
+  private enum Sign: String {
+    case minus = "-", plus = "+", multiply = "x", divide = "/"
+  }
+  
   weak var delegate: CalculationViewModelDelegate?
+  weak var categoryDelegate: CalculationViewModelCategoryDelegate?
   
-  var cellViewModels: [OperationCellViewModelProtocol] {
-    return operations.compactMap { OperationCellViewModel($0) }
-  }
-  
-  let expressionViewModel = ExpressionViewViewModel()
-  
-  private var operations: [OperationModel] {
-    return viewState.value.currentEntities
-  }
-  
-  private(set) var viewState: Bindable<SimpleViewState<OperationModel>> = Bindable(.initial)
-  private(set) var startLoading: Bindable<Bool> = Bindable(false)
-  
+  let expressionViewModel: ExpressionViewModel
+    
   private(set) var collectionType: CollectionType
   private(set) var calculationButtons: [[CalculationItemType]] =
   [
@@ -50,27 +42,38 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   private let setOfNumbers: Set<String> = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
   private let setOfSigns: Set<String> = ["+", "-", "x", "/"]
   
+  private let wallet: WalletModel
   private let interactor: CalculationInteractorProtocol
 
   // MARK: - Init
-  init(interactor: CalculationInteractorProtocol, collectionType: CollectionType) {
+  init(interactor: CalculationInteractorProtocol, wallet: WalletModel, collectionType: CollectionType) {
     self.interactor = interactor
+    self.wallet = wallet
     self.collectionType = collectionType
+    self.expressionViewModel = ExpressionViewModel(interactor: interactor, wallet: wallet)
     delegate = expressionViewModel
   }
     
   // MARK: - Public methods
-  func getOperations() {
-    let showLoader = viewState.value.isInitialPage
-    fetchOperations(showLoader: showLoader)
-  }
-  
   func configureItemType(_ indexPath: IndexPath) -> CalculationCellViewModel {
     let itemType = calculationButtons[indexPath.section][indexPath.row]
     let cellViewModel = CalculationCellViewModel(collectionType: collectionType,
                                                  itemType: itemType)
     cellViewModel.delegate = self
     return cellViewModel
+  }
+  
+  func didTapCreateOperationButton() {
+    categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self)
+//    let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: "Оплата КУ", amount: 3500, category: "Дом")
+//    interactor.saveOperation(operation: operation) { result in
+//      switch result {
+//      case .success:
+//        self.expressionViewModel.updateOperations()
+//      case .failure(let error):
+//        print(error)
+//      }
+//    }
   }
   
   func updateCurrentValue(with itemType: CalculationItemType) {
@@ -92,29 +95,15 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     }
     
     if itemStringValue == ",", !currentValue.contains(".") {
-      handleCommaSign(currentValue)
+      convertValueToDecimal(currentValue)
     }
     
     if itemStringValue == "=", let sign = Sign(rawValue: previousSign) {
-      handleEqualButton(supportingValue, currentValue, sign)
+      calculateResultValue(supportingValue, currentValue, sign)
     }
   }
   
   // MARK: - Private methods
-  private func fetchOperations(showLoader: Bool = false) {
-    startLoading.value = showLoader
-    interactor.getOperations { result in
-      self.startLoading.value = false
-      switch result {
-      case .success(let operations):
-        self.viewState.value = self.processResult(operations)
-        return
-      case .failure(let error):
-        self.viewState.value = .error(error)
-      }
-    }
-  }
-  
   private func handleChainOfSigns(_ prevValue: String, _ currentValue: String,
                                   _ currentSign: Sign) -> String {
     var updateValue: String
@@ -142,7 +131,7 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     return updateValue
   }
   
-  private func handleCommaSign(_ prevValue: String) {
+  private func convertValueToDecimal(_ prevValue: String) {
     var updateValue = prevValue
     if updateValue.isEmpty {
       updateValue = "0."
@@ -152,7 +141,7 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     delegate?.calculationViewModelDidRequestToUpdateValue(self, with: updateValue)
   }
   
-  private func handleEqualButton(_ resultValue: String, _ prevValue: String, _ currentSign: Sign) {
+  private func calculateResultValue(_ resultValue: String, _ prevValue: String, _ currentSign: Sign) {
     var updateValue: Double
     let value1 = Double(resultValue) ?? 0
     let value2 = Double(prevValue) ?? 0
@@ -175,12 +164,35 @@ final class CalculationViewModel: SimpleViewStateProcessable {
       delegate?.calculationViewModelDidRequestToUpdateAfterEqual(self, with: String(roundedNumber))
     }
   }
+  
+  private func clearAllValues() {
+    expressionViewModel.currentValue.value = ""
+    expressionViewModel.supprotingValue.value = ""
+    expressionViewModel.previousSign.value = ""
+  }
+  
+  private func backToPreviousValue() {
+    if !expressionViewModel.currentValue.value.isEmpty {
+      expressionViewModel.currentValue.value = String(expressionViewModel.currentValue.value.dropLast())
+    }
+  }
 }
 
 // MARK: - CalculationCollectionCellViewModelDelegate
 extension CalculationViewModel: CalculationCellViewModelDelegate {
   func cellViewModelDidRequetsToUpdateValue(_ viewModel: CalculationCellViewModel,
                                             with itemType: CalculationItemType) {
-    updateCurrentValue(with: itemType)
+    switch itemType {
+    case .clearAC:
+      clearAllValues()
+    case .plusMinus:
+      print("plus/minus")
+    case .percent:
+      print("percent")
+    case .back:
+      backToPreviousValue()
+    default:
+      updateCurrentValue(with: itemType)
+    }
   }
 }

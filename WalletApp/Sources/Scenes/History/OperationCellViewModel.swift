@@ -3,24 +3,30 @@
 //  WalletApp
 //
 
-import UIKit
+import Foundation
 
 protocol OperationCellViewModelProtocol {
   var name: String { get }
-  var tintColor: UIColor { get }
+  var amount: String { get }
   var date: Date? { get }
 }
 
 class OperationCellViewModel: OperationCellViewModelProtocol {
-  var tintColor: UIColor {
-    return UIColor.baseWhite
+  var name: String {
+    return operation.name
   }
   
-  let name: String
-  let date: Date?
+  var amount: String {
+    return NSDecimalNumber(decimal: operation.amount).stringValue
+  }
+  
+  var date: Date? {
+    return operation.date
+  }
+  
+  private let operation: OperationModel
   
   init(_ operation: OperationModel) {
-    self.name = operation.name
-    self.date = operation.date
+    self.operation = operation
   }
 }

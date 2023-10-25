@@ -36,10 +36,10 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
     return form.tag
   }
   
-  private let form: Form
+  private let form: CreateWalletForm
   
   // MARK: - Init
-  init(_ form: Form) {
+  init(_ form: CreateWalletForm) {
     self.form = form
   }
   

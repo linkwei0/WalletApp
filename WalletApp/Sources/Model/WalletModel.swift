@@ -13,7 +13,7 @@ struct WalletModel: Domain {
   var balance: Decimal
   var totalSpent: Decimal
   var totalEarned: Decimal
-  
+    
   func makePersistent(context: NSManagedObjectContext) -> CDWallet? {
     let wallet = CDWallet(context: context)
     wallet.id = Int64(id)
@@ -28,7 +28,7 @@ struct WalletModel: Domain {
 
 extension WalletModel {
   init() {
-    self.id = 0
+    self.id = UUID().hashValue
     self.name = ""
     self.currency = ""
     self.balance = 0

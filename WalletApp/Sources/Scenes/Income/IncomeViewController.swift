@@ -9,7 +9,7 @@ class IncomeViewController: BaseViewController {
   // MARK: - Properties
   private let calculationView: CalculationView
   
-  private let viewModel: IncomeViewModel
+  let viewModel: IncomeViewModel
   
   // MARK: - Init
   init(viewModel: IncomeViewModel) {

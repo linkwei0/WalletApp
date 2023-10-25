@@ -2,7 +2,16 @@
 //  RemoteDataSource.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 23.10.2023.
-//
 
 import Foundation
+
+protocol RemoteDataSourceProtocol {
+  func walletDataSource() -> WalletRemoteDataSourceProtocol
+}
+
+final class RemoteDataSource: RemoteDataSourceProtocol {
+  func walletDataSource() -> WalletRemoteDataSourceProtocol {
+    let client = WalletClient()
+    return WalletRemoteDataSource(client: client)
+  }
+}

@@ -2,8 +2,6 @@
 //  CreateWalletCell.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 11.10.2023.
-//
 
 import UIKit
 

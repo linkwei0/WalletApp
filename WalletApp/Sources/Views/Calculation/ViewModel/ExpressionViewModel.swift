@@ -7,16 +7,26 @@ import Foundation
 
 final class ExpressionViewModel: SimpleViewStateProcessable {
   // MARK: - Properties
+  var cellViewModels: [OperationCellViewModelProtocol] {
+    return operations.compactMap { OperationCellViewModel($0) }
+  }
+  
   private(set) var viewState: Bindable<SimpleViewState<OperationModel>> = Bindable(.initial)
   private(set) var currentValue: Bindable<String> = Bindable("")
   private(set) var supprotingValue: Bindable<String> = Bindable("")
   private(set) var previousSign: Bindable<String> = Bindable("")
   
+  private var operations: [OperationModel] {
+    return viewState.value.currentEntities
+  }
+  
+  private let wallet: WalletModel
   private let interactor: CalculationInteractorProtocol
   
   // MARK: - Init
-  init(interactor: CalculationInteractorProtocol) {
+  init(interactor: CalculationInteractorProtocol, wallet: WalletModel) {
     self.interactor = interactor
+    self.wallet = wallet
   }
   
   // MARK: - Public methods
@@ -24,14 +34,18 @@ final class ExpressionViewModel: SimpleViewStateProcessable {
     fetchOperations()
   }
   
+  func updateOperations() {
+    fetchOperations()
+  }
+  
   // MARK: - Private methods
   private func fetchOperations() {
-    interactor.getOperations { result in
+    interactor.getOperations(for: wallet) { result in
       switch result {
       case .success(let operations):
         self.viewState.value = self.processResult(operations)
       case .failure(let error):
-        print("Failed to fetch operations")
+        print("Failed to fetch operations \(error)")
       }
     }
   }

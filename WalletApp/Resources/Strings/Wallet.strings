@@ -3,9 +3,9 @@
   WalletApp
 */
 
-"bank.bottom.bar.income.title" = "Расходы";
-"bank.bottom.bar.expense.title" = "Доходы";
-"bank.bottom.bar.profile.title" = "Профиль";
+"wallet.detail.bottom.bar.income.title" = "Расходы";
+"wallet.detail.bottom.bar.expense.title" = "Доходы";
+"wallet.detail.bottom.bar.profile.title" = "Профиль";
 
 "balance.view.total.title" = "Общий баланс";
 "balance.view.income.title" = "Общий доход";

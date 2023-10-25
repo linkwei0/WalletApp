@@ -11,11 +11,10 @@ enum CollectionType {
 
 class CalculationView: UIView {
   // MARK: - Properties
-  private let operationsTableView = UITableView()
   private let containerView = UIView()
   private let buttonsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
   private let expressionView: ExpressionView
-  private let expressionActionButton = UIButton(type: .system)
+  private let createOperationButton = UIButton(type: .system)
   
   private let viewModel: CalculationViewModel
   
@@ -39,28 +38,10 @@ class CalculationView: UIView {
   
   // MARK: - Setup
   private func setup() {
-    setupOperationsTableView()
     setupContainerView()
     setupAddButton()
     setupCollectionView()
     setupExpressionView()
-    
-    setupBindables()
-  }
-  
-  private func setupOperationsTableView() {
-    addSubview(operationsTableView)
-    operationsTableView.dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    operationsTableView.backgroundColor = .accentLight
-    operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 25
-    operationsTableView.separatorColor = viewModel.collectionType == .income ? .baseWhite : .baseBlack
-    operationsTableView.isScrollEnabled = false
-    operationsTableView.snp.makeConstraints { make in
-      make.top.equalToSuperview()
-      make.leading.trailing.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.4)
-    }
   }
   
   private func setupContainerView() {
@@ -73,16 +54,17 @@ class CalculationView: UIView {
   }
   
   private func setupAddButton() {
-    containerView.addSubview(expressionActionButton)
-    expressionActionButton.setTitle(viewModel.collectionType == .income ? Constants.addTitle : Constants.decreaseTitle,
-                                    for: .normal)
-    expressionActionButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-    expressionActionButton.setTitleColor(.baseWhite, for: .normal)
-    expressionActionButton.backgroundColor = .accentDark
-    expressionActionButton.layer.cornerRadius = 12
-    expressionActionButton.layer.borderWidth = 1.5
-    expressionActionButton.layer.borderColor = UIColor.baseWhite.cgColor
-    expressionActionButton.snp.makeConstraints { make in
+    containerView.addSubview(createOperationButton)
+    createOperationButton.setTitle(viewModel.collectionType == .income ? Constants.increaseTitle
+                                   : Constants.decreaseTitle, for: .normal)
+    createOperationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+    createOperationButton.setTitleColor(.baseWhite, for: .normal)
+    createOperationButton.backgroundColor = .accentDark
+    createOperationButton.layer.cornerRadius = 12
+    createOperationButton.layer.borderWidth = 1.5
+    createOperationButton.layer.borderColor = UIColor.baseWhite.cgColor
+    createOperationButton.addTarget(self, action: #selector(didTapCreateOperationButton), for: .touchUpInside)
+    createOperationButton.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(44)
       make.height.equalTo(45)
       make.bottom.equalToSuperview().inset(32)
@@ -98,7 +80,7 @@ class CalculationView: UIView {
     buttonsCollectionView.snp.makeConstraints { make in
       make.top.equalToSuperview().inset(6)
       make.leading.trailing.equalToSuperview().inset(46)
-      make.bottom.equalTo(expressionActionButton.snp.top).offset(-10)
+      make.bottom.equalTo(createOperationButton.snp.top).offset(-10)
     }
     
     let layout = UICollectionViewFlowLayout()
@@ -116,23 +98,15 @@ class CalculationView: UIView {
     }
   }
   
-  // MARK: - Private methods
-  private func configureOperationsTableView(withState state: SimpleViewState<OperationModel>) {
-    switch state {
-    case .initial, .populated:
-      return
-    case .empty:
-      return
-    case .error(let error):
-      return
-    }
-  }
-  
-  // MARK: - Bindables
-  private func setupBindables() {
-    viewModel.viewState.bind { [weak self] state in
-      guard let strongSelf = self else { return }
-    }
+  // MARK: - Actions
+  @objc private func didTapCreateOperationButton() {
+//    let categoryPickerController = CategoryPickerViewController()
+//    categoryPickerController.modalPresentationStyle = .overCurrentContext
+//    categoryPickerController.onDidSelectCategory = { [weak self] category in
+//      self?.viewModel.didSelectCategory(category)
+//    }
+//    present(categoryPickerController, animated: false)
+    viewModel.didTapCreateOperationButton()
   }
 }
 
@@ -171,6 +145,6 @@ extension CalculationView: UICollectionViewDelegateFlowLayout {
 }
 
 private extension Constants {
-  static let addTitle = "Добавить"
+  static let increaseTitle = "Добавить"
   static let decreaseTitle = "Убавить"
 }

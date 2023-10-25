@@ -2,7 +2,11 @@
 //  ErrorDescriptable.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 23.10.2023.
-//
 
 import Foundation
+
+protocol Descriptable {
+  var description: String { get }
+}
+
+protocol ErrorDescriptable: Descriptable {}

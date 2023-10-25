@@ -7,11 +7,10 @@ import UIKit
 
 class WalletsViewController: BaseViewController {
   // MARK: - Properties
-  private var dataSource: SimpleTableViewDataSoruce<WalletCellViewModelProtocol>!
+  private var dataSource: SimpleTableViewDataSoruce<WalletCellViewModelProtocol>?
   
   private let balanceView: BalanceView
-  
-  private let currencyView = CurrenciesView()
+  private let currencyView: CurrencyView
   private let tableView = UITableView()
   private let addWalletButton = UIButton(type: .system)
   
@@ -22,6 +21,7 @@ class WalletsViewController: BaseViewController {
   init(viewModel: WalletsViewModel) {
     self.viewModel = viewModel
     self.balanceView = BalanceView(viewModel: viewModel.balanceViewModel)
+    self.currencyView = CurrencyView(viewModel: viewModel.currencyViewModel)
     super.init(nibName: nil, bundle: nil)
   }
   

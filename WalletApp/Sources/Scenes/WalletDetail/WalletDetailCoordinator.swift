@@ -47,13 +47,13 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
 
 // MARK: - WalletDetailViewModelDelegate
 extension WalletDetailCoordinator: WalletDetailViewModelDelegate {
-  func walletDetailViewModelDidRequestToShowIncome(_ viewModel: WalletDetailViewModel, currentBalance: String) {
-    let configuration = IncomeCoordinatorConfiguration(currentBank: currentBalance)
+  func walletDetailViewModelDidRequestToShowIncome(_ viewModel: WalletDetailViewModel, wallet: WalletModel) {
+    let configuration = IncomeCoordinatorConfiguration(wallet: wallet)
     show(IncomeCoordinator.self, configuration: configuration, animated: true)
   }
   
-  func walletDetailViewModelDidRequestToShowExpense(_ viewModel: WalletDetailViewModel, currentBalance: String) {
-    let configuration = ExpenseCoordinatorConfiguration(currentBank: currentBalance)
+  func walletDetailViewModelDidRequestToShowExpense(_ viewModel: WalletDetailViewModel, wallet: WalletModel) {
+    let configuration = ExpenseCoordinatorConfiguration(wallet: wallet)
     show(ExpenseCoordinator.self, configuration: configuration, animated: true)
   }
   

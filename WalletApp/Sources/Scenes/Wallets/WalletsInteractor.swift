@@ -17,4 +17,8 @@ class WalletsInteractor {
   func getWallets(completion: @escaping (Result<[WalletModel], Error>) -> Void) {
     walletUseCase.getWallets(completion: completion)
   }
+  
+  func getCurrenciesRates(completion: @escaping (Result<[CurrencyModel], Error>) -> Void) {
+    walletUseCase.getCurrencies(completion: completion)
+  }
 }

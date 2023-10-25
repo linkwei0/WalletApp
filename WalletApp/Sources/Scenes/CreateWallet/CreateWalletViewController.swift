@@ -9,7 +9,7 @@ class CreateWalletViewController: BaseViewController {
   // MARK: - Properties
   private var dataSource: SimpleTableViewDataSoruce<CreateWalletCellViewModelProtocol>!
   
-  private let formTableView = UITableView()
+  private let createWalletFormTableView = UITableView()
   private let createWalletButton = UIButton(type: .system)
   
   let viewModel: CreateWalletViewModel
@@ -37,15 +37,15 @@ class CreateWalletViewController: BaseViewController {
   }
   
   private func setupFormTableView() {
-    view.addSubview(formTableView)
-    formTableView.rowHeight = 110
-    formTableView.register(CreateWalletCell.self, forCellReuseIdentifier: CreateWalletCell.reuseIdentifiable)
-    formTableView.separatorStyle = .none
+    view.addSubview(createWalletFormTableView)
+    createWalletFormTableView.rowHeight = 110
+    createWalletFormTableView.register(CreateWalletCell.self, forCellReuseIdentifier: CreateWalletCell.reuseIdentifiable)
+    createWalletFormTableView.separatorStyle = .none
     
     dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    formTableView.dataSource = dataSource
+    createWalletFormTableView.dataSource = dataSource
     
-    formTableView.snp.makeConstraints { make in
+    createWalletFormTableView.snp.makeConstraints { make in
       make.top.leading.trailing.bottom.equalToSuperview()
     }
   }

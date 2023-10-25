@@ -19,6 +19,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   }
   
   let balanceViewModel = BalanceViewModel()
+  let currencyViewModel = CurrencyViewModel()
       
   private(set) var viewState: Bindable<SimpleViewState<WalletModel>> = Bindable(.initial)
   
@@ -32,6 +33,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   // MARK: - Public methods
   func viewIsReady() {
     fetchWallets()
+    fetchCurrenciesRates()
   }
   
   func addNewPersonWallet() {
@@ -56,16 +58,27 @@ final class WalletsViewModel: SimpleViewStateProcessable {
     }
   }
   
+  private func fetchCurrenciesRates() {
+    interactor.getCurrenciesRates { result in
+      switch result {
+      case .success(let currencies):
+        self.currencyViewModel.configureCurrencyView(with: currencies)
+      case .failure(let error):
+        print("Failed to fetch currencies \(error)")
+      }
+    }
+  }
+  
   private func configureBalanceModel(with wallets: [WalletModel]) {
     guard !wallets.isEmpty else { return }
-    var totalBalance = 0
-    var totalIncome = 0
-    var totalExpense = 0
+    var totalBalance: Decimal = 0
+    var totalIncome: Decimal = 0
+    var totalExpense: Decimal = 0
     
     wallets.forEach { wallet in
-      totalBalance += NSDecimalNumber(decimal: wallet.balance).intValue
-      totalIncome += NSDecimalNumber(decimal: wallet.totalSpent).intValue
-      totalExpense += NSDecimalNumber(decimal: wallet.totalEarned).intValue
+      totalBalance += wallet.balance
+      totalIncome += wallet.totalSpent
+      totalExpense += wallet.totalEarned
     }
     
     let balance = BalanceModel(totalBalance: totalBalance, totalIncome: totalIncome, totalExpense: totalExpense)

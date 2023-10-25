@@ -2,16 +2,16 @@
 //  WalletRepository.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 15.10.2023.
-//
 
 import Foundation
 
 final class WalletRepository: WalletUseCaseProtocol {
   private let localDataSource: WalletLocalDataSourceProtocol
+  private let remoteDataSource: WalletRemoteDataSourceProtocol
   
-  init(localDataSource: WalletLocalDataSourceProtocol) {
+  init(localDataSource: WalletLocalDataSourceProtocol, remoteDataSource: WalletRemoteDataSourceProtocol) {
     self.localDataSource = localDataSource
+    self.remoteDataSource = remoteDataSource
   }
   
   func getWallets(completion: @escaping (Result<[WalletModel], Error>) -> Void) {
@@ -24,5 +24,9 @@ final class WalletRepository: WalletUseCaseProtocol {
   
   func deleteWallet(with id: Int, completion: @escaping (Result<Void, Error>) -> Void) {
     localDataSource.deleteWallet(with: id, completion: completion)
+  }
+  
+  func getCurrencies(completion: @escaping (Result<[CurrencyModel], Error>) -> Void) {
+    remoteDataSource.getCurrencies(completion: completion)
   }
 }

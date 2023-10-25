@@ -2,13 +2,12 @@
 //  WalletDetailViewController.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 16.10.2023.
-//
 
 import Foundation
 
 class WalletDetailViewController: BaseViewController {
   // MARK: - Properties
+  private let balanceView: BalanceView
   private let bottomBarView: BankBottomBarView
   
   let viewModel: WalletDetailViewModel
@@ -16,6 +15,7 @@ class WalletDetailViewController: BaseViewController {
   // MARK: - Init
   init(viewModel: WalletDetailViewModel) {
     self.viewModel = viewModel
+    self.balanceView = BalanceView(viewModel: viewModel.balanceViewModel)
     self.bottomBarView = BankBottomBarView(configuration: viewModel.bottomBarConfiguration)
     super.init(nibName: nil, bundle: nil)
   }
@@ -28,11 +28,23 @@ class WalletDetailViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
+    viewModel.viewIsReady()
+    setupBindables()
   }
   
   // MARK: - Setup
   private func setup() {
+    setupBalanceView()
     setupBottomBarView()
+  }
+  
+  private func setupBalanceView() {
+    view.addSubview(balanceView)
+    
+    balanceView.snp.makeConstraints { make in
+      make.top.leading.trailing.equalToSuperview()
+      make.height.equalTo(155)
+    }
   }
   
   private func setupBottomBarView() {
@@ -44,6 +56,12 @@ class WalletDetailViewController: BaseViewController {
       make.leading.trailing.equalToSuperview().inset(16)
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16).priority(750)
       make.bottom.greaterThanOrEqualToSuperview().offset(-40)
+    }
+  }
+  
+  // MARK: - Bindables
+  private func setupBindables() {
+    viewModel.viewState.bind { state in
     }
   }
 }

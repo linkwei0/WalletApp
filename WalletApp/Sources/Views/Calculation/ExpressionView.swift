@@ -13,24 +13,22 @@ protocol CustomCalculationViewDelegate: AnyObject {
 
 class ExpressionView: UIView {
   // MARK: - Propeties
-  
   weak var delegate: CustomCalculationViewDelegate?
   
-  private var dataSource: SimpleTableViewDataSoruce<ExpressionViewViewModel>?
+  private var dataSource: SimpleTableViewDataSoruce<OperationCellViewModelProtocol>?
   
   private let operationsTableView = UITableView()
   private let containerView = UIView()
   private let currentSignLabel = Label(textStyle: .header1)
-  private let supportingValueLabel = Label(textStyle: .header1)
+  private let previousValueLabel = Label(textStyle: .header1)
   private let currentValueLabel = Label(textStyle: .header1)
   
   private let collectionType: CollectionType
   
-  private let viewModel: ExpressionViewViewModel
+  private let viewModel: ExpressionViewModel
   
   // MARK: - Init
-  
-  init(viewModel: ExpressionViewViewModel, collectionType: CollectionType) {
+  init(viewModel: ExpressionViewModel, collectionType: CollectionType) {
     self.viewModel = viewModel
     self.collectionType = collectionType
     super.init(frame: .zero)
@@ -39,15 +37,10 @@ class ExpressionView: UIView {
   }
   
   required init?(coder: NSCoder) {
-    self.viewModel = ExpressionViewViewModel()
-    self.collectionType = .income
-    super.init(coder: coder)
-    setup()
-    bindToViewModel()
+    fatalError("init(coder:) has not been implemented")
   }
   
   // MARK: - Setup
-  
   private func setup() {
     setupOperationsTableView()
     setupContainerView()
@@ -61,6 +54,7 @@ class ExpressionView: UIView {
     operationsTableView.separatorStyle = .none
     operationsTableView.rowHeight = 50
     operationsTableView.backgroundColor = .accentLight
+    operationsTableView.register(OperationCell.self, forCellReuseIdentifier: OperationCell.reuseIdentifiable)
     operationsTableView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
       make.height.equalToSuperview().multipliedBy(0.850)
@@ -82,18 +76,18 @@ class ExpressionView: UIView {
     containerView.addSubview(currentSignLabel)
     currentSignLabel.textColor = .baseWhite
     currentSignLabel.snp.makeConstraints { make in
+      make.top.bottom.equalToSuperview().inset(12)
       make.leading.equalToSuperview().inset(8)
-      make.centerY.equalToSuperview()
-      make.size.equalTo(15)
+      make.width.equalTo(17)
     }
   }
   
   private func setupSupportingValueLabel() {
-    containerView.addSubview(supportingValueLabel)
-    supportingValueLabel.textColor = .baseWhite
-    supportingValueLabel.textAlignment = .left
-    supportingValueLabel.adjustsFontSizeToFitWidth = true
-    supportingValueLabel.snp.makeConstraints { make in
+    containerView.addSubview(previousValueLabel)
+    previousValueLabel.textColor = .baseWhite
+    previousValueLabel.textAlignment = .left
+    previousValueLabel.adjustsFontSizeToFitWidth = true
+    previousValueLabel.snp.makeConstraints { make in
       make.leading.equalTo(currentSignLabel.snp.trailing).offset(6)
       make.centerY.equalTo(currentSignLabel.snp.centerY)
       make.width.equalToSuperview().multipliedBy(0.350)
@@ -108,9 +102,27 @@ class ExpressionView: UIView {
     currentValueLabel.clipsToBounds = true
     currentValueLabel.adjustsFontSizeToFitWidth = true
     currentValueLabel.snp.makeConstraints { make in
-      make.leading.equalTo(supportingValueLabel.snp.trailing).inset(8)
-      make.centerY.equalTo(supportingValueLabel.snp.centerY)
+      make.leading.equalTo(previousValueLabel.snp.trailing).inset(8)
+      make.centerY.equalTo(previousValueLabel.snp.centerY)
       make.trailing.equalToSuperview().inset(8)
+    }
+  }
+  
+  // MARK: - Private methods
+  private func reloadTableView() {
+    dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
+    operationsTableView.dataSource = dataSource
+    operationsTableView.reloadData()
+  }
+  
+  private func configureOperationsTableView(with state: SimpleViewState<OperationModel>) {
+    switch state {
+    case .initial, .populated:
+      print("Hide empty view")
+    case .empty:
+      print("Present empty view")
+    case .error(let error):
+      print("Present error \(error)")
     }
   }
   
@@ -121,11 +133,19 @@ class ExpressionView: UIView {
     }
     
     viewModel.supprotingValue.bind { [weak self] value in
-      self?.supportingValueLabel.text = value
+      self?.previousValueLabel.text = value
     }
     
     viewModel.previousSign.bind { [weak self] sign in
       self?.currentSignLabel.text = sign
+    }
+    
+    viewModel.viewState.bind { [weak self] state in
+      guard let strongSelf = self else { return }
+      DispatchQueue.main.async {
+        strongSelf.configureOperationsTableView(with: state)
+        strongSelf.reloadTableView()
+      }
     }
     
     viewModel.getOperations()

@@ -45,15 +45,15 @@ class BalanceView: UIView {
   }
   
   private func setupLabels() {
-    titleBalanceLabel.text = R.string.bank.balanceViewTotalTitle()
+    titleBalanceLabel.text = R.string.wallet.balanceViewTotalTitle()
     titleBalanceLabel.textColor = .baseWhite
     balanceLabel.textColor = .baseWhite
     
-    titleIncomeLabel.text = R.string.bank.balanceViewIncomeTitle()
+    titleIncomeLabel.text = R.string.wallet.balanceViewIncomeTitle()
     titleIncomeLabel.textColor = .incomeBtnColor
     incomeLabel.textColor = .incomeBtnColor
     
-    titleExpenseLabel.text = R.string.bank.balanceViewExpenseTitle()
+    titleExpenseLabel.text = R.string.wallet.balanceViewExpenseTitle()
     titleExpenseLabel.textColor = .expenseBtnColor
     expenseLabel.textColor = .expenseBtnColor
   }
