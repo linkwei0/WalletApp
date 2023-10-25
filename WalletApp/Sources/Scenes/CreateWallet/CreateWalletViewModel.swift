@@ -40,6 +40,24 @@ enum CreateWalletForm {
       return 2
     }
   }
+  
+  var hiddenIfNotCurrency: Bool {
+    switch self {
+    case .name, .balance:
+      return true
+    case .currency:
+      return false
+    }
+  }
+  
+  var hiddenIfNotTextField: Bool {
+    switch self {
+    case .name, .balance:
+      return false
+    case .currency:
+      return true
+    }
+  }
 }
 
 protocol CreateWalletViewModelDelegate: AnyObject {

@@ -2,8 +2,6 @@
 //  CreateWalletCellViewModel.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 11.10.2023.
-//
 
 import Foundation
 
@@ -11,6 +9,8 @@ protocol CreateWalletCellViewModelProtocol {
   var title: String { get }
   var placeholder: String { get }
   var tag: Int { get }
+  var isCurrency: Bool { get }
+  var isTextField: Bool { get }
   
   func getMaxCharsInTextField(_ tagTextField: Int, newString: String) -> Bool
   func textFieldDidChange(with tag: Int, text: String)
@@ -34,6 +34,14 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
   
   var tag: Int {
     return form.tag
+  }
+  
+  var isCurrency: Bool {
+    return form.hiddenIfNotCurrency
+  }
+  
+  var isTextField: Bool {
+    return form.hiddenIfNotTextField
   }
   
   private let form: CreateWalletForm

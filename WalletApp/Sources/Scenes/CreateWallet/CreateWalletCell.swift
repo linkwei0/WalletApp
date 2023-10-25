@@ -7,16 +7,12 @@ import UIKit
 
 class CreateWalletCell: UITableViewCell {
   // MARK: - Properties
-  var viewModel: CreateWalletCellViewModelProtocol? {
-    didSet {
-      guard let viewModel = viewModel else { return }
-      configure()
-    }
-  }
-  
   private let containerView = UIView()
   private let titleLabel = Label(textStyle: .body)
+  private let currencySegmentedControl = UISegmentedControl(items: CurrencyModel.CurrencyDescription.allCases.map(\.iconImage))
   private let contentTextField = UITextField()
+  
+  private var viewModel: CreateWalletCellViewModelProtocol?
   
   // MARK: - Init
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -30,9 +26,12 @@ class CreateWalletCell: UITableViewCell {
   }
   
   // MARK: Configure
-  func configure() {
-    guard let viewModel = viewModel else { return }
+  func configure(with viewModel: CreateWalletCellViewModelProtocol) {
+    self.viewModel = viewModel
+    
     titleLabel.text = viewModel.title
+    currencySegmentedControl.isHidden = viewModel.isCurrency
+    contentTextField.isHidden = viewModel.isTextField
     contentTextField.placeholder = viewModel.placeholder
     contentTextField.tag = viewModel.tag
   }
@@ -42,6 +41,7 @@ class CreateWalletCell: UITableViewCell {
     selectionStyle = .none
     setupContainerView()
     setupTitleLabel()
+    setupCurrencySegmentedControl()
     setupContentTextField()
   }
   
@@ -63,6 +63,19 @@ class CreateWalletCell: UITableViewCell {
       make.leading.equalToSuperview().inset(16)
       make.top.bottom.equalToSuperview().inset(8)
       make.width.equalTo(75)
+    }
+  }
+  
+  private func setupCurrencySegmentedControl() {
+    containerView.addSubview(currencySegmentedControl)
+    currencySegmentedControl.selectedSegmentIndex = 0
+    currencySegmentedControl.setTitleTextAttributes([.font: UIFont.body ?? .systemFont(ofSize: 16)], for: .normal)
+    currencySegmentedControl.setTitleTextAttributes([.font: UIFont.body ?? .systemFont(ofSize: 16)], for: .selected)
+    currencySegmentedControl.snp.makeConstraints { make in
+      make.centerY.equalTo(titleLabel.snp.centerY)
+      make.leading.equalTo(titleLabel.snp.trailing).offset(16)
+      make.trailing.equalToSuperview().inset(16)
+      make.height.equalTo(50)
     }
   }
   

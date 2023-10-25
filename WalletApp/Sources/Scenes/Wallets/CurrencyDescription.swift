@@ -6,19 +6,19 @@
 import UIKit
 
 extension CurrencyModel {
-  enum CurrencyDescription: String {
+  enum CurrencyDescription: String, CaseIterable {
+    case rub = "Российский рубль"
     case usd = "Доллар США"
     case euro = "Евро"
-    case rub = "Российский рубль"
     
     var iconImage: UIImage? {
       switch self {
+      case .rub:
+        return UIImage(systemName: "rublesign")
       case .usd:
         return UIImage(systemName: "dollarsign")
       case .euro:
         return UIImage(systemName: "eurosign")
-      case .rub:
-        return UIImage(systemName: "rublesign")
       }
     }
   }
