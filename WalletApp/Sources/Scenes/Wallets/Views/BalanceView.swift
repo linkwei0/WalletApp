@@ -92,7 +92,7 @@ class BalanceView: UIView {
     viewModel.balance.bind { balance in
       self.balanceLabel.text = "\(balance.totalBalance)"
       self.incomeLabel.text = "\(balance.totalIncome)"
-      self.expenseLabel.text = "\(balance.totalExpense)"
+      self.expenseLabel.text = balance.totalExpense > 0 ? "-\(balance.totalExpense)" : "\(balance.totalExpense)"
     }
   }
 }

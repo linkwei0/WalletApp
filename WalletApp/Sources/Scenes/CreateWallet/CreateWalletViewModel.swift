@@ -21,15 +21,17 @@ class CreateWalletViewModel {
     }
   }
   
-  private var wallet = WalletModel()
+  private var wallet = WalletModel.makeCleanModel()
   
   private let contentForm: [CreateWalletForm] = [.name, .currency, .balance]
   
   private let interactor: CreateWalletInteractor
+  private let currencyRates: CurrencyRates
   
   // MARK: - Init
-  init(interactor: CreateWalletInteractor) {
+  init(interactor: CreateWalletInteractor, currencyRates: CurrencyRates) {
     self.interactor = interactor
+    self.currencyRates = currencyRates
   }
   
   // MARK: - Public methods
@@ -63,7 +65,23 @@ extension CreateWalletViewModel: CreateWalletCellViewModelDelegate {
   }
   
   func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
-                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencyType) {
-    wallet.currency = selectedCurrency.currencyType
+                                              with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl) {
+    switch selectedCurrency {
+    case .rub:
+      wallet.currency = CurrencyModel(value: 1,
+                                      isIncrease: false,
+                                      code: selectedCurrency.currencyType,
+                                      description: "")
+    case .usd:
+      wallet.currency = CurrencyModel(value: currencyRates.usd,
+                                      isIncrease: false,
+                                      code: selectedCurrency.currencyType,
+                                      description: "")
+    case .euro:
+      wallet.currency = CurrencyModel(value: currencyRates.euro,
+                                      isIncrease: false,
+                                      code: selectedCurrency.currencyType,
+                                      description: "")
+    }
   }
 }

@@ -5,9 +5,25 @@
 
 import UIKit
 
-class CreateWalletCoordinator: Coordinator {
+protocol CreateWalletCoordinatorDelegate: AnyObject {
+  func didAddNewWallet()
+}
+
+struct CurrencyRates {
+  let usd: Decimal
+  let euro: Decimal
+}
+
+struct CreateWalletCoordinatorConfiguration {
+  let rates: CurrencyRates
+}
+
+class CreateWalletCoordinator: ConfigurableCoordinator {
   // MARK: - Properties
+  typealias Configuration = CreateWalletCoordinatorConfiguration
   typealias Factory = HasCreateWalletFactory
+  
+  weak var delegate: CreateWalletCoordinatorDelegate?
   
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
@@ -16,11 +32,13 @@ class CreateWalletCoordinator: Coordinator {
   let appFactory: AppFactory
   
   private let factory: Factory
+  private let configuration: Configuration
 
-  required init(navigationController: NavigationController, appFactory: AppFactory) {
+  required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
     self.factory = appFactory
+    self.configuration = configuration
   }
   
   func start(_ animated: Bool) {
@@ -28,7 +46,7 @@ class CreateWalletCoordinator: Coordinator {
   }
   
   private func showCreateWalletScreen(animated: Bool) {
-    let createWalletVC = factory.createWalletFactory.makeModule()
+    let createWalletVC = factory.createWalletFactory.makeModule(with: configuration.rates)
     createWalletVC.viewModel.delegate = self
     navigationController.addPopObserver(for: createWalletVC, coordinator: self)
     createWalletVC.title = "Новый кошелек"
@@ -39,6 +57,7 @@ class CreateWalletCoordinator: Coordinator {
 // MARK: - CreateWalletViewModelDelegate
 extension CreateWalletCoordinator: CreateWalletViewModelDelegate {
   func viewModelDidRequestToWalletsScreen(_ viewModel: CreateWalletViewModel, wallet: WalletModel) {
+    delegate?.didAddNewWallet()
     navigationController.popToRootViewController(animated: true)
   }
 }

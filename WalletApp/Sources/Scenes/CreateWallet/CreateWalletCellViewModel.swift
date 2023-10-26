@@ -15,13 +15,13 @@ protocol CreateWalletCellViewModelProtocol {
   func getMaxCharsInTextField(_ tagTextField: Int, newString: String) -> Bool
   
   func textFieldDidChange(with tag: Int, text: String)
-  func segmentedControlDidChange(with selectedCurrency: CurrencyModelView.CreateWalletCurrencyType)
+  func segmentedControlDidChange(with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
 }
 
 protocol CreateWalletCellViewModelDelegate: AnyObject {
   func createWalletCellViewModelDidChangeTextField(_ viewModel: CreateWalletCellViewModel, with textFieldTag: Int, text: String)
   func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
-                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencyType)
+                                            with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
 }
 
 class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
@@ -60,7 +60,7 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
     delegate?.createWalletCellViewModelDidChangeTextField(self, with: tag, text: text)
   }
   
-  func segmentedControlDidChange(with selectedCurrency: CurrencyModelView.CreateWalletCurrencyType) {
+  func segmentedControlDidChange(with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl) {
     delegate?.createWalletCellViewModelDidChangeSegmentedControl(self, with: selectedCurrency)
   }
   

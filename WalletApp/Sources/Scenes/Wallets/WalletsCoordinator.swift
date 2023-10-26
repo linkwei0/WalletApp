@@ -15,6 +15,8 @@ final class WalletsCoordinator: Coordinator {
   let navigationController: NavigationController
   let appFactory: AppFactory
   
+  private var onNeedsToUpdateWallets: (() -> Void)?
+  
   private let factory: Factory
     
   // MARK: - Init
@@ -33,19 +35,34 @@ final class WalletsCoordinator: Coordinator {
   
   private func showWalletsScreen(animated: Bool) {    
     let walletsVC = factory.walletsFactory.makeModule()
+    
+    onNeedsToUpdateWallets = {
+      walletsVC.viewModel.updateWallets()
+    }
+    
     walletsVC.viewModel.delegate = self
     addPopObserver(for: walletsVC)
     navigationController.pushViewController(walletsVC, animated: animated)
   }
 }
 
+// MARK: - WalletsViewModelDelegate
 extension WalletsCoordinator: WalletsViewModelDelegate {
   func walletsViewModelDidRequestToShowWalletDetail(_ viewModel: WalletsViewModel, wallet: WalletModel) {
     let configuration = WalletDetailCoordinatorConfiguration(wallet: wallet)
     show(WalletDetailCoordinator.self, configuration: configuration, animated: true)
   }
   
-  func walletsViewModelDidRequestToShowAddNewWallet(_ viewModel: WalletsViewModel) {
-    show(CreateWalletCoordinator.self, animated: true)
+  func walletsViewModelDidRequestToShowAddNewWallet(_ viewModel: WalletsViewModel, currencyRates: CurrencyRates) {
+    let configuration = CreateWalletCoordinatorConfiguration(rates: currencyRates)
+    let coordinator = show(CreateWalletCoordinator.self, configuration: configuration, animated: true)
+    coordinator.delegate = self
+  }
+}
+
+// MARK: - CreateWalletCoordinatorDelegate
+extension WalletsCoordinator: CreateWalletCoordinatorDelegate {
+  func didAddNewWallet() {
+    onNeedsToUpdateWallets?()
   }
 }
