@@ -102,7 +102,8 @@ class CreateWalletCell: UITableViewCell {
   }
   
   @objc private func didSelectCurrency(_ segmentedControl: UISegmentedControl) {
-    guard let selected = CurrencyModelView.CreateWalletCurrencySegmentedControl(rawValue: segmentedControl.selectedSegmentIndex) else { return }
+    guard let selected = CurrencyModelView
+      .CreateWalletCurrencySegmentedControl(rawValue: segmentedControl.selectedSegmentIndex) else { return }
     viewModel?.segmentedControlDidChange(with: selected)
   }
 }

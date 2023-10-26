@@ -21,7 +21,7 @@ protocol CreateWalletCellViewModelProtocol {
 protocol CreateWalletCellViewModelDelegate: AnyObject {
   func createWalletCellViewModelDidChangeTextField(_ viewModel: CreateWalletCellViewModel, with textFieldTag: Int, text: String)
   func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
-                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
+                                            with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
 }
 
 class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {

@@ -40,6 +40,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   
   func updateWallets() {
     fetchWallets()
+    fetchCurrenciesRates()
   }
   
   func addNewPersonWallet() {
@@ -77,11 +78,11 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   }
   
   private func updateCurrencyRates(_ currencies: [CurrencyModel]) {
+    var euroRate: Decimal = 1
+    var usdRate: Decimal = 1
+
     currencies.forEach { currency in
       guard let currencyType = CurrencyModelView.WalletsCurrencyType(rawValue: currency.code) else { return }
-
-      var euroRate: Decimal = 0
-      var usdRate: Decimal = 0
       
       switch currencyType {
       case .euro:
@@ -91,9 +92,8 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       case .rub:
         break
       }
-      
-      currencyRates = CurrencyRates(usd: usdRate, euro: euroRate)
     }
+    currencyRates = CurrencyRates(usd: usdRate, euro: euroRate)
   }
   
   private func configureBalanceModel(with wallets: [WalletModel]) {
