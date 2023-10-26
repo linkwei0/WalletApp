@@ -9,7 +9,7 @@ class CreateWalletCell: UITableViewCell {
   // MARK: - Properties
   private let containerView = UIView()
   private let titleLabel = Label(textStyle: .body)
-  private let currencySegmentedControl = UISegmentedControl(items: CurrencyModelView.CreateWalletCurrencyType.allCases.map(\.iconImage))
+  private let currencySegmentedControl = UISegmentedControl(items: CurrencyModelView.CreateWalletCurrencySegmentedControl.allCases.map(\.iconImage))
   private let contentTextField = UITextField()
   
   private var viewModel: CreateWalletCellViewModelProtocol?
@@ -102,7 +102,7 @@ class CreateWalletCell: UITableViewCell {
   }
   
   @objc private func didSelectCurrency(_ segmentedControl: UISegmentedControl) {
-    guard let selected = CurrencyModelView.CreateWalletCurrencyType(rawValue: segmentedControl.selectedSegmentIndex) else { return }
+    guard let selected = CurrencyModelView.CreateWalletCurrencySegmentedControl(rawValue: segmentedControl.selectedSegmentIndex) else { return }
     viewModel?.segmentedControlDidChange(with: selected)
   }
 }

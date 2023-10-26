@@ -9,7 +9,9 @@ struct BalanceModel {
   var totalBalance: Double
   var totalIncome: Double
   var totalExpense: Double
-  
+}
+
+extension BalanceModel {
   init(totalBalance: Decimal, totalIncome: Decimal, totalExpense: Decimal) {
     self.totalBalance = NSDecimalNumber(decimal: totalBalance).doubleValue
     self.totalIncome = NSDecimalNumber(decimal: totalIncome).doubleValue

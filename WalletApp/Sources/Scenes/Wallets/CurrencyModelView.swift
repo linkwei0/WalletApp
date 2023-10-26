@@ -6,21 +6,37 @@
 import UIKit
 
 struct CurrencyModelView {
-  enum WalletsCurrencyType: String {
-    case usd = "USD"
-    case euro = "EUR"
-    
+  enum WalletsCurrencyType: String, CaseIterable {
+    case usd
+    case euro
+    case rub
+        
     var iconImage: UIImage? {
       switch self {
       case .usd:
         return UIImage(systemName: "dollarsign")
       case .euro:
         return UIImage(systemName: "eurosign")
+      case .rub:
+        return UIImage(systemName: "rublesign")
+      }
+    }
+    
+    init?(rawValue: String) {
+      switch rawValue {
+      case "EUR", "EURO":
+        self = .euro
+      case "USD":
+        self = .usd
+      case "RUB":
+        self = .rub
+      default:
+        self = .rub
       }
     }
   }
   
-  enum CreateWalletCurrencyType: Int, CaseIterable {
+  enum CreateWalletCurrencySegmentedControl: Int, CaseIterable {
     case rub
     case usd
     case euro

@@ -63,6 +63,6 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   
   private func configureBalanceModel() {
     let balance = BalanceModel(totalBalance: wallet.balance, totalIncome: wallet.totalEarned, totalExpense: wallet.totalSpent)
-    balanceViewModel.setBalanceModel(balance)
+    balanceViewModel.updateBalance(with: balance)
   }
 }

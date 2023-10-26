@@ -21,10 +21,11 @@ final class WalletRemoteDataSource: WalletRemoteDataSourceProtocol {
       switch result {
       case .success(let valuteResult):
         guard let valuteResult = valuteResult else { return }
-        let currencies = valuteResult.result.map { CurrencyModel(value: Decimal($0.value.value),
-                                                                 isIncrease: $0.value.value > $0.value.previous,
-                                                                 code: $0.value.charCode,
-                                                                 description: $0.value.name) }
+        let valutes = valuteResult.result.filter { $0.value.charCode == "USD" || $0.value.charCode == "EUR" }
+        let currencies = valutes.map { CurrencyModel(value: Decimal($0.value.value),
+                                                     isIncrease: $0.value.value > $0.value.previous,
+                                                     code: $0.value.charCode,
+                                                     description: $0.value.name) }
         completion(.success(currencies))
       case .failure(let error):
         completion(.failure(error))

@@ -5,6 +5,7 @@
         <attribute name="definition" optional="YES" attributeType="String"/>
         <attribute name="isIncrease" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="value" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWallet" inverseName="currency" inverseEntity="CDWallet"/>
     </entity>
     <entity name="CDOperation" representedClassName=".CDOperation" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
@@ -23,11 +24,11 @@
     </entity>
     <entity name="CDWallet" representedClassName="CDWallet" syncable="YES" codeGenerationType="class">
         <attribute name="balance" optional="YES" attributeType="Decimal" defaultValueString="0"/>
-        <attribute name="currency" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="totalEarned" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="totalSpent" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
+        <relationship name="currency" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDCurrency" inverseName="wallets" inverseEntity="CDCurrency"/>
         <relationship name="operations" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDOperation" inverseName="wallet" inverseEntity="CDOperation"/>
         <relationship name="person" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDPerson" inverseName="wallets" inverseEntity="CDPerson"/>
     </entity>

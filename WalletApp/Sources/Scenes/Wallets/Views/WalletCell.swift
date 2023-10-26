@@ -2,15 +2,13 @@
 //  WalletCell.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 16.10.2023.
-//
 
 import UIKit
 
 class WalletCell: UITableViewCell {
   // MARK: - Properties
   private let nameLabel = Label(textStyle: .body)
-  private let currencyLabel = Label(textStyle: .bodyBold)
+  private let currencyImageView = UIImageView()
   
   private var viewModel: WalletCellViewModelProtocol?
   
@@ -30,7 +28,7 @@ class WalletCell: UITableViewCell {
     self.viewModel = viewModel
     
     nameLabel.text = viewModel.name
-    currencyLabel.text = viewModel.currency
+    currencyImageView.image = CurrencyModelView.WalletsCurrencyType(rawValue: viewModel.currencyCode)?.iconImage
   }
   
   // MARK: - Setup
@@ -44,7 +42,6 @@ class WalletCell: UITableViewCell {
     contentView.addSubview(nameLabel)
     nameLabel.textColor = .baseBlack
     nameLabel.textAlignment = .left
-    
     nameLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(16)
       make.centerY.equalToSuperview()
@@ -52,11 +49,9 @@ class WalletCell: UITableViewCell {
   }
   
   private func setupCurrencyLabel() {
-    contentView.addSubview(currencyLabel)
-    currencyLabel.textColor = .systemGray5
-    currencyLabel.textAlignment = .left
-    
-    currencyLabel.snp.makeConstraints { make in
+    contentView.addSubview(currencyImageView)
+    currencyImageView.tintColor = .systemGray5
+    currencyImageView.snp.makeConstraints { make in
       make.trailing.equalToSuperview().inset(24)
       make.centerY.equalToSuperview()
     }
