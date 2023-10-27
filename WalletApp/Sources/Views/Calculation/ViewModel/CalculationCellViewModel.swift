@@ -2,8 +2,6 @@
 //  CalculationCollectionCellViewModel.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 13.05.2023.
-//
 
 import UIKit
 

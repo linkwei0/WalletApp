@@ -2,8 +2,6 @@
 //  Persistent+Transient.swift
 //  WalletApp
 //
-//  Created by Артём Бацанов on 10.10.2023.
-//
 
 import CoreData
 

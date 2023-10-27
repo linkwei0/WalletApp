@@ -10,7 +10,7 @@ class CategoryPickerViewModel {
   private let categories: [[CategoryType]] =
   [
     [.food, .house, .car],
-    [.phone]
+    [.phone, .transport]
   ]
   
   // MARK: - Public methods

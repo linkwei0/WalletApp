@@ -35,9 +35,9 @@ class CategoryCell: UICollectionViewCell {
   private func setupContainerView() {
     contentView.addSubview(containerView)
     containerView.layer.cornerRadius = 16
-    containerView.layer.borderWidth = 2.0
-    containerView.backgroundColor = .accentDark
-    containerView.layer.borderColor = UIColor.baseWhite.cgColor
+    containerView.layer.borderWidth = 1.0
+    containerView.backgroundColor = .accent
+    containerView.layer.borderColor = UIColor.baseBlack.cgColor
     containerView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }

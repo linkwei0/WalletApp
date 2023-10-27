@@ -75,7 +75,7 @@ class CategoryPickerViewController: BaseViewController {
   
   private func setupContainerView() {
     view.addSubview(containerView)
-    containerView.backgroundColor = .accent
+    containerView.backgroundColor = .baseWhite
     containerView.layer.cornerRadius = 16
     containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     makeClosedStateConstraints()
@@ -93,7 +93,7 @@ class CategoryPickerViewController: BaseViewController {
   private func setupCancelButton() {
     containerView.addSubview(cancelButton)
     cancelButton.setTitle("Закрыть", for: .normal)
-    cancelButton.setTitleColor(.baseWhite, for: .normal)
+    cancelButton.setTitleColor(.accentDark, for: .normal)
     cancelButton.addTarget(self, action: #selector(closeCategoryPicker), for: .touchUpInside)
     cancelButton.snp.makeConstraints { make in
       make.trailing.equalToSuperview().inset(16)
@@ -103,7 +103,7 @@ class CategoryPickerViewController: BaseViewController {
   
   private func setupBottomSpaceView() {
     view.addSubview(bottomSpaceView)
-    bottomSpaceView.backgroundColor = .accent
+    bottomSpaceView.backgroundColor = .baseWhite
     bottomSpaceView.snp.makeConstraints { make in
       make.top.equalTo(collectionView.snp.bottom)
       make.leading.trailing.equalToSuperview()
@@ -115,7 +115,7 @@ class CategoryPickerViewController: BaseViewController {
     containerView.addSubview(collectionView)
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.backgroundColor = .accent
+    collectionView.backgroundColor = .baseWhite
     collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.reuseIdentifiable)
     collectionView.snp.makeConstraints { make in
       make.top.equalTo(titleLabel.snp.bottom).offset(12)
@@ -149,7 +149,7 @@ class CategoryPickerViewController: BaseViewController {
     containerView.snp.remakeConstraints { make in
       make.leading.trailing.equalToSuperview()
       make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-      make.height.equalToSuperview().multipliedBy(0.6)
+      make.height.equalToSuperview().multipliedBy(0.5)
     }
   }
   
@@ -157,7 +157,7 @@ class CategoryPickerViewController: BaseViewController {
     containerView.snp.remakeConstraints { make in
       make.leading.trailing.equalToSuperview()
       make.top.equalTo(view.snp.bottom)
-      make.height.equalToSuperview().multipliedBy(0.6)
+      make.height.equalToSuperview().multipliedBy(0.5)
     }
   }
   
@@ -193,7 +193,7 @@ extension CategoryPickerViewController: UICollectionViewDelegate {
 extension CategoryPickerViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let size = (self.view.frame.width - 125) / 3
+    let size = (self.view.frame.width - 160) / 3
     return CGSize(width: size, height: size)
   }
   

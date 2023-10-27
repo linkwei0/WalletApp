@@ -63,6 +63,14 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     return cellViewModel
   }
   
+  func numberOfSections() -> Int {
+    return calculationButtons.count
+  }
+  
+  func numberOfRowsInSection(at section: Int) -> Int {
+    return calculationButtons[section].count
+  }
+  
   func didTapCreateOperationButton() {
     categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self)
 //    let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: "Оплата КУ", amount: 3500, category: "Дом")
