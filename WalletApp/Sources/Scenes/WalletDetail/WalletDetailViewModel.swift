@@ -15,6 +15,10 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   // MARK: - Properties
   weak var delegate: WalletDetailViewModelDelegate?
   
+  var cellViewModels: [OperationCellViewModelProtocol] {
+    return operations.compactMap { OperationCellViewModel($0) }
+  }
+  
   var bottomBarConfiguration: BankBottomBarConfiguration {
     return .walletDetail
   }
@@ -22,7 +26,11 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   let balanceViewModel = BalanceViewModel()
   
   private(set) var viewState: Bindable<SimpleViewState<OperationModel>> = Bindable(.initial)
-    
+  
+  private var operations: [OperationModel] {
+    return viewState.value.currentEntities
+  }
+  
   private let wallet: WalletModel
   private let interactor: WalletDetailInteractor
   
@@ -34,6 +42,10 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   
   // MARK: - Public methods
   func viewIsReady() {
+    fetchOperations()
+  }
+  
+  func updateWallet() {
     fetchOperations()
   }
   
@@ -54,14 +66,14 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
       switch result {
       case .success(let operations):
         self.viewState.value = self.processResult(operations)
-        self.configureBalanceModel()
+        self.configureBalanceModel(with: operations)
       case .failure(let error):
         print("Failed to get operations \(error)")
       }
     }
   }
   
-  private func configureBalanceModel() {
+  private func configureBalanceModel(with operations: [OperationModel]) {
     let balance = BalanceModel(totalBalance: wallet.balance, totalIncome: wallet.totalEarned, totalExpense: wallet.totalSpent)
     balanceViewModel.updateBalance(with: balance)
   }

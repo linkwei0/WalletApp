@@ -6,7 +6,7 @@
 import UIKit
 
 enum CategoryType {
-  case food, house, phone, car
+  case food, house, phone, car, transport
   
   var image: UIImage? {
     switch self {
@@ -18,6 +18,8 @@ enum CategoryType {
       return UIImage(systemName: "phone")
     case .car:
       return UIImage(systemName: "car")
+    case .transport:
+      return UIImage(systemName: "bus.fill")
     }
   }
 }

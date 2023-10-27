@@ -100,12 +100,6 @@ class CalculationView: UIView {
   
   // MARK: - Actions
   @objc private func didTapCreateOperationButton() {
-//    let categoryPickerController = CategoryPickerViewController()
-//    categoryPickerController.modalPresentationStyle = .overCurrentContext
-//    categoryPickerController.onDidSelectCategory = { [weak self] category in
-//      self?.viewModel.didSelectCategory(category)
-//    }
-//    present(categoryPickerController, animated: false)
     viewModel.didTapCreateOperationButton()
   }
 }
@@ -113,11 +107,11 @@ class CalculationView: UIView {
 // MARK: - UICollectionViewDataSource
 extension CalculationView: UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 5
+    return viewModel.numberOfSections()
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 4
+    return viewModel.numberOfRowsInSection(at: section)
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
