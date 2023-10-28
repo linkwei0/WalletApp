@@ -18,6 +18,10 @@ final class WalletRepository: WalletUseCaseProtocol {
     localDataSource.getWallets(completion: completion)
   }
   
+  func getWallet(by walletID: Int, completion: @escaping (Result<WalletModel, Error>) -> Void) {
+    localDataSource.getWallet(by: walletID, completion: completion)
+  }
+  
   func saveWallet(_ wallet: WalletModel, completion: @escaping (Result<Void, Error>) -> Void) {
     localDataSource.saveWallet(wallet, completion: completion)
   }

@@ -28,6 +28,13 @@ class IncomeViewController: BaseViewController {
     setup()
   }
   
+  override func willMove(toParent parent: UIViewController?) {
+    super.willMove(toParent: parent)
+    if parent == nil {
+      viewModel.backToWalletDetail()
+    }
+  }
+  
   // MARK: - Setup
   private func setup() {
     setupCalculationView()

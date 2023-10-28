@@ -8,13 +8,14 @@ import Foundation
 protocol IncomeViewModelDelegate: AnyObject {
   func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel, interactor: CalculationInteractorProtocol,
                                                    wallet: WalletModel, totalValue: String)
+  func incomeViewModelDidRequestToBackWalletDetail(_ viewModel: IncomeViewModel)
 }
 
 final class IncomeViewModel {
   // MARK: - Properties
   weak var delegate: IncomeViewModelDelegate?
   
-  var onDidCreatedOperation: (() -> Void)?
+  var onDidCreatedOperation: ((_ wallet: WalletModel) -> Void)?
   
   private(set) var calculationViewModel: CalculationViewModel
   
@@ -27,6 +28,11 @@ final class IncomeViewModel {
     self.wallet = wallet
     self.calculationViewModel = CalculationViewModel(interactor: interactor, wallet: wallet, collectionType: .income)
     calculationViewModel.categoryDelegate = self
+  }
+  
+  // MARK: - Public methods
+  func backToWalletDetail() {
+    delegate?.incomeViewModelDidRequestToBackWalletDetail(self)
   }
 }
 

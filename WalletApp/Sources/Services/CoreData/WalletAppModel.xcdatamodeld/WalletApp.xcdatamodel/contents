@@ -24,7 +24,7 @@
         <relationship name="wallets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWallet" inverseName="person" inverseEntity="CDWallet"/>
     </entity>
     <entity name="CDWallet" representedClassName="CDWallet" syncable="YES" codeGenerationType="class">
-        <attribute name="balance" optional="YES" attributeType="Decimal" defaultValueString="0"/>
+        <attribute name="balance" attributeType="Decimal" defaultValueString="0"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="totalEarned" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>

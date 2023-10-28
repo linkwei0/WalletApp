@@ -9,6 +9,7 @@ import CoreData
 
 protocol WalletLocalDataSourceProtocol {
   func getWallets(completion: @escaping (Result<[WalletModel], Error>) -> Void)
+  func getWallet(by walletID: Int, completion: @escaping (Result<WalletModel, Error>) -> Void)
   func saveWallet(_ wallet: WalletModel, completion: @escaping (Result<Void, Error>) -> Void)
   func deleteWallet(with id: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
@@ -23,6 +24,13 @@ class WalletLocalDataSource: WalletLocalDataSourceProtocol {
   func getWallets(completion: @escaping (Result<[WalletModel], Error>) -> Void) {
     let wallets = coreDataStack.getAllObjectsOfType(WalletModel.PersistentModel.self)
     completion(.success(wallets.compactMap { $0.makeDomain() }))
+  }
+  
+  func getWallet(by walletID: Int, completion: @escaping (Result<WalletModel, Error>) -> Void) {
+    let wallet = coreDataStack.getObjectByValue(columnName: "id", value: String(walletID),
+                                                type: WalletModel.PersistentModel.self).first
+    guard let wallet = wallet?.makeDomain() else { return }
+    completion(.success(wallet))
   }
   
   func saveWallet(_ wallet: WalletModel, completion: @escaping (Result<Void, Error>) -> Void) {

@@ -40,7 +40,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   
   func updateWallets() {
     fetchWallets()
-    fetchCurrenciesRates()
+    configureBalanceModel(with: viewState.value.currentEntities)
   }
   
   func addNewPersonWallet() {

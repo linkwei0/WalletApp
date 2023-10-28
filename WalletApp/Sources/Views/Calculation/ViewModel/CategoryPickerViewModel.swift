@@ -7,7 +7,7 @@ import Foundation
 
 class CategoryPickerViewModel {
   // MARK: - Properties
-  var onDidCreatedOperation: (() -> Void)?
+  var onDidCreatedOperation: ((_ wallet: WalletModel) -> Void)?
   
   private(set) var totalValue: Bindable<String> = Bindable("")
   private(set) var isCreateOperation: Bindable<Bool> = Bindable(false)
@@ -19,7 +19,7 @@ class CategoryPickerViewModel {
   ]
   
   private let interactor: CalculationInteractorProtocol
-  private let wallet: WalletModel
+  private var wallet: WalletModel
   
   // MARK: - Init
   init(interactor: CalculationInteractorProtocol, wallet: WalletModel, totalValue: String) {
@@ -45,15 +45,25 @@ class CategoryPickerViewModel {
   
   func didSelectedCategory(at indexPath: IndexPath) {
     guard let amount = Decimal(string: totalValue.value) else { return }
+    
     let category = categories[indexPath.section][indexPath.row]
     let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: category.title,
                                    amount: amount, category: category.title, date: Date(), type: .income)
-    interactor.saveOperation(for: wallet.id, operation: operation) { result in
+    
+    let walletPreviousBalance = wallet.balance
+    if operation.type.isIncome {
+      wallet.balance += operation.amount
+    } else {
+      wallet.balance -= operation.amount
+    }
+    
+    interactor.saveOperation(for: wallet, operation: operation) { result in
       switch result {
-      case .success:
-        self.onDidCreatedOperation?()
+      case .success():
+        self.onDidCreatedOperation?(self.wallet)
         self.isCreateOperation.value = true
       case .failure(let error):
+        self.wallet.balance = walletPreviousBalance
         print("Failed to save operation for \(self.wallet.id) with \(error)")
       }
     }

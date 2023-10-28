@@ -9,11 +9,16 @@ struct IncomeCoordinatorConfiguration {
   let wallet: WalletModel
 }
 
+protocol IncomeCoordinatorDelegate: AnyObject {
+  func incomeCoordinatorDidUpdateWallet(_ coordinator: IncomeCoordinator)
+}
+
 final class IncomeCoordinator: ConfigurableCoordinator {
   typealias Configuration = IncomeCoordinatorConfiguration
   typealias Factory = HasIncomeFactory
   
   // MARK: - Properties
+  weak var delegate: IncomeCoordinatorDelegate?
   
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
@@ -38,10 +43,14 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   private func showIncomeScreen(animated: Bool) {
     let incomeVC = factory.incomeFactory.makeModule(with: configuration.wallet)
     incomeVC.viewModel.delegate = self
-    incomeVC.viewModel.onDidCreatedOperation = { [weak viewModel = incomeVC.viewModel] in
+    
+    let currency = CurrencyModelView.WalletsCurrencyType(rawValue: self.configuration.wallet.currency.code) ?? .rub
+    incomeVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue + currency.title
+    incomeVC.viewModel.onDidCreatedOperation = { [weak viewModel = incomeVC.viewModel] wallet in
+      incomeVC.navigationItem.title = NSDecimalNumber(decimal: wallet.balance).stringValue + currency.title
       viewModel?.calculationViewModel.updateOperations()
     }
-    incomeVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue
+    
     addPopObserver(for: incomeVC)
     navigationController.pushViewController(incomeVC, animated: animated)
   }
@@ -54,9 +63,13 @@ extension IncomeCoordinator: IncomeViewModelDelegate {
     let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet, totalValue: totalValue)
     let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
     categoryPickerController.modalPresentationStyle = .overCurrentContext
-    categoryViewModel.onDidCreatedOperation = { [weak viewModel] in
-      viewModel?.onDidCreatedOperation?()
+    categoryViewModel.onDidCreatedOperation = { [weak viewModel] wallet in
+      viewModel?.onDidCreatedOperation?(wallet)
     }
     navigationController.present(categoryPickerController, animated: false)
+  }
+  
+  func incomeViewModelDidRequestToBackWalletDetail(_ viewModel: IncomeViewModel) {
+    delegate?.incomeCoordinatorDidUpdateWallet(self)
   }
 }

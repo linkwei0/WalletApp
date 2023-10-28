@@ -74,8 +74,7 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   
   func didTapCreateOperationButton() {
     guard !expressionViewModel.currentValue.value.isEmpty else { return }
-    categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet,
-                                                                       totalValue: expressionViewModel.currentValue.value)
+    categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet, totalValue: expressionViewModel.currentValue.value)
   }
   
   func updateOperations() {

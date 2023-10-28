@@ -31,7 +31,7 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
     return viewState.value.currentEntities
   }
   
-  private let wallet: WalletModel
+  private var wallet: WalletModel
   private let interactor: WalletDetailInteractor
   
   // MARK: - Init
@@ -46,6 +46,7 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   }
   
   func updateWallet() {
+    setWallet()
     fetchOperations()
   }
   
@@ -61,6 +62,17 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   }
   
   // MARK: - Private methods
+  private func setWallet() {
+    interactor.getWallet(by: wallet.id) { result in
+      switch result {
+      case .success(let wallet):
+        self.wallet = wallet
+      case .failure(let error):
+        print("Failed to get wallet by id with \(error)")
+      }
+    }
+  }
+  
   private func fetchOperations() {
     interactor.getOperations(for: wallet) { result in
       switch result {

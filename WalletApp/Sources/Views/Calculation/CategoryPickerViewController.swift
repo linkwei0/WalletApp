@@ -171,7 +171,7 @@ class CategoryPickerViewController: BaseViewController {
     viewModel.totalValue.bindAndFire { [weak self] amountValue in
       self?.amountLabel.text = amountValue
     }
-    viewModel.isCreateOperation.bind { [weak self] isCreate in
+    viewModel.isCreateOperation.bind { [weak self] _ in
       self?.closeCategoryPicker()
     }
   }
