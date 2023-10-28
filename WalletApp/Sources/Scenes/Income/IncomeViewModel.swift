@@ -6,12 +6,15 @@
 import Foundation
 
 protocol IncomeViewModelDelegate: AnyObject {
-  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel)
+  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel, interactor: CalculationInteractorProtocol,
+                                                   wallet: WalletModel, totalValue: String)
 }
 
 final class IncomeViewModel {
   // MARK: - Properties
   weak var delegate: IncomeViewModelDelegate?
+  
+  var onDidCreatedOperation: (() -> Void)?
   
   private(set) var calculationViewModel: CalculationViewModel
   
@@ -25,15 +28,13 @@ final class IncomeViewModel {
     self.calculationViewModel = CalculationViewModel(interactor: interactor, wallet: wallet, collectionType: .income)
     calculationViewModel.categoryDelegate = self
   }
-  
-  func didSelectCategory(_ category: String) {
-    print("Selected -", category)
-  }
 }
 
 // MARK: - CalculationViewModelCategoryDelegate
 extension IncomeViewModel: CalculationViewModelCategoryDelegate {
-  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel) {
-    delegate?.incomeViewModelDidRequestToShowCategoryView(self)
+  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel,
+                                                        wallet: WalletModel, totalValue: String) {
+    delegate?.incomeViewModelDidRequestToShowCategoryView(self, interactor: interactor,
+                                                          wallet: wallet, totalValue: totalValue)
   }
 }

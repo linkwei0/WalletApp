@@ -38,7 +38,8 @@ extension SimpleTableViewDataSoruce where ViewModel == OperationCellViewModelPro
                    reuseIdentifier: String = OperationCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
     return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
                                      cellViewModels: cellViewModels) { viewModel, cell in
-      (cell as? OperationCell)?.viewModel = viewModel
+      guard let cell = (cell as? OperationCell) else { return }
+      cell.configure(with: viewModel)
     }
   }
 }

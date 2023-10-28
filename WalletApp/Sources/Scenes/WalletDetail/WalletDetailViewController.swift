@@ -53,7 +53,7 @@ class WalletDetailViewController: BaseViewController {
   private func setupOperationsTableView() {
     view.addSubview(operationsTableView)
     operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 60
+    operationsTableView.rowHeight = 40
     operationsTableView.backgroundColor = .baseWhite
     operationsTableView.register(OperationCell.self, forCellReuseIdentifier: OperationCell.reuseIdentifiable)
     operationsTableView.snp.makeConstraints { make in

@@ -52,8 +52,8 @@ class ExpressionView: UIView {
   private func setupOperationsTableView() {
     addSubview(operationsTableView)
     operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 50
-    operationsTableView.backgroundColor = .accentLight
+    operationsTableView.rowHeight = 40
+    operationsTableView.backgroundColor = .baseWhite
     operationsTableView.register(OperationCell.self, forCellReuseIdentifier: OperationCell.reuseIdentifiable)
     operationsTableView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
@@ -67,7 +67,7 @@ class ExpressionView: UIView {
     containerView.layer.cornerRadius = 16
     containerView.snp.makeConstraints { make in
       make.top.equalTo(operationsTableView.snp.bottom).offset(-16)
-      make.leading.trailing.equalToSuperview()
+      make.leading.trailing.equalToSuperview().inset(16)
       make.bottom.equalToSuperview().inset(8)
     }
   }

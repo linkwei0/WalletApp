@@ -19,7 +19,7 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
     return operations.compactMap { OperationCellViewModel($0) }
   }
   
-  var bottomBarConfiguration: BankBottomBarConfiguration {
+  var bottomBarConfiguration: WalletBottomBarConfiguration {
     return .walletDetail
   }
   
@@ -49,7 +49,7 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
     fetchOperations()
   }
   
-  func didSelectBottomBarItem(_ itemType: BankBottomBarItemType) {
+  func didSelectBottomBarItem(_ itemType: WalletBottomBarItemType) {
     switch itemType {
     case .income:
       delegate?.walletDetailViewModelDidRequestToShowIncome(self, wallet: wallet)
@@ -74,7 +74,9 @@ class WalletDetailViewModel: SimpleViewStateProcessable {
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {
-    let balance = BalanceModel(totalBalance: wallet.balance, totalIncome: wallet.totalEarned, totalExpense: wallet.totalSpent)
-    balanceViewModel.updateBalance(with: balance)
+    balanceViewModel.updateBalance(titleBalance: "Баланс кошелька", titleIncome: "Доходы кошелька",
+                                   titleExpense: "Расходы кошелька", totalBalance: wallet.balance,
+                                   totalIncome: wallet.totalEarned, totalExpense: wallet.totalSpent,
+                                   currencyCode: wallet.currency.code)
   }
 }

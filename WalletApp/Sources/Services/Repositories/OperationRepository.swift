@@ -19,7 +19,7 @@ final class OperationRepository: OperationUseCaseProtocol {
     }
   }
   
-  func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
-    localDataSource.saveOperation(operation: operation, completion: completion)
+  func saveOperation(_ walletID: Int, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    localDataSource.saveOperation(walletID, operation: operation, completion: completion)
   }
 }

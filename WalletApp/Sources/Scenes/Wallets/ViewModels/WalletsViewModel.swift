@@ -122,8 +122,11 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       totalIncome += walletTotalEarned
       totalExpense += walletTotalSpent
     }
-    
-    let balance = BalanceModel(totalBalance: totalBalance, totalIncome: totalIncome, totalExpense: totalExpense)
-    balanceViewModel.updateBalance(with: balance)
+
+    balanceViewModel.updateBalance(titleBalance: R.string.wallet.balanceViewTotalTitle(),
+                                   titleIncome: R.string.wallet.balanceViewIncomeTitle(),
+                                   titleExpense: R.string.wallet.balanceViewExpenseTitle(),
+                                   totalBalance: totalBalance, totalIncome: totalIncome,
+                                   totalExpense: totalExpense, currencyCode: CurrencyModelView.WalletsCurrencyType.rub.title)
   }
 }

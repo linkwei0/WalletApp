@@ -15,7 +15,8 @@ protocol CalculationViewModelDelegate: AnyObject {
 }
 
 protocol CalculationViewModelCategoryDelegate: AnyObject {
-  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel)
+  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel,
+                                                        wallet: WalletModel, totalValue: String)
 }
 
 final class CalculationViewModel: SimpleViewStateProcessable {
@@ -72,18 +73,18 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   }
   
   func didTapCreateOperationButton() {
-    categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self)
-//    let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: "Оплата КУ", amount: 3500, category: "Дом")
-//    interactor.saveOperation(operation: operation) { result in
-//      switch result {
-//      case .success:
-//        self.expressionViewModel.updateOperations()
-//      case .failure(let error):
-//        print(error)
-//      }
-//    }
+    guard !expressionViewModel.currentValue.value.isEmpty else { return }
+    categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet,
+                                                                       totalValue: expressionViewModel.currentValue.value)
   }
   
+  func updateOperations() {
+    expressionViewModel.currentValue.value = ""
+    expressionViewModel.supprotingValue.value = ""
+    expressionViewModel.previousSign.value = ""
+    expressionViewModel.updateOperations()
+  }
+
   func updateCurrentValue(with itemType: CalculationItemType) {
     let itemStringValue = itemType.stringValue
     let currentValue = expressionViewModel.currentValue.value

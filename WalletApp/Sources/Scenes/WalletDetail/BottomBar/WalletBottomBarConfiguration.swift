@@ -5,10 +5,10 @@
 
 import Foundation
 
-enum BankBottomBarConfiguration: String, Codable {
+enum WalletBottomBarConfiguration: String, Codable {
   case walletDetail
   
-  var bottomBarItems: [BankBottomBarItemType] {
+  var bottomBarItems: [WalletBottomBarItemType] {
     switch self {
     case .walletDetail:
       return [.expense, .income, .profile]

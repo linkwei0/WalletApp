@@ -33,6 +33,7 @@ class CategoryPickerViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
+    setupBindables()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -66,7 +67,6 @@ class CategoryPickerViewController: BaseViewController {
     amountLabel.textColor = .baseWhite
     amountLabel.textAlignment = .center
     amountLabel.numberOfLines = 0
-    amountLabel.text = "1250"
     amountLabel.snp.makeConstraints { make in
       make.top.equalToSuperview().inset(86)
       make.leading.trailing.equalToSuperview()
@@ -165,6 +165,16 @@ class CategoryPickerViewController: BaseViewController {
   @objc private func closeCategoryPicker() {
     animateDisappearance()
   }
+  
+  // MARK: - Bindables
+  private func setupBindables() {
+    viewModel.totalValue.bindAndFire { [weak self] amountValue in
+      self?.amountLabel.text = amountValue
+    }
+    viewModel.isCreateOperation.bind { [weak self] isCreate in
+      self?.closeCategoryPicker()
+    }
+  }
 }
 
 extension CategoryPickerViewController: UICollectionViewDataSource {
@@ -186,7 +196,7 @@ extension CategoryPickerViewController: UICollectionViewDataSource {
 
 extension CategoryPickerViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    print("tapped on \(indexPath)")
+    viewModel.didSelectedCategory(at: indexPath)
   }
 }
 

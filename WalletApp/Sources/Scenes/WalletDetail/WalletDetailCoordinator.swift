@@ -19,7 +19,7 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
   
   let navigationController: NavigationController
   let appFactory: AppFactory
-  
+    
   private let factory: Factory
   private let configuration: Configuration
   
@@ -39,8 +39,8 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
   private func showWalletDetailScreen(animated: Bool) {
     let walletDetailVC = factory.walletDetailFactory.makeModule(with: configuration.wallet)
     walletDetailVC.viewModel.delegate = self
-    navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
     walletDetailVC.title = configuration.wallet.name
+    navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
     navigationController.pushViewController(walletDetailVC, animated: animated)
   }
 }

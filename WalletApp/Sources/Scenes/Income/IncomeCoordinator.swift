@@ -38,6 +38,9 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   private func showIncomeScreen(animated: Bool) {
     let incomeVC = factory.incomeFactory.makeModule(with: configuration.wallet)
     incomeVC.viewModel.delegate = self
+    incomeVC.viewModel.onDidCreatedOperation = { [weak viewModel = incomeVC.viewModel] in
+      viewModel?.calculationViewModel.updateOperations()
+    }
     incomeVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue
     addPopObserver(for: incomeVC)
     navigationController.pushViewController(incomeVC, animated: animated)
@@ -46,12 +49,13 @@ final class IncomeCoordinator: ConfigurableCoordinator {
 
 // MARK: - IncomeViewModelDelegate
 extension IncomeCoordinator: IncomeViewModelDelegate {
-  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel) {
-    let categoryViewModel = CategoryPickerViewModel()
+  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel, interactor: CalculationInteractorProtocol,
+                                                   wallet: WalletModel, totalValue: String) {
+    let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet, totalValue: totalValue)
     let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
     categoryPickerController.modalPresentationStyle = .overCurrentContext
-    categoryPickerController.onDidSelectCategory = { [weak viewModel] category in
-      viewModel?.didSelectCategory(category)
+    categoryViewModel.onDidCreatedOperation = { [weak viewModel] in
+      viewModel?.onDidCreatedOperation?()
     }
     navigationController.present(categoryPickerController, animated: false)
   }

@@ -7,7 +7,7 @@ import CoreData
 
 protocol OperationLocalDataSourceProtocol {
   func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void)
-  func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
+  func saveOperation(_ walletID: Int, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
   func deleteOperation(with id: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -24,7 +24,7 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
     completion(.success(operations.compactMap { $0.makeDomain() }))
   }
   
-  func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
+  func saveOperation(_ walletID: Int, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
     _ = operation.makePersistent(context: coreDataStack.writeContext)
     do {
       try coreDataStack.saveWriteContext()

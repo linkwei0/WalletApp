@@ -16,7 +16,7 @@ struct CalculationInteractor: CalculationInteractorProtocol {
     operationsUseCase.getOperations(for: wallet, completion: completion)
   }
   
-  func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
-    operationsUseCase.saveOperation(operation: operation, completion: completion)
+  func saveOperation(for walletID: Int, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    operationsUseCase.saveOperation(walletID, operation: operation, completion: completion)
   }
 }
