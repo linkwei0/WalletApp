@@ -97,7 +97,6 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   }
   
   private func configureBalanceModel(with wallets: [WalletModel]) {
-    guard !wallets.isEmpty else { return }
     var totalBalance: Decimal = 0
     var totalIncome: Decimal = 0
     var totalExpense: Decimal = 0

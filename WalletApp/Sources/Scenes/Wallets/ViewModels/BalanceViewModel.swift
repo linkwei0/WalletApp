@@ -16,7 +16,7 @@ class BalanceViewModel {
     let roundedTotalBalance = round(NSDecimalNumber(decimal: totalBalance).doubleValue * 100) / 100.0
     let roundedTotalIncome = round(NSDecimalNumber(decimal: totalIncome).doubleValue * 100) / 100.0
     let roundedTotalExpense = round(NSDecimalNumber(decimal: totalExpense).doubleValue * 100) / 100.0
-    
+
     self.balance.value = BalanceModel(titleBalance: titleBalance, titleIncome: titleIncome,
                                       titleExpense: titleExpense, totalBalance: roundedTotalBalance,
                                       totalIncome: roundedTotalIncome, totalExpense: roundedTotalExpense,

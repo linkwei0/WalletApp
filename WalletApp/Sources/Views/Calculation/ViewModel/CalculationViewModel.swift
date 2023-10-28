@@ -15,8 +15,8 @@ protocol CalculationViewModelDelegate: AnyObject {
 }
 
 protocol CalculationViewModelCategoryDelegate: AnyObject {
-  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel,
-                                                        wallet: WalletModel, totalValue: String)
+  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel, wallet: WalletModel,
+                                                        totalValue: String, calculationType: CalculationType)
 }
 
 final class CalculationViewModel: SimpleViewStateProcessable {
@@ -26,11 +26,11 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   }
   
   weak var delegate: CalculationViewModelDelegate?
-  weak var categoryDelegate: CalculationViewModelCategoryDelegate?
+  weak var calculationCategoryDelegate: CalculationViewModelCategoryDelegate?
   
   let expressionViewModel: ExpressionViewModel
-    
-  private(set) var collectionType: CollectionType
+  
+  private(set) var calculationType: CalculationType
   private(set) var calculationButtons: [[CalculationItemType]] =
   [
     [.clearAC, .plusMinus, .percent, .divide],
@@ -45,20 +45,20 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   
   private let wallet: WalletModel
   private let interactor: CalculationInteractorProtocol
-
+  
   // MARK: - Init
-  init(interactor: CalculationInteractorProtocol, wallet: WalletModel, collectionType: CollectionType) {
+  init(interactor: CalculationInteractorProtocol, wallet: WalletModel, collectionType: CalculationType) {
     self.interactor = interactor
     self.wallet = wallet
-    self.collectionType = collectionType
+    self.calculationType = collectionType
     self.expressionViewModel = ExpressionViewModel(interactor: interactor, wallet: wallet)
     delegate = expressionViewModel
   }
-    
+  
   // MARK: - Public methods
   func configureItemType(_ indexPath: IndexPath) -> CalculationCellViewModel {
     let itemType = calculationButtons[indexPath.section][indexPath.row]
-    let cellViewModel = CalculationCellViewModel(collectionType: collectionType,
+    let cellViewModel = CalculationCellViewModel(collectionType: calculationType,
                                                  itemType: itemType)
     cellViewModel.delegate = self
     return cellViewModel
@@ -74,7 +74,9 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   
   func didTapCreateOperationButton() {
     guard !expressionViewModel.currentValue.value.isEmpty else { return }
-    categoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet, totalValue: expressionViewModel.currentValue.value)
+    calculationCategoryDelegate?
+      .calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet, totalValue: expressionViewModel.currentValue.value,
+                                                        calculationType: calculationType)
   }
   
   func updateOperations() {
@@ -83,13 +85,13 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     expressionViewModel.previousSign.value = ""
     expressionViewModel.updateOperations()
   }
-
+  
   func updateCurrentValue(with itemType: CalculationItemType) {
     let itemStringValue = itemType.stringValue
     let currentValue = expressionViewModel.currentValue.value
     let supportingValue = expressionViewModel.supprotingValue.value
     let previousSign = expressionViewModel.previousSign.value
-        
+    
     if setOfNumbers.contains(itemStringValue) {
       delegate?.calculationViewModelDidRequestToUpdateValue(self, with: currentValue + itemStringValue)
     }
@@ -118,7 +120,7 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     var resultValue: Double
     let value1 = Double(prevValue) ?? 0
     let value2 = Double(currentValue) ?? 0
-
+    
     switch currentSign {
     case .plus:
       resultValue = value1 + value2
@@ -153,7 +155,7 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     var updateValue: Double
     let value1 = Double(resultValue) ?? 0
     let value2 = Double(prevValue) ?? 0
-
+    
     switch currentSign {
     case .plus:
       updateValue = value1 + value2
@@ -164,7 +166,7 @@ final class CalculationViewModel: SimpleViewStateProcessable {
     case .divide:
       updateValue = value1 / value2
     }
-        
+    
     if updateValue.truncatingRemainder(dividingBy: 1) == 0 {
       delegate?.calculationViewModelDidRequestToUpdateAfterEqual(self, with: String(Int(updateValue)))
     } else {

@@ -5,7 +5,7 @@
 
 import UIKit
 
-enum CollectionType {
+enum CalculationType: String {
   case income, expense
 }
 
@@ -22,7 +22,7 @@ class CalculationView: UIView {
   init(viewModel: CalculationViewModel) {
     self.viewModel = viewModel
     self.expressionView = ExpressionView(viewModel: viewModel.expressionViewModel,
-                                         collectionType: viewModel.collectionType)
+                                         collectionType: viewModel.calculationType)
     super.init(frame: .zero)
     setup()
   }
@@ -55,7 +55,7 @@ class CalculationView: UIView {
   
   private func setupAddButton() {
     containerView.addSubview(createOperationButton)
-    createOperationButton.setTitle(viewModel.collectionType == .income ? Constants.increaseTitle
+    createOperationButton.setTitle(viewModel.calculationType == .income ? Constants.increaseTitle
                                    : Constants.decreaseTitle, for: .normal)
     createOperationButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
     createOperationButton.setTitleColor(.baseWhite, for: .normal)

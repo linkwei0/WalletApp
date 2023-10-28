@@ -7,7 +7,7 @@ import Foundation
 
 protocol IncomeViewModelDelegate: AnyObject {
   func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel, interactor: CalculationInteractorProtocol,
-                                                   wallet: WalletModel, totalValue: String)
+                                                   wallet: WalletModel, totalValue: String, calculationType: CalculationType)
   func incomeViewModelDidRequestToBackWalletDetail(_ viewModel: IncomeViewModel)
 }
 
@@ -27,7 +27,7 @@ final class IncomeViewModel {
     self.interactor = interactor
     self.wallet = wallet
     self.calculationViewModel = CalculationViewModel(interactor: interactor, wallet: wallet, collectionType: .income)
-    calculationViewModel.categoryDelegate = self
+    calculationViewModel.calculationCategoryDelegate = self
   }
   
   // MARK: - Public methods
@@ -38,9 +38,9 @@ final class IncomeViewModel {
 
 // MARK: - CalculationViewModelCategoryDelegate
 extension IncomeViewModel: CalculationViewModelCategoryDelegate {
-  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel,
-                                                        wallet: WalletModel, totalValue: String) {
-    delegate?.incomeViewModelDidRequestToShowCategoryView(self, interactor: interactor,
-                                                          wallet: wallet, totalValue: totalValue)
+  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel, wallet: WalletModel,
+                                                        totalValue: String, calculationType: CalculationType) {
+    delegate?.incomeViewModelDidRequestToShowCategoryView(self, interactor: interactor, wallet: wallet,
+                                                          totalValue: totalValue, calculationType: calculationType)
   }
 }
