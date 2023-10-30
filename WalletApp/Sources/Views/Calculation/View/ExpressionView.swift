@@ -17,6 +17,7 @@ class ExpressionView: UIView {
   
   private var dataSource: SimpleTableViewDataSoruce<OperationCellViewModelProtocol>?
   
+  private let stackView = UIStackView()
   private let operationsTableView = UITableView()
   private let containerView = UIView()
   private let currentSignLabel = Label(textStyle: .header1)
@@ -42,6 +43,7 @@ class ExpressionView: UIView {
   
   // MARK: - Setup
   private func setup() {
+    setupStackView()
     setupOperationsTableView()
     setupContainerView()
     setupCurrentSignLabel()
@@ -49,26 +51,32 @@ class ExpressionView: UIView {
     setupCurrentValueLabel()
   }
   
-  private func setupOperationsTableView() {
-    addSubview(operationsTableView)
-    operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 40
-    operationsTableView.backgroundColor = .baseWhite
-    operationsTableView.register(OperationCell.self, forCellReuseIdentifier: OperationCell.reuseIdentifiable)
-    operationsTableView.snp.makeConstraints { make in
-      make.top.leading.trailing.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.850)
+  private func setupStackView() {
+    addSubview(stackView)
+    stackView.axis = .vertical
+    stackView.spacing = 8
+    stackView.distribution = .fill
+    stackView.snp.makeConstraints { make in
+      make.top.bottom.equalToSuperview()
+      make.leading.trailing.equalToSuperview().inset(16)
     }
   }
   
+  private func setupOperationsTableView() {
+    stackView.addArrangedSubview(operationsTableView)
+    operationsTableView.separatorStyle = .none
+    operationsTableView.rowHeight = 30
+    operationsTableView.backgroundColor = .baseWhite
+    operationsTableView.showsVerticalScrollIndicator = false
+    operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
+  }
+  
   private func setupContainerView() {
-    addSubview(containerView)
+    stackView.addArrangedSubview(containerView)
     containerView.backgroundColor = .shade2
     containerView.layer.cornerRadius = 16
     containerView.snp.makeConstraints { make in
-      make.top.equalTo(operationsTableView.snp.bottom).offset(-16)
-      make.leading.trailing.equalToSuperview().inset(16)
-      make.bottom.equalToSuperview().inset(8)
+      make.height.equalTo(60)
     }
   }
   

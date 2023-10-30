@@ -35,10 +35,10 @@ class SimpleTableViewDataSoruce<ViewModel>: NSObject, UITableViewDataSource {
 // MARK: - OperationCellViewModelProtocol
 extension SimpleTableViewDataSoruce where ViewModel == OperationCellViewModelProtocol {
   static func make(for cellViewModels: [ViewModel],
-                   reuseIdentifier: String = OperationCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+                   reuseIdentifier: String = OperationItemCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
     return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
                                      cellViewModels: cellViewModels) { viewModel, cell in
-      guard let cell = (cell as? OperationCell) else { return }
+      guard let cell = (cell as? OperationItemCell) else { return }
       cell.configure(with: viewModel)
     }
   }

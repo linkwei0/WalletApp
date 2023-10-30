@@ -5,7 +5,7 @@
 
 import Foundation
 
-protocol OperationCellViewModelProtocol {
+protocol OperationCellViewModelProtocol: TableCellViewModel {
   var name: String { get }
   var amount: String { get }
   var category: CategoryType { get }
@@ -14,6 +14,10 @@ protocol OperationCellViewModelProtocol {
 }
 
 class OperationCellViewModel: OperationCellViewModelProtocol {
+  var tableReuseIdentifier: String {
+    return OperationItemCell.reuseIdentifiable
+  }
+  
   var name: String {
     return operation.name
   }

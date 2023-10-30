@@ -17,7 +17,7 @@ struct OperationModel: Domain {
   var amount: Decimal
   var category: String
   var definition: String?
-  var date: Date?
+  var date: Date
   
   var type: OperationType
   
