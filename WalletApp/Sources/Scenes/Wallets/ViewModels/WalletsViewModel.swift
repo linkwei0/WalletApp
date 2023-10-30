@@ -3,7 +3,7 @@
 //  WalletApp
 //
 
-import Foundation
+import UIKit
 
 protocol WalletsViewModelDelegate: AnyObject {
   func walletsViewModelDidRequestToShowWalletDetail(_ viewModel: WalletsViewModel, wallet: WalletModel)
@@ -18,12 +18,18 @@ final class WalletsViewModel: SimpleViewStateProcessable {
     return viewState.value.currentEntities.compactMap { WalletCellViewModel($0) }
   }
   
+  var hasWallets: Bool {
+    return !viewState.value.currentEntities.isEmpty
+  }
+  
   let balanceViewModel = BalanceViewModel()
   let currencyViewModel = CurrencyViewModel()
   
   private var currencyRates: CurrencyRates?
       
   private(set) var viewState: Bindable<SimpleViewState<WalletModel>> = Bindable(.initial)
+  
+  private(set) var emptyStateViewModel: EmptyStateViewModel?
   
   private let interactor: WalletsInteractor
   
@@ -59,6 +65,12 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       case .success(let wallets):
         self.viewState.value = self.processResult(wallets)
         self.configureBalanceModel(with: wallets)
+        if wallets.isEmpty {
+          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.triangle.fill"),
+                                                         imageSize: CGSize(width: 120, height: 120),
+                                                         title: "Нет кошелька",
+                                                         subtitle: "У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один")
+        }
       case .failure(let error):
         print(error)
       }

@@ -113,6 +113,8 @@
 		ADC94C6B2AEE5A7500B182E6 /* OperationSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC94C6A2AEE5A7500B182E6 /* OperationSectionHeaderView.swift */; };
 		ADC94C6D2AEE635D00B182E6 /* OperationDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC94C6C2AEE635D00B182E6 /* OperationDateType.swift */; };
 		ADC94C6F2AEF9D1C00B182E6 /* Date+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC94C6E2AEF9D1B00B182E6 /* Date+Calendar.swift */; };
+		ADC94C732AEFA3E600B182E6 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC94C722AEFA3E600B182E6 /* EmptyStateView.swift */; };
+		ADC94C752AEFA40600B182E6 /* EmptyStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC94C742AEFA40600B182E6 /* EmptyStateViewModel.swift */; };
 		ADD8863F2AE153C700E24D0E /* AppFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD8863E2AE153C700E24D0E /* AppFactory.swift */; };
 		ADD886412AE153ED00E24D0E /* WalletsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD886402AE153ED00E24D0E /* WalletsFactory.swift */; };
 		ADD886442AE1541600E24D0E /* CreateWalletFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD886432AE1541600E24D0E /* CreateWalletFactory.swift */; };
@@ -244,6 +246,8 @@
 		ADC94C6A2AEE5A7500B182E6 /* OperationSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationSectionHeaderView.swift; sourceTree = "<group>"; };
 		ADC94C6C2AEE635D00B182E6 /* OperationDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDateType.swift; sourceTree = "<group>"; };
 		ADC94C6E2AEF9D1B00B182E6 /* Date+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Calendar.swift"; sourceTree = "<group>"; };
+		ADC94C722AEFA3E600B182E6 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		ADC94C742AEFA40600B182E6 /* EmptyStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewModel.swift; sourceTree = "<group>"; };
 		ADD8863E2AE153C700E24D0E /* AppFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFactory.swift; sourceTree = "<group>"; };
 		ADD886402AE153ED00E24D0E /* WalletsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsFactory.swift; sourceTree = "<group>"; };
 		ADD886432AE1541600E24D0E /* CreateWalletFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWalletFactory.swift; sourceTree = "<group>"; };
@@ -413,6 +417,8 @@
 				CDE80D563C08B3A0B79C13E2 /* WalletsViewController.swift */,
 				ADDB01B72ADD35F200C12357 /* WalletsInteractor.swift */,
 				AD752C4E2AE933500092A43D /* CurrencyModelView.swift */,
+				ADC94C722AEFA3E600B182E6 /* EmptyStateView.swift */,
+				ADC94C742AEFA40600B182E6 /* EmptyStateViewModel.swift */,
 			);
 			path = Wallets;
 			sourceTree = "<group>";
@@ -1053,6 +1059,7 @@
 				49831795E6F0998D0312425C /* CalculationCell.swift in Sources */,
 				ADC4E73C2AD5A23200756F2D /* BalanceView.swift in Sources */,
 				1726359120F0D4C3DC3593E2 /* CalculationCellViewModel.swift in Sources */,
+				ADC94C732AEFA3E600B182E6 /* EmptyStateView.swift in Sources */,
 				ADC4E74F2AD7150B00756F2D /* CreateWalletViewController.swift in Sources */,
 				AD6A63862ADBFF0E008E7429 /* WalletUseCaseProtocol.swift in Sources */,
 				26D4542A57EF66B1FF192352 /* CalculationInteractor.swift in Sources */,
@@ -1129,6 +1136,7 @@
 				AD39A1302AE6653A00A27DD2 /* APIError.swift in Sources */,
 				AD752C232AE7B32C0092A43D /* CategoryCellViewModel.swift in Sources */,
 				AD6A63882ADC0009008E7429 /* WalletLocalDataSource.swift in Sources */,
+				ADC94C752AEFA40600B182E6 /* EmptyStateViewModel.swift in Sources */,
 				AD7B53FB2ADD4A29009D73FB /* WalletCell.swift in Sources */,
 				C071E784EC8B55A207F5AF44 /* TextStyle.swift in Sources */,
 				885DBA7256AD72998966EF9D /* OperationModel.swift in Sources */,

@@ -3,7 +3,7 @@
 //  WalletApp
 //
 
-import Foundation
+import UIKit
 
 protocol WalletDetailViewModelDelegate: AnyObject {
   func walletDetailViewModelDidRequestToShowIncome(_ viewModel: WalletDetailViewModel, wallet: WalletModel)
@@ -21,8 +21,10 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
   
   let balanceViewModel = BalanceViewModel()
   
-  private(set) var sectionViewModels: [TableSectionViewModel] = []
   private(set) var viewState: Bindable<SimpleViewState<OperationModel>> = Bindable(.initial)
+  
+  private(set) var sectionViewModels: [TableSectionViewModel] = []
+  private(set) var emptyStateViewModel: EmptyStateViewModel?
   
   private var operations: [OperationModel] {
     return viewState.value.currentEntities
@@ -81,6 +83,12 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
         self.configureSectionByOperationsDate(operations)
         self.configureBalanceModel(with: operations)
         self.viewState.value = self.processResult(operations)
+        if operations.isEmpty {
+          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.circle.fill"),
+                                                         imageSize: CGSize(width: 120, height: 120),
+                                                         title: "Упс!",
+                                                         subtitle: "У кошелька нет операций")
+        }
       case .failure(let error):
         print("Failed to get operations \(error)")
       }

@@ -8,6 +8,7 @@ import UIKit
 class WalletDetailViewController: BaseViewController {
   // MARK: - Properties
   private let balanceView: BalanceView
+  private let emptyStateView = EmptyStateView()
   private let operationsTableView = UITableView(frame: .zero, style: .grouped)
   private let bottomBarView: BankBottomBarView
   
@@ -39,6 +40,7 @@ class WalletDetailViewController: BaseViewController {
   private func setup() {
     setupBalanceView()
     setupOperationsTableView()
+    setupEmptyStateView()
     setupBottomBarView()
   }
   
@@ -69,6 +71,15 @@ class WalletDetailViewController: BaseViewController {
     dataSource.setup(tableView: operationsTableView, viewModel: viewModel)
   }
   
+  private func setupEmptyStateView() {
+    view.addSubview(emptyStateView)
+    emptyStateView.isHidden = true
+    emptyStateView.snp.makeConstraints { make in
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.center.equalToSuperview()
+    }
+  }
+  
   private func setupBottomBarView() {
     view.addSubview(bottomBarView)
     bottomBarView.onDidSelectItem = { [weak self] itemType in
@@ -88,12 +99,25 @@ class WalletDetailViewController: BaseViewController {
   
   private func configureWalletDetailTableView(with state: SimpleViewState<OperationModel>) {
     switch state {
-    case .initial, .populated:
-      print("Hide empty view")
+    case .initial:
+      emptyStateView.isHidden = true
+      operationsTableView.isHidden = true
+    case .populated:
+      emptyStateView.isHidden = true
+      operationsTableView.isHidden = false
     case .empty:
-      print("Present empty view")
+      if let emptyViewModel = viewModel.emptyStateViewModel {
+        emptyStateView.configure(with: emptyViewModel)
+      }
+      emptyStateView.isHidden = false
+      operationsTableView.isHidden = true
     case .error(let error):
-      print("Present error \(error)")
+      // TODO: - Error view
+      if let emptyViewModel = viewModel.emptyStateViewModel {
+        emptyStateView.configure(with: emptyViewModel)
+      }
+      emptyStateView.isHidden = false
+      operationsTableView.isHidden = true
     }
   }
   
