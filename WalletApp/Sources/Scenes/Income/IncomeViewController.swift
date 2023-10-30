@@ -25,8 +25,14 @@ class IncomeViewController: BaseViewController {
   // MARK: - Lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .accentLight
     setup()
+  }
+  
+  override func willMove(toParent parent: UIViewController?) {
+    super.willMove(toParent: parent)
+    if parent == nil {
+      viewModel.backToWalletDetail()
+    }
   }
   
   // MARK: - Setup

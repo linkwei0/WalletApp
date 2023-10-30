@@ -10,17 +10,6 @@ struct CurrencyModelView {
     case usd
     case euro
     case rub
-        
-    var iconImage: UIImage? {
-      switch self {
-      case .usd:
-        return UIImage(systemName: "dollarsign")
-      case .euro:
-        return UIImage(systemName: "eurosign")
-      case .rub:
-        return UIImage(systemName: "rublesign")
-      }
-    }
     
     init?(rawValue: String) {
       switch rawValue {
@@ -32,6 +21,28 @@ struct CurrencyModelView {
         self = .rub
       default:
         self = .rub
+      }
+    }
+    
+    var title: String {
+      switch self {
+      case .usd:
+        return "$"
+      case .euro:
+        return "€"
+      case .rub:
+        return "₽"
+      }
+    }
+        
+    var iconImage: UIImage? {
+      switch self {
+      case .usd:
+        return UIImage(systemName: "dollarsign")
+      case .euro:
+        return UIImage(systemName: "eurosign")
+      case .rub:
+        return UIImage(systemName: "rublesign")
       }
     }
   }

@@ -7,7 +7,7 @@ import CoreData
 
 protocol OperationLocalDataSourceProtocol {
   func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void)
-  func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
+  func saveOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
   func deleteOperation(with id: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
@@ -20,12 +20,24 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
   
   func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
     let operations = coreDataStack.getObjectByValue(columnName: #keyPath(CDOperation.walletId),
-                                                value: String(wallet.id), type: CDOperation.self)
+                                                    value: String(wallet.id), type: CDOperation.self)
     completion(.success(operations.compactMap { $0.makeDomain() }))
   }
   
-  func saveOperation(operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
+  func saveOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    guard let walletCD = coreDataStack.getObjectByValue(columnName: "id", value: String(wallet.id),
+                                                        type: CDWallet.self,
+                                                        context: coreDataStack.writeContext).first else { return }
     _ = operation.makePersistent(context: coreDataStack.writeContext)
+
+    let walletBalance = NSDecimalNumber(decimal: wallet.balance)
+    let walletEarned = NSDecimalNumber(decimal: wallet.totalEarned)
+    let walletSpent = NSDecimalNumber(decimal: wallet.totalSpent)
+
+    walletCD.balance = walletBalance
+    walletCD.totalEarned = walletEarned
+    walletCD.totalSpent = walletSpent
+    
     do {
       try coreDataStack.saveWriteContext()
       completion(.success(Void()))

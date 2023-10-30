@@ -3,7 +3,7 @@
 //  WalletApp
 //
 
-import Foundation
+import UIKit
 
 protocol WalletsViewModelDelegate: AnyObject {
   func walletsViewModelDidRequestToShowWalletDetail(_ viewModel: WalletsViewModel, wallet: WalletModel)
@@ -18,12 +18,18 @@ final class WalletsViewModel: SimpleViewStateProcessable {
     return viewState.value.currentEntities.compactMap { WalletCellViewModel($0) }
   }
   
+  var hasWallets: Bool {
+    return !viewState.value.currentEntities.isEmpty
+  }
+  
   let balanceViewModel = BalanceViewModel()
   let currencyViewModel = CurrencyViewModel()
   
   private var currencyRates: CurrencyRates?
       
   private(set) var viewState: Bindable<SimpleViewState<WalletModel>> = Bindable(.initial)
+  
+  private(set) var emptyStateViewModel: EmptyStateViewModel?
   
   private let interactor: WalletsInteractor
   
@@ -40,7 +46,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   
   func updateWallets() {
     fetchWallets()
-    fetchCurrenciesRates()
+    configureBalanceModel(with: viewState.value.currentEntities)
   }
   
   func addNewPersonWallet() {
@@ -59,6 +65,12 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       case .success(let wallets):
         self.viewState.value = self.processResult(wallets)
         self.configureBalanceModel(with: wallets)
+        if wallets.isEmpty {
+          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.triangle.fill"),
+                                                         imageSize: CGSize(width: 120, height: 120),
+                                                         title: "Нет кошелька",
+                                                         subtitle: "У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один")
+        }
       case .failure(let error):
         print(error)
       }
@@ -97,7 +109,6 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   }
   
   private func configureBalanceModel(with wallets: [WalletModel]) {
-    guard !wallets.isEmpty else { return }
     var totalBalance: Decimal = 0
     var totalIncome: Decimal = 0
     var totalExpense: Decimal = 0
@@ -122,8 +133,11 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       totalIncome += walletTotalEarned
       totalExpense += walletTotalSpent
     }
-    
-    let balance = BalanceModel(totalBalance: totalBalance, totalIncome: totalIncome, totalExpense: totalExpense)
-    balanceViewModel.updateBalance(with: balance)
+
+    balanceViewModel.updateBalance(titleBalance: R.string.wallet.balanceViewTotalTitle(),
+                                   titleIncome: R.string.wallet.balanceViewIncomeTitle(),
+                                   titleExpense: R.string.wallet.balanceViewExpenseTitle(),
+                                   totalBalance: totalBalance, totalIncome: totalIncome,
+                                   totalExpense: totalExpense, currencyCode: CurrencyModelView.WalletsCurrencyType.rub.title)
   }
 }

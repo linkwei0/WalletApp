@@ -11,7 +11,8 @@ class WalletsViewController: BaseViewController {
   
   private let balanceView: BalanceView
   private let currencyView: CurrencyView
-  private let tableView = UITableView()
+  private let emptyStateView = EmptyStateView()
+  private let walletsTableView = UITableView()
   private let addWalletButton = UIButton(type: .system)
   
   let viewModel: WalletsViewModel
@@ -40,6 +41,8 @@ class WalletsViewController: BaseViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    viewModel.updateWallets()
+    
     balanceView.alpha = 0.0
     currencyView.alpha = 0.0
     addWalletButton.alpha = 0.0
@@ -57,7 +60,8 @@ class WalletsViewController: BaseViewController {
   private func setup() {
     setupBalanceView()
     setupCurrenciesView()
-    setupTableView()
+    setupWalletsTableView()
+    setupEmptyStateView()
     setupAddWalletButton()
   }
   
@@ -79,15 +83,28 @@ class WalletsViewController: BaseViewController {
     }
   }
   
-  private func setupTableView() {
-    view.addSubview(tableView)
-    tableView.rowHeight = 60
-    tableView.separatorStyle = .none
-    tableView.delegate = self
-    tableView.register(WalletCell.self, forCellReuseIdentifier: WalletCell.reuseIdentifiable)
-    tableView.snp.makeConstraints { make in
+  private func setupWalletsTableView() {
+    view.addSubview(walletsTableView)
+    walletsTableView.rowHeight = 60
+    walletsTableView.separatorStyle = .none
+    walletsTableView.delegate = self
+    walletsTableView.register(WalletCell.self, forCellReuseIdentifier: WalletCell.reuseIdentifiable)
+    walletsTableView.snp.makeConstraints { make in
       make.top.equalTo(currencyView.snp.bottom).offset(12)
       make.leading.trailing.bottom.equalToSuperview()
+    }
+  }
+  
+  func handleRefreshButtonTapped() {
+    viewModel.viewIsReady()
+  }
+  
+  private func setupEmptyStateView() {
+    view.addSubview(emptyStateView)
+    emptyStateView.isHidden = true
+    emptyStateView.snp.makeConstraints { make in
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.center.equalToSuperview()
     }
   }
   
@@ -111,18 +128,30 @@ class WalletsViewController: BaseViewController {
   // MARK: - Private methods
   private func reloadTableView() {
     dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    tableView.dataSource = dataSource
-    tableView.reloadData()
+    walletsTableView.dataSource = dataSource
+    walletsTableView.reloadData()
   }
   
   private func configureWalletsTableView(with state: SimpleViewState<WalletModel>) {
     switch state {
-    case .initial, .populated:
-      print("Hide empty view")
+    case .initial:
+      emptyStateView.isHidden = true
+      walletsTableView.isHidden = true
+    case .populated:
+      emptyStateView.isHidden = true
+      walletsTableView.isHidden = false
     case .empty:
-      print("Present empty view")
+      if let emptyViewModel = viewModel.emptyStateViewModel {
+        emptyStateView.configure(with: emptyViewModel)
+      }
+      walletsTableView.isHidden = true
+      emptyStateView.isHidden = false
     case .error(let error):
-      print("Present error \(error)")
+      if let emptyViewModel = viewModel.emptyStateViewModel {
+        emptyStateView.configure(with: emptyViewModel)
+      }
+      walletsTableView.isHidden = true
+      emptyStateView.isHidden = true
     }
   }
   

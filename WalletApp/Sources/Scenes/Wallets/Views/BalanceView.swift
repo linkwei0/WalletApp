@@ -32,7 +32,7 @@ class BalanceView: UIView {
     super.draw(rect)
     cornerRadius(usingCorner: [.bottomLeft, .bottomRight], cornerRadius: CGSize(width: 12, height: 12))
   }
-  
+    
   // MARK: - Private methods
   private func setup() {
     setupBackground()
@@ -45,15 +45,12 @@ class BalanceView: UIView {
   }
   
   private func setupLabels() {
-    titleBalanceLabel.text = R.string.wallet.balanceViewTotalTitle()
     titleBalanceLabel.textColor = .baseWhite
     balanceLabel.textColor = .baseWhite
     
-    titleIncomeLabel.text = R.string.wallet.balanceViewIncomeTitle()
     titleIncomeLabel.textColor = .incomeBtnColor
     incomeLabel.textColor = .incomeBtnColor
     
-    titleExpenseLabel.text = R.string.wallet.balanceViewExpenseTitle()
     titleExpenseLabel.textColor = .expenseBtnColor
     expenseLabel.textColor = .expenseBtnColor
   }
@@ -90,9 +87,13 @@ class BalanceView: UIView {
   // MARK: - Bindables
   private func setupBindables() {
     viewModel.balance.bind { balance in
-      self.balanceLabel.text = "\(balance.totalBalance)"
-      self.incomeLabel.text = "\(balance.totalIncome)"
-      self.expenseLabel.text = balance.totalExpense > 0 ? "-\(balance.totalExpense)" : "\(balance.totalExpense)"
+      self.titleBalanceLabel.text = balance.titleBalance
+      self.titleIncomeLabel.text = balance.titleIncome
+      self.titleExpenseLabel.text = balance.titleExpense
+      self.balanceLabel.text = "\(balance.totalBalance)" + balance.currency
+      self.incomeLabel.text = "\(balance.totalIncome)" + balance.currency
+      self.expenseLabel.text = (balance.totalExpense > 0 ? "-\(balance.totalExpense)" 
+                                : "\(balance.totalExpense)") + balance.currency
     }
   }
 }

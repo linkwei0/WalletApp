@@ -7,13 +7,11 @@ import UIKit
 
 class ExpenseViewController: BaseViewController {
   // MARK: - Properties
-  
   private let calculationView: CalculationView
   
-  private let viewModel: ExpenseViewModel
+  let viewModel: ExpenseViewModel
   
   // MARK: - Init
-  
   init(viewModel: ExpenseViewModel) {
     self.viewModel = viewModel
     calculationView = CalculationView(viewModel: viewModel.calculationViewModel)
@@ -25,14 +23,19 @@ class ExpenseViewController: BaseViewController {
   }
   
   // MARK: - Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
   }
   
-  // MARK: - Setup
+  override func willMove(toParent parent: UIViewController?) {
+    super.willMove(toParent: parent)
+    if parent == nil {
+      viewModel.backToWalletDetail()
+    }
+  }
   
+  // MARK: - Setup
   private func setup() {
     setupCalculationView()
   }

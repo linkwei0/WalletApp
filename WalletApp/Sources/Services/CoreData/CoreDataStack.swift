@@ -72,7 +72,7 @@ final class CoreDataStack {
     }
   }
   
-  private func getObjectByValue<Entity: NSManagedObject>(columnName: String, value: String, type: Entity.Type,
+  func getObjectByValue<Entity: NSManagedObject>(columnName: String, value: String, type: Entity.Type,
                                                          context: NSManagedObjectContext) -> [Entity] {
     let fetchRequest = createFetchRequest(columnName: columnName, value: value, objectType: type)
     do {

@@ -8,7 +8,7 @@ import UIKit
 class BankBottomBarView: UIView {
   // MARK: - Properties
   
-  var onDidSelectItem: ((_ itemType: BankBottomBarItemType) -> Void)?
+  var onDidSelectItem: ((_ itemType: WalletBottomBarItemType) -> Void)?
   
   override var intrinsicContentSize: CGSize {
     CGSize(width: UIView.noIntrinsicMetric, height: 56)
@@ -16,11 +16,11 @@ class BankBottomBarView: UIView {
   
   private let stackView = UIStackView()
   
-  private let bottomBarItems: [BankBottomBarItemType]
+  private let bottomBarItems: [WalletBottomBarItemType]
   
   // MARK: - Init
   
-  init(configuration: BankBottomBarConfiguration) {
+  init(configuration: WalletBottomBarConfiguration) {
     self.bottomBarItems = configuration.bottomBarItems
     super.init(frame: .zero)
     setup()
@@ -32,8 +32,8 @@ class BankBottomBarView: UIView {
 
   // MARK: - Public methods
 
-  func update(itemOfType type: BankBottomBarItemType, withType newType: BankBottomBarItemType) {
-    stackView.arrangedSubviews.compactMap { $0 as? BankBottomBarItemView }
+  func update(itemOfType type: WalletBottomBarItemType, withType newType: WalletBottomBarItemType) {
+    stackView.arrangedSubviews.compactMap { $0 as? WalletBottomBarItemView }
     .first { $0.itemType == type }?.configure(with: newType)
   }
   
@@ -69,7 +69,7 @@ class BankBottomBarView: UIView {
   
   private func setupBottomBarItems() {
     bottomBarItems.forEach { item in
-      let itemView = BankBottomBarItemView()
+      let itemView = WalletBottomBarItemView()
       itemView.configure(with: item)
       itemView.onDidTap = { [weak self] itemType in
         self?.onDidSelectItem?(itemType)

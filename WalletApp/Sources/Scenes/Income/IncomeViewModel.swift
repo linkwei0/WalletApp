@@ -6,12 +6,16 @@
 import Foundation
 
 protocol IncomeViewModelDelegate: AnyObject {
-  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel)
+  func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel, interactor: CalculationInteractorProtocol,
+                                                   wallet: WalletModel, totalValue: String, calculationType: CalculationType)
+  func incomeViewModelDidRequestToBackWalletDetail(_ viewModel: IncomeViewModel)
 }
 
 final class IncomeViewModel {
   // MARK: - Properties
   weak var delegate: IncomeViewModelDelegate?
+  
+  var onDidCreatedOperation: ((_ wallet: WalletModel) -> Void)?
   
   private(set) var calculationViewModel: CalculationViewModel
   
@@ -23,17 +27,20 @@ final class IncomeViewModel {
     self.interactor = interactor
     self.wallet = wallet
     self.calculationViewModel = CalculationViewModel(interactor: interactor, wallet: wallet, collectionType: .income)
-    calculationViewModel.categoryDelegate = self
+    calculationViewModel.calculationCategoryDelegate = self
   }
   
-  func didSelectCategory(_ category: String) {
-    print("Selected -", category)
+  // MARK: - Public methods
+  func backToWalletDetail() {
+    delegate?.incomeViewModelDidRequestToBackWalletDetail(self)
   }
 }
 
 // MARK: - CalculationViewModelCategoryDelegate
 extension IncomeViewModel: CalculationViewModelCategoryDelegate {
-  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel) {
-    delegate?.incomeViewModelDidRequestToShowCategoryView(self)
+  func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel, wallet: WalletModel,
+                                                        totalValue: String, calculationType: CalculationType) {
+    delegate?.incomeViewModelDidRequestToShowCategoryView(self, interactor: interactor, wallet: wallet,
+                                                          totalValue: totalValue, calculationType: calculationType)
   }
 }

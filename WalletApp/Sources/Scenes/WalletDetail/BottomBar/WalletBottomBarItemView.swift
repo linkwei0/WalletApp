@@ -5,16 +5,16 @@
 
 import UIKit
 
-class BankBottomBarItemView: UIView {
+class WalletBottomBarItemView: UIView {
   // MARK: - Properties
   
-  var onDidTap: ((_ itemType: BankBottomBarItemType) -> Void)?
+  var onDidTap: ((_ itemType: WalletBottomBarItemType) -> Void)?
   
   override var intrinsicContentSize: CGSize {
     CGSize(width: 56, height: 55)
   }
   
-  private(set) var itemType: BankBottomBarItemType?
+  private(set) var itemType: WalletBottomBarItemType?
   
   private let iconImageView = UIImageView()
   private let titleLabel = Label(textStyle: .footnoteBold)
@@ -33,7 +33,7 @@ class BankBottomBarItemView: UIView {
   
   // MARK: - Configure
   
-  func configure(with itemType: BankBottomBarItemType) {
+  func configure(with itemType: WalletBottomBarItemType) {
     self.itemType = itemType
     
     iconImageView.image = itemType.icon?.withRenderingMode(.alwaysTemplate)

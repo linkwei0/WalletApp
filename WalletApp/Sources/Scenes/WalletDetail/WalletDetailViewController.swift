@@ -7,11 +7,12 @@ import UIKit
 
 class WalletDetailViewController: BaseViewController {
   // MARK: - Properties
-  private var dataSource: SimpleTableViewDataSoruce<OperationCellViewModelProtocol>?
-  
   private let balanceView: BalanceView
-  private let operationsTableView = UITableView()
+  private let emptyStateView = EmptyStateView()
+  private let operationsTableView = UITableView(frame: .zero, style: .grouped)
   private let bottomBarView: BankBottomBarView
+  
+  private let dataSource = TableViewDataSource()
   
   let viewModel: WalletDetailViewModel
   
@@ -39,6 +40,7 @@ class WalletDetailViewController: BaseViewController {
   private func setup() {
     setupBalanceView()
     setupOperationsTableView()
+    setupEmptyStateView()
     setupBottomBarView()
   }
   
@@ -53,12 +55,28 @@ class WalletDetailViewController: BaseViewController {
   private func setupOperationsTableView() {
     view.addSubview(operationsTableView)
     operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 60
+    operationsTableView.showsVerticalScrollIndicator = false
+    operationsTableView.estimatedRowHeight = 50
+    operationsTableView.rowHeight = UITableView.automaticDimension
     operationsTableView.backgroundColor = .baseWhite
-    operationsTableView.register(OperationCell.self, forCellReuseIdentifier: OperationCell.reuseIdentifiable)
+    operationsTableView.automaticallyAdjustsScrollIndicatorInsets = false
+    operationsTableView.register(OperationSectionHeaderView.self,
+                                 forHeaderFooterViewReuseIdentifier: OperationSectionHeaderView.reuseIdentifiable)
+    operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
     operationsTableView.snp.makeConstraints { make in
-      make.top.equalTo(balanceView.snp.bottom).offset(12)
+      make.top.equalTo(balanceView.snp.bottom).offset(16)
       make.leading.trailing.bottom.equalToSuperview()
+    }
+    dataSource.delegate = self
+    dataSource.setup(tableView: operationsTableView, viewModel: viewModel)
+  }
+  
+  private func setupEmptyStateView() {
+    view.addSubview(emptyStateView)
+    emptyStateView.isHidden = true
+    emptyStateView.snp.makeConstraints { make in
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.center.equalToSuperview()
     }
   }
   
@@ -76,19 +94,30 @@ class WalletDetailViewController: BaseViewController {
   
   // MARK: - Private methods
   private func reloadTableView() {
-    dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    operationsTableView.dataSource = dataSource
-    operationsTableView.reloadData()
+    dataSource.update(with: viewModel)
   }
   
   private func configureWalletDetailTableView(with state: SimpleViewState<OperationModel>) {
     switch state {
-    case .initial, .populated:
-      print("Hide empty view")
+    case .initial:
+      emptyStateView.isHidden = true
+      operationsTableView.isHidden = true
+    case .populated:
+      emptyStateView.isHidden = true
+      operationsTableView.isHidden = false
     case .empty:
-      print("Present empty view")
+      if let emptyViewModel = viewModel.emptyStateViewModel {
+        emptyStateView.configure(with: emptyViewModel)
+      }
+      emptyStateView.isHidden = false
+      operationsTableView.isHidden = true
     case .error(let error):
-      print("Present error \(error)")
+      // TODO: - Error view
+      if let emptyViewModel = viewModel.emptyStateViewModel {
+        emptyStateView.configure(with: emptyViewModel)
+      }
+      emptyStateView.isHidden = false
+      operationsTableView.isHidden = true
     }
   }
   
@@ -104,20 +133,13 @@ class WalletDetailViewController: BaseViewController {
   }
 }
 
-// MARK: - UITableViewDataSource
-//extension WalletDetailViewController: UITableViewDataSource {
-//  func numberOfSections(in tableView: UITableView) -> Int {
-//    return 2
-//  }
-//  
-//  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//    return 3
-//  }
-//  
-//  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//    guard let cell = tableView.dequeueReusableCell(withIdentifier: OperationCell.reuseIdentifiable,
-//                                                   for: indexPath) as? OperationCell else { return UITableViewCell() }
-//    cell.backgroundColor = .accent
-//    return cell
-//  }
-//}
+// MARK: - TableViewDataSourceDelegate
+extension WalletDetailViewController: TableViewDataSourceDelegate {
+  func tableViewDataSource(_ dateSource: TableViewDataSource, viewForFooterInSection section: Int) -> UIView? {
+    return viewModel.isLastSection(section) ? UIView() : nil
+  }
+  
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
+    return viewModel.isLastSection(section) ? 65 : 0
+  }
+}

@@ -20,6 +20,8 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
   let navigationController: NavigationController
   let appFactory: AppFactory
   
+  private var onNeedsToUpdateWallet: (() -> Void)?
+    
   private let factory: Factory
   private let configuration: Configuration
   
@@ -39,8 +41,11 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
   private func showWalletDetailScreen(animated: Bool) {
     let walletDetailVC = factory.walletDetailFactory.makeModule(with: configuration.wallet)
     walletDetailVC.viewModel.delegate = self
-    navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
+    onNeedsToUpdateWallet = { [weak viewModel = walletDetailVC.viewModel] in
+      viewModel?.updateWallet()
+    }
     walletDetailVC.title = configuration.wallet.name
+    navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
     navigationController.pushViewController(walletDetailVC, animated: animated)
   }
 }
@@ -49,15 +54,31 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
 extension WalletDetailCoordinator: WalletDetailViewModelDelegate {
   func walletDetailViewModelDidRequestToShowIncome(_ viewModel: WalletDetailViewModel, wallet: WalletModel) {
     let configuration = IncomeCoordinatorConfiguration(wallet: wallet)
-    show(IncomeCoordinator.self, configuration: configuration, animated: true)
+    let coordinator = show(IncomeCoordinator.self, configuration: configuration, animated: true)
+    coordinator.delegate = self
   }
   
   func walletDetailViewModelDidRequestToShowExpense(_ viewModel: WalletDetailViewModel, wallet: WalletModel) {
     let configuration = ExpenseCoordinatorConfiguration(wallet: wallet)
-    show(ExpenseCoordinator.self, configuration: configuration, animated: true)
+    let coordinator = show(ExpenseCoordinator.self, configuration: configuration, animated: true)
+    coordinator.delegate = self
   }
   
   func walletDetailViewModelDidRequestToShowProfile(_ viewModel: WalletDetailViewModel) {
     show(ProfileCoordinator.self, animated: true)
+  }
+}
+
+// MARK: - IncomeCoordinatorDelegate
+extension WalletDetailCoordinator: IncomeCoordinatorDelegate {
+  func incomeCoordinatorDidUpdateWallet(_ coordinator: IncomeCoordinator) {
+    onNeedsToUpdateWallet?()
+  }
+}
+
+// MARK: - ExpenseCoordinatorDelegate
+extension WalletDetailCoordinator: ExpenseCoordinatorDelegate {
+  func expenseCoordinatorDidUpdateWallet(_ coordinator: ExpenseCoordinator) {
+    onNeedsToUpdateWallet?()
   }
 }

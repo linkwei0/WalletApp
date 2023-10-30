@@ -5,7 +5,7 @@
 
 import UIKit
 
-enum BankBottomBarItemType: CaseIterable {
+enum WalletBottomBarItemType: CaseIterable {
   case income, expense, profile
   
   var title: String {

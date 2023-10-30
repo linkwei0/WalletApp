@@ -17,18 +17,19 @@ class ExpressionView: UIView {
   
   private var dataSource: SimpleTableViewDataSoruce<OperationCellViewModelProtocol>?
   
+  private let stackView = UIStackView()
   private let operationsTableView = UITableView()
   private let containerView = UIView()
   private let currentSignLabel = Label(textStyle: .header1)
   private let previousValueLabel = Label(textStyle: .header1)
   private let currentValueLabel = Label(textStyle: .header1)
   
-  private let collectionType: CollectionType
+  private let collectionType: CalculationType
   
   private let viewModel: ExpressionViewModel
   
   // MARK: - Init
-  init(viewModel: ExpressionViewModel, collectionType: CollectionType) {
+  init(viewModel: ExpressionViewModel, collectionType: CalculationType) {
     self.viewModel = viewModel
     self.collectionType = collectionType
     super.init(frame: .zero)
@@ -42,6 +43,7 @@ class ExpressionView: UIView {
   
   // MARK: - Setup
   private func setup() {
+    setupStackView()
     setupOperationsTableView()
     setupContainerView()
     setupCurrentSignLabel()
@@ -49,26 +51,32 @@ class ExpressionView: UIView {
     setupCurrentValueLabel()
   }
   
-  private func setupOperationsTableView() {
-    addSubview(operationsTableView)
-    operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 50
-    operationsTableView.backgroundColor = .accentLight
-    operationsTableView.register(OperationCell.self, forCellReuseIdentifier: OperationCell.reuseIdentifiable)
-    operationsTableView.snp.makeConstraints { make in
-      make.top.leading.trailing.equalToSuperview()
-      make.height.equalToSuperview().multipliedBy(0.850)
+  private func setupStackView() {
+    addSubview(stackView)
+    stackView.axis = .vertical
+    stackView.spacing = 8
+    stackView.distribution = .fill
+    stackView.snp.makeConstraints { make in
+      make.top.bottom.equalToSuperview()
+      make.leading.trailing.equalToSuperview().inset(16)
     }
   }
   
+  private func setupOperationsTableView() {
+    stackView.addArrangedSubview(operationsTableView)
+    operationsTableView.separatorStyle = .none
+    operationsTableView.rowHeight = 30
+    operationsTableView.backgroundColor = .baseWhite
+    operationsTableView.showsVerticalScrollIndicator = false
+    operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
+  }
+  
   private func setupContainerView() {
-    addSubview(containerView)
+    stackView.addArrangedSubview(containerView)
     containerView.backgroundColor = .shade2
     containerView.layer.cornerRadius = 16
     containerView.snp.makeConstraints { make in
-      make.top.equalTo(operationsTableView.snp.bottom).offset(-16)
-      make.leading.trailing.equalToSuperview()
-      make.bottom.equalToSuperview().inset(8)
+      make.height.equalTo(60)
     }
   }
   
