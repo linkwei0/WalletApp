@@ -34,12 +34,4 @@ extension UIColor {
   static let shade2 = UIColor(resource: R.color.shade2) ?? .clear
   static let shade3 = UIColor(resource: R.color.shade3) ?? .clear
   static let shade4 = UIColor(resource: R.color.shade4) ?? .clear
-  
-  static let lessonTypeIndividual = UIColor(resource: R.color.lessonTypeIndividual) ?? .clear
-  static let lessonTypeLaboratory = UIColor(resource: R.color.lessonTypeLaboratory) ?? .clear
-  static let lessonTypeLecture = UIColor(resource: R.color.lessonTypeLecture) ?? .clear
-  static let lessonTypeOtherWork = UIColor(resource: R.color.lessonTypeOtherWork) ?? .clear
-  static let lessonTypePractice = UIColor(resource: R.color.lessonTypePractice) ?? .clear
-  static let lessonTypeSeminar = UIColor(resource: R.color.lessonTypeSeminar) ?? .clear
-  static let lessonTypeTestWork = UIColor(resource: R.color.lessonTypeTestWork) ?? .clear
 }

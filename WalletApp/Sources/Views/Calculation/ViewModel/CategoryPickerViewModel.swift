@@ -12,10 +12,16 @@ class CategoryPickerViewModel {
   private(set) var totalValue: Bindable<String> = Bindable("")
   private(set) var isCreateOperation: Bindable<Bool> = Bindable(false)
   
-  private let categories: [[CategoryType]] =
+  private let expenseCategories: [[ExpenseCategoryType]] =
   [
     [.food, .house, .car],
     [.phone, .transport]
+  ]
+  
+  private let incomeCategories: [[IncomeCategoryType]] =
+  [
+    [.present, .salary, .partjob],
+    [.dividends]
   ]
   
   private var wallet: WalletModel
@@ -27,21 +33,22 @@ class CategoryPickerViewModel {
   init(interactor: CalculationInteractorProtocol, wallet: WalletModel, totalValue: String, calculationType: CalculationType) {
     self.interactor = interactor
     self.wallet = wallet
-    self.totalValue.value = totalValue
+    self.totalValue.value = totalValue + (CurrencyModelView.WalletsCurrencyType(rawValue: wallet.currency.code) ?? .rub).title
     self.calculationType = calculationType
   }
   
   // MARK: - Public methods
   func numberOfSections() -> Int {
-    return categories.count
+    return calculationType == .income ? incomeCategories.count : expenseCategories.count
   }
   
   func numberOfItemsInSection(section: Int) -> Int {
-    return categories[section].count
+    return calculationType == .income ? incomeCategories[section].count : expenseCategories[section].count
   }
   
   func configureItemType(_ indexPath: IndexPath) -> CategoryCellViewModel {
-    let categoryType = categories[indexPath.section][indexPath.row]
+    let categoryType: CategoryTypeProtocol = calculationType == .income ? incomeCategories[indexPath.section][indexPath.row]
+    : expenseCategories[indexPath.section][indexPath.row]
     let cellViewModel = CategoryCellViewModel(categoryType: categoryType)
     return cellViewModel
   }
@@ -49,7 +56,8 @@ class CategoryPickerViewModel {
   func didSelectedCategory(at indexPath: IndexPath) {
     guard let amount = Decimal(string: totalValue.value) else { return }
     let type = (CalculationType(rawValue: calculationType.rawValue) ?? .income).rawValue
-    let category = categories[indexPath.section][indexPath.row]
+    let category: CategoryTypeProtocol = calculationType == .income ? incomeCategories[indexPath.section][indexPath.row]
+    : expenseCategories[indexPath.section][indexPath.row]
     let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: category.title,
                                    amount: amount, category: category.title, date: Date(),
                                    type: OperationType(rawValue: type) ?? .income)

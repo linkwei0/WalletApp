@@ -3,9 +3,10 @@
 //  WalletApp
 //
 
-import Foundation
+import UIKit
 
 protocol CreateWalletCellViewModelProtocol {
+  var keyboardType: UIKeyboardType { get }
   var title: String { get }
   var placeholder: String { get }
   var tag: Int { get }
@@ -21,7 +22,7 @@ protocol CreateWalletCellViewModelProtocol {
 protocol CreateWalletCellViewModelDelegate: AnyObject {
   func createWalletCellViewModelDidChangeTextField(_ viewModel: CreateWalletCellViewModel, with textFieldTag: Int, text: String)
   func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
-                                            with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
+                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
 }
 
 class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
@@ -46,6 +47,10 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
   
   var isTextField: Bool {
     return form.hiddenIfNotTextField
+  }
+  
+  var keyboardType: UIKeyboardType {
+    return tag == 2 ? .numberPad : .default
   }
   
   private let form: CreateWalletForm

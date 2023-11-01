@@ -34,6 +34,7 @@ class CreateWalletCell: UITableViewCell {
     contentTextField.isHidden = viewModel.isTextField
     contentTextField.placeholder = viewModel.placeholder
     contentTextField.tag = viewModel.tag
+    contentTextField.keyboardType = viewModel.keyboardType
   }
   
   // MARK: - Setups
@@ -87,7 +88,6 @@ class CreateWalletCell: UITableViewCell {
     contentTextField.textAlignment = .left
     contentTextField.delegate = self
     contentTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    
     contentTextField.snp.makeConstraints { make in
       make.centerY.equalTo(titleLabel.snp.centerY)
       make.leading.equalTo(titleLabel.snp.trailing).offset(16)

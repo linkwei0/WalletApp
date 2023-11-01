@@ -9,6 +9,7 @@ class CategoryCell: UICollectionViewCell {
   // MARK: - Properties
   private let containerView = UIView()
   private let categoryImageView = UIImageView()
+  private let titleLabel = Label(textStyle: .footnoteBold)
   
   // MARK: - Init
   override init(frame: CGRect) {
@@ -24,12 +25,15 @@ class CategoryCell: UICollectionViewCell {
   // MARK: - Configure
   func configure(with viewModel: CategoryCellViewModel) {
     categoryImageView.image = viewModel.iconImage
+    titleLabel.text = viewModel.title
+    categoryImageView.tintColor = viewModel.imageColor
   }
   
   // MARK: - Setup
   private func setup() {
     setupContainerView()
     setupCategoryImageView()
+    setupTitleLabel()
   }
   
   private func setupContainerView() {
@@ -46,9 +50,20 @@ class CategoryCell: UICollectionViewCell {
   private func setupCategoryImageView() {
     containerView.addSubview(categoryImageView)
     categoryImageView.clipsToBounds = true
+    categoryImageView.contentMode = .scaleAspectFit
     categoryImageView.tintColor = .baseWhite
     categoryImageView.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(10)
+      make.edges.equalToSuperview().inset(12)
+    }
+  }
+  
+  private func setupTitleLabel() {
+    containerView.addSubview(titleLabel)
+    titleLabel.textColor = .baseBlack
+    titleLabel.textAlignment = .center
+    titleLabel.snp.makeConstraints { make in
+      make.top.equalTo(categoryImageView.snp.bottom).offset(-4)
+      make.leading.trailing.equalToSuperview().inset(10)
     }
   }
 }

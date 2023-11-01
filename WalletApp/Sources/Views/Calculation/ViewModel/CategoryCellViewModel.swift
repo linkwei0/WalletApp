@@ -5,7 +5,53 @@
 
 import UIKit
 
-enum CategoryType: String {
+protocol CategoryTypeProtocol {
+  var image: UIImage? { get }
+  var title: String { get }
+  var imageColor: UIColor { get }
+}
+
+enum IncomeCategoryType: String, CategoryTypeProtocol {
+  case present = "Подарок"
+  case salary = "Зарплата"
+  case partjob = "Подработка"
+  case dividends = "Дивиденды"
+  
+  var image: UIImage? {
+    switch self {
+    case .present:
+      return UIImage(systemName: "gift.fill")
+    case .salary:
+      return UIImage(systemName: "banknote.fill")
+    case .partjob:
+      return UIImage(systemName: "bag.fill")
+    case .dividends:
+      return UIImage(systemName: "creditcard.fill")
+    }
+  }
+  
+  var title: String {
+    switch self {
+    case .present:
+      return "Подарок"
+    case .salary:
+      return "Зарплата"
+    case .partjob:
+      return "Подработка"
+    case .dividends:
+      return "Дивиденды"
+    }
+  }
+  
+  var imageColor: UIColor {
+    switch self {
+    case .present, .salary, .partjob, .dividends:
+      return .incomeBtnColor
+    }
+  }
+}
+
+enum ExpenseCategoryType: String, CategoryTypeProtocol {
   case food = "Продукты"
   case house = "Дом"
   case phone = "Телефон"
@@ -41,6 +87,13 @@ enum CategoryType: String {
       return "Транспорт"
     }
   }
+  
+  var imageColor: UIColor {
+    switch self {
+    case .food, .house, .phone, .car, .transport:
+      return .expenseBtnColor
+    }
+  }
 }
 
 class CategoryCellViewModel {
@@ -48,9 +101,17 @@ class CategoryCellViewModel {
     return categoryType.image
   }
   
-  private let categoryType: CategoryType
+  var title: String {
+    return categoryType.title
+  }
   
-  init(categoryType: CategoryType) {
+  var imageColor: UIColor {
+    return categoryType.imageColor
+  }
+  
+  private let categoryType: CategoryTypeProtocol
+  
+  init(categoryType: CategoryTypeProtocol) {
     self.categoryType = categoryType
   }
 }

@@ -6,7 +6,7 @@
 import UIKit
 
 enum CalculationItemType: Int {
-  case clear, zero, one, two, three, four, five,
+  case zero, one, two, three, four, five,
        six, seven, eight, nine, equal,
        minus, plus, multiply, divide, comma,
        plusMinus, clearAC, percent, back
@@ -45,8 +45,6 @@ enum CalculationItemType: Int {
       return "="
     case .comma:
       return ","
-    case .clear:
-      return ""
     case .plusMinus:
       return ""
     case .clearAC:
@@ -60,48 +58,12 @@ enum CalculationItemType: Int {
   
   var tintColor: UIColor {
     switch self {
-    case .clear:
+    case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .comma, .back:
       return UIColor.baseWhite
-    case .zero:
-      return UIColor.baseWhite
-    case .one:
-      return UIColor.baseWhite
-    case .two:
-      return UIColor.baseWhite
-    case .three:
-      return UIColor.baseWhite
-    case .four:
-      return UIColor.baseWhite
-    case .five:
-      return UIColor.baseWhite
-    case .six:
-      return UIColor.baseWhite
-    case .seven:
-      return UIColor.baseWhite
-    case .eight:
-      return UIColor.baseWhite
-    case .nine:
-      return UIColor.baseWhite
-    case .equal:
+    case .equal, .minus, .plus, .multiply, .divide:
       return UIColor.accentRedFaded
-    case .minus:
-      return UIColor.accentRedFaded
-    case .plus:
-      return UIColor.accentRedFaded
-    case .multiply:
-      return UIColor.accentRedFaded
-    case .divide:
-      return UIColor.accentRedFaded
-    case .comma:
-      return UIColor.baseWhite
-    case .plusMinus:
+    case .plusMinus, .clearAC, .percent:
       return UIColor.accentRedLight
-    case .clearAC:
-      return UIColor.accentRedLight
-    case .percent:
-      return UIColor.accentRedLight
-    case .back:
-      return UIColor.baseWhite
     }
   }
   
@@ -114,8 +76,6 @@ enum CalculationItemType: Int {
   
   var iconImage: UIImage? {
     switch self {
-    case .clear:
-      return R.image.clearButton()
     case .zero:
       return R.image.zeroButton()
     case .one:
@@ -137,25 +97,25 @@ enum CalculationItemType: Int {
     case .nine:
       return R.image.nineButton()
     case .equal:
-      return R.image.equalButton()
+      return UIImage(systemName: "equal")
     case .minus:
-      return R.image.minusButton()
+      return UIImage(systemName: "minus")
     case .plus:
-      return R.image.plusButton()
+      return UIImage(systemName: "plus")
     case .multiply:
-      return R.image.multiplyButton()
+      return UIImage(systemName: "multiply")
     case .divide:
-      return R.image.divideButton()
+      return UIImage(systemName: "divide")
     case .comma:
       return R.image.commaButton()
     case .plusMinus:
-      return R.image.plusMinusButton()
+      return UIImage(systemName: "plus.forwardslash.minus")
     case .clearAC:
-      return R.image.cleanAllButton()
+      return UIImage(systemName: "xmark.circle")
     case .percent:
-      return R.image.precentButton()
+      return UIImage(systemName: "percent")
     case .back:
-      return R.image.backButton()
+      return UIImage(systemName: "arrow.clockwise")
     }
   }
 }

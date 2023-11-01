@@ -32,8 +32,14 @@ class CreateWalletViewController: BaseViewController {
   
   // MARK: - Setups
   private func setup() {
+    setupTapGestureRecognizer()
     setupFormTableView()
     setupCreateWalletButton()
+  }
+  
+  private func setupTapGestureRecognizer() {
+    let tap = UITapGestureRecognizer(target: self, action: #selector(didTapOnView))
+    view.addGestureRecognizer(tap)
   }
   
   private func setupFormTableView() {
@@ -67,8 +73,12 @@ class CreateWalletViewController: BaseViewController {
     }
   }
   
-  // MARK: - Selectors
+  // MARK: - Actions
   @objc private func didTapCreateWalletButton() {
     viewModel.createNewWallet()
+  }
+  
+  @objc private func didTapOnView() {
+    view.endEditing(true)
   }
 }
