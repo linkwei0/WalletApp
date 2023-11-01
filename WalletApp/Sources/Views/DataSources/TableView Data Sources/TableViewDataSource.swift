@@ -52,6 +52,10 @@ extension TableViewDataSource: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension TableViewDataSource: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel?.sectionViewModels[indexPath.section].cellViewModels[indexPath.row].select()
+  }
+  
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     guard let headerViewModel = viewModel?.sectionViewModels[section].headerViewModel else { return nil }
     let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerViewModel.tableReuseIdentifier)

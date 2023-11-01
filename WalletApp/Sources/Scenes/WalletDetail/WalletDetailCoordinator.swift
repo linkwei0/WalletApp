@@ -67,6 +67,13 @@ extension WalletDetailCoordinator: WalletDetailViewModelDelegate {
   func walletDetailViewModelDidRequestToShowProfile(_ viewModel: WalletDetailViewModel) {
     show(ProfileCoordinator.self, animated: true)
   }
+  
+  func walletDetailViewModelDidRequestToShowOperationEdit(_ viewModel: WalletDetailViewModel,
+                                                          wallet: WalletModel, operation: OperationModel) {
+    let configuration = OperationEditCoordinatorConfiguration(wallet: wallet, operation: operation)
+    let coordinator = show(OperationEditCoordinator.self, configuration: configuration, animated: true)
+    coordinator.delegate = self
+  }
 }
 
 // MARK: - IncomeCoordinatorDelegate
@@ -79,6 +86,13 @@ extension WalletDetailCoordinator: IncomeCoordinatorDelegate {
 // MARK: - ExpenseCoordinatorDelegate
 extension WalletDetailCoordinator: ExpenseCoordinatorDelegate {
   func expenseCoordinatorDidUpdateWallet(_ coordinator: ExpenseCoordinator) {
+    onNeedsToUpdateWallet?()
+  }
+}
+
+// MARK: - OperationEditCoordinatorDelegate
+extension WalletDetailCoordinator: OperationEditCoordinatorDelegate {
+  func operationEditCoordinatorSuccessfullyEdited(_ coordinator: OperationEditCoordinator) {
     onNeedsToUpdateWallet?()
   }
 }

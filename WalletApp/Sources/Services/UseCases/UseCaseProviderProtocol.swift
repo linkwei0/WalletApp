@@ -10,4 +10,5 @@ import Foundation
 protocol UseCaseProviderProtocol {
   func operationUseCase() -> OperationUseCaseProtocol
   func walletUseCase() -> WalletUseCaseProtocol
+  func profileUseCase() -> ProfileUseCaseProtocol
 }

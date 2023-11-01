@@ -26,4 +26,10 @@ class UseCaseProvider: UseCaseProviderProtocol {
     let localDataSource = localDataSource.operationDataSource()
     return OperationRepository(localDataSource: localDataSource)
   }
+  
+  func profileUseCase() -> ProfileUseCaseProtocol {
+    let localDataSource = localDataSource.profileDataSource()
+    let remoteDataSource = remoteDataSource.profileDataSource()
+    return ProfileRepository(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
+  }
 }

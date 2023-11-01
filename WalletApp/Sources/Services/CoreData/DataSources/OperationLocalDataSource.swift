@@ -9,6 +9,7 @@ protocol OperationLocalDataSourceProtocol {
   func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void)
   func saveOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
   func deleteOperation(with id: Int, completion: @escaping (Result<Void, Error>) -> Void)
+  func editOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
@@ -28,15 +29,33 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
     guard let walletCD = coreDataStack.getObjectByValue(columnName: "id", value: String(wallet.id),
                                                         type: CDWallet.self,
                                                         context: coreDataStack.writeContext).first else { return }
-    _ = operation.makePersistent(context: coreDataStack.writeContext)
-
-    let walletBalance = NSDecimalNumber(decimal: wallet.balance)
-    let walletEarned = NSDecimalNumber(decimal: wallet.totalEarned)
-    let walletSpent = NSDecimalNumber(decimal: wallet.totalSpent)
-
-    walletCD.balance = walletBalance
-    walletCD.totalEarned = walletEarned
-    walletCD.totalSpent = walletSpent
+    guard let operationCD = operation.makePersistent(context: coreDataStack.writeContext) else { return }
+    
+    walletCD.addToOperations(operationCD)
+    updateWalletValues(wallet, walletCD)
+    
+    do {
+      try coreDataStack.saveWriteContext()
+      completion(.success(Void()))
+    } catch {
+      completion(.failure(error))
+    }
+  }
+  
+  func editOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
+    guard let operationCD = coreDataStack.getObjectByValue(columnName: "id",
+                                                           value: String(operation.id),
+                                                           type: CDOperation.self,
+                                                           context: coreDataStack.writeContext).first,
+          let walletCD = coreDataStack.getObjectByValue(columnName: "id",
+                                                        value: String(wallet.id),
+                                                        type: CDWallet.self,
+                                                        context: coreDataStack.writeContext).first else { return }
+    operationCD.category = operation.category
+    operationCD.amount = NSDecimalNumber(decimal: operation.amount)
+    operationCD.definition = operation.definition
+    
+    updateWalletValues(wallet, walletCD)
     
     do {
       try coreDataStack.saveWriteContext()
@@ -53,5 +72,11 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
     } catch {
       completion(.failure(error))
     }
+  }
+  
+  private func updateWalletValues(_ wallet: WalletModel, _ walletCD: CDWallet) {
+    walletCD.balance = NSDecimalNumber(decimal: wallet.balance)
+    walletCD.totalEarned = NSDecimalNumber(decimal: wallet.totalEarned)
+    walletCD.totalSpent = NSDecimalNumber(decimal: wallet.totalSpent)
   }
 }

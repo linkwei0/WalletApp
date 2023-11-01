@@ -25,7 +25,6 @@ class CommonButton: UIButton {
   }
 
   private let style: CommonButtonStyle
-//  private let activityIndicatorView = ActivityIndicatorView(style: .white)
 
   // MARK: - Init
 
@@ -46,20 +45,17 @@ class CommonButton: UIButton {
   func startAnimating() {
     titleLabel?.alpha = 0
     isUserInteractionEnabled = false
-//    activityIndicatorView.startAnimating()
   }
 
   func stopAnimating() {
     titleLabel?.alpha = 1
     isUserInteractionEnabled = true
-//    activityIndicatorView.stopAnimating()
   }
 
   // MARK: - Setup
 
   private func setup() {
     setupButton()
-//    setupActivityIndicatorView()
   }
 
   private func setupButton() {
@@ -69,14 +65,6 @@ class CommonButton: UIButton {
     titleLabel?.font = style.font
     titleLabel?.adjustsFontForContentSizeCategory = true
   }
-
-//  private func setupActivityIndicatorView() {
-//    addSubview(activityIndicatorView)
-//    activityIndicatorView.snp.makeConstraints { make in
-//      make.size.equalTo(24)
-//      make.center.equalToSuperview()
-//    }
-//  }
 
   // MARK: - Private methods
 

@@ -9,6 +9,8 @@ protocol WalletDetailViewModelDelegate: AnyObject {
   func walletDetailViewModelDidRequestToShowIncome(_ viewModel: WalletDetailViewModel, wallet: WalletModel)
   func walletDetailViewModelDidRequestToShowExpense(_ viewModel: WalletDetailViewModel, wallet: WalletModel)
   func walletDetailViewModelDidRequestToShowProfile(_ viewModel: WalletDetailViewModel)
+  func walletDetailViewModelDidRequestToShowOperationEdit(_ viewModel: WalletDetailViewModel,
+                                                          wallet: WalletModel, operation: OperationModel)
 }
 
 class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
@@ -101,7 +103,6 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
       var operationsSection: [OperationModel] = []
       switch operationDate {
       case .today:
-        let test = operations.first?.date ?? Date()
         operationsSection = operations.filter { $0.date.isToday() }
       case .yesterday:
         operationsSection = operations.filter { $0.date.isYesterday() }
@@ -114,6 +115,7 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
       let itemViewModels = operationsSection.map { operation in
         headerTotalValue = operation.type.isIncome ? headerTotalValue + operation.amount : headerTotalValue - operation.amount
         let itemViewModel = OperationCellViewModel(operation)
+        itemViewModel.delegate = self
         return itemViewModel
       }
       if !itemViewModels.isEmpty {
@@ -133,5 +135,12 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
                                    titleExpense: "Расходы кошелька", totalBalance: wallet.balance,
                                    totalIncome: wallet.totalEarned, totalExpense: wallet.totalSpent,
                                    currencyCode: wallet.currency.code)
+  }
+}
+
+// MARK: - OperationCellViewModelDelegate
+extension WalletDetailViewModel: OperationCellViewModelDelegate {
+  func operationCellViewModel(_ viewModel: OperationCellViewModel, didSelect operation: OperationModel) {
+    delegate?.walletDetailViewModelDidRequestToShowOperationEdit(self, wallet: wallet, operation: operation)
   }
 }

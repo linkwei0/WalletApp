@@ -10,6 +10,7 @@ import Foundation
 protocol LocalDataSourceProtocol {
   func operationDataSource() -> OperationLocalDataSourceProtocol
   func walletDataSource() -> WalletLocalDataSourceProtocol
+  func profileDataSource() -> ProfileLocalDataSourceProtocol
 }
 
 class LocalDataSource: LocalDataSourceProtocol {
@@ -25,5 +26,9 @@ class LocalDataSource: LocalDataSourceProtocol {
   
   func operationDataSource() -> OperationLocalDataSourceProtocol {
     return OperationLocalDataSource(coreDataStack: coreDataStack)
+  }
+  
+  func profileDataSource() -> ProfileLocalDataSourceProtocol {
+    return ProfileLocalDataSource(coreDataStack: coreDataStack)
   }
 }

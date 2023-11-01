@@ -22,7 +22,12 @@ class ProfileCoordinator: Coordinator {
   }
   
   private func showProfileScreen(animated: Bool) {
-    let profileVC = ProfileViewController()
+    let local = LocalDataSource(coreDataStack: CoreDataStack())
+    let remote = RemoteDataSource()
+    let useCase = UseCaseProvider(localDataSource: local, remoteDataSource: remote)
+    let profileInteractor = ProfileInteractor(useCaseProvider: useCase)
+    let profileVM = ProfileViewModel(interactor: profileInteractor)
+    let profileVC = ProfileViewController(viewModel: profileVM)
     navigationController.pushViewController(profileVC, animated: animated)
   }
 }

@@ -6,10 +6,6 @@
 import Foundation
 import CoreData
 
-enum OperationCategory: String {
-  case food, house, mobile, clothes
-}
-
 struct OperationModel: Domain {
   let id: Int
   let walletId: Int

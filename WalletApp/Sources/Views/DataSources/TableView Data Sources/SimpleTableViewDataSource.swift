@@ -67,3 +67,14 @@ extension SimpleTableViewDataSoruce where ViewModel == WalletCellViewModelProtoc
     }
   }
 }
+
+extension SimpleTableViewDataSoruce where ViewModel == OperationEditCellViewModelProtocol {
+  static func make(for cellViewModels: [ViewModel],
+                   reuseIdentifier: String = OperationEditCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
+                                     cellViewModels: cellViewModels) { viewModel, cell in
+      guard let cell = (cell as? OperationEditCell) else { return }
+      cell.configure(with: viewModel)
+    }
+  }
+}
