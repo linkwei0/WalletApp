@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol ProfileLocalDataSourceProtocol {
-  func getPerson(completion: @escaping (Result<Void, Error>) -> Void)
-}
-
 class ProfileLocalDataSource: ProfileLocalDataSourceProtocol {
   private let coreDataStack: CoreDataStack
   

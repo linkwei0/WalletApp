@@ -7,13 +7,6 @@
 
 import CoreData
 
-protocol WalletLocalDataSourceProtocol {
-  func getWallets(completion: @escaping (Result<[WalletModel], Error>) -> Void)
-  func getWallet(by walletID: Int, completion: @escaping (Result<WalletModel, Error>) -> Void)
-  func saveWallet(_ wallet: WalletModel, completion: @escaping (Result<Void, Error>) -> Void)
-  func deleteWallet(with id: Int, completion: @escaping (Result<Void, Error>) -> Void)
-}
-
 class WalletLocalDataSource: WalletLocalDataSourceProtocol {
   private let coreDataStack: CoreDataStack
   

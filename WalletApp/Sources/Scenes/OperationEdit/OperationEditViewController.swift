@@ -14,7 +14,7 @@ class OperationEditViewController: BaseViewController {
   private let tableView = UITableView()
   private let editButton = UIButton(type: .system)
   
-  private let viewModel: OperationEditViewModel
+  let viewModel: OperationEditViewModel
   
   // MARK: - Init
   init(viewModel: OperationEditViewModel) {

@@ -6,15 +6,20 @@
 import UIKit
 
 class ProfileCoordinator: Coordinator {
+  typealias Factory = HasProfileFactory
+  
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
   
   let navigationController: NavigationController
   let appFactory: AppFactory
   
+  private let factory: Factory
+  
   required init(navigationController: NavigationController, appFactory: AppFactory) {
     self.navigationController = navigationController
     self.appFactory = appFactory
+    self.factory = appFactory
   }
   
   func start(_ animated: Bool) {
@@ -22,12 +27,8 @@ class ProfileCoordinator: Coordinator {
   }
   
   private func showProfileScreen(animated: Bool) {
-    let local = LocalDataSource(coreDataStack: CoreDataStack())
-    let remote = RemoteDataSource()
-    let useCase = UseCaseProvider(localDataSource: local, remoteDataSource: remote)
-    let profileInteractor = ProfileInteractor(useCaseProvider: useCase)
-    let profileVM = ProfileViewModel(interactor: profileInteractor)
-    let profileVC = ProfileViewController(viewModel: profileVM)
+    let profileVC = factory.profileFactory.makeModule()
+    profileVC.title = "Профиль"
     navigationController.pushViewController(profileVC, animated: animated)
   }
 }

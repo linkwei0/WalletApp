@@ -18,6 +18,7 @@ struct OperationEditCoordinatorConfiguration {
 
 class OperationEditCoordinator: ConfigurableCoordinator {
   typealias Configuration = OperationEditCoordinatorConfiguration
+  typealias Factory = HasOperationEditFactory
   
   weak var delegate: OperationEditCoordinatorDelegate?
   
@@ -28,11 +29,13 @@ class OperationEditCoordinator: ConfigurableCoordinator {
   let appFactory: AppFactory
   
   private let configuration: Configuration
+  private let factory: Factory
   
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
     self.configuration = configuration
+    self.factory = appFactory
   }
   
   func start(_ animated: Bool) {
@@ -40,14 +43,8 @@ class OperationEditCoordinator: ConfigurableCoordinator {
   }
   
   private func showOperationEditScreen(animated: Bool) {
-    let remote = RemoteDataSource()
-    let local = LocalDataSource(coreDataStack: CoreDataStack())
-    let useCase = UseCaseProvider(localDataSource: local, remoteDataSource: remote)
-    let interactor = OperationEditInteractor(useCaseProvider: useCase)
-    let viewModel = OperationEditViewModel(interactor: interactor, wallet: configuration.wallet,
-                                           operation: configuration.operation)
-    viewModel.delegate = self
-    let viewController = OperationEditViewController(viewModel: viewModel)
+    let viewController = factory.operationEditFactory.makeModule(wallet: configuration.wallet, operation: configuration.operation)
+    viewController.viewModel.delegate = self
     viewController.navigationItem.title = configuration.operation.name
     navigationController.pushViewController(viewController, animated: animated)
   }

@@ -25,12 +25,22 @@ protocol HasExpenseFactory {
   var expenseFactory: ExpenseFactoryProtocol { get }
 }
 
+protocol HasOperationEditFactory {
+  var operationEditFactory: OperationEditFactoryProtocol { get }
+}
+
+protocol HasProfileFactory {
+  var profileFactory: ProfileFactoryProtocol { get }
+}
+
 final class AppFactory {
   private let walletsFactoryService: WalletsFactory
   private let createWalletFactoryService: CreateWalletFactory
   private let walletDetailFactoryService: WalletDetailFactory
   private let incomeFactoryService: IncomeFactory
   private let expenseFactoryService: ExpenseFactory
+  private let operationEditFactoryService: OperationEditFactory
+  private let profileFactoryService: ProfileFactory
   
   init() {
     walletsFactoryService = WalletsFactory()
@@ -38,6 +48,8 @@ final class AppFactory {
     walletDetailFactoryService = WalletDetailFactory()
     incomeFactoryService = IncomeFactory()
     expenseFactoryService = ExpenseFactory()
+    operationEditFactoryService = OperationEditFactory()
+    profileFactoryService = ProfileFactory()
   }
 }
 
@@ -73,5 +85,19 @@ extension AppFactory: HasIncomeFactory {
 extension AppFactory: HasExpenseFactory {
   var expenseFactory: ExpenseFactoryProtocol {
     return expenseFactoryService
+  }
+}
+
+// MARK: - HasOperationEditFactory
+extension AppFactory: HasOperationEditFactory {
+  var operationEditFactory: OperationEditFactoryProtocol {
+    return operationEditFactoryService
+  }
+}
+
+// MARK: - HasProfileFactory
+extension AppFactory: HasProfileFactory {
+  var profileFactory: ProfileFactoryProtocol {
+    return profileFactoryService
   }
 }

@@ -7,12 +7,6 @@
 
 import Foundation
 
-protocol LocalDataSourceProtocol {
-  func operationDataSource() -> OperationLocalDataSourceProtocol
-  func walletDataSource() -> WalletLocalDataSourceProtocol
-  func profileDataSource() -> ProfileLocalDataSourceProtocol
-}
-
 class LocalDataSource: LocalDataSourceProtocol {
   private let coreDataStack: CoreDataStack
   

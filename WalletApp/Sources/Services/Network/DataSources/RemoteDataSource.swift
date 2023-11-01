@@ -5,11 +5,6 @@
 
 import Foundation
 
-protocol RemoteDataSourceProtocol {
-  func walletDataSource() -> WalletRemoteDataSourceProtocol
-  func profileDataSource() -> ProfileRemoteDataSourceProtocol
-}
-
 final class RemoteDataSource: RemoteDataSourceProtocol {
   func walletDataSource() -> WalletRemoteDataSourceProtocol {
     let client = WalletClient()
