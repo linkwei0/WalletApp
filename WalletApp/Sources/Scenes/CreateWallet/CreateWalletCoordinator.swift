@@ -6,7 +6,7 @@
 import UIKit
 
 protocol CreateWalletCoordinatorDelegate: AnyObject {
-  func didAddNewWallet()
+  func createWalletCoordinatorSuccessfullyCreatedWallet(_ coordinator: CreateWalletCoordinator)
 }
 
 struct CurrencyRates {
@@ -57,7 +57,7 @@ class CreateWalletCoordinator: ConfigurableCoordinator {
 // MARK: - CreateWalletViewModelDelegate
 extension CreateWalletCoordinator: CreateWalletViewModelDelegate {
   func viewModelDidRequestToWalletsScreen(_ viewModel: CreateWalletViewModel, wallet: WalletModel) {
-    delegate?.didAddNewWallet()
+    delegate?.createWalletCoordinatorSuccessfullyCreatedWallet(self)
     navigationController.popToRootViewController(animated: true)
   }
 }
