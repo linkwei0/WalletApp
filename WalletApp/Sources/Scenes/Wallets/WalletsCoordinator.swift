@@ -69,7 +69,7 @@ extension WalletsCoordinator: CreateWalletCoordinatorDelegate {
 
 // MARK: - WalletDetaiCoordinatorDelegate
 extension WalletsCoordinator: WalletDetaiCoordinatorDelegate {
-  func walletDetailCoordinatorSuccessfullyCreatedOperation(_ coordinator: WalletDetailCoordinator) {
+  func walletDetailCoordinatorSuccessfullyUpdatedOperation(_ coordinator: WalletDetailCoordinator) {
     onNeedsToUpdateWallets?()
   }
 }

@@ -6,7 +6,7 @@
 import UIKit
 
 protocol WalletDetaiCoordinatorDelegate: AnyObject {
-  func walletDetailCoordinatorSuccessfullyCreatedOperation(_ coordinator: WalletDetailCoordinator)
+  func walletDetailCoordinatorSuccessfullyUpdatedOperation(_ coordinator: WalletDetailCoordinator)
 }
 
 struct WalletDetailCoordinatorConfiguration {
@@ -50,7 +50,7 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
     onNeedsToUpdateWallet = { [weak self, weak viewModel = walletDetailVC.viewModel] in
       guard let strongSelf = self else { return }
       viewModel?.updateWallet()
-      strongSelf.delegate?.walletDetailCoordinatorSuccessfullyCreatedOperation(strongSelf)
+      strongSelf.delegate?.walletDetailCoordinatorSuccessfullyUpdatedOperation(strongSelf)
     }
     walletDetailVC.title = configuration.wallet.name
     navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
