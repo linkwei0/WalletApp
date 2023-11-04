@@ -1,0 +1,15 @@
+/* 
+  CreateWallet.strings
+  WalletApp
+*/
+
+"create.wallet.title" = "Новый кошелек";
+"create.wallet.button.create.title" = "Создать кошелек";
+
+"create.wallet.form.title.name" = "Название";
+"create.wallet.form.title.currency" = "Валюта";
+"create.wallet.form.title.balance" = "Баланс";
+"create.wallet.form.placeholder.name" = "Введите название кошелька";
+"create.wallet.form.placeholder.currency" = "Выберите валюту";
+"create.wallet.form.placeholder.balance" = "Изначальный баланс";
+

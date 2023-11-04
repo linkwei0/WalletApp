@@ -68,8 +68,8 @@ final class WalletsViewModel: SimpleViewStateProcessable {
         if wallets.isEmpty {
           self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.triangle.fill"),
                                                          imageSize: CGSize(width: 120, height: 120),
-                                                         title: "Нет кошелька",
-                                                         subtitle: "У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один")
+                                                         title: R.string.wallets.walletsEmptyViewTitle(),
+                                                         subtitle: R.string.wallets.walletsEmptyViewSubtitle())
         }
       case .failure(let error):
         print(error)
@@ -134,9 +134,9 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       totalExpense += walletTotalSpent
     }
 
-    balanceViewModel.updateBalance(titleBalance: R.string.wallet.balanceViewTotalTitle(),
-                                   titleIncome: R.string.wallet.balanceViewIncomeTitle(),
-                                   titleExpense: R.string.wallet.balanceViewExpenseTitle(),
+    balanceViewModel.updateBalance(titleBalance: R.string.balance.balanceViewWalletTotalTitle(),
+                                   titleIncome: R.string.balance.balanceViewWalletsIncomeTitle(),
+                                   titleExpense: R.string.balance.balanceViewWalletsExpenseTitle(),
                                    totalBalance: totalBalance, totalIncome: totalIncome,
                                    totalExpense: totalExpense, currencyCode: CurrencyModelView.WalletsCurrencyType.rub.title)
   }

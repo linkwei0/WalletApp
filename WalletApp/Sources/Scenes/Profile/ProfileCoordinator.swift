@@ -28,7 +28,7 @@ class ProfileCoordinator: Coordinator {
   
   private func showProfileScreen(animated: Bool) {
     let profileVC = factory.profileFactory.makeModule()
-    profileVC.title = "Профиль"
+    profileVC.title = R.string.profile.profileTitle()
     navigationController.pushViewController(profileVC, animated: animated)
   }
 }

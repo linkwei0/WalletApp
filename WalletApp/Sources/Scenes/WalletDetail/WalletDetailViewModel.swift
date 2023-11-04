@@ -131,9 +131,12 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {
-    balanceViewModel.updateBalance(titleBalance: "Баланс кошелька", titleIncome: "Доходы кошелька",
-                                   titleExpense: "Расходы кошелька", totalBalance: wallet.balance,
-                                   totalIncome: wallet.totalEarned, totalExpense: wallet.totalSpent,
+    balanceViewModel.updateBalance(titleBalance: R.string.balance.balanceViewWalletTotalTitle(),
+                                   titleIncome: R.string.balance.balanceViewWalletIncomeTitle(),
+                                   titleExpense: R.string.balance.balanceViewWalletExpenseTitle(),
+                                   totalBalance: wallet.balance,
+                                   totalIncome: wallet.totalEarned,
+                                   totalExpense: wallet.totalSpent,
                                    currencyCode: wallet.currency.code)
   }
 }

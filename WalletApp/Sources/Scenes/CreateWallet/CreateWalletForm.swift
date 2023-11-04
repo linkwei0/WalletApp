@@ -11,22 +11,22 @@ enum CreateWalletForm: Int, CaseIterable {
   var title: String {
     switch self {
     case .name:
-      return "Название"
+      return R.string.createWallet.createWalletFormTitleName()
     case .currency:
-      return "Валюта"
+      return R.string.createWallet.createWalletFormTitleCurrency()
     case .balance:
-      return "Баланс"
+      return R.string.createWallet.createWalletFormTitleBalance()
     }
   }
   
   var placeholder: String {
     switch self {
     case .name:
-      return "Введите название кошелька"
+      return R.string.createWallet.createWalletFormPlaceholderName()
     case .currency:
-      return "Выберите валюту"
+      return R.string.createWallet.createWalletFormPlaceholderCurrency()
     case .balance:
-      return "Изначальный баланс"
+      return R.string.createWallet.createWalletFormPlaceholderBalance()
     }
   }
   

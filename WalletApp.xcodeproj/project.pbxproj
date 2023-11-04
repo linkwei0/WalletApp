@@ -32,7 +32,7 @@
 		49831795E6F0998D0312425C /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C03E5150005FAD8E650F3A2 /* CalculationCell.swift */; };
 		4E4126304D15C2FB7F575F1E /* UseCaseProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E366CEFF140126E29AC246 /* UseCaseProviderProtocol.swift */; };
 		516D0A28340BD7DD9F5426E1 /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = A127DEBF4B92FE752662C53D /* Rswift */; };
-		54DE49CCF7C9801EA886D986 /* Wallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = 997D571B90A96DAEF0F7F578 /* Wallet.strings */; };
+		54DE49CCF7C9801EA886D986 /* Wallets.strings in Resources */ = {isa = PBXBuildFile; fileRef = 997D571B90A96DAEF0F7F578 /* Wallets.strings */; };
 		5BFAFF00AA40762B10C217B0 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA9DAAE90068596CC1737CB /* CommonButton.swift */; };
 		5C5D3F68141ED5E3E2B33308 /* WalletBottomBarItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7D19B1244D7A50760E9C83 /* WalletBottomBarItemType.swift */; };
 		641BAD6B85290DCA037E7139 /* CalculationItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB32AF9179FCCBFFC1CA3C44 /* CalculationItemType.swift */; };
@@ -61,6 +61,10 @@
 		A9B31DC0B29D02EC3FE48703 /* WalletBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0994BB84148B654BE1EE0 /* WalletBottomBarView.swift */; };
 		AA9AC91BEFAD8DB545955CEA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C85B8CCA73C953BB0821C0EB /* Lottie */; };
 		AC3F89E71386C343F10A4591 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA05C2D338700AFB5DAC703C /* IncomeViewModel.swift */; };
+		AD1B71992AF6539A0078761C /* WalletDetail.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B71982AF6539A0078761C /* WalletDetail.strings */; };
+		AD1B719B2AF653C60078761C /* Balance.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719A2AF653C60078761C /* Balance.strings */; };
+		AD1B719D2AF655410078761C /* CreateWallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719C2AF655410078761C /* CreateWallet.strings */; };
+		AD1B719F2AF659150078761C /* Profile.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719E2AF659150078761C /* Profile.strings */; };
 		AD39A1152AE3BC5A00A27DD2 /* IncomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */; };
 		AD39A1172AE3BC6500A27DD2 /* ExpenseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */; };
 		AD39A1242AE65F7F00A27DD2 /* WalletRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */; };
@@ -209,10 +213,14 @@
 		838A714CA953627511A00532 /* CalculationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationInteractor.swift; sourceTree = "<group>"; };
 		86CBF7B4048D067D021A9C61 /* Manrope-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Manrope-Regular.ttf"; sourceTree = "<group>"; };
 		8A179ADF601175F627A2E355 /* CalculationProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationProtocols.swift; sourceTree = "<group>"; };
-		997D571B90A96DAEF0F7F578 /* Wallet.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Wallet.strings; sourceTree = "<group>"; };
+		997D571B90A96DAEF0F7F578 /* Wallets.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Wallets.strings; sourceTree = "<group>"; };
 		A1D56D9F10D3F9A524EBE012 /* UIView+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Corners.swift"; sourceTree = "<group>"; };
 		AB32AF9179FCCBFFC1CA3C44 /* CalculationItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationItemType.swift; sourceTree = "<group>"; };
 		AC2D02BBC63D962FAE5A32E0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AD1B71982AF6539A0078761C /* WalletDetail.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = WalletDetail.strings; sourceTree = "<group>"; };
+		AD1B719A2AF653C60078761C /* Balance.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Balance.strings; sourceTree = "<group>"; };
+		AD1B719C2AF655410078761C /* CreateWallet.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = CreateWallet.strings; sourceTree = "<group>"; };
+		AD1B719E2AF659150078761C /* Profile.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Profile.strings; sourceTree = "<group>"; };
 		AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeFactory.swift; sourceTree = "<group>"; };
 		AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFactory.swift; sourceTree = "<group>"; };
 		AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -403,8 +411,12 @@
 		2C70FF94A1F2B96AAC07FC2A /* Strings */ = {
 			isa = PBXGroup;
 			children = (
-				997D571B90A96DAEF0F7F578 /* Wallet.strings */,
+				997D571B90A96DAEF0F7F578 /* Wallets.strings */,
 				C97F1567E24FDE3F52EC9969 /* Calculation.strings */,
+				AD1B71982AF6539A0078761C /* WalletDetail.strings */,
+				AD1B719A2AF653C60078761C /* Balance.strings */,
+				AD1B719C2AF655410078761C /* CreateWallet.strings */,
+				AD1B719E2AF659150078761C /* Profile.strings */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -1069,13 +1081,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54DE49CCF7C9801EA886D986 /* Wallet.strings in Resources */,
+				AD1B71992AF6539A0078761C /* WalletDetail.strings in Resources */,
+				54DE49CCF7C9801EA886D986 /* Wallets.strings in Resources */,
+				AD1B719B2AF653C60078761C /* Balance.strings in Resources */,
 				D23C17D4FD861C1754CCD5D5 /* Calculation.strings in Resources */,
 				0347C6D80213D1703D26E4C1 /* GoogleService-Info.plist in Resources */,
 				2BAF3AB9103B9C7E0EDF9159 /* LaunchScreen.storyboard in Resources */,
 				E047C52CD720E2B4B11E5F96 /* Manrope-ExtraBold.ttf in Resources */,
 				ADC94C632AECF44F00B182E6 /* Assets.xcassets in Resources */,
+				AD1B719F2AF659150078761C /* Profile.strings in Resources */,
 				A2A7597309619BF284FF8393 /* Manrope-Regular.ttf in Resources */,
+				AD1B719D2AF655410078761C /* CreateWallet.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

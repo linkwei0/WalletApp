@@ -49,7 +49,7 @@ class CreateWalletCoordinator: ConfigurableCoordinator {
     let createWalletVC = factory.createWalletFactory.makeModule(with: configuration.rates)
     createWalletVC.viewModel.delegate = self
     navigationController.addPopObserver(for: createWalletVC, coordinator: self)
-    createWalletVC.title = "Новый кошелек"
+    createWalletVC.title = R.string.createWallet.createWalletTitle()
     navigationController.pushViewController(createWalletVC, animated: animated)
   }
 }

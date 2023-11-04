@@ -11,11 +11,11 @@ enum WalletBottomBarItemType: CaseIterable {
   var title: String {
     switch self {
     case .income:
-      return R.string.wallet.walletDetailBottomBarIncomeTitle()
+      return R.string.walletDetail.walletDetailBottomBarIncomeTitle()
     case .expense:
-      return R.string.wallet.walletDetailBottomBarExpenseTitle()
+      return R.string.walletDetail.walletDetailBottomBarExpenseTitle()
     case .profile:
-      return R.string.wallet.walletDetailBottomBarProfileTitle()
+      return R.string.walletDetail.walletDetailBottomBarProfileTitle()
     }
   }
   

@@ -1,0 +1,16 @@
+/* 
+  Balance.strings
+  WalletApp
+*/
+
+"balance.view.wallets.total.title" = "Общий баланс";
+"balance.view.wallets.income.title" = "Общий доход";
+"balance.view.wallets.expense.title" = "Общий расход";
+
+"balance.view.wallet.total.title" = "Баланс кошелька";
+"balance.view.wallet.income.title" = "Доход кошелька";
+"balance.view.wallet.expense.title" = "Расход кошелька";
+
+"balance.currency.type.RUB" = "RUB";
+"balance.currency.type.EURO" = "EURO";
+"balance.currency.type.USD" = "USD";

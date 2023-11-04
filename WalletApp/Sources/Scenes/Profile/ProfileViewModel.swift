@@ -25,8 +25,8 @@ class ProfileViewModel {
   private func fetchPerson() {
     emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.circle.fill"),
                                               imageSize: CGSize(width: 120, height: 120),
-                                              title: "Вы не авторизованы",
-                                              subtitle: "Возможна авторизация через аккаунт Apple")
+                                              title: R.string.profile.profileEmptyViewTitle(),
+                                              subtitle: R.string.profile.profileEmptyViewSubtitle())
     interactor.getPerson { result in
       switch result {
       case .success(let person):

@@ -108,7 +108,7 @@ class WalletsViewController: BaseViewController {
   
   private func setupAddWalletButton() {
     view.addSubview(addWalletButton)
-    addWalletButton.setTitle("Добавить кошелек", for: .normal)
+    addWalletButton.setTitle(R.string.wallets.walletsButtonAddTitle(), for: .normal)
     addWalletButton.setTitleColor(.baseWhite, for: .normal)
     addWalletButton.titleLabel?.font = UIFont.bodyBold ?? .boldSystemFont(ofSize: 16)
     addWalletButton.layer.cornerRadius = 12

@@ -1,0 +1,8 @@
+/* 
+  Bank.strings
+  WalletApp
+*/
+
+"wallets.button.add.title" = "Добавить кошелек";
+"wallets.empty.view.title" = "Нет кошелька";
+"wallets.empty.view.subtitle" = "У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один";

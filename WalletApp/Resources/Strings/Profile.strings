@@ -1,0 +1,9 @@
+/* 
+  Profile.strings
+  WalletApp
+*/
+
+"profile.title" = "";
+
+"profile.empty.view.title" = "Вы не авторизованы";
+"profile.empty.view.subtitle" = "Возможна авторизация через аккаунт Apple";
