@@ -12,6 +12,7 @@
 - SnapKit
 - R.swift
 - XcodeGen
+- SwiftLint
 
 <h2>Screenshots</h2>
 
