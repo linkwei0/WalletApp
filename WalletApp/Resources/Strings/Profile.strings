@@ -3,7 +3,7 @@
   WalletApp
 */
 
-"profile.title" = "";
+"profile.title" = "Профиль";
 
 "profile.empty.view.title" = "Вы не авторизованы";
 "profile.empty.view.subtitle" = "Возможна авторизация через аккаунт Apple";
