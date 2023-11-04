@@ -5,14 +5,20 @@
 
 import UIKit
 
+protocol WalletDetaiCoordinatorDelegate: AnyObject {
+  func walletDetailCoordinatorSuccessfullyUpdatedOperation(_ coordinator: WalletDetailCoordinator)
+}
+
 struct WalletDetailCoordinatorConfiguration {
   let wallet: WalletModel
 }
 
 class WalletDetailCoordinator: ConfigurableCoordinator {
-  // MARK: - Properties
   typealias Factory = HasWalletDetailFactory
   typealias Configuration = WalletDetailCoordinatorConfiguration
+  
+  // MARK: - Properties
+  weak var delegate: WalletDetaiCoordinatorDelegate?
   
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
@@ -41,8 +47,10 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
   private func showWalletDetailScreen(animated: Bool) {
     let walletDetailVC = factory.walletDetailFactory.makeModule(with: configuration.wallet)
     walletDetailVC.viewModel.delegate = self
-    onNeedsToUpdateWallet = { [weak viewModel = walletDetailVC.viewModel] in
+    onNeedsToUpdateWallet = { [weak self, weak viewModel = walletDetailVC.viewModel] in
+      guard let strongSelf = self else { return }
       viewModel?.updateWallet()
+      strongSelf.delegate?.walletDetailCoordinatorSuccessfullyUpdatedOperation(strongSelf)
     }
     walletDetailVC.title = configuration.wallet.name
     navigationController.addPopObserver(for: walletDetailVC, coordinator: self)

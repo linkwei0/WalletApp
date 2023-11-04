@@ -35,11 +35,10 @@ final class WalletsCoordinator: Coordinator {
   
   private func showWalletsScreen(animated: Bool) {    
     let walletsVC = factory.walletsFactory.makeModule()
-    
-    onNeedsToUpdateWallets = {
-      walletsVC.viewModel.updateWallets()
+    onNeedsToUpdateWallets = { [weak viewModel = walletsVC.viewModel] in
+      viewModel?.updateWallets()
+      
     }
-    
     walletsVC.viewModel.delegate = self
     addPopObserver(for: walletsVC)
     navigationController.pushViewController(walletsVC, animated: animated)
@@ -50,7 +49,8 @@ final class WalletsCoordinator: Coordinator {
 extension WalletsCoordinator: WalletsViewModelDelegate {
   func walletsViewModelDidRequestToShowWalletDetail(_ viewModel: WalletsViewModel, wallet: WalletModel) {
     let configuration = WalletDetailCoordinatorConfiguration(wallet: wallet)
-    show(WalletDetailCoordinator.self, configuration: configuration, animated: true)
+    let coordinator = show(WalletDetailCoordinator.self, configuration: configuration, animated: true)
+    coordinator.delegate = self
   }
   
   func walletsViewModelDidRequestToShowAddNewWallet(_ viewModel: WalletsViewModel, currencyRates: CurrencyRates) {
@@ -62,7 +62,14 @@ extension WalletsCoordinator: WalletsViewModelDelegate {
 
 // MARK: - CreateWalletCoordinatorDelegate
 extension WalletsCoordinator: CreateWalletCoordinatorDelegate {
-  func didAddNewWallet() {
+  func createWalletCoordinatorSuccessfullyCreatedWallet(_ coordinator: CreateWalletCoordinator) {
+    onNeedsToUpdateWallets?()
+  }
+}
+
+// MARK: - WalletDetaiCoordinatorDelegate
+extension WalletsCoordinator: WalletDetaiCoordinatorDelegate {
+  func walletDetailCoordinatorSuccessfullyUpdatedOperation(_ coordinator: WalletDetailCoordinator) {
     onNeedsToUpdateWallets?()
   }
 }

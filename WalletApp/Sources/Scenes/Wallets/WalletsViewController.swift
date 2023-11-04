@@ -40,9 +40,7 @@ class WalletsViewController: BaseViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    viewModel.updateWallets()
-    
+    super.viewWillAppear(animated)    
     balanceView.alpha = 0.0
     currencyView.alpha = 0.0
     addWalletButton.alpha = 0.0
