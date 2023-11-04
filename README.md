@@ -6,6 +6,12 @@
   MVVM is presentation layer. For network using URLSession. Local cache is CoreData.
   Business logic is usecases, interactors and etc like remote/local datasources.
 
+<h2>Main technologies</h2>
+
+- UIKit
+- SnapKit
+- R.swift
+- XcodeGen
 
 <h2>Screenshots</h2>
 
