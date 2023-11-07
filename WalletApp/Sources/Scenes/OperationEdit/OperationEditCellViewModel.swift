@@ -5,35 +5,74 @@
 //  Created by Артём Бацанов on 31.10.2023.
 //
 
-import Foundation
+import UIKit
 
-protocol OperationEditCellViewModelProtocol {
+protocol OperationEditCellViewModelStringsProtocol {
   var titleOperationCategory: String { get }
   var placeholderContentTextField: String { get }
   var textContentTextField: String { get }
   var textMoreInfoTextView: String { get }
-  
-  var isHiddenOperationCategoryButton: Bool { get }
+  var currency: String { get }
+  var maxCharsCount: Int { get }
+  var categoryTitleImageView: UIImage? { get }
+  var onNeedsToUpdateCharsCountLabel: ((String, String) -> Void)? { get set }
+}
+
+protocol OperationEditCellViewModelBoolsProtocol {
+  var isHiddenOperationCategoryLabel: Bool { get }
   var isHiddenContentTextField: Bool { get }
   var isHiddenMoreInfoTextView: Bool { get }
-  
-  func textViewDidChangeUpdateTableView()
+  var isHiddenCurrencyLabel: Bool { get }
+  var isHiddenMaxCharsLabel: Bool { get }
+  var isHiddenCategoryImageView: Bool { get }
+}
+
+protocol OperationEditCellViewModelMethodsProtocol {
   func categoryDidChange(_ category: String)
   func amountTextFieldDidChange(_ text: String)
   func definitionTextViewDidChange(_ text: String)
 }
 
 protocol OperationEditCellViewModelDelegate: AnyObject {
-  func operationEditViewModelTableViewUpdate(_ viewModel: OperationEditCellViewModel)
   func operationEditViewModelDidChangeOperationCategory(_ viewModel: OperationEditCellViewModel, text category: String)
   func operationEditViewModelDidChangeOperationAmount(_ viewModel: OperationEditCellViewModel, text amount: String)
   func operationEditViewModelDidChangeOperationDefinition(_ viewModel: OperationEditCellViewModel, text definition: String)
 }
 
-class OperationEditCellViewModel: OperationEditCellViewModelProtocol {
+typealias OperationEditCellViewModelProtocols = OperationEditCellViewModelStringsProtocol
+                                          & OperationEditCellViewModelBoolsProtocol
+                                          & OperationEditCellViewModelMethodsProtocol
+
+class OperationEditCellViewModel {
   // MARK: - Properties
   weak var delegate: OperationEditCellViewModelDelegate?
   
+  var onNeedsToUpdateCharsCountLabel: ((_ charsCounter: String, _ maxCharsCount: String) -> Void)?
+  
+  private var charsCounter: Int = 0
+  
+  private let operation: OperationModel
+  private let type: OperationEditCellType
+  private let currencyCode: String
+  
+  // MARK: - Init
+  init(with operation: OperationModel, type: OperationEditCellType, currencyCode: String) {
+    self.operation = operation
+    self.type = type
+    self.currencyCode = currencyCode
+  }
+  
+  // MARK: - Private methods
+  private func didChangeOperationDefinition(_ text: String) {
+    charsCounter = text.count
+    if charsCounter < maxCharsCount {
+      onNeedsToUpdateCharsCountLabel?("\(charsCounter)", "\((maxCharsCount))")
+    }
+  }
+}
+
+// MARK: - OperationEditCellViewModelStringsProtocol
+extension OperationEditCellViewModel: OperationEditCellViewModelStringsProtocol {
   var titleOperationCategory: String {
     return operation.name
   }
@@ -46,11 +85,27 @@ class OperationEditCellViewModel: OperationEditCellViewModelProtocol {
     return NSDecimalNumber(decimal: operation.amount).stringValue
   }
   
+  var currency: String {
+    return (CurrencyModelView.WalletsCurrencyType(rawValue: currencyCode) ?? .rub).title
+  }
+  
   var textMoreInfoTextView: String {
     return operation.definition ?? ""
   }
   
-  var isHiddenOperationCategoryButton: Bool {
+  var maxCharsCount: Int {
+    return 180
+  }
+  
+  var categoryTitleImageView: UIImage? {
+    return operation.type.isIncome == true ? IncomeCategoryType(rawValue: operation.category)?.image 
+                                                : ExpenseCategoryType(rawValue: operation.category)?.image
+  }
+}
+
+// MARK: - OperationEditCellViewModelBoolsProtocol
+extension OperationEditCellViewModel: OperationEditCellViewModelBoolsProtocol {
+  var isHiddenOperationCategoryLabel: Bool {
     return type.isHiddenOperationCategoryButton
   }
   
@@ -62,20 +117,21 @@ class OperationEditCellViewModel: OperationEditCellViewModelProtocol {
     return type.isHiddenMoreInfoTextView
   }
   
-  private let operation: OperationModel
-  private let type: OperationEditCellType
-  
-  // MARK: - Init
-  init(operation: OperationModel, _ type: OperationEditCellType) {
-    self.operation = operation
-    self.type = type
+  var isHiddenCurrencyLabel: Bool {
+    return type.isHiddenCurrencyLabel
   }
   
-  // MARK: - Public methods
-  func textViewDidChangeUpdateTableView() {
-    delegate?.operationEditViewModelTableViewUpdate(self)
+  var isHiddenMaxCharsLabel: Bool {
+    return type.isHiddenMaxCharsLabel
   }
   
+  var isHiddenCategoryImageView: Bool {
+    return type.isHiddenCategoryImageView
+  }
+}
+
+// MARK: - OperationEditCellViewModelProtocol
+extension OperationEditCellViewModel: OperationEditCellViewModelMethodsProtocol {
   func categoryDidChange(_ category: String) {
     delegate?.operationEditViewModelDidChangeOperationCategory(self, text: category)
   }
@@ -85,6 +141,7 @@ class OperationEditCellViewModel: OperationEditCellViewModelProtocol {
   }
   
   func definitionTextViewDidChange(_ text: String) {
+    didChangeOperationDefinition(text)
     delegate?.operationEditViewModelDidChangeOperationDefinition(self, text: text)
   }
 }

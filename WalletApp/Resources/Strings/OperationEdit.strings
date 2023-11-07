@@ -1,0 +1,8 @@
+/* 
+  OperationEdit.strings
+  WalletApp
+*/
+
+"operation.edit.placeholder.amount" = "Значение операции";
+
+"operation.edit.button.edit" = "Изменить";

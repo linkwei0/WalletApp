@@ -56,12 +56,11 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
 
 extension ExpenseCoordinator: ExpenseViewModelDelegate {
   func expenseViewModelDidRequestToShowCategoryView(_ viewModel: ExpenseViewModel, interactor: CalculationInteractorProtocol,
-                                                    wallet: WalletModel, totalValue: String, calculationType: CalculationType) {
-    let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet,
-                                                    totalValue: totalValue, calculationType: calculationType)
+                                                    wallet: WalletModel, operation: OperationModel) {
+    let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet, operation: operation)
     let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
     categoryPickerController.modalPresentationStyle = .overCurrentContext
-    categoryViewModel.onDidCreatedOperation = { [weak viewModel] wallet in
+    categoryViewModel.onNeedsToUpdateOperation = { [weak viewModel] wallet, _ in
       viewModel?.onDidCreatedOperation?(wallet)
     }
     navigationController.present(categoryPickerController, animated: false)

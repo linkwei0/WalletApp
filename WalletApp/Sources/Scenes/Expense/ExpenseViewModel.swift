@@ -7,7 +7,7 @@ import Foundation
 
 protocol ExpenseViewModelDelegate: AnyObject {
   func expenseViewModelDidRequestToShowCategoryView(_ viewModel: ExpenseViewModel, interactor: CalculationInteractorProtocol,
-                                                    wallet: WalletModel, totalValue: String, calculationType: CalculationType)
+                                                    wallet: WalletModel, operation: OperationModel)
   func expenseViewModelDidRequestToBackWalletDetail(_ viewModel: ExpenseViewModel)
 }
 
@@ -39,8 +39,8 @@ class ExpenseViewModel {
 // MARK: - CalculationViewModelCategoryDelegate
 extension ExpenseViewModel: CalculationViewModelCategoryDelegate {
   func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel, wallet: WalletModel,
-                                                        totalValue: String, calculationType: CalculationType) {
+                                                        operation: OperationModel) {
     delegate?.expenseViewModelDidRequestToShowCategoryView(self, interactor: interactor, wallet: wallet,
-                                                           totalValue: totalValue, calculationType: calculationType)
+                                                           operation: operation)
   }
 }

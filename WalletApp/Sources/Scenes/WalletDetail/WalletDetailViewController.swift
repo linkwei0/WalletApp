@@ -108,9 +108,9 @@ class WalletDetailViewController: BaseViewController {
     case .empty:
       if let emptyViewModel = viewModel.emptyStateViewModel {
         emptyStateView.configure(with: emptyViewModel)
+        emptyStateView.isHidden = false
+        operationsTableView.isHidden = true
       }
-      emptyStateView.isHidden = false
-      operationsTableView.isHidden = true
     case .error(let error):
       // TODO: - Error view
       if let emptyViewModel = viewModel.emptyStateViewModel {

@@ -45,4 +45,31 @@ enum OperationEditCellType {
       return true
     }
   }
+  
+  var isHiddenCurrencyLabel: Bool {
+    switch self {
+    case .amount:
+      return false
+    default:
+      return true
+    }
+  }
+  
+  var isHiddenMaxCharsLabel: Bool {
+    switch self {
+    case .info:
+      return false
+    default:
+      return true
+    }
+  }
+  
+  var isHiddenCategoryImageView: Bool {
+    switch self {
+    case .category:
+      return false
+    default:
+      return true
+    }
+  }
 }

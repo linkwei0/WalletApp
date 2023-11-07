@@ -9,7 +9,7 @@ import UIKit
 
 class OperationEditViewController: BaseViewController {
   // MARK: - Properties
-  private var dataSource: SimpleTableViewDataSoruce<OperationEditCellViewModelProtocol>?
+  private var dataSource: SimpleTableViewDataSoruce<OperationEditCellViewModelProtocols>?
   
   private let tableView = UITableView()
   private let editButton = UIButton(type: .system)
@@ -51,6 +51,7 @@ class OperationEditViewController: BaseViewController {
     }
     dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
     tableView.dataSource = dataSource
+    tableView.delegate = self
     tableView.reloadData()
   }
   
@@ -73,6 +74,13 @@ class OperationEditViewController: BaseViewController {
     }
   }
   
+  // MARK: - Private methods
+  private func reloadDataSource() {
+    dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
+    tableView.dataSource = dataSource
+    tableView.reloadData()
+  }
+  
   // MARK: - Actions
   @objc private func didTapEditOperationButton() {
     viewModel.didTapEditOperation()
@@ -80,9 +88,19 @@ class OperationEditViewController: BaseViewController {
   
   // MARK: - Bindables
   private func setupBindables() {
-    viewModel.onNeedsToUpdateTableView = { [weak self] in
-      self?.tableView.beginUpdates()
-      self?.tableView.endUpdates()
+    viewModel.onNeedsToUpdateDataSource = { [weak self] in
+      self?.reloadDataSource()
     }
+  }
+}
+
+// MARK: - UITableViewDelegate
+extension OperationEditViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    viewModel.didSelectRow(at: indexPath.row)
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return indexPath.row == 2 ? 180 : 80
   }
 }

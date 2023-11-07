@@ -9,22 +9,25 @@ import Foundation
 
 protocol OperationEditViewModelDelegate: AnyObject {
   func operationEditViewModelSuccessfullyEditedOperation(_ viewModel: OperationEditViewModel)
+  func operationEditViewModelDidRequestToShowCategoryScreen(_ viewModel: OperationEditViewModel, wallet: WalletModel,
+                                                            operation: OperationModel)
 }
 
 class OperationEditViewModel {
   // MARK: - Properties
   weak var delegate: OperationEditViewModelDelegate?
   
-  var cellViewModels: [OperationEditCellViewModelProtocol] {
+  var cellViewModels: [OperationEditCellViewModelProtocols] {
     return operationEditType.compactMap { type in
-      let cellViewModel = OperationEditCellViewModel(operation: operation, type)
+      let cellViewModel = OperationEditCellViewModel(with: operation, type: type, currencyCode: wallet.currency.code)
       cellViewModel.delegate = self
       return cellViewModel
     }
   }
   
-  var onNeedsToUpdateTableView: (() -> Void)?
-  
+  var onDidUpdateOperationCategory: ((_ wallet: WalletModel, _ operation: OperationModel) -> Void)?
+  var onNeedsToUpdateDataSource: (() -> Void)?
+    
   private var wallet: WalletModel
   private var operation: OperationModel
   
@@ -53,6 +56,17 @@ class OperationEditViewModel {
     }
   }
   
+  func didSelectRow(at row: Int) {
+    if operationEditType[row] == .category {
+      delegate?.operationEditViewModelDidRequestToShowCategoryScreen(self, wallet: wallet, operation: operation)
+    }
+  }
+  
+  func updateOperation(for wallet: WalletModel, with operation: OperationModel) {
+    self.operation = operation
+    onNeedsToUpdateDataSource?()
+  }
+  
   // MARK: - Private methods
   private func changeWalletValues() {
     if operation.type.isIncome {
@@ -71,10 +85,6 @@ class OperationEditViewModel {
 
 // MARK: - OperationEditCellViewModelDelegate
 extension OperationEditViewModel: OperationEditCellViewModelDelegate {
-  func operationEditViewModelTableViewUpdate(_ viewModel: OperationEditCellViewModel) {
-    onNeedsToUpdateTableView?()
-  }
-  
   func operationEditViewModelDidChangeOperationCategory(_ viewModel: OperationEditCellViewModel, text category: String) {
     operation.category = category
   }

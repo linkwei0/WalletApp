@@ -33,6 +33,10 @@ protocol HasProfileFactory {
   var profileFactory: ProfileFactoryProtocol { get }
 }
 
+protocol HasUseCaseProviderFactory {
+  var useCaseProviderFactory: UseCaseProviderFactoryProtocol { get }
+}
+
 final class AppFactory {
   private let walletsFactoryService: WalletsFactory
   private let createWalletFactoryService: CreateWalletFactory
@@ -41,6 +45,8 @@ final class AppFactory {
   private let expenseFactoryService: ExpenseFactory
   private let operationEditFactoryService: OperationEditFactory
   private let profileFactoryService: ProfileFactory
+  
+  private let useCaseProviderFacotryService = UseCaseProviderFactory()
   
   init() {
     walletsFactoryService = WalletsFactory()
@@ -99,5 +105,11 @@ extension AppFactory: HasOperationEditFactory {
 extension AppFactory: HasProfileFactory {
   var profileFactory: ProfileFactoryProtocol {
     return profileFactoryService
+  }
+}
+
+extension AppFactory: HasUseCaseProviderFactory {
+  var useCaseProviderFactory: UseCaseProviderFactoryProtocol {
+    return useCaseProviderFacotryService
   }
 }

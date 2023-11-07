@@ -16,7 +16,7 @@ protocol CalculationViewModelDelegate: AnyObject {
 
 protocol CalculationViewModelCategoryDelegate: AnyObject {
   func calculationViewModelDidRequestToShowCategoryView(_ viewModel: CalculationViewModel, wallet: WalletModel,
-                                                        totalValue: String, calculationType: CalculationType)
+                                                        operation: OperationModel)
 }
 
 final class CalculationViewModel: SimpleViewStateProcessable {
@@ -74,9 +74,11 @@ final class CalculationViewModel: SimpleViewStateProcessable {
   
   func didTapCreateOperationButton() {
     guard !expressionViewModel.currentValue.value.isEmpty else { return }
-    calculationCategoryDelegate?
-      .calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet, totalValue: expressionViewModel.currentValue.value,
-                                                        calculationType: calculationType)
+    let operationType: OperationType = calculationType == .income ? .income : .expense
+    let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: "",
+                                   amount: Decimal(string: expressionViewModel.currentValue.value) ?? 0, category: "",
+                                   date: Date(), type: operationType)
+    calculationCategoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet, operation: operation)
   }
   
   func updateOperations() {

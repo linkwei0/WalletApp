@@ -45,7 +45,7 @@ final class IncomeCoordinator: ConfigurableCoordinator {
     incomeVC.viewModel.delegate = self
     let currency = CurrencyModelView.WalletsCurrencyType(rawValue: self.configuration.wallet.currency.code) ?? .rub
     incomeVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue + currency.title
-    incomeVC.viewModel.onDidCreatedOperation = { [weak viewModel = incomeVC.viewModel] wallet in
+    incomeVC.viewModel.onDidCreateOperation = { [weak viewModel = incomeVC.viewModel] wallet in
       incomeVC.navigationItem.title = NSDecimalNumber(decimal: wallet.balance).stringValue + currency.title
       viewModel?.calculationViewModel.updateOperations()
     }
@@ -57,13 +57,12 @@ final class IncomeCoordinator: ConfigurableCoordinator {
 // MARK: - IncomeViewModelDelegate
 extension IncomeCoordinator: IncomeViewModelDelegate {
   func incomeViewModelDidRequestToShowCategoryView(_ viewModel: IncomeViewModel, interactor: CalculationInteractorProtocol,
-                                                   wallet: WalletModel, totalValue: String, calculationType: CalculationType) {
-    let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet,
-                                                    totalValue: totalValue, calculationType: calculationType)
+                                                   wallet: WalletModel, operation: OperationModel) {
+    let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet, operation: operation)
     let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
     categoryPickerController.modalPresentationStyle = .overCurrentContext
-    categoryViewModel.onDidCreatedOperation = { [weak viewModel] wallet in
-      viewModel?.onDidCreatedOperation?(wallet)
+    categoryViewModel.onNeedsToUpdateOperation = { [weak viewModel] wallet, _ in
+      viewModel?.onDidCreateOperation?(wallet)
     }
     navigationController.present(categoryPickerController, animated: false)
   }

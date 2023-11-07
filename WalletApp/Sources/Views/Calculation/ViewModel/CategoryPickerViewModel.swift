@@ -7,9 +7,9 @@ import Foundation
 
 class CategoryPickerViewModel {
   // MARK: - Properties
-  var onDidCreatedOperation: ((_ wallet: WalletModel) -> Void)?
+  var onNeedsToUpdateOperation: ((_ wallet: WalletModel, _ operation: OperationModel) -> Void)?
   
-  private(set) var totalValue: Bindable<String> = Bindable("")
+  private(set) var operationAmountValue: Bindable<String> = Bindable("")
   private(set) var isCreateOperation: Bindable<Bool> = Bindable(false)
   
   private let expenseCategories: [[ExpenseCategoryType]] =
@@ -25,49 +25,57 @@ class CategoryPickerViewModel {
   ]
   
   private var wallet: WalletModel
+  private var operation: OperationModel
   
   private let interactor: CalculationInteractorProtocol
-  private let calculationType: CalculationType
+  private let operationType: OperationType
   
   // MARK: - Init
-  init(interactor: CalculationInteractorProtocol, wallet: WalletModel, totalValue: String, calculationType: CalculationType) {
+  init(interactor: CalculationInteractorProtocol, wallet: WalletModel, operation: OperationModel) {
     self.interactor = interactor
     self.wallet = wallet
-    self.totalValue.value = totalValue + (CurrencyModelView.WalletsCurrencyType(rawValue: wallet.currency.code) ?? .rub).title
-    self.calculationType = calculationType
+    self.operation = operation
+    self.operationAmountValue.value = NSDecimalNumber(decimal: operation.amount).stringValue
+    + (CurrencyModelView.WalletsCurrencyType(rawValue: wallet.currency.code) ?? .rub).title
+    self.operationType = operation.type
   }
   
   // MARK: - Public methods
   func numberOfSections() -> Int {
-    return calculationType == .income ? incomeCategories.count : expenseCategories.count
+    return operationType.isIncome ? incomeCategories.count : expenseCategories.count
   }
   
   func numberOfItemsInSection(section: Int) -> Int {
-    return calculationType == .income ? incomeCategories[section].count : expenseCategories[section].count
+    return operationType.isIncome ? incomeCategories[section].count : expenseCategories[section].count
   }
   
   func configureItemType(_ indexPath: IndexPath) -> CategoryCellViewModel {
-    let categoryType: CategoryTypeProtocol = calculationType == .income ? incomeCategories[indexPath.section][indexPath.row]
+    let categoryType: CategoryTypeProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
     : expenseCategories[indexPath.section][indexPath.row]
     let cellViewModel = CategoryCellViewModel(categoryType: categoryType)
     return cellViewModel
   }
   
   func didSelectedCategory(at indexPath: IndexPath) {
-    guard let amount = Decimal(string: totalValue.value) else { return }
-    let type = (CalculationType(rawValue: calculationType.rawValue) ?? .income).rawValue
-    let category: CategoryTypeProtocol = calculationType == .income ? incomeCategories[indexPath.section][indexPath.row]
+    let category: CategoryTypeProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
     : expenseCategories[indexPath.section][indexPath.row]
-    let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: category.title,
-                                   amount: amount, category: category.title, date: Date(),
-                                   type: OperationType(rawValue: type) ?? .income)
-    checkOperationType(for: operation)
-    createOperationAtPersistence(operation)
+    
+    if operation.category.isEmpty {
+      operation.name = category.title
+      operation.category = category.title
+      createOperationAtPersistence(operation)
+    } else {
+      operation.name = category.title
+      operation.category = category.title
+      onNeedsToUpdateOperation?(wallet, operation)
+      isCreateOperation.value = true
+    }
+    changeCurrentWalletBalance(with: operation)
   }
   
   // MARK: - Private methods
-  private func checkOperationType(for operation: OperationModel) {
-    if calculationType == .income {
+  private func changeCurrentWalletBalance(with operation: OperationModel) {
+    if operationType.isIncome {
       wallet.balance += operation.amount
       wallet.totalEarned += operation.amount
     } else {
@@ -84,7 +92,7 @@ class CategoryPickerViewModel {
     interactor.saveOperation(for: wallet, operation: operation) { result in
       switch result {
       case .success:
-        self.onDidCreatedOperation?(self.wallet)
+        self.onNeedsToUpdateOperation?(self.wallet, operation)
         self.isCreateOperation.value = true
       case .failure(let error):
         self.wallet.balance = walletPreviousBalance

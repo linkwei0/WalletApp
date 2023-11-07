@@ -168,7 +168,7 @@ class CategoryPickerViewController: BaseViewController {
   
   // MARK: - Bindables
   private func setupBindables() {
-    viewModel.totalValue.bindAndFire { [weak self] amountValue in
+    viewModel.operationAmountValue.bindAndFire { [weak self] amountValue in
       self?.amountLabel.text = amountValue
     }
     viewModel.isCreateOperation.bind { [weak self] _ in

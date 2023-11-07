@@ -1178,25 +1178,12 @@ struct R: Rswift.Validatable {
 
     /// This `R.string.profile` struct is generated, and contains static references to 3 localization keys.
     struct profile {
-      /// Value: 
-      static let profileTitle = Rswift.StringResource(key: "profile.title", tableName: "Profile", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Возможна авторизация через аккаунт Apple
       static let profileEmptyViewSubtitle = Rswift.StringResource(key: "profile.empty.view.subtitle", tableName: "Profile", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Вы не авторизованы
       static let profileEmptyViewTitle = Rswift.StringResource(key: "profile.empty.view.title", tableName: "Profile", bundle: R.hostingBundle, locales: [], comment: nil)
-
-      /// Value: 
-      static func profileTitle(preferredLanguages: [String]? = nil) -> String {
-        guard let preferredLanguages = preferredLanguages else {
-          return NSLocalizedString("profile.title", tableName: "Profile", bundle: hostingBundle, comment: "")
-        }
-
-        guard let (_, bundle) = localeBundle(tableName: "Profile", preferredLanguages: preferredLanguages) else {
-          return "profile.title"
-        }
-
-        return NSLocalizedString("profile.title", tableName: "Profile", bundle: bundle, comment: "")
-      }
+      /// Value: Профиль
+      static let profileTitle = Rswift.StringResource(key: "profile.title", tableName: "Profile", bundle: R.hostingBundle, locales: [], comment: nil)
 
       /// Value: Возможна авторизация через аккаунт Apple
       static func profileEmptyViewSubtitle(preferredLanguages: [String]? = nil) -> String {
@@ -1222,6 +1209,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("profile.empty.view.title", tableName: "Profile", bundle: bundle, comment: "")
+      }
+
+      /// Value: Профиль
+      static func profileTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("profile.title", tableName: "Profile", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Profile", preferredLanguages: preferredLanguages) else {
+          return "profile.title"
+        }
+
+        return NSLocalizedString("profile.title", tableName: "Profile", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

@@ -44,6 +44,7 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
                                                         value: String(wallet.id),
                                                         type: CDWallet.self,
                                                         context: coreDataStack.writeContext).first else { return }
+    operationCD.name = operation.name
     operationCD.category = operation.category
     operationCD.amount = NSDecimalNumber(decimal: operation.amount)
     operationCD.definition = operation.definition
