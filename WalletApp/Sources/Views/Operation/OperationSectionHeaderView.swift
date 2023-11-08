@@ -31,12 +31,12 @@ class OperationSectionHeaderView: UITableViewHeaderFooterView, TableHeaderView {
     guard let viewModel = viewModel as? OperationSectionHeaderViewModel else { return }
     titleLabel.text = viewModel.title
     totalValueLabel.text = viewModel.totalValue
+    
     titleLabel.snp.remakeConstraints { make in
       make.top.equalToSuperview().inset(viewModel.topInset)
-      make.leading.trailing.equalToSuperview().inset(16)
+      make.leading.equalToSuperview().inset(16)
       make.bottom.equalToSuperview().inset(8).priority(999)
     }
-    
     totalValueLabel.snp.remakeConstraints { make in
       make.top.equalToSuperview().inset(viewModel.topInset)
       make.trailing.equalToSuperview().inset(16)
@@ -56,7 +56,7 @@ class OperationSectionHeaderView: UITableViewHeaderFooterView, TableHeaderView {
     contentView.addSubview(topLine)
     topLine.backgroundColor = .accent
     topLine.snp.makeConstraints { make in
-      make.bottom.equalTo(titleLabel.snp.top)
+      make.top.equalTo(titleLabel.snp.top)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(0.3)
     }
@@ -80,7 +80,7 @@ class OperationSectionHeaderView: UITableViewHeaderFooterView, TableHeaderView {
     contentView.addSubview(bottomLine)
     bottomLine.backgroundColor = .accent
     bottomLine.snp.makeConstraints { make in
-      make.top.equalTo(titleLabel.snp.bottom)
+      make.bottom.equalTo(titleLabel.snp.bottom)
       make.leading.trailing.equalToSuperview()
       make.height.equalTo(0.3)
     }

@@ -119,15 +119,19 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
         return itemViewModel
       }
       if !itemViewModels.isEmpty {
-        let headerTotalValueString = headerTotalValue > 0 ? "+\(headerTotalValue)" : "-\(headerTotalValue)"
+        let headerTotalValueString = headerTotalValue >= 0 ? "+\(headerTotalValue)" : "-\(headerTotalValue)"
         let headerViewModel = OperationSectionHeaderViewModel(title: operationDate.title,
                                                               totalValue: headerTotalValueString,
                                                               isFirstSection: self.sectionViewModels.isEmpty)
         let section = TableSectionViewModel(headerViewModel: headerViewModel)
-        section.append(cellViewModels: itemViewModels)
+        let partOfItemViewModels = Array(itemViewModels.prefix(4))
+        section.append(cellViewModels: partOfItemViewModels)
         self.sectionViewModels.append(section)
       }
     }
+    let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
+    let section = TableSectionViewModel(footerViewModel: footerViewModel)
+    sectionViewModels.append(section)
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {

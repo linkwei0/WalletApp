@@ -23,10 +23,10 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
                                                         type: CDWallet.self,
                                                         context: coreDataStack.writeContext).first else { return }
     guard let operationCD = operation.makePersistent(context: coreDataStack.writeContext) else { return }
-    
+
     walletCD.addToOperations(operationCD)
     updateWalletValues(wallet, walletCD)
-    
+
     do {
       try coreDataStack.saveWriteContext()
       completion(.success(Void()))
@@ -68,6 +68,7 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
     }
   }
   
+  // MARK: - Udpate wallet balance
   private func updateWalletValues(_ wallet: WalletModel, _ walletCD: CDWallet) {
     walletCD.balance = NSDecimalNumber(decimal: wallet.balance)
     walletCD.totalEarned = NSDecimalNumber(decimal: wallet.totalEarned)

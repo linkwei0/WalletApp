@@ -22,12 +22,21 @@ protocol TableHeaderView {
   func configure(with viewModel: TableHeaderViewModel)
 }
 
+protocol TableFooterView {
+  func configure(with viewModel: TableFooterViewModel)
+}
+
 protocol TableHeaderViewModel {
+  var tableReuseIdentifier: String { get }
+}
+
+protocol TableFooterViewModel {
   var tableReuseIdentifier: String { get }
 }
 
 class TableSectionViewModel {
   let headerViewModel: TableHeaderViewModel?
+  let footerViewModel: TableFooterViewModel?
   
   private(set) var cellViewModels: [TableCellViewModel] = []
   
@@ -43,8 +52,9 @@ class TableSectionViewModel {
     cellViewModels.remove(at: index)
   }
   
-  init(headerViewModel: TableHeaderViewModel? = nil) {
+  init(headerViewModel: TableHeaderViewModel? = nil, footerViewModel: TableFooterViewModel? = nil) {
     self.headerViewModel = headerViewModel
+    self.footerViewModel = footerViewModel
   }
 }
 

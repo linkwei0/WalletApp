@@ -11,7 +11,7 @@ protocol CategoryTypeProtocol {
   var imageColor: UIColor { get }
 }
 
-enum IncomeCategoryType: String, CategoryTypeProtocol {
+enum IncomeCategoryType: String, CaseIterable, CategoryTypeProtocol {
   case present = "Подарок"
   case salary = "Зарплата"
   case partjob = "Подработка"
@@ -51,8 +51,8 @@ enum IncomeCategoryType: String, CategoryTypeProtocol {
   }
 }
 
-enum ExpenseCategoryType: String, CategoryTypeProtocol {
-  case food = "Продукты"
+enum ExpenseCategoryType: String, CaseIterable, CategoryTypeProtocol {
+  case food = "Продукы"
   case house = "Дом"
   case phone = "Телефон"
   case car = "Машина"

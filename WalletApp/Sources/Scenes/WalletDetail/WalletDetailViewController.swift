@@ -62,6 +62,8 @@ class WalletDetailViewController: BaseViewController {
     operationsTableView.automaticallyAdjustsScrollIndicatorInsets = false
     operationsTableView.register(OperationSectionHeaderView.self,
                                  forHeaderFooterViewReuseIdentifier: OperationSectionHeaderView.reuseIdentifiable)
+    operationsTableView.register(OperationLastSectionFooterView.self,
+                                 forHeaderFooterViewReuseIdentifier: OperationLastSectionFooterView.reuseIdentifiable)
     operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
     operationsTableView.snp.makeConstraints { make in
       make.top.equalTo(balanceView.snp.bottom).offset(16)
@@ -135,11 +137,11 @@ class WalletDetailViewController: BaseViewController {
 
 // MARK: - TableViewDataSourceDelegate
 extension WalletDetailViewController: TableViewDataSourceDelegate {
-  func tableViewDataSource(_ dateSource: TableViewDataSource, viewForFooterInSection section: Int) -> UIView? {
-    return viewModel.isLastSection(section) ? UIView() : nil
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
+    return viewModel.isLastSection(section) ? 0 : 50
   }
   
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
-    return viewModel.isLastSection(section) ? 65 : 0
+    return viewModel.isLastSection(section) ? 160 : 30
   }
 }

@@ -751,7 +751,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 6 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 7 localization tables.
   struct string {
     /// This `R.string.balance` struct is generated, and contains static references to 9 localization keys.
     struct balance {
@@ -1171,6 +1171,42 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("create.wallet.button.create.title", tableName: "CreateWallet", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
+    /// This `R.string.operationEdit` struct is generated, and contains static references to 2 localization keys.
+    struct operationEdit {
+      /// Value: Значение операции
+      static let operationEditPlaceholderAmount = Rswift.StringResource(key: "operation.edit.placeholder.amount", tableName: "OperationEdit", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Изменить
+      static let operationEditButtonEdit = Rswift.StringResource(key: "operation.edit.button.edit", tableName: "OperationEdit", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: Значение операции
+      static func operationEditPlaceholderAmount(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("operation.edit.placeholder.amount", tableName: "OperationEdit", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "OperationEdit", preferredLanguages: preferredLanguages) else {
+          return "operation.edit.placeholder.amount"
+        }
+
+        return NSLocalizedString("operation.edit.placeholder.amount", tableName: "OperationEdit", bundle: bundle, comment: "")
+      }
+
+      /// Value: Изменить
+      static func operationEditButtonEdit(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("operation.edit.button.edit", tableName: "OperationEdit", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "OperationEdit", preferredLanguages: preferredLanguages) else {
+          return "operation.edit.button.edit"
+        }
+
+        return NSLocalizedString("operation.edit.button.edit", tableName: "OperationEdit", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

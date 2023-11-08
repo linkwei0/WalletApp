@@ -59,7 +59,8 @@ class CategoryPickerViewModel {
   func didSelectedCategory(at indexPath: IndexPath) {
     let category: CategoryTypeProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
     : expenseCategories[indexPath.section][indexPath.row]
-    
+    changeWalletBalance(with: operation)
+
     if operation.category.isEmpty {
       operation.name = category.title
       operation.category = category.title
@@ -70,11 +71,10 @@ class CategoryPickerViewModel {
       onNeedsToUpdateOperation?(wallet, operation)
       isCreateOperation.value = true
     }
-    changeCurrentWalletBalance(with: operation)
   }
   
   // MARK: - Private methods
-  private func changeCurrentWalletBalance(with operation: OperationModel) {
+  private func changeWalletBalance(with operation: OperationModel) {
     if operationType.isIncome {
       wallet.balance += operation.amount
       wallet.totalEarned += operation.amount

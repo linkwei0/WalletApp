@@ -6,7 +6,7 @@
 import UIKit
 
 protocol TableViewDataSourceDelegate: AnyObject {
-  func tableViewDataSource(_ dateSource: TableViewDataSource, viewForFooterInSection section: Int) -> UIView?
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat?
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat?
 }
 
@@ -64,14 +64,14 @@ extension TableViewDataSource: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    if viewModel?.sectionViewModels[section].headerViewModel != nil {
-      return UITableView.automaticDimension
-    }
-    return .leastNormalMagnitude
+    delegate?.tableViewDataSource(self, heightForHeaderInSection: section) ?? 0
   }
   
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    return delegate?.tableViewDataSource(self, viewForFooterInSection: section) ?? nil
+    guard let footerViewModel = viewModel?.sectionViewModels[section].footerViewModel else { return nil }
+    let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: footerViewModel.tableReuseIdentifier)
+    (footerView as? TableFooterView)?.configure(with: footerViewModel)
+    return footerView
   }
   
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

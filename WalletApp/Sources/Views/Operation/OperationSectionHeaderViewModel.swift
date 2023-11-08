@@ -19,6 +19,6 @@ class OperationSectionHeaderViewModel: TableHeaderViewModel {
   init(title: String, totalValue: String, isFirstSection: Bool) {
     self.title = title
     self.totalValue = totalValue
-    self.topInset = isFirstSection ? 16 : 32
+    self.topInset = isFirstSection ? 20 : 16
   }
 }
