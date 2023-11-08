@@ -11,6 +11,7 @@ protocol WalletDetailViewModelDelegate: AnyObject {
   func walletDetailViewModelDidRequestToShowProfile(_ viewModel: WalletDetailViewModel)
   func walletDetailViewModelDidRequestToShowOperationEdit(_ viewModel: WalletDetailViewModel,
                                                           wallet: WalletModel, operation: OperationModel)
+  func walletDetailViewModelDidRequestToShowOperationsScreen(_ viewModel: WalletDetailViewModel, operations: [OperationModel])
 }
 
 class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
@@ -27,7 +28,7 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
   
   private(set) var sectionViewModels: [TableSectionViewModel] = []
   private(set) var emptyStateViewModel: EmptyStateViewModel?
-  
+    
   private var operations: [OperationModel] {
     return viewState.value.currentEntities
   }
@@ -82,9 +83,10 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
     interactor.getOperations(for: wallet) { result in
       switch result {
       case .success(let operations):
-        self.configureSectionByOperationsDate(operations)
-        self.configureBalanceModel(with: operations)
-        self.viewState.value = self.processResult(operations)
+        let sortedOperations = operations.sorted { $0.date > $1.date }
+        self.configureSectionByOperationsDate(sortedOperations)
+        self.configureBalanceModel(with: sortedOperations)
+        self.viewState.value = self.processResult(sortedOperations)
         if operations.isEmpty {
           self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.circle.fill"),
                                                          imageSize: CGSize(width: 120, height: 120),
@@ -99,38 +101,44 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
   
   private func configureSectionByOperationsDate(_ operations: [OperationModel]) {
     sectionViewModels.removeAll()
-    OperationDateType.allCases.forEach { operationDate in
-      var operationsSection: [OperationModel] = []
-      switch operationDate {
+    OperationDateType.allCases.forEach { dateOfOperation in
+      var operationSection: [OperationModel] = []
+      switch dateOfOperation {
       case .today:
-        operationsSection = operations.filter { $0.date.isToday() }
+        operationSection = operations.filter { $0.date.isToday() }
       case .yesterday:
-        operationsSection = operations.filter { $0.date.isYesterday() }
+        operationSection = operations.filter { $0.date.isYesterday() }
       case .lastWeek:
-        operationsSection = operations.filter { $0.date.isLastWeek() }
+        operationSection = operations.filter { $0.date.isLastWeek() }
       }
       
-      var headerTotalValue: Decimal = 0
-      operationsSection = operationsSection.sorted { $0.date > $1.date }
-      let itemViewModels = operationsSection.map { operation in
-        headerTotalValue = operation.type.isIncome ? headerTotalValue + operation.amount : headerTotalValue - operation.amount
+      var headerDayValueOfAllOperations: Decimal = 0
+      
+      let itemViewModels = operationSection.map { operation in
+        headerDayValueOfAllOperations = operation.type.isIncome ? headerDayValueOfAllOperations + operation.amount : headerDayValueOfAllOperations - operation.amount
         let itemViewModel = OperationCellViewModel(operation)
         itemViewModel.delegate = self
         return itemViewModel
       }
+      
       if !itemViewModels.isEmpty {
-        let headerTotalValueString = headerTotalValue >= 0 ? "+\(headerTotalValue)" : "-\(headerTotalValue)"
-        let headerViewModel = OperationSectionHeaderViewModel(title: operationDate.title,
-                                                              totalValue: headerTotalValueString,
-                                                              isFirstSection: self.sectionViewModels.isEmpty)
-        let section = TableSectionViewModel(headerViewModel: headerViewModel)
+        let headerTotalValueString = headerDayValueOfAllOperations >= 0 ? "+\(headerDayValueOfAllOperations)" : "-\(headerDayValueOfAllOperations)"
+        let headerViewModel = OperationHeaderViewModel(title: dateOfOperation.title,
+                                                       totalValue: headerTotalValueString,
+                                                       isFirstSection: self.sectionViewModels.isEmpty)
+        let footerViewModel = OperationDefaultFooterViewModel()
+        footerViewModel.delegate = self
+        let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
         let partOfItemViewModels = Array(itemViewModels.prefix(4))
         section.append(cellViewModels: partOfItemViewModels)
         self.sectionViewModels.append(section)
       }
     }
+    
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
-    let section = TableSectionViewModel(footerViewModel: footerViewModel)
+//    let section = TableSectionViewModel(footerViewModel: footerViewModel)
+    let headerViewModel = OperationHeaderViewModel(title: "Топ месяца")
+    let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
     sectionViewModels.append(section)
   }
   
@@ -149,5 +157,12 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
 extension WalletDetailViewModel: OperationCellViewModelDelegate {
   func operationCellViewModel(_ viewModel: OperationCellViewModel, didSelect operation: OperationModel) {
     delegate?.walletDetailViewModelDidRequestToShowOperationEdit(self, wallet: wallet, operation: operation)
+  }
+}
+
+// MARK: - OperationDefaultFooterViewModelDelegate
+extension WalletDetailViewModel: OperationDefaultFooterViewModelDelegate {
+  func defaultFooterViewModelDidTapMoreOperations(_ viewModel: OperationDefaultFooterViewModel) {
+    delegate?.walletDetailViewModelDidRequestToShowOperationsScreen(self, operations: operations)
   }
 }

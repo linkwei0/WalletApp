@@ -82,6 +82,11 @@ extension WalletDetailCoordinator: WalletDetailViewModelDelegate {
     let coordinator = show(OperationEditCoordinator.self, configuration: configuration, animated: true)
     coordinator.delegate = self
   }
+  
+  func walletDetailViewModelDidRequestToShowOperationsScreen(_ viewModel: WalletDetailViewModel, operations: [OperationModel]) {
+    let configuration = OperationListCoordinatorConfiguration(operations: operations)
+    show(OperationListCoordinator.self, configuration: configuration, animated: true)
+  }
 }
 
 // MARK: - IncomeCoordinatorDelegate

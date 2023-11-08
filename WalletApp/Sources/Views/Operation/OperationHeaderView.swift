@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OperationSectionHeaderView: UITableViewHeaderFooterView, TableHeaderView {
+class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   // MARK: - Properties
   private let titleLabel = Label(textStyle: .bodyBold)
   private let totalValueLabel = Label(textStyle: .bodyBold)
@@ -28,7 +28,7 @@ class OperationSectionHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   
   // MARK: - Configure
   func configure(with viewModel: TableHeaderViewModel) {
-    guard let viewModel = viewModel as? OperationSectionHeaderViewModel else { return }
+    guard let viewModel = viewModel as? OperationHeaderViewModel else { return }
     titleLabel.text = viewModel.title
     totalValueLabel.text = viewModel.totalValue
     

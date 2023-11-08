@@ -75,8 +75,8 @@ class WalletsViewController: BaseViewController {
   private func setupCurrenciesView() {
     view.addSubview(currencyView)
     currencyView.snp.makeConstraints { make in
-      make.top.equalTo(balanceView.snp.bottom).offset(12)
-      make.leading.trailing.equalToSuperview().inset(16)
+      make.top.equalTo(balanceView.snp.bottom).offset(8)
+      make.leading.trailing.equalToSuperview().inset(12)
       make.height.equalTo(40)
     }
   }
@@ -88,7 +88,7 @@ class WalletsViewController: BaseViewController {
     walletsTableView.delegate = self
     walletsTableView.register(WalletCell.self, forCellReuseIdentifier: WalletCell.reuseIdentifiable)
     walletsTableView.snp.makeConstraints { make in
-      make.top.equalTo(currencyView.snp.bottom).offset(12)
+      make.top.equalTo(currencyView.snp.bottom)
       make.leading.trailing.bottom.equalToSuperview()
     }
   }

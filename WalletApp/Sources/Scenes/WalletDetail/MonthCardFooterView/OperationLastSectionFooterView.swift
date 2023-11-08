@@ -45,7 +45,7 @@ class OperationLastSectionFooterView: UITableViewHeaderFooterView, TableFooterVi
     stackView.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(12)
       make.top.equalToSuperview()
-      make.height.equalTo(90)
+      make.height.equalTo(80)
     }
   }
 }

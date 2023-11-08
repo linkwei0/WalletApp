@@ -19,4 +19,14 @@ extension Date {
   func isLastWeek() -> Bool {
     return Calendar.current.isDateInWeekend(self)
   }
+  
+  func isCurrentMonth() -> Bool {
+    guard let result = Calendar.current.dateInterval(of: .month, for: Date()) else { return false }
+    return result.contains(self)
+  }
+  
+  func dateInterval() -> DateInterval {
+    guard let result = Calendar.current.dateInterval(of: .day, for: self) else { return DateInterval() }
+    return result
+  }
 }

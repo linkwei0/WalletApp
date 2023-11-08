@@ -36,8 +36,8 @@ class CurrencyView: UIView {
   }
   
   private func setupBackground() {
-    backgroundColor = .systemGray4
-    layer.cornerRadius = 12
+    backgroundColor = .systemGray5
+    layer.cornerRadius = 16
   }
   
   private func setupStackView() {
@@ -46,9 +46,8 @@ class CurrencyView: UIView {
     stackView.alignment = .center
     stackView.distribution = .equalSpacing
     stackView.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(8)
-      make.leading.trailing.equalToSuperview().inset(16)
-      make.bottom.equalToSuperview().inset(8)
+      make.top.bottom.equalToSuperview().inset(2)
+      make.leading.trailing.equalToSuperview().inset(4)
     }
   }
   

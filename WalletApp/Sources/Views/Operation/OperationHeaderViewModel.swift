@@ -7,16 +7,16 @@
 
 import Foundation
 
-class OperationSectionHeaderViewModel: TableHeaderViewModel {
+class OperationHeaderViewModel: TableHeaderViewModel {
   var tableReuseIdentifier: String {
-    OperationSectionHeaderView.reuseIdentifiable
+    OperationHeaderView.reuseIdentifiable
   }
   
   let title: String
   let totalValue: String
   let topInset: CGFloat
   
-  init(title: String, totalValue: String, isFirstSection: Bool) {
+  init(title: String, totalValue: String = "", isFirstSection: Bool = false) {
     self.title = title
     self.totalValue = totalValue
     self.topInset = isFirstSection ? 20 : 16

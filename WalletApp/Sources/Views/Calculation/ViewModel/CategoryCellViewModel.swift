@@ -52,7 +52,7 @@ enum IncomeCategoryType: String, CaseIterable, CategoryTypeProtocol {
 }
 
 enum ExpenseCategoryType: String, CaseIterable, CategoryTypeProtocol {
-  case food = "Продукы"
+  case food = "Продукты"
   case house = "Дом"
   case phone = "Телефон"
   case car = "Машина"

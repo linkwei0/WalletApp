@@ -10,9 +10,9 @@ import UIKit
 class OperationMonthCardView: UIView {
   // MARK: - Properties
   private let containerView = UIView()
-  private let titleLabel = Label(textStyle: .bodyBold)
+  private let titleLabel = Label(textStyle: .body)
   private let stackView = UIStackView()
-  private let categoryLabel = Label(textStyle: .body)
+  private let categoryLabel = Label(textStyle: .bodyBold)
   private let amountLabel = Label(textStyle: .footnoteBold)
   
   // MARK: - Init
@@ -49,7 +49,7 @@ class OperationMonthCardView: UIView {
   private func setupContainer() {
     addSubview(containerView)
     containerView.snp.makeConstraints { make in
-      make.top.equalToSuperview().inset(20)
+      make.top.equalToSuperview().inset(8)
       make.leading.trailing.bottom.equalToSuperview()
     }
   }
