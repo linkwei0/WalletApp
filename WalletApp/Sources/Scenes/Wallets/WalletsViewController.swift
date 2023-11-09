@@ -175,4 +175,12 @@ extension WalletsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     viewModel.showSelectedWallet(at: indexPath.row)
   }
+  
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    return UIView()
+  }
+  
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return 80
+  }
 }

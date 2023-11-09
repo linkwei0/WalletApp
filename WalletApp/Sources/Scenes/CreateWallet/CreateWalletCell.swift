@@ -12,7 +12,7 @@ class CreateWalletCell: UITableViewCell {
   private let currencySegmentedControl = UISegmentedControl(items: CurrencyModelView.CreateWalletCurrencySegmentedControl.allCases.map(\.iconImage))
   private let contentTextField = UITextField()
   
-  private var viewModel: CreateWalletCellViewModelProtocol?
+  private var viewModel: (CreateWalletCellViewModelProtocol & UpdateWalletCellViewModelProtocol)?
   
   // MARK: - Init
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,12 +26,16 @@ class CreateWalletCell: UITableViewCell {
   }
   
   // MARK: Configure
-  func configure(with viewModel: CreateWalletCellViewModelProtocol) {
+  func configure(with viewModel: CreateWalletCellViewModelProtocol & UpdateWalletCellViewModelProtocol) {
     self.viewModel = viewModel
     
-    titleLabel.text = viewModel.title
     currencySegmentedControl.isHidden = viewModel.isCurrency
     contentTextField.isHidden = viewModel.isTextField
+    contentTextField.text = viewModel.contentTextFieldTitle
+    titleLabel.text = viewModel.title
+    
+    currencySegmentedControl.selectedSegmentIndex = viewModel.selectedCurrencyIndex
+    
     contentTextField.placeholder = viewModel.placeholder
     contentTextField.tag = viewModel.tag
     contentTextField.keyboardType = viewModel.keyboardType

@@ -13,7 +13,7 @@ class CreateWalletViewModel {
   // MARK: - Properties
   weak var delegate: CreateWalletViewModelDelegate?
   
-  var cellViewModels: [CreateWalletCellViewModelProtocol] {
+  var cellViewModels: [CreateWalletCellViewModelProtocol & UpdateWalletCellViewModelProtocol] {
     return contentForm.map { formType in
       let createWalletCellViewModel = CreateWalletCellViewModel(formType)
       createWalletCellViewModel.delegate = self
@@ -53,8 +53,8 @@ class CreateWalletViewModel {
 extension CreateWalletViewModel: CreateWalletCellViewModelDelegate {
   func createWalletCellViewModelDidChangeTextField(_ viewModel: CreateWalletCellViewModel,
                                                    with textFieldTag: Int, text: String) {
-    guard let typeForm = CreateWalletForm(rawValue: textFieldTag) else { return }
-    switch typeForm {
+    guard let formType = CreateWalletForm(rawValue: textFieldTag) else { return }
+    switch formType {
     case .name:
       wallet.name = text
     case .balance:

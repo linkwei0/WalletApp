@@ -52,6 +52,19 @@ struct CurrencyModelView {
     case usd
     case euro
     
+    init?(rawValue: String) {
+      switch rawValue {
+      case "RUB":
+        self = .rub
+      case "USD":
+        self = .usd
+      case "EURO", "EUR":
+        self = .euro
+      default:
+        self = .rub
+      }
+    }
+    
     var iconImage: UIImage? {
       switch self {
       case .rub:

@@ -27,7 +27,29 @@ class WalletLocalDataSource: WalletLocalDataSourceProtocol {
   }
   
   func saveWallet(_ wallet: WalletModel, completion: @escaping (Result<Void, Error>) -> Void) {
-    _ = wallet.makePersistent(context: coreDataStack.writeContext)
+    if let existedWallet = coreDataStack.getObjectByValue(columnName: "id",
+                                                          value: String(wallet.id),
+                                                          type: CDWallet.self,
+                                                          context: coreDataStack.writeContext).first {
+      let existedWalletOperations = coreDataStack.getObjectByValue(columnName: #keyPath(CDOperation.walletId),
+                                                      value: String(wallet.id),
+                                                      type: CDOperation.self,
+                                                      context: coreDataStack.writeContext)
+      existedWalletOperations.forEach { operation in
+        let currencyRate = wallet.currency.value
+        let operationValue: Decimal = operation.amount?.decimalValue ?? 0
+        let newOperationValue = currencyRate * operationValue
+        operation.amount = NSDecimalNumber(decimal: newOperationValue)
+        existedWallet.addToOperations(operation)
+      }
+      
+      existedWallet.name = wallet.name
+      existedWallet.currency = wallet.currency.makePersistent(context: coreDataStack.writeContext)
+      existedWallet.balance = NSDecimalNumber(decimal: wallet.balance)
+    } else {
+      _ = wallet.makePersistent(context: coreDataStack.writeContext)
+    }
+    
     do {
       try coreDataStack.saveWriteContext()
       completion(.success(Void()))

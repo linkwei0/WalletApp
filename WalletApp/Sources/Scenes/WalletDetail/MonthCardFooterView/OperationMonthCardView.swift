@@ -34,8 +34,9 @@ class OperationMonthCardView: UIView {
   // MARK: - Configure
   func configure(with viewModel: OperationMonthCardViewModel?) {
     titleLabel.text = "Категория" + " " + (viewModel?.title ?? "")
+    titleLabel.textColor = viewModel?.titleTextColor
     categoryLabel.text = viewModel?.category
-    amountLabel.text = viewModel?.totalAmount
+    amountLabel.text = viewModel?.totalAmount.maxLength(to: 8)
   }
   
   // MARK: - Setup
@@ -73,6 +74,7 @@ class OperationMonthCardView: UIView {
   private func setupAmountLabel() {
     containerView.addSubview(amountLabel)
     amountLabel.textColor = .baseWhite
+    amountLabel.numberOfLines = 1
     amountLabel.textAlignment = .left
   }
   

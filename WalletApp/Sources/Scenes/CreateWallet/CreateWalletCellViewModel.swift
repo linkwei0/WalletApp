@@ -19,10 +19,15 @@ protocol CreateWalletCellViewModelProtocol {
   func segmentedControlDidChange(with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
 }
 
+protocol UpdateWalletCellViewModelProtocol {
+  var selectedCurrencyIndex: Int { get }
+  var contentTextFieldTitle: String? { get }
+}
+
 protocol CreateWalletCellViewModelDelegate: AnyObject {
   func createWalletCellViewModelDidChangeTextField(_ viewModel: CreateWalletCellViewModel, with textFieldTag: Int, text: String)
   func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
-                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
+                                        with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl)
 }
 
 class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
@@ -54,10 +59,12 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
   }
   
   private let form: CreateWalletForm
+  private var wallet: WalletModel?
   
   // MARK: - Init
-  init(_ form: CreateWalletForm) {
+  init(_ form: CreateWalletForm, wallet: WalletModel? = nil) {
     self.form = form
+    self.wallet = wallet
   }
   
   // MARK: - Public methods
@@ -80,5 +87,27 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
     default:
       return false
     }
+  }
+}
+
+// MARK: - UpdateWalletCellViewModelProtocol
+extension CreateWalletCellViewModel: UpdateWalletCellViewModelProtocol {
+  var contentTextFieldTitle: String? {
+    switch form {
+    case .name:
+      return wallet?.name ?? ""
+    case .currency:
+      return nil
+    case .balance:
+      if let balance = wallet?.balance {
+        return NSDecimalNumber(decimal: balance).stringValue
+      }
+      return nil
+    }
+  }
+  
+  var selectedCurrencyIndex: Int {
+    let currencyToInt = CurrencyModelView.CreateWalletCurrencySegmentedControl(rawValue: wallet?.currency.code ?? "")
+    return currencyToInt?.rawValue ?? 0
   }
 }

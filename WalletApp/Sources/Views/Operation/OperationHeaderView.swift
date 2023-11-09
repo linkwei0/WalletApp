@@ -30,7 +30,7 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   func configure(with viewModel: TableHeaderViewModel) {
     guard let viewModel = viewModel as? OperationHeaderViewModel else { return }
     titleLabel.text = viewModel.title
-    totalValueLabel.text = viewModel.totalValue
+    totalValueLabel.text = viewModel.totalValue.maxLength(to: 10)
     
     titleLabel.snp.remakeConstraints { make in
       make.top.equalToSuperview().inset(viewModel.topInset)

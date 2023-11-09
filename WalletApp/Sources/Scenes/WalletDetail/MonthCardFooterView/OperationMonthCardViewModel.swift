@@ -5,7 +5,7 @@
 //  Created by Артём Бацанов on 07.11.2023.
 //
 
-import Foundation
+import UIKit
 
 class OperationMonthCardViewModel {
   // MARK: - Properties
@@ -21,8 +21,15 @@ class OperationMonthCardViewModel {
     return amountResult
   }
   
+  var titleTextColor: UIColor {
+    if operations.isEmpty {
+      return .baseWhite
+    }
+    return operations[0].type.isIncome ? .incomeBtnColor : .expenseBtnColor
+  }
+  
   private var isIncomeCard: Bool
-  private var amountResult: String = "100"
+  private var amountResult: String = ""
   private var categoryResult: String = ""
   
   private let operations: [OperationModel]
@@ -44,7 +51,7 @@ class OperationMonthCardViewModel {
     
     var expenseCategoryDict: [ExpenseCategoryType: Decimal] = [:]
     ExpenseCategoryType.allCases.forEach { expenseCategoryDict[$0] = 0 }
-    
+
     operations.forEach { operation in
       if operation.type == .income {
         maxIncomeValue = handleIncomeOperations(operation, &incomeCategoryDict)
@@ -53,8 +60,8 @@ class OperationMonthCardViewModel {
       }
     }
 
-    let incomeValue: String = maxIncomeValue != 0 ? "+" + (NSDecimalNumber(decimal: maxIncomeValue).stringValue) : "0"
-    let expenseValue: String = maxExpenseValue != 0 ? "-" + (NSDecimalNumber(decimal: maxExpenseValue).stringValue) : "0"
+    let incomeValue: String = maxIncomeValue != 0 ? "+" + String(NSDecimalNumber(decimal: maxIncomeValue).intValue) : "0"
+    let expenseValue: String = maxExpenseValue != 0 ? "-" + String(NSDecimalNumber(decimal: maxExpenseValue).intValue) : "0"
     amountResult = isIncomeCard ? incomeValue : expenseValue
   }
   

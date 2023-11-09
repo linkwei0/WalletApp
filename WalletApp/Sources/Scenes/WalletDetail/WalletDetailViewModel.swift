@@ -112,17 +112,19 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
         operationSection = operations.filter { $0.date.isLastWeek() }
       }
       
-      var headerDayValueOfAllOperations: Decimal = 0
+      var valueOfDayOperations: Int = 0
       
       let itemViewModels = operationSection.map { operation in
-        headerDayValueOfAllOperations = operation.type.isIncome ? headerDayValueOfAllOperations + operation.amount : headerDayValueOfAllOperations - operation.amount
+        let operationValue = NSDecimalNumber(decimal: operation.amount).intValue
+        valueOfDayOperations = operation.type.isIncome ? valueOfDayOperations + operationValue
+        : valueOfDayOperations - operationValue
         let itemViewModel = OperationCellViewModel(operation)
         itemViewModel.delegate = self
         return itemViewModel
       }
       
       if !itemViewModels.isEmpty {
-        let headerTotalValueString = headerDayValueOfAllOperations >= 0 ? "+\(headerDayValueOfAllOperations)" : "-\(headerDayValueOfAllOperations)"
+        let headerTotalValueString = valueOfDayOperations >= 0 ? "+\(valueOfDayOperations)" : "-\(valueOfDayOperations)"
         let headerViewModel = OperationHeaderViewModel(title: dateOfOperation.title,
                                                        totalValue: headerTotalValueString,
                                                        isFirstSection: self.sectionViewModels.isEmpty)
@@ -136,7 +138,6 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
     }
     
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
-//    let section = TableSectionViewModel(footerViewModel: footerViewModel)
     let headerViewModel = OperationHeaderViewModel(title: "Топ месяца")
     let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
     sectionViewModels.append(section)

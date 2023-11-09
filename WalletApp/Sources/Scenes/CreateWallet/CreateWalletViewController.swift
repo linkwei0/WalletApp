@@ -7,7 +7,7 @@ import UIKit
 
 class CreateWalletViewController: BaseViewController {
   // MARK: - Properties
-  private var dataSource: SimpleTableViewDataSoruce<CreateWalletCellViewModelProtocol>?
+  private var dataSource: SimpleTableViewDataSoruce<(CreateWalletCellViewModelProtocol & UpdateWalletCellViewModelProtocol)>?
   
   private let createWalletFormTableView = UITableView()
   private let createWalletButton = UIButton(type: .system)

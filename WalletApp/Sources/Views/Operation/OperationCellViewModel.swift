@@ -29,7 +29,7 @@ class OperationCellViewModel: OperationCellViewModelProtocol {
   }
   
   var amount: String {
-    return NSDecimalNumber(decimal: operation.amount).stringValue
+    return String(NSDecimalNumber(decimal: operation.amount).intValue)
   }
   
   var category: ExpenseCategoryType {

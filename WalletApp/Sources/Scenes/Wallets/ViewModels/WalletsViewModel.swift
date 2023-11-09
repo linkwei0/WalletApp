@@ -8,6 +8,7 @@ import UIKit
 protocol WalletsViewModelDelegate: AnyObject {
   func walletsViewModelDidRequestToShowWalletDetail(_ viewModel: WalletsViewModel, wallet: WalletModel)
   func walletsViewModelDidRequestToShowAddNewWallet(_ viewModel: WalletsViewModel, currencyRates: CurrencyRates)
+  func walletsViewModelDidRequestToShowEditWallet(_ viewModel: WalletsViewModel, wallet: WalletModel, currencyRates: CurrencyRates)
 }
 
 final class WalletsViewModel: SimpleViewStateProcessable {
@@ -15,7 +16,11 @@ final class WalletsViewModel: SimpleViewStateProcessable {
   weak var delegate: WalletsViewModelDelegate?
   
   var cellViewModels: [WalletCellViewModelProtocol] {
-    return viewState.value.currentEntities.compactMap { WalletCellViewModel($0) }
+    return viewState.value.currentEntities.compactMap { wallet in
+      let cellViewModel = WalletCellViewModel(wallet)
+      cellViewModel.delegate = self
+      return cellViewModel
+    }
   }
   
   var hasWallets: Bool {
@@ -139,5 +144,13 @@ final class WalletsViewModel: SimpleViewStateProcessable {
                                    titleExpense: R.string.balance.balanceViewWalletsExpenseTitle(),
                                    totalBalance: totalBalance, totalIncome: totalIncome,
                                    totalExpense: totalExpense, currencyCode: CurrencyModelView.WalletsCurrencyType.rub.title)
+  }
+}
+
+// MARK: - WalletCellViewModelDelegate
+extension WalletsViewModel: WalletCellViewModelDelegate {
+  func cellViewModelDidLongTap(_ viewModel: WalletCellViewModel, wallet: WalletModel) {
+    delegate?.walletsViewModelDidRequestToShowEditWallet(self, wallet: wallet,
+                                                         currencyRates: currencyRates ?? CurrencyRates(usd: 1, euro: 1))
   }
 }

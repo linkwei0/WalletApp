@@ -33,9 +33,19 @@ class WalletCell: UITableViewCell {
   
   // MARK: - Setup
   private func setup() {
-    selectionStyle = .none
+    setupBackground()
     setupNameLabel()
     setupCurrencyLabel()
+    
+  }
+  
+  private func setupBackground() {
+    selectionStyle = .none
+    let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didLongTap(_:)))
+//    longTap.numberOfTapsRequired = 1
+    longTap.minimumPressDuration = 1
+    longTap.delaysTouchesBegan = true
+    contentView.addGestureRecognizer(longTap)
   }
   
   private func setupNameLabel() {
@@ -54,6 +64,13 @@ class WalletCell: UITableViewCell {
     currencyImageView.snp.makeConstraints { make in
       make.trailing.equalToSuperview().inset(24)
       make.centerY.equalToSuperview()
+    }
+  }
+  
+  // MARK: - Actions
+  @objc private func didLongTap(_ sender: UILongPressGestureRecognizer) {
+    if sender.state == .ended {
+      viewModel?.didLongTap()
     }
   }
 }
