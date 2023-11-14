@@ -6,10 +6,8 @@
 import UIKit
 
 enum CalculationItemType: Int {
-  case zero, one, two, three, four, five,
-       six, seven, eight, nine, equal,
-       minus, plus, multiply, divide, comma,
-       plusMinus, clearAC, percent, back
+  case zero, one, two, three, four, five, six, seven, eight, nine, equal, minus,
+       plus, multiply, divide, point, plusMinus, resetValues, percent, previousValue
   
   var stringValue: String {
     switch self {
@@ -43,26 +41,26 @@ enum CalculationItemType: Int {
       return "/"
     case .equal:
       return "="
-    case .comma:
-      return ","
+    case .point:
+      return "."
     case .plusMinus:
       return ""
-    case .clearAC:
+    case .resetValues:
       return "AC"
     case .percent:
       return "%"
-    case .back:
+    case .previousValue:
       return "back"
     }
   }
   
   var tintColor: UIColor {
     switch self {
-    case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .comma, .back:
+    case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .point, .previousValue:
       return UIColor.baseWhite
     case .equal, .minus, .plus, .multiply, .divide:
       return UIColor.accentRedFaded
-    case .plusMinus, .clearAC, .percent:
+    case .plusMinus, .resetValues, .percent:
       return UIColor.accentRedLight
     }
   }
@@ -106,16 +104,52 @@ enum CalculationItemType: Int {
       return UIImage(systemName: "multiply")
     case .divide:
       return UIImage(systemName: "divide")
-    case .comma:
+    case .point:
       return R.image.commaButton()
     case .plusMinus:
       return UIImage(systemName: "plus.forwardslash.minus")
-    case .clearAC:
+    case .resetValues:
       return UIImage(systemName: "xmark.circle")
     case .percent:
       return UIImage(systemName: "percent")
-    case .back:
+    case .previousValue:
       return UIImage(systemName: "arrow.clockwise")
+    }
+  }
+  
+  var isSign: Bool {
+    switch self {
+    case .minus, .plus, .multiply, .divide:
+      return true
+    default:
+      return false
+    }
+  }
+  
+  var isNumber: Bool {
+    switch self {
+    case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
+      return true
+    default:
+      return false
+    }
+  }
+  
+  var isPoint: Bool {
+    switch self {
+    case .point:
+      return true
+    default:
+      return false
+    }
+  }
+  
+  var isEqual: Bool {
+    switch self {
+    case .equal:
+      return true
+    default:
+      return false
     }
   }
 }

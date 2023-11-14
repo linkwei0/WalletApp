@@ -15,7 +15,7 @@ final class CalculationCellViewModel {
   
   // MARK: - Properties
     
-  private let collectionType: CalculationType
+  private let collectionType: CollectionType
   private let itemType: CalculationItemType
   
   var backgroundColor: UIColor {
@@ -36,7 +36,7 @@ final class CalculationCellViewModel {
   
   // MARK: - Init
   
-  init(collectionType: CalculationType, itemType: CalculationItemType) {
+  init(collectionType: CollectionType, itemType: CalculationItemType) {
     self.collectionType = collectionType
     self.itemType = itemType
   }

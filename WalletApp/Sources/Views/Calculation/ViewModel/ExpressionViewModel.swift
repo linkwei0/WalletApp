@@ -53,21 +53,15 @@ final class ExpressionViewModel: SimpleViewStateProcessable {
 
 // MARK: - CalculationViewViewModelDelegate
 extension ExpressionViewModel: CalculationViewModelDelegate {
-  func calculationViewModelDidRequestToUpdateValue(_ viewModel: CalculationViewModel, with value: String) {
-    if value.count <= 7 {
-      currentValue.value = value
-    }
-  }
-  
-  func calculationViewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewModel,
-                                                       with value: String, sign: String) {
+  func calculationViewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewModel, with supportingValue: String,
+                                                       sign: String) {
     currentValue.value = ""
-    supprotingValue.value = value
+    supprotingValue.value = supportingValue
     previousSign.value = sign
   }
   
-  func calculationViewModelDidRequestToUpdateAfterEqual(_ viewModel: CalculationViewModel, with value: String) {
-    currentValue.value = value
+  func calculationViewModelDidRequestToUpdateAfterEqual(_ viewModel: CalculationViewModel, with currentValue: String) {
+    self.currentValue.value = currentValue
     supprotingValue.value = ""
     previousSign.value = ""
   }

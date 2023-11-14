@@ -24,12 +24,12 @@ class ExpressionView: UIView {
   private let previousValueLabel = Label(textStyle: .header1)
   private let currentValueLabel = Label(textStyle: .header1)
   
-  private let collectionType: CalculationType
+  private let collectionType: CollectionType
   
   private let viewModel: ExpressionViewModel
   
   // MARK: - Init
-  init(viewModel: ExpressionViewModel, collectionType: CalculationType) {
+  init(viewModel: ExpressionViewModel, collectionType: CollectionType) {
     self.viewModel = viewModel
     self.collectionType = collectionType
     super.init(frame: .zero)
