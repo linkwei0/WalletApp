@@ -10,10 +10,6 @@ class BankBottomBarView: UIView {
   
   var onDidSelectItem: ((_ itemType: WalletBottomBarItemType) -> Void)?
   
-  override var intrinsicContentSize: CGSize {
-    CGSize(width: UIView.noIntrinsicMetric, height: 56)
-  }
-  
   private let stackView = UIStackView()
   
   private let bottomBarItems: [WalletBottomBarItemType]
@@ -28,6 +24,11 @@ class BankBottomBarView: UIView {
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    applyGradient(startColor: .accentDark, endColor: .accentFaded)
   }
 
   // MARK: - Public methods

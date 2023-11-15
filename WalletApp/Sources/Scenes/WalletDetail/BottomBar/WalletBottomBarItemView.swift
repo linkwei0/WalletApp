@@ -11,13 +11,12 @@ class WalletBottomBarItemView: UIView {
   var onDidTap: ((_ itemType: WalletBottomBarItemType) -> Void)?
   
   override var intrinsicContentSize: CGSize {
-    CGSize(width: 56, height: 55)
+    CGSize(width: 56, height: 50)
   }
   
   private(set) var itemType: WalletBottomBarItemType?
   
   private let iconImageView = UIImageView()
-  private let titleLabel = Label(textStyle: .footnoteBold)
   private let overlayButton = HighlightableButton()
   
   // MARK: - Init
@@ -38,8 +37,6 @@ class WalletBottomBarItemView: UIView {
     
     iconImageView.image = itemType.icon?.withRenderingMode(.alwaysTemplate)
     iconImageView.tintColor = itemType.color
-    titleLabel.text = itemType.title
-    titleLabel.textColor = itemType.color
   }
   
   // MARK: - Actions
@@ -53,7 +50,6 @@ class WalletBottomBarItemView: UIView {
   
   private func setup() {
     setupIconImageView()
-    setupTitleLabel()
     setupOverlayButton()
   }
   
@@ -66,16 +62,7 @@ class WalletBottomBarItemView: UIView {
       make.centerX.equalToSuperview()
     }
   }
-  
-  private func setupTitleLabel() {
-    addSubview(titleLabel)
-    titleLabel.textAlignment = .center
-    titleLabel.snp.makeConstraints { make in
-      make.top.equalTo(iconImageView.snp.bottom).offset(2)
-      make.leading.trailing.bottom.equalToSuperview()
-    }
-  }
-  
+    
   private func setupOverlayButton() {
     addSubview(overlayButton)
     overlayButton.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
@@ -92,6 +79,5 @@ class WalletBottomBarItemView: UIView {
   private func setState(isHighlighted: Bool) {
     guard let itemType = itemType else { return }
     iconImageView.tintColor = isHighlighted ? itemType.highlightColor : itemType.color
-    titleLabel.textColor = isHighlighted ? itemType.highlightColor : itemType.color
   }
 }

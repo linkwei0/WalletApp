@@ -43,17 +43,20 @@ class CurrencyView: UIView {
   private func setupStackView() {
     addSubview(stackView)
     stackView.axis = .horizontal
-    stackView.alignment = .center
     stackView.distribution = .equalSpacing
     stackView.snp.makeConstraints { make in
-      make.top.bottom.equalToSuperview().inset(2)
-      make.leading.trailing.equalToSuperview().inset(4)
+      make.centerY.equalToSuperview()
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.height.equalTo(25)
     }
   }
   
   private func configureCurrencyStackView(with currency: CurrencyModelView) -> UIStackView {
     let imageView = UIImageView(image: CurrencyModelView.WalletsCurrencyType(rawValue: currency.code)?.iconImage)
     imageView.tintColor = .baseWhite
+    imageView.snp.makeConstraints { make in
+      make.size.equalTo(25)
+    }
     
     let valueLabel = Label(textStyle: .footnoteBold)
     valueLabel.text = "\(currency.value)"

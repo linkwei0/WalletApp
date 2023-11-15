@@ -48,7 +48,7 @@ class WalletDetailViewController: BaseViewController {
     view.addSubview(balanceView)
     balanceView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
-      make.height.equalTo(155)
+      make.height.equalTo(115)
     }
   }
   
@@ -91,8 +91,8 @@ class WalletDetailViewController: BaseViewController {
     }
     bottomBarView.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(16)
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16).priority(750)
-      make.bottom.greaterThanOrEqualToSuperview().offset(-40)
+      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-6)
+      make.height.equalTo(50)
     }
   }
   

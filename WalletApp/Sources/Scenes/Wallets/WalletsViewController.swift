@@ -68,7 +68,7 @@ class WalletsViewController: BaseViewController {
     
     balanceView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
-      make.height.equalTo(155)
+      make.height.equalTo(115)
     }
   }
   
@@ -86,6 +86,7 @@ class WalletsViewController: BaseViewController {
     walletsTableView.rowHeight = 60
     walletsTableView.separatorStyle = .none
     walletsTableView.delegate = self
+    walletsTableView.showsVerticalScrollIndicator = false
     walletsTableView.register(WalletCell.self, forCellReuseIdentifier: WalletCell.reuseIdentifiable)
     walletsTableView.snp.makeConstraints { make in
       make.top.equalTo(currencyView.snp.bottom)
@@ -118,8 +119,8 @@ class WalletsViewController: BaseViewController {
     addWalletButton.addTarget(self, action: #selector(didTapAddWalletButton), for: .touchUpInside)
     addWalletButton.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(16)
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
-      make.height.equalTo(60)
+      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-6)
+      make.height.equalTo(50)
     }
   }
   

@@ -62,23 +62,24 @@ class BalanceView: UIView {
     
     let bottomStackView = UIStackView()
     bottomStackView.axis = .horizontal
-    bottomStackView.distribution = .fillEqually
-    bottomStackView.spacing = 120
+    bottomStackView.distribution = .fill
+    bottomStackView.spacing = 20
     bottomStackView.addArrangedSubview(incomeStackView)
     bottomStackView.addArrangedSubview(expenseStackView)
     
     let stackView = configureStackView(totalStackView, bottomStackView)
     addSubview(stackView)
+    
     stackView.snp.makeConstraints { make in
-      make.top.equalToSuperview().inset(16)
-      make.leading.equalToSuperview().inset(16)
+      make.top.equalToSuperview()
+      make.leading.trailing.equalToSuperview().inset(16)
     }
   }
   
   func configureStackView(_ topView: UIView, _ bottomView: UIView) -> UIStackView {
     let stackView = UIStackView()
     stackView.axis = .vertical
-    stackView.spacing = 8
+    stackView.spacing = 2
     stackView.addArrangedSubview(topView)
     stackView.addArrangedSubview(bottomView)
     return stackView
@@ -90,10 +91,10 @@ class BalanceView: UIView {
       self.titleBalanceLabel.text = balance.titleBalance
       self.titleIncomeLabel.text = balance.titleIncome
       self.titleExpenseLabel.text = balance.titleExpense
-      self.balanceLabel.text = "\(balance.totalBalance)" + balance.currency
-      self.incomeLabel.text = "\(balance.totalIncome)" + balance.currency
-      self.expenseLabel.text = (balance.totalExpense > 0 ? "-\(balance.totalExpense)" 
-                                : "\(balance.totalExpense)") + balance.currency
+      self.balanceLabel.text = "\(balance.totalBalance)" + " " + balance.currency
+      self.incomeLabel.text = "\(balance.totalIncome)" + " " + balance.currency
+      self.expenseLabel.text = (balance.totalExpense > 0 ? "-\(balance.totalExpense)"
+                                : "\(balance.totalExpense)") + " " + balance.currency
     }
   }
 }

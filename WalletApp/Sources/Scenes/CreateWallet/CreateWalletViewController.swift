@@ -68,8 +68,8 @@ class CreateWalletViewController: BaseViewController {
     createWalletButton.addTarget(self, action: #selector(didTapCreateWalletButton), for: .touchUpInside)
     createWalletButton.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(16)
-      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
-      make.height.equalTo(60)
+      make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-6)
+      make.height.equalTo(50)
     }
   }
   
