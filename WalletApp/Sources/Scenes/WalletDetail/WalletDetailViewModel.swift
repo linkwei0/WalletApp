@@ -28,7 +28,7 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
   
   private(set) var sectionViewModels: [TableSectionViewModel] = []
   private(set) var emptyStateViewModel: EmptyStateViewModel?
-    
+  
   private var operations: [OperationModel] {
     return viewState.value.currentEntities
   }
@@ -84,9 +84,10 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
       switch result {
       case .success(let operations):
         let sortedOperations = operations.sorted { $0.date > $1.date }
-        self.configureSectionByOperationsDate(sortedOperations)
-        self.configureBalanceModel(with: sortedOperations)
         self.viewState.value = self.processResult(sortedOperations)
+        let operationsByDate = self.configureOperationsByDate(sortedOperations)
+        self.configureSections(operationsByDate)
+        self.configureBalanceModel(with: sortedOperations)
         if operations.isEmpty {
           self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.circle.fill"),
                                                          imageSize: CGSize(width: 120, height: 120),
@@ -99,34 +100,22 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
     }
   }
   
-  private func configureSectionByOperationsDate(_ operations: [OperationModel]) {
-    sectionViewModels.removeAll()
-    OperationDateType.allCases.forEach { dateOfOperation in
-      var operationSection: [OperationModel] = []
-      switch dateOfOperation {
-      case .today:
-        operationSection = operations.filter { $0.date.isToday() }
-      case .yesterday:
-        operationSection = operations.filter { $0.date.isYesterday() }
-      case .lastWeek:
-        operationSection = operations.filter { $0.date.isLastWeek() }
-      }
+  private func configureSections(_ operationsByDate: [OperationDateType: [OperationModel]]) {
+    operationsByDate.forEach { date, operations in
+      var amountOfDateOperations: Int = 0
       
-      var valueOfDayOperations: Int = 0
-      
-      let itemViewModels = operationSection.map { operation in
+      let itemViewModels = operations.map { operation in
         let operationValue = NSDecimalNumber(decimal: operation.amount).intValue
-        valueOfDayOperations = operation.type.isIncome ? valueOfDayOperations + operationValue
-        : valueOfDayOperations - operationValue
+        amountOfDateOperations = operation.type.isIncome ? amountOfDateOperations + operationValue
+        : amountOfDateOperations - operationValue
         let itemViewModel = OperationCellViewModel(operation)
         itemViewModel.delegate = self
         return itemViewModel
       }
       
       if !itemViewModels.isEmpty {
-        let headerTotalValueString = valueOfDayOperations >= 0 ? "+\(valueOfDayOperations)" : "-\(valueOfDayOperations)"
-        let headerViewModel = OperationHeaderViewModel(title: dateOfOperation.title,
-                                                       totalValue: headerTotalValueString,
+        let headerTotalAmount = amountOfDateOperations >= 0 ? "+\(amountOfDateOperations)" : "-\(amountOfDateOperations)"
+        let headerViewModel = OperationHeaderViewModel(title: date.title, totalValue: headerTotalAmount,
                                                        isFirstSection: self.sectionViewModels.isEmpty)
         let footerViewModel = OperationDefaultFooterViewModel()
         footerViewModel.delegate = self
@@ -141,6 +130,19 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
     let headerViewModel = OperationHeaderViewModel(title: "Топ месяца")
     let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
     sectionViewModels.append(section)
+  }
+  
+  private func configureOperationsByDate(_ operations: [OperationModel]) -> [OperationDateType: [OperationModel]] {
+    sectionViewModels.removeAll()
+    
+    var dateOfOperations: [OperationDateType: [OperationModel]] = [:]
+    for operation in operations {
+      if operation.date.isToday() { dateOfOperations[.today, default: []].append(operation) }
+      if operation.date.isYesterday() { dateOfOperations[.yesterday, default: []].append(operation) }
+      if operation.date.isLastWeek() { dateOfOperations[.lastWeek, default: []].append(operation) }
+    }
+    
+    return dateOfOperations
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {

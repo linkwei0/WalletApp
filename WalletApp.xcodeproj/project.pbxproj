@@ -66,6 +66,7 @@
 		AD1B719B2AF653C60078761C /* Balance.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719A2AF653C60078761C /* Balance.strings */; };
 		AD1B719D2AF655410078761C /* CreateWallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719C2AF655410078761C /* CreateWallet.strings */; };
 		AD1B719F2AF659150078761C /* Profile.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719E2AF659150078761C /* Profile.strings */; };
+		AD2AA2AF2B04BC0D00458E5E /* TableSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2AE2B04BC0D00458E5E /* TableSectionViewModel.swift */; };
 		AD39A1152AE3BC5A00A27DD2 /* IncomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */; };
 		AD39A1172AE3BC6500A27DD2 /* ExpenseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */; };
 		AD39A1242AE65F7F00A27DD2 /* WalletRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */; };
@@ -240,6 +241,7 @@
 		AD1B719A2AF653C60078761C /* Balance.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Balance.strings; sourceTree = "<group>"; };
 		AD1B719C2AF655410078761C /* CreateWallet.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = CreateWallet.strings; sourceTree = "<group>"; };
 		AD1B719E2AF659150078761C /* Profile.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Profile.strings; sourceTree = "<group>"; };
+		AD2AA2AE2B04BC0D00458E5E /* TableSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionViewModel.swift; sourceTree = "<group>"; };
 		AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeFactory.swift; sourceTree = "<group>"; };
 		AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFactory.swift; sourceTree = "<group>"; };
 		AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -1031,6 +1033,7 @@
 				5A753CDDB038C8A056E65AB8 /* SimpleTableViewDataSource.swift */,
 				ADC94C642AEE4D1100B182E6 /* TableViewDataSourceProtocols.swift */,
 				ADC94C662AEE4D3D00B182E6 /* TableViewDataSource.swift */,
+				AD2AA2AE2B04BC0D00458E5E /* TableSectionViewModel.swift */,
 			);
 			path = "TableView Data Sources";
 			sourceTree = "<group>";
@@ -1370,6 +1373,7 @@
 				ADC4E73F2AD6872500756F2D /* CurrencyView.swift in Sources */,
 				ADC4E7472AD699C200756F2D /* R.generated.swift in Sources */,
 				ADC94C5C2AEBED5100B182E6 /* OperationType.swift in Sources */,
+				AD2AA2AF2B04BC0D00458E5E /* TableSectionViewModel.swift in Sources */,
 				AD402D142AFA20FD00CBAA03 /* OperationMonthCardView.swift in Sources */,
 				1F9DFBA26AA1F5C6416787BC /* NavigationPopObserver.swift in Sources */,
 				ADC4E7572AD7EA3800756F2D /* CDWallet.swift in Sources */,

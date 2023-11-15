@@ -58,8 +58,7 @@ class WalletDetailViewController: BaseViewController {
     operationsTableView.showsVerticalScrollIndicator = false
     operationsTableView.estimatedRowHeight = 50
     operationsTableView.rowHeight = UITableView.automaticDimension
-    operationsTableView.backgroundColor = .baseWhite
-    operationsTableView.automaticallyAdjustsScrollIndicatorInsets = false
+    operationsTableView.backgroundColor = .clear
     operationsTableView.register(OperationHeaderView.self,
                                  forHeaderFooterViewReuseIdentifier: OperationHeaderView.reuseIdentifiable)
     operationsTableView.register(OperationLastSectionFooterView.self,

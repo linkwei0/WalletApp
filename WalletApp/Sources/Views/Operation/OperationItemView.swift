@@ -73,6 +73,7 @@ class OperationItemView: UIView, Configurable {
   
   // MARK: - Setup
   private func setup() {
+    backgroundColor = .baseWhite
     setupStackView()
     setupTitleLabel()
     setupCategoryImageView()
