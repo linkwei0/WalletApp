@@ -50,6 +50,7 @@ class CreateWalletCoordinator: ConfigurableCoordinator {
     createWalletVC.viewModel.delegate = self
     navigationController.addPopObserver(for: createWalletVC, coordinator: self)
     createWalletVC.title = R.string.createWallet.createWalletTitle()
+    addPopObserver(for: createWalletVC)
     navigationController.pushViewController(createWalletVC, animated: animated)
   }
 }

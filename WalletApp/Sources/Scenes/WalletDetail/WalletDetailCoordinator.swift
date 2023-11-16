@@ -53,8 +53,16 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
       strongSelf.delegate?.walletDetailCoordinatorSuccessfullyUpdatedOperation(strongSelf)
     }
     walletDetailVC.title = configuration.wallet.name
+    walletDetailVC.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "target"),
+                                                                       style: .done, target: self,
+                                                                       action: #selector(showBudgetPlanning))
     navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
     navigationController.pushViewController(walletDetailVC, animated: animated)
+  }
+  
+  // MARK: - Private methods
+  @objc private func showBudgetPlanning() {
+    show(BudgetPlanningListCoordinator.self, animated: true)
   }
 }
 

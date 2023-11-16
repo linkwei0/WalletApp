@@ -48,6 +48,7 @@ class WalletEditCoordinator: ConfigurableCoordinator {
     viewModel.delegate = self
     let viewController = WalletEditViewController(viewModel: viewModel)
     viewController.navigationItem.title = "Редактирование кошелька"
+    addPopObserver(for: viewController)
     navigationController.pushViewController(viewController, animated: animated)
   }
 }

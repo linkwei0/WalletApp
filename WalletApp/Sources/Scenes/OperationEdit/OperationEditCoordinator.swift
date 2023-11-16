@@ -50,6 +50,7 @@ class OperationEditCoordinator: NSObject, ConfigurableCoordinator {
       viewModel?.updateOperation(for: wallet, with: operation)
     }
     viewController.viewModel.delegate = self
+    addPopObserver(for: viewController)
     navigationController.pushViewController(viewController, animated: animated)
   }
 }

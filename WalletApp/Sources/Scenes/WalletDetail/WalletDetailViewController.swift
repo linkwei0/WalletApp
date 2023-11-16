@@ -35,7 +35,7 @@ class WalletDetailViewController: BaseViewController {
     setupBindables()
     viewModel.viewIsReady()
   }
-  
+    
   // MARK: - Setup
   private func setup() {
     setupBalanceView()

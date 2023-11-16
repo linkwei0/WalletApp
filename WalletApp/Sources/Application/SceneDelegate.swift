@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let window = UIWindow(windowScene: scene)
     let navigationController = NavigationController()
     window.rootViewController = navigationController
-    window.backgroundColor = .baseWhite
+    window.backgroundColor = .systemGroupedBackground
     window.makeKeyAndVisible()
     
     self.window = window

@@ -67,6 +67,15 @@
 		AD1B719D2AF655410078761C /* CreateWallet.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719C2AF655410078761C /* CreateWallet.strings */; };
 		AD1B719F2AF659150078761C /* Profile.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719E2AF659150078761C /* Profile.strings */; };
 		AD2AA2AF2B04BC0D00458E5E /* TableSectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2AE2B04BC0D00458E5E /* TableSectionViewModel.swift */; };
+		AD2AA2B62B04FDB900458E5E /* BudgetPlanningListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2B52B04FDB900458E5E /* BudgetPlanningListViewModel.swift */; };
+		AD2AA2B82B04FDCB00458E5E /* BudgetPlanningListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2B72B04FDCB00458E5E /* BudgetPlanningListViewController.swift */; };
+		AD2AA2BA2B04FE1E00458E5E /* BudgetPlanningListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2B92B04FE1E00458E5E /* BudgetPlanningListCoordinator.swift */; };
+		AD2AA2BD2B05017200458E5E /* CreateBudgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2BC2B05017200458E5E /* CreateBudgetViewModel.swift */; };
+		AD2AA2BF2B05018500458E5E /* CreateBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2BE2B05018500458E5E /* CreateBudgetViewController.swift */; };
+		AD2AA2C12B0501A000458E5E /* CreateBudgetCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C02B0501A000458E5E /* CreateBudgetCoordinator.swift */; };
+		AD2AA2C32B06147900458E5E /* CreateBudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C22B06147900458E5E /* CreateBudgetCell.swift */; };
+		AD2AA2C52B0617EF00458E5E /* CreateBudgetCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C42B0617EF00458E5E /* CreateBudgetCellViewModel.swift */; };
+		AD2AA2C72B06200600458E5E /* CalculationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */; };
 		AD39A1152AE3BC5A00A27DD2 /* IncomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */; };
 		AD39A1172AE3BC6500A27DD2 /* ExpenseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */; };
 		AD39A1242AE65F7F00A27DD2 /* WalletRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */; };
@@ -242,6 +251,15 @@
 		AD1B719C2AF655410078761C /* CreateWallet.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = CreateWallet.strings; sourceTree = "<group>"; };
 		AD1B719E2AF659150078761C /* Profile.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Profile.strings; sourceTree = "<group>"; };
 		AD2AA2AE2B04BC0D00458E5E /* TableSectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableSectionViewModel.swift; sourceTree = "<group>"; };
+		AD2AA2B52B04FDB900458E5E /* BudgetPlanningListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanningListViewModel.swift; sourceTree = "<group>"; };
+		AD2AA2B72B04FDCB00458E5E /* BudgetPlanningListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanningListViewController.swift; sourceTree = "<group>"; };
+		AD2AA2B92B04FE1E00458E5E /* BudgetPlanningListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanningListCoordinator.swift; sourceTree = "<group>"; };
+		AD2AA2BC2B05017200458E5E /* CreateBudgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetViewModel.swift; sourceTree = "<group>"; };
+		AD2AA2BE2B05018500458E5E /* CreateBudgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetViewController.swift; sourceTree = "<group>"; };
+		AD2AA2C02B0501A000458E5E /* CreateBudgetCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCoordinator.swift; sourceTree = "<group>"; };
+		AD2AA2C22B06147900458E5E /* CreateBudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCell.swift; sourceTree = "<group>"; };
+		AD2AA2C42B0617EF00458E5E /* CreateBudgetCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCellViewModel.swift; sourceTree = "<group>"; };
+		AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationModalViewController.swift; sourceTree = "<group>"; };
 		AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeFactory.swift; sourceTree = "<group>"; };
 		AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFactory.swift; sourceTree = "<group>"; };
 		AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -678,6 +696,30 @@
 			path = Income;
 			sourceTree = "<group>";
 		};
+		AD2AA2B42B04FD9B00458E5E /* BudgetPlanning */ = {
+			isa = PBXGroup;
+			children = (
+				AD2AA2B52B04FDB900458E5E /* BudgetPlanningListViewModel.swift */,
+				AD2AA2B72B04FDCB00458E5E /* BudgetPlanningListViewController.swift */,
+				AD2AA2B92B04FE1E00458E5E /* BudgetPlanningListCoordinator.swift */,
+				AD2AA2BB2B05016300458E5E /* CreateBudget */,
+			);
+			path = BudgetPlanning;
+			sourceTree = "<group>";
+		};
+		AD2AA2BB2B05016300458E5E /* CreateBudget */ = {
+			isa = PBXGroup;
+			children = (
+				AD2AA2C02B0501A000458E5E /* CreateBudgetCoordinator.swift */,
+				AD2AA2BC2B05017200458E5E /* CreateBudgetViewModel.swift */,
+				AD2AA2BE2B05018500458E5E /* CreateBudgetViewController.swift */,
+				AD2AA2C22B06147900458E5E /* CreateBudgetCell.swift */,
+				AD2AA2C42B0617EF00458E5E /* CreateBudgetCellViewModel.swift */,
+				AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */,
+			);
+			path = CreateBudget;
+			sourceTree = "<group>";
+		};
 		AD39A1182AE3D0C500A27DD2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -863,6 +905,7 @@
 				BEA9E140E3129874542C9812 /* BottomBar */,
 				AD402D1D2AFA366800CBAA03 /* MonthCardFooterView */,
 				AD402D1E2AFA5EDE00CBAA03 /* OperationDefaultFooterView */,
+				AD2AA2B42B04FD9B00458E5E /* BudgetPlanning */,
 				AD402D232AFB784B00CBAA03 /* Operations */,
 			);
 			path = WalletDetail;
@@ -1271,6 +1314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD2AA2C12B0501A000458E5E /* CreateBudgetCoordinator.swift in Sources */,
 				AD5A38D32AF234B700028127 /* ProfileLocalDataSourceProtocol.swift in Sources */,
 				A7A666F95BF9A61A2BB672EA /* AppDelegate.swift in Sources */,
 				AD752C1D2AE677650092A43D /* CurrencyViewModel.swift in Sources */,
@@ -1295,6 +1339,7 @@
 				AD5A38C82AF2318000028127 /* ProfileClientProtocol.swift in Sources */,
 				ADC94C6D2AEE635D00B182E6 /* OperationDateType.swift in Sources */,
 				AD402D1A2AFA342300CBAA03 /* UIView+Gradient.swift in Sources */,
+				AD2AA2BA2B04FE1E00458E5E /* BudgetPlanningListCoordinator.swift in Sources */,
 				F5A065C2538C5F366C8F02C6 /* CDOperation.swift in Sources */,
 				49831795E6F0998D0312425C /* CalculationCell.swift in Sources */,
 				ADC4E73C2AD5A23200756F2D /* BalanceView.swift in Sources */,
@@ -1303,6 +1348,7 @@
 				AD402D182AFA255400CBAA03 /* OperationLastSectionFooterViewModel.swift in Sources */,
 				ADC94C732AEFA3E600B182E6 /* EmptyStateView.swift in Sources */,
 				ADC4E74F2AD7150B00756F2D /* CreateWalletViewController.swift in Sources */,
+				AD2AA2BD2B05017200458E5E /* CreateBudgetViewModel.swift in Sources */,
 				AD6A63862ADBFF0E008E7429 /* WalletUseCaseProtocol.swift in Sources */,
 				26D4542A57EF66B1FF192352 /* CalculationInteractor.swift in Sources */,
 				641BAD6B85290DCA037E7139 /* CalculationItemType.swift in Sources */,
@@ -1312,6 +1358,7 @@
 				A61C6808D6D65C45EC859FFF /* CalculationView.swift in Sources */,
 				AD39A1282AE6608B00A27DD2 /* WalletClient.swift in Sources */,
 				AD5A38C62AF2311800028127 /* ProfileRemoteDataSource.swift in Sources */,
+				AD2AA2B82B04FDCB00458E5E /* BudgetPlanningListViewController.swift in Sources */,
 				91D4D38840085B3742C96D93 /* CalculationViewModel.swift in Sources */,
 				5BFAFF00AA40762B10C217B0 /* CommonButton.swift in Sources */,
 				ADC94C892AF0E32600B182E6 /* OperationEditInteractor.swift in Sources */,
@@ -1341,6 +1388,7 @@
 				AD39A12C2AE661A800A27DD2 /* Endpoint.swift in Sources */,
 				0495C6BB0F2B4D81DC0BF49F /* ExpenseCoordinator.swift in Sources */,
 				AD5A38C42AF2302900028127 /* ProfileLocalDataSource.swift in Sources */,
+				AD2AA2C72B06200600458E5E /* CalculationModalViewController.swift in Sources */,
 				6EE05B5E9B884EF82B2BCB68 /* ExpenseViewController.swift in Sources */,
 				A0C222671D8F18AEB8C92BE8 /* ExpenseViewModel.swift in Sources */,
 				ADC4E7532AD7173100756F2D /* CreateWalletCell.swift in Sources */,
@@ -1379,7 +1427,9 @@
 				ADC4E7572AD7EA3800756F2D /* CDWallet.swift in Sources */,
 				256AE02A49511394EC9AF4CB /* ProfileCoordinator.swift in Sources */,
 				D2AC800FE84CB9D96F78FDA6 /* ProfileViewController.swift in Sources */,
+				AD2AA2C32B06147900458E5E /* CreateBudgetCell.swift in Sources */,
 				AD5A38E22AF2395F00028127 /* OperationEditFactory.swift in Sources */,
+				AD2AA2BF2B05018500458E5E /* CreateBudgetViewController.swift in Sources */,
 				ADC94C6F2AEF9D1C00B182E6 /* Date+Calendar.swift in Sources */,
 				C06626795157F0B0E0CA361B /* ReuseIdentifiable.swift in Sources */,
 				ADC4E74D2AD6A19300756F2D /* WalletDetailCoordinator.swift in Sources */,
@@ -1387,6 +1437,7 @@
 				7423F5D3B9DEFEE91ED1B352 /* SimpleTableViewDataSource.swift in Sources */,
 				ADC94C7C2AEFB03C00B182E6 /* ProfileUseCaseProtocol.swift in Sources */,
 				ADD8864A2AE1964700E24D0E /* BalanceModel.swift in Sources */,
+				AD2AA2B62B04FDB900458E5E /* BudgetPlanningListViewModel.swift in Sources */,
 				AD402D272AFB785F00CBAA03 /* OperationListViewModel.swift in Sources */,
 				ADC94C672AEE4D3D00B182E6 /* TableViewDataSource.swift in Sources */,
 				ADD8864C2AE2994600E24D0E /* String+Limit.swift in Sources */,
@@ -1416,6 +1467,7 @@
 				94D96F815CD008BEB0C09761 /* UIColor+AppColors.swift in Sources */,
 				AD5A38CA2AF231A100028127 /* ProfileClient.swift in Sources */,
 				AD5A38E42AF23AE500028127 /* ProfileFactory.swift in Sources */,
+				AD2AA2C52B0617EF00458E5E /* CreateBudgetCellViewModel.swift in Sources */,
 				667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */,
 				AD752C4D2AE91D800092A43D /* CreateWalletForm.swift in Sources */,
 				ADD886442AE1541600E24D0E /* CreateWalletFactory.swift in Sources */,
