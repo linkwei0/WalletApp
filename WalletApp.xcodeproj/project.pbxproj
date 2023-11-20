@@ -76,6 +76,9 @@
 		AD2AA2C32B06147900458E5E /* CreateBudgetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C22B06147900458E5E /* CreateBudgetCell.swift */; };
 		AD2AA2C52B0617EF00458E5E /* CreateBudgetCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C42B0617EF00458E5E /* CreateBudgetCellViewModel.swift */; };
 		AD2AA2C72B06200600458E5E /* CalculationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */; };
+		AD2AA2CA2B06341300458E5E /* ModalCalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C92B06341300458E5E /* ModalCalculationCell.swift */; };
+		AD2AA2CC2B06357F00458E5E /* CalculationModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2CB2B06357F00458E5E /* CalculationModalViewModel.swift */; };
+		AD2AA2CE2B0651B300458E5E /* ElementCollectionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2CD2B0651B300458E5E /* ElementCollectionCellViewModel.swift */; };
 		AD39A1152AE3BC5A00A27DD2 /* IncomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */; };
 		AD39A1172AE3BC6500A27DD2 /* ExpenseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */; };
 		AD39A1242AE65F7F00A27DD2 /* WalletRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */; };
@@ -85,6 +88,7 @@
 		AD39A12C2AE661A800A27DD2 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A12B2AE661A800A27DD2 /* Endpoint.swift */; };
 		AD39A12E2AE664C000A27DD2 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A12D2AE664C000A27DD2 /* APIClient.swift */; };
 		AD39A1302AE6653A00A27DD2 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A12F2AE6653A00A27DD2 /* APIError.swift */; };
+		AD3E6A522B0B6FCF00A210C3 /* Int+StringSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3E6A512B0B6FCF00A210C3 /* Int+StringSeparator.swift */; };
 		AD402D142AFA20FD00CBAA03 /* OperationMonthCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD402D132AFA20FD00CBAA03 /* OperationMonthCardView.swift */; };
 		AD402D162AFA238B00CBAA03 /* OperationLastSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD402D152AFA238B00CBAA03 /* OperationLastSectionFooterView.swift */; };
 		AD402D182AFA255400CBAA03 /* OperationLastSectionFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD402D172AFA255400CBAA03 /* OperationLastSectionFooterViewModel.swift */; };
@@ -260,6 +264,9 @@
 		AD2AA2C22B06147900458E5E /* CreateBudgetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCell.swift; sourceTree = "<group>"; };
 		AD2AA2C42B0617EF00458E5E /* CreateBudgetCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetCellViewModel.swift; sourceTree = "<group>"; };
 		AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationModalViewController.swift; sourceTree = "<group>"; };
+		AD2AA2C92B06341300458E5E /* ModalCalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCalculationCell.swift; sourceTree = "<group>"; };
+		AD2AA2CB2B06357F00458E5E /* CalculationModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationModalViewModel.swift; sourceTree = "<group>"; };
+		AD2AA2CD2B0651B300458E5E /* ElementCollectionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementCollectionCellViewModel.swift; sourceTree = "<group>"; };
 		AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeFactory.swift; sourceTree = "<group>"; };
 		AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFactory.swift; sourceTree = "<group>"; };
 		AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -269,6 +276,7 @@
 		AD39A12B2AE661A800A27DD2 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		AD39A12D2AE664C000A27DD2 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		AD39A12F2AE6653A00A27DD2 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		AD3E6A512B0B6FCF00A210C3 /* Int+StringSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+StringSeparator.swift"; sourceTree = "<group>"; };
 		AD402D132AFA20FD00CBAA03 /* OperationMonthCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMonthCardView.swift; sourceTree = "<group>"; };
 		AD402D152AFA238B00CBAA03 /* OperationLastSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationLastSectionFooterView.swift; sourceTree = "<group>"; };
 		AD402D172AFA255400CBAA03 /* OperationLastSectionFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationLastSectionFooterViewModel.swift; sourceTree = "<group>"; };
@@ -448,7 +456,6 @@
 				ADC94C5A2AEBE4C500B182E6 /* TitleView */,
 				09DFC9063E4EBE03E65B1D55 /* Button */,
 				93B531B204F55318F5C984BC /* Calculation */,
-				0076C85BBAFE2F2A84BDDA4F /* DataSources */,
 				FA0CC348E78AAE0EB1389D1B /* Label */,
 			);
 			path = Views;
@@ -568,6 +575,7 @@
 		6918AF4A65E90FFEB0F85EE6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0076C85BBAFE2F2A84BDDA4F /* DataSources */,
 				89BF40F918AFF65817C8E4E2 /* SimpleViewState */,
 				6EDA7916260C0DF6F07E7E01 /* Bindable.swift */,
 			);
@@ -715,9 +723,20 @@
 				AD2AA2BE2B05018500458E5E /* CreateBudgetViewController.swift */,
 				AD2AA2C22B06147900458E5E /* CreateBudgetCell.swift */,
 				AD2AA2C42B0617EF00458E5E /* CreateBudgetCellViewModel.swift */,
-				AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */,
+				AD2AA2C82B0633CB00458E5E /* ModalBottomView */,
 			);
 			path = CreateBudget;
+			sourceTree = "<group>";
+		};
+		AD2AA2C82B0633CB00458E5E /* ModalBottomView */ = {
+			isa = PBXGroup;
+			children = (
+				AD2AA2C62B06200600458E5E /* CalculationModalViewController.swift */,
+				AD2AA2C92B06341300458E5E /* ModalCalculationCell.swift */,
+				AD2AA2CB2B06357F00458E5E /* CalculationModalViewModel.swift */,
+				AD2AA2CD2B0651B300458E5E /* ElementCollectionCellViewModel.swift */,
+			);
+			path = ModalBottomView;
 			sourceTree = "<group>";
 		};
 		AD39A1182AE3D0C500A27DD2 /* ViewModels */ = {
@@ -1036,6 +1055,7 @@
 				40DBA1283F35768314A9D8DD /* UIView+Shadow.swift */,
 				ADC94C6E2AEF9D1B00B182E6 /* Date+Calendar.swift */,
 				AD402D192AFA342200CBAA03 /* UIView+Gradient.swift */,
+				AD3E6A512B0B6FCF00A210C3 /* Int+StringSeparator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1372,6 +1392,7 @@
 				ADD886412AE153ED00E24D0E /* WalletsFactory.swift in Sources */,
 				B1FEFBAD11A5578408F37AE5 /* ConfigurableCoordinator.swift in Sources */,
 				ADC4E7412AD688EE00756F2D /* CurrencyModel.swift in Sources */,
+				AD2AA2CE2B0651B300458E5E /* ElementCollectionCellViewModel.swift in Sources */,
 				48CFAFF2DCF548903921E405 /* Constants.swift in Sources */,
 				AD39A12E2AE664C000A27DD2 /* APIClient.swift in Sources */,
 				4701ACA4595B688DD92F54D4 /* Coordinator.swift in Sources */,
@@ -1392,6 +1413,7 @@
 				6EE05B5E9B884EF82B2BCB68 /* ExpenseViewController.swift in Sources */,
 				A0C222671D8F18AEB8C92BE8 /* ExpenseViewModel.swift in Sources */,
 				ADC4E7532AD7173100756F2D /* CreateWalletCell.swift in Sources */,
+				AD2AA2CC2B06357F00458E5E /* CalculationModalViewModel.swift in Sources */,
 				AD402D252AFB785700CBAA03 /* OperationListCoordinator.swift in Sources */,
 				8DCC5BAC6FDD0ACD76732F51 /* ExpressionView.swift in Sources */,
 				ADD886482AE159BB00E24D0E /* WalletDetailInteractor.swift in Sources */,
@@ -1404,6 +1426,7 @@
 				AC3F89E71386C343F10A4591 /* IncomeViewModel.swift in Sources */,
 				C1854F30A8210B0CC08BC839 /* Label.swift in Sources */,
 				AD752C212AE7B1E60092A43D /* CategoryCell.swift in Sources */,
+				AD2AA2CA2B06341300458E5E /* ModalCalculationCell.swift in Sources */,
 				AD402D292AFB786800CBAA03 /* OperationListViewController.swift in Sources */,
 				AD5A38D12AF234AC00028127 /* WalletLocalDataSourceProtocol.swift in Sources */,
 				AD402D222AFB660A00CBAA03 /* OperationDefaultFooterViewModel.swift in Sources */,
@@ -1471,6 +1494,7 @@
 				667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */,
 				AD752C4D2AE91D800092A43D /* CreateWalletForm.swift in Sources */,
 				ADD886442AE1541600E24D0E /* CreateWalletFactory.swift in Sources */,
+				AD3E6A522B0B6FCF00A210C3 /* Int+StringSeparator.swift in Sources */,
 				AD752C172AE66B3B0092A43D /* ValuteResult.swift in Sources */,
 				AD5A38CF2AF2349C00028127 /* OperationLocalDataSourceProtocol.swift in Sources */,
 				AD39A12A2AE6614400A27DD2 /* WalletProvider.swift in Sources */,

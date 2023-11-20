@@ -9,10 +9,10 @@ import UIKit
 
 class CreateBudgetViewController: BaseViewController {
   // MARK: - Properties
-  private var dataSource: SimpleTableViewDataSoruce<CreateBudgetCellViewModelProtocol>?
-  
   private let tableView = UITableView()
   private let createButton = UIButton(type: .system)
+  
+  private let dataSource = TableViewDataSource()
   
   private let viewModel: CreateBudgetViewModel
   
@@ -45,10 +45,10 @@ class CreateBudgetViewController: BaseViewController {
     tableView.rowHeight = 80
     tableView.separatorStyle = .none
     tableView.register(CreateBudgetCell.self, forCellReuseIdentifier: CreateBudgetCell.reuseIdentifiable)
-    tableView.delegate = self
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
+    dataSource.setup(tableView: tableView, viewModel: viewModel)
   }
   
   private func setupCreateButton() {
@@ -75,13 +75,15 @@ class CreateBudgetViewController: BaseViewController {
   
   // MARK: - Private methods
   private func updateTableView() {
-    dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    tableView.dataSource = dataSource
     tableView.reloadData()
   }
   
+  private func updateRow(at indexPath: IndexPath) {
+    tableView.reloadRows(at: [indexPath], with: .none)
+  }
+  
   private func showCalculationModelView() {
-    let modalViewController = CalculationModalViewController()
+    let modalViewController = CalculationModalViewController(viewModel: viewModel.calculationModalViewModel)
     modalViewController.modalPresentationStyle = .overCurrentContext
     present(modalViewController, animated: false)
   }
@@ -91,16 +93,11 @@ class CreateBudgetViewController: BaseViewController {
     viewModel.onNeedsUpdate = { [weak self] in
       self?.updateTableView()
     }
-    
     viewModel.onNeedsShowCalculationModalView = { [weak self] in
       self?.showCalculationModelView()
     }
-  }
-}
-
-// MARK: - UITableViewDelegate
-extension CreateBudgetViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    viewModel.didSelect(at: indexPath)
+    viewModel.onNeedsUpdateRow = { [weak self] indexPath in
+      self?.updateRow(at: indexPath)
+    }
   }
 }

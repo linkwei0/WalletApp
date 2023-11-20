@@ -21,6 +21,10 @@ class TableSectionViewModel {
     self.cellViewModels.append(contentsOf: cellViewModels)
   }
   
+  func update(at index: Int, with cellViewModel: TableCellViewModel) {
+    cellViewModels[index] = cellViewModel
+  }
+  
   func remove(at index: Int) {
     cellViewModels.remove(at: index)
   }

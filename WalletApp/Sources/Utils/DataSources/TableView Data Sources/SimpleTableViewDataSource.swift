@@ -81,12 +81,12 @@ extension SimpleTableViewDataSoruce where ViewModel == OperationEditCellViewMode
 }
 
 // MARK: - CreateBudgetCellViewModelProtocol
-extension SimpleTableViewDataSoruce where ViewModel == CreateBudgetCellViewModelProtocol {
-  static func make(for cellViewModels: [ViewModel], 
-                   reuseIdentifier: String = CreateBudgetCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
-    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier, cellViewModels: cellViewModels) { viewModel, cell in
-      guard let cell = (cell as? CreateBudgetCell) else { return }
-      cell.configure(with: viewModel)
-    }
-  }
-}
+//extension SimpleTableViewDataSoruce where ViewModel == CreateBudgetCellViewModelProtocol {
+//  static func make(for cellViewModels: [ViewModel], 
+//                   reuseIdentifier: String = CreateBudgetCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+//    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier, cellViewModels: cellViewModels) { viewModel, cell in
+//      guard let cell = (cell as? CreateBudgetCell) else { return }
+//      cell.configure(with: viewModel)
+//    }
+//  }
+//}

@@ -13,14 +13,26 @@ class CalculationModalViewController: BaseViewController {
   private var containerViewHeightConstraint: Constraint?
   private var containerViewBottomConstraint: Constraint?
   
-  private let defaultHeight: CGFloat = 350
+  private let defaultHeight: CGFloat = 300
   private let dismissibleHeight: CGFloat = 200
-  private let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 325
-  private let maxDimmedAlpha: CGFloat = 0.6
-  private var currentContainerHeight: CGFloat = 350
+  private let maxDimmedAlpha: CGFloat = 0.35
+  private var currentContainerHeight: CGFloat = 300
   
   private let containerView = UIView()
   private let dimmedView = UIView()
+  private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+  
+  private let viewModel: CalculationModalViewModel
+  
+  // MARK: - Init
+  init(viewModel: CalculationModalViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   // MARK: - Lifecycle
   override func viewDidLoad() {
@@ -40,6 +52,7 @@ class CalculationModalViewController: BaseViewController {
     view.backgroundColor = .clear
     setupDimmedView()
     setupContainerView()
+    setupCollectionView()
   }
   
   private func setupDimmedView() {
@@ -49,7 +62,8 @@ class CalculationModalViewController: BaseViewController {
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCloseAction))
     dimmedView.addGestureRecognizer(tapGesture)
     dimmedView.snp.makeConstraints { make in
-      make.edges.equalToSuperview()
+      make.top.equalToSuperview().inset(150)
+      make.leading.trailing.bottom.equalToSuperview()
     }
   }
   
@@ -65,6 +79,19 @@ class CalculationModalViewController: BaseViewController {
     }
   }
   
+  private func setupCollectionView() {
+    containerView.addSubview(collectionView)
+    collectionView.dataSource = self
+    collectionView.delegate = self
+    collectionView.register(ModalCalculationCell.self, forCellWithReuseIdentifier: ModalCalculationCell.reuseIdentifiable)
+    collectionView.snp.makeConstraints { make in
+//      make.edges.equalToSuperview()
+      make.top.equalToSuperview().inset(24)
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.bottom.equalToSuperview()
+    }
+  }
+  
   // MARK: - Actions
   @objc private func handleCloseAction() {
     animateDismissView()
@@ -72,12 +99,11 @@ class CalculationModalViewController: BaseViewController {
   
   @objc private func handlePanGesture(gesture: UIPanGestureRecognizer) {
     let translation = gesture.translation(in: view)
-    let isDraggingDown = translation.y > 0
     let newHeight = currentContainerHeight - translation.y
     
     switch gesture.state {
     case .changed:
-      if newHeight < maximumContainerHeight {
+      if newHeight < defaultHeight {
         containerViewHeightConstraint?.layoutConstraints[0].constant = newHeight
         view.layoutIfNeeded()
       }
@@ -86,10 +112,6 @@ class CalculationModalViewController: BaseViewController {
         self.animateDismissView()
       } else if newHeight < defaultHeight {
         animateContainerHeight(defaultHeight)
-      } else if newHeight < maximumContainerHeight && isDraggingDown {
-        animateContainerHeight(defaultHeight)
-      } else {
-        animateContainerHeight(maximumContainerHeight)
       }
     default:
       break
@@ -138,5 +160,37 @@ class CalculationModalViewController: BaseViewController {
       self.view.layoutIfNeeded()
     }
     currentContainerHeight = height
+  }
+}
+
+// MARK: - UICollectionViewDataSource
+extension CalculationModalViewController: UICollectionViewDataSource {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return viewModel.numberOfSections()
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return viewModel.numberOfRowsInSection(section: section)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ModalCalculationCell.reuseIdentifiable,
+                                        for: indexPath) as? ModalCalculationCell else { return UICollectionViewCell() }
+    cell.configure(with: viewModel.configureCellViewModel(at: indexPath))
+    return cell
+  }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension CalculationModalViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                      sizeForItemAt indexPath: IndexPath) -> CGSize {
+    let width = (view.frame.width - 60) / 3
+    return CGSize(width: width, height: width / 2)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                      insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 3, left: 2, bottom: 3, right: 2)
   }
 }

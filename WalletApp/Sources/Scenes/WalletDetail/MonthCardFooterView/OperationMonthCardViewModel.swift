@@ -60,8 +60,11 @@ class OperationMonthCardViewModel {
       }
     }
 
-    let incomeValue: String = maxIncomeValue != 0 ? "+" + String(NSDecimalNumber(decimal: maxIncomeValue).intValue) : "0"
-    let expenseValue: String = maxExpenseValue != 0 ? "-" + String(NSDecimalNumber(decimal: maxExpenseValue).intValue) : "0"
+    let incomeValue: String = maxIncomeValue != 0 ? "+" 
+    + NSDecimalNumber(decimal: maxIncomeValue).intValue.makeDigitSeparator() : "0"
+    let expenseValue: String = maxExpenseValue != 0 ? "-" 
+    + NSDecimalNumber(decimal: maxExpenseValue).intValue.makeDigitSeparator() : "0"
+    
     amountResult = isIncomeCard ? incomeValue : expenseValue
   }
   

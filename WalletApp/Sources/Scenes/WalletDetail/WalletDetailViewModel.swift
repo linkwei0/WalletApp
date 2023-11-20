@@ -114,7 +114,8 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
       }
       
       if !itemViewModels.isEmpty {
-        let headerTotalAmount = amountOfDateOperations >= 0 ? "+\(amountOfDateOperations)" : "-\(amountOfDateOperations)"
+        let headerTotalAmount = amountOfDateOperations >= 0 ? "+\(amountOfDateOperations.makeDigitSeparator())"
+        : "-\(amountOfDateOperations.makeDigitSeparator())"
         let headerViewModel = OperationHeaderViewModel(title: date.title, totalValue: headerTotalAmount,
                                                        isFirstSection: self.sectionViewModels.isEmpty)
         let footerViewModel = OperationDefaultFooterViewModel()

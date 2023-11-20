@@ -93,8 +93,8 @@ class BalanceView: UIView {
       self.titleExpenseLabel.text = balance.titleExpense
       self.balanceLabel.text = "\(balance.totalBalance)" + " " + balance.currency
       self.incomeLabel.text = "\(balance.totalIncome)" + " " + balance.currency
-      self.expenseLabel.text = (balance.totalExpense > 0 ? "-\(balance.totalExpense)"
-                                : "\(balance.totalExpense)") + " " + balance.currency
+      self.expenseLabel.text = balance.totalExpense != "0" ? "-\(balance.totalExpense)"
+                                : balance.totalExpense + " " + balance.currency
     }
   }
 }

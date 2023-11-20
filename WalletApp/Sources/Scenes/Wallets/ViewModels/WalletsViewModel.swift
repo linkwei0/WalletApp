@@ -138,7 +138,7 @@ final class WalletsViewModel: SimpleViewStateProcessable {
       totalIncome += walletTotalEarned
       totalExpense += walletTotalSpent
     }
-
+    
     balanceViewModel.updateBalance(titleBalance: R.string.balance.balanceViewWalletTotalTitle(),
                                    titleIncome: R.string.balance.balanceViewWalletsIncomeTitle(),
                                    titleExpense: R.string.balance.balanceViewWalletsExpenseTitle(),
