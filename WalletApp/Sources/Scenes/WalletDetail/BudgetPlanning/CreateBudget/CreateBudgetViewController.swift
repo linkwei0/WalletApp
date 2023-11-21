@@ -79,7 +79,11 @@ class CreateBudgetViewController: BaseViewController {
   }
   
   private func updateRow(at indexPath: IndexPath) {
-    tableView.reloadRows(at: [indexPath], with: .none)
+    self.tableView.reloadRows(at: [indexPath], with: .none)
+  }
+  
+  deinit {
+    print("VC")
   }
   
   private func showCalculationModelView() {
@@ -97,7 +101,9 @@ class CreateBudgetViewController: BaseViewController {
       self?.showCalculationModelView()
     }
     viewModel.onNeedsUpdateRow = { [weak self] indexPath in
-      self?.updateRow(at: indexPath)
+      DispatchQueue.main.async {
+        self?.updateRow(at: indexPath)
+      }
     }
   }
 }

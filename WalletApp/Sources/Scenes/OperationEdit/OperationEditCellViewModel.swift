@@ -98,8 +98,8 @@ extension OperationEditCellViewModel: OperationEditCellViewModelStringsProtocol 
   }
   
   var categoryTitleImageView: UIImage? {
-    return operation.type.isIncome == true ? IncomeCategoryType(rawValue: operation.category)?.image 
-                                                : ExpenseCategoryType(rawValue: operation.category)?.image
+    return operation.type.isIncome == true ? IncomeCategoryTypes(rawValue: operation.category)?.image 
+                                                : ExpenseCategoryTypes(rawValue: operation.category)?.image
   }
 }
 

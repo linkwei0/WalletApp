@@ -8,7 +8,7 @@ import Foundation
 protocol OperationCellViewModelProtocol: TableCellViewModel {
   var name: String { get }
   var amount: String { get }
-  var category: ExpenseCategoryType { get }
+  var category: ExpenseCategoryTypes { get }
   var isIncome: Bool { get }
   var date: Date? { get }
 }
@@ -32,8 +32,8 @@ class OperationCellViewModel: OperationCellViewModelProtocol {
     return NSDecimalNumber(decimal: operation.amount).intValue.makeDigitSeparator()
   }
   
-  var category: ExpenseCategoryType {
-    return ExpenseCategoryType(rawValue: operation.category) ?? ExpenseCategoryType.food
+  var category: ExpenseCategoryTypes {
+    return ExpenseCategoryTypes(rawValue: operation.category) ?? ExpenseCategoryTypes.food
   }
   
   var date: Date? {

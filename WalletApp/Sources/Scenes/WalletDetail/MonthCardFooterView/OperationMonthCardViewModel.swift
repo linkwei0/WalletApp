@@ -25,7 +25,7 @@ class OperationMonthCardViewModel {
     if operations.isEmpty {
       return .baseWhite
     }
-    return operations[0].type.isIncome ? .incomeBtnColor : .expenseBtnColor
+    return operations[0].type.isIncome ? .incomeBtnColor : .expenseColor
   }
   
   private var isIncomeCard: Bool
@@ -46,11 +46,11 @@ class OperationMonthCardViewModel {
     var maxIncomeValue: Decimal = 0
     var maxExpenseValue: Decimal = 0
     
-    var incomeCategoryDict: [IncomeCategoryType: Decimal] = [:]
-    IncomeCategoryType.allCases.forEach { incomeCategoryDict[$0] = 0 }
+    var incomeCategoryDict: [IncomeCategoryTypes: Decimal] = [:]
+    IncomeCategoryTypes.allCases.forEach { incomeCategoryDict[$0] = 0 }
     
-    var expenseCategoryDict: [ExpenseCategoryType: Decimal] = [:]
-    ExpenseCategoryType.allCases.forEach { expenseCategoryDict[$0] = 0 }
+    var expenseCategoryDict: [ExpenseCategoryTypes: Decimal] = [:]
+    ExpenseCategoryTypes.allCases.forEach { expenseCategoryDict[$0] = 0 }
 
     operations.forEach { operation in
       if operation.type == .income {
@@ -69,8 +69,8 @@ class OperationMonthCardViewModel {
   }
   
   private func handleIncomeOperations(_ operation: OperationModel,
-                                      _ incomeCategoryDict: inout [IncomeCategoryType: Decimal]) -> Decimal {
-    let category = IncomeCategoryType(rawValue: operation.category) ?? .salary
+                                      _ incomeCategoryDict: inout [IncomeCategoryTypes: Decimal]) -> Decimal {
+    let category = IncomeCategoryTypes(rawValue: operation.category) ?? .salary
     
     switch category {
     case .present:
@@ -98,8 +98,8 @@ class OperationMonthCardViewModel {
   }
   
   private func handleExpenseOperations(_ operation: OperationModel,
-                                       _ expenseCategoryDict: inout [ExpenseCategoryType: Decimal]) -> Decimal {
-    let category = ExpenseCategoryType(rawValue: operation.category) ?? .food
+                                       _ expenseCategoryDict: inout [ExpenseCategoryTypes: Decimal]) -> Decimal {
+    let category = ExpenseCategoryTypes(rawValue: operation.category) ?? .food
 
     switch category {
     case .food:

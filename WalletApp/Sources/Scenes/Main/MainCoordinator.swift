@@ -18,7 +18,12 @@ final class MainCoordinator: Coordinator {
   }
   
   func start(_ animated: Bool) {
-    showBankScreen(animated: animated)
+//    showBankScreen(animated: animated)
+    showTest(animated: animated)
+  }
+  
+  private func showTest(animated: Bool) {
+    show(BudgetPlanningListCoordinator.self, animated: animated)
   }
   
   private func showBankScreen(animated: Bool) {

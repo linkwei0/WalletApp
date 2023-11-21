@@ -67,7 +67,7 @@ class OperationItemView: UIView, Configurable {
   func configure(with viewModel: OperationCellViewModel) {
     titleLabel.text = viewModel.name
     amountLabel.text = (viewModel.isIncome ? "+" : "-") + viewModel.amount.maxLength(to: 7)
-    amountLabel.textColor = viewModel.isIncome ? .incomeBtnColor : .expenseBtnColor
+    amountLabel.textColor = viewModel.isIncome ? .incomeBtnColor : .expenseColor
     categoryImageView.image = viewModel.category.image
   }
   

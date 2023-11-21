@@ -80,13 +80,26 @@ extension SimpleTableViewDataSoruce where ViewModel == OperationEditCellViewMode
   }
 }
 
-// MARK: - CreateBudgetCellViewModelProtocol
-//extension SimpleTableViewDataSoruce where ViewModel == CreateBudgetCellViewModelProtocol {
-//  static func make(for cellViewModels: [ViewModel], 
-//                   reuseIdentifier: String = CreateBudgetCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
-//    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier, cellViewModels: cellViewModels) { viewModel, cell in
-//      guard let cell = (cell as? CreateBudgetCell) else { return }
-//      cell.configure(with: viewModel)
-//    }
-//  }
-//}
+// MARK: - SelectPeriodCellViewModelProtocol
+extension SimpleTableViewDataSoruce where ViewModel == SelectPeriodCellViewModelProtocol {
+  static func make(for cellViewModels: [ViewModel],
+                   reuseIdentifier: String = SelectPeriodCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
+                                     cellViewModels: cellViewModels) { viewModel, cell in
+      guard let cell = (cell as? SelectPeriodCell) else { return }
+      cell.configure(with: viewModel)
+    }
+  }
+}
+
+// MARK: - SelectCategoryCellViewModelProtocol
+extension SimpleTableViewDataSoruce where ViewModel == SelectCategoryCellViewModelProtocol {
+  static func make(for cellViewModels: [ViewModel],
+                   reuseIdentifier: String = SelectCategoryCell.reuseIdentifiable) -> SimpleTableViewDataSoruce {
+    return SimpleTableViewDataSoruce(reuseIdentifier: reuseIdentifier,
+                                     cellViewModels: cellViewModels) { viewModel, cell in
+      guard let cell = (cell as? SelectCategoryCell) else { return }
+      cell.configure(with: viewModel)
+    }
+  }
+}

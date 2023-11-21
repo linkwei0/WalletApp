@@ -33,7 +33,7 @@ enum WalletBottomBarItemType: CaseIterable {
   var color: UIColor {
     switch self {
     case .expense:
-      return .expenseBtnColor
+      return .expenseColor
     case .income:
       return .incomeBtnColor
     case .profile:

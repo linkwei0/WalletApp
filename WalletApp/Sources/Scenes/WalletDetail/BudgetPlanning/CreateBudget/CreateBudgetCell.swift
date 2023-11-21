@@ -12,7 +12,8 @@ class CreateBudgetCell: UITableViewCell, TableCell {
   private let containerView = UIView()
   private let amountContainerView = UIView()
   private let budgetAmountLabel = Label(textStyle: .header1)
-  private let titleLabel = Label(textStyle: .bodyBold)
+  private let placeholderTextLabel = Label(textStyle: .body)
+  private let nameTextField = UITextField()
   
   private var viewModel: CreateBudgetCellViewModel?
   
@@ -20,23 +21,24 @@ class CreateBudgetCell: UITableViewCell, TableCell {
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setup()
-    setupBindables()
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)
     setup()
-    setupBindables()
   }
   
   // MARK: - Configure
   func configure(with viewModel: TableCellViewModel) {
     guard let viewModel = viewModel as? CreateBudgetCellViewModel else { return }
     self.viewModel = viewModel
+    
     containerView.isHidden = viewModel.isHiddenContainer
     amountContainerView.isHidden = !viewModel.isHiddenContainer
+    nameTextField.isHidden = viewModel.hiddenTextField
+
     budgetAmountLabel.text = viewModel.amount
-    titleLabel.text = viewModel.title
+    placeholderTextLabel.text = viewModel.title
   }
   
   // MARK: - Setup
@@ -46,6 +48,7 @@ class CreateBudgetCell: UITableViewCell, TableCell {
     setupAmountContainerView()
     setupBudgetAmountLabel()
     setupTitleLabel()
+    setupNameTextField()
   }
   
   private func setupContainerView() {
@@ -56,6 +59,18 @@ class CreateBudgetCell: UITableViewCell, TableCell {
     containerView.isHidden = true
     containerView.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview().inset(8)
+      make.leading.trailing.equalToSuperview().inset(16)
+    }
+  }
+  
+  private func setupNameTextField() {
+    containerView.addSubview(nameTextField)
+    nameTextField.textColor = .baseBlack
+    nameTextField.textAlignment = .left
+    nameTextField.isHidden = true
+    nameTextField.placeholder = "Введите название"
+    nameTextField.snp.makeConstraints { make in
+      make.top.bottom.equalToSuperview()
       make.leading.trailing.equalToSuperview().inset(16)
     }
   }
@@ -74,7 +89,6 @@ class CreateBudgetCell: UITableViewCell, TableCell {
   
   private func setupBudgetAmountLabel() {
     amountContainerView.addSubview(budgetAmountLabel)
-//    budgetAmountLabel.text = "0"
     budgetAmountLabel.textColor = .baseWhite
     budgetAmountLabel.textAlignment = .right
     budgetAmountLabel.snp.makeConstraints { make in
@@ -84,19 +98,12 @@ class CreateBudgetCell: UITableViewCell, TableCell {
   }
   
   private func setupTitleLabel() {
-    containerView.addSubview(titleLabel)
-    titleLabel.text = "Choose period of date"
-    titleLabel.textColor = .baseBlack
-    titleLabel.textAlignment = .left
-    titleLabel.snp.makeConstraints { make in
+    containerView.addSubview(placeholderTextLabel)
+    placeholderTextLabel.textColor = .baseBlack
+    placeholderTextLabel.textAlignment = .left
+    placeholderTextLabel.snp.makeConstraints { make in
       make.top.bottom.trailing.equalToSuperview()
       make.leading.equalToSuperview().inset(16)
     }
-  }
-  
-  private func setupBindables() {
-//    viewModel?.budgetAmount.bind { amount in
-//      self.budgetAmountLabel.text = amount
-//    }
   }
 }

@@ -12,13 +12,13 @@ class CategoryPickerViewModel {
   private(set) var operationAmountValue: Bindable<String> = Bindable("")
   private(set) var isCreateOperation: Bindable<Bool> = Bindable(false)
   
-  private let expenseCategories: [[ExpenseCategoryType]] =
+  private let expenseCategories: [[ExpenseCategoryTypes]] =
   [
     [.food, .house, .car],
     [.phone, .transport]
   ]
   
-  private let incomeCategories: [[IncomeCategoryType]] =
+  private let incomeCategories: [[IncomeCategoryTypes]] =
   [
     [.present, .salary, .partjob],
     [.dividends]
@@ -50,14 +50,14 @@ class CategoryPickerViewModel {
   }
   
   func configureItemType(_ indexPath: IndexPath) -> CategoryCellViewModel {
-    let categoryType: CategoryTypeProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
+    let categoryType: CategoryTypesProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
     : expenseCategories[indexPath.section][indexPath.row]
     let cellViewModel = CategoryCellViewModel(categoryType: categoryType)
     return cellViewModel
   }
   
   func didSelectedCategory(at indexPath: IndexPath) {
-    let category: CategoryTypeProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
+    let category: CategoryTypesProtocol = operationType.isIncome ? incomeCategories[indexPath.section][indexPath.row]
     : expenseCategories[indexPath.section][indexPath.row]
     changeWalletBalance(with: operation)
 

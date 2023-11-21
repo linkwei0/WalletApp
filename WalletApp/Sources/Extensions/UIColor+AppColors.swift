@@ -17,7 +17,7 @@ extension UIColor {
   static let accentFaded = UIColor(resource: R.color.accentFaded) ?? .clear
   static let blueLight = UIColor(resource: R.color.blueLight) ?? .clear
   
-  static let expenseBtnColor = UIColor(resource: R.color.expenseBtnColor) ?? .clear
+  static let expenseColor = UIColor(resource: R.color.expenseBtnColor) ?? .clear
   static let incomeBtnColor = UIColor(resource: R.color.incomeBtnColor) ?? .clear
 
   static let accentGreen = UIColor(resource: R.color.accentGreen) ?? .clear

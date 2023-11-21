@@ -51,8 +51,8 @@ class BalanceView: UIView {
     titleIncomeLabel.textColor = .incomeBtnColor
     incomeLabel.textColor = .incomeBtnColor
     
-    titleExpenseLabel.textColor = .expenseBtnColor
-    expenseLabel.textColor = .expenseBtnColor
+    titleExpenseLabel.textColor = .expenseColor
+    expenseLabel.textColor = .expenseColor
   }
   
   private func setupStackViews() {
