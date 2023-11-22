@@ -175,7 +175,7 @@ extension CalculationModalViewController: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ModalCalculationCell.reuseIdentifiable,
-                                        for: indexPath) as? ModalCalculationCell else { return UICollectionViewCell() }
+                                                        for: indexPath) as? ModalCalculationCell else { return UICollectionViewCell() }
     cell.configure(with: viewModel.configureCellViewModel(at: indexPath))
     return cell
   }

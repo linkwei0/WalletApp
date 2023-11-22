@@ -21,8 +21,18 @@ class BudgetCellViewModel {
     return budget.category?.title
   }
   
-  var amount: String {
-    return NSDecimalNumber(decimal: budget.amount).stringValue
+  var maxAmount: String {
+    return NSDecimalNumber(decimal: budget.maxAmount).stringValue
+  }
+  
+  var progress: CGFloat {
+    let diffValue = budget.currentAmount / budget.maxAmount
+    if diffValue < 1 {
+      let result = NSDecimalNumber(decimal: diffValue).doubleValue
+      return CGFloat(result)
+    } else {
+      return 1
+    }
   }
   
   private let budget: BudgetModel

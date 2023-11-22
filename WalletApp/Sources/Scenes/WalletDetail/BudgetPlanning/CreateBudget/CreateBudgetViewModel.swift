@@ -91,8 +91,8 @@ class CreateBudgetViewModel: TableViewModel {
   
   func didTapCreateButton() {
     if !budgetAmountArr.isEmpty && !budgetModel.name.isEmpty && budgetModel.endPeriod != nil {
-      let amount = Decimal(string: budgetAmountArr.joined()) ?? 0
-      budgetModel.amount = amount
+      let maxAmount = Decimal(string: budgetAmountArr.joined()) ?? 0
+      budgetModel.maxAmount = maxAmount
       budgetModel.walletID = walletID
       interactor.saveBudget(for: walletID, budget: budgetModel) { result in
         switch result {

@@ -12,7 +12,7 @@ class ModalCalculationCell: UICollectionViewCell {
   private let containerView = UIView()
   private let elementImageView = UIImageView()
   
-  private var viewModel: ElementCollectionCellViewModel?
+  private var viewModel: ModalCalculationCellViewModel?
   
   // MARK: - Init
   override init(frame: CGRect) {
@@ -26,7 +26,7 @@ class ModalCalculationCell: UICollectionViewCell {
   }
   
   // MARK: - Configure
-  func configure(with viewModel: ElementCollectionCellViewModel) {
+  func configure(with viewModel: ModalCalculationCellViewModel) {
     self.viewModel = viewModel
     elementImageView.image = viewModel.iconImage
   }

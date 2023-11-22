@@ -21,4 +21,8 @@ final class BudgetRepository: BudgetUseCaseProtocol {
   func getBudgets(for walletID: Int, completion: @escaping (Result<[BudgetModel], Error>) -> Void) {
     localDataSource.getBudgets(for: walletID, completion: completion)
   }
+  
+  func updateBudget(for walletID: Int, with operation: OperationModel) {
+    localDataSource.updateBudget(for: walletID, with: operation)
+  }
 }

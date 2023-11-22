@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BudgetCell: UITableViewCell, TableCell {
   // MARK: - Properties
@@ -18,6 +19,11 @@ class BudgetCell: UITableViewCell, TableCell {
   private let amountLabel = Label(textStyle: .bodyBold)
   private let categoryLabel = Label(textStyle: .body)
   
+  private let defaultWidth: CGFloat = 0
+  
+  private var maxWidthConstraint: Constraint?
+  private var currentWidthConstraint: Constraint?
+  
   // MARK: - Init
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,9 +35,11 @@ class BudgetCell: UITableViewCell, TableCell {
     setup()
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    containerView.applyGradient(startColor: .accentDark, endColor: .accentFaded)
+  // MARK: - Lifecycle
+  override func prepareForReuse() {
+    super.prepareForReuse()
+    currentWidthConstraint?.layoutConstraints[0].constant = defaultWidth
+    layoutIfNeeded()
   }
   
   // MARK: - Configure
@@ -39,7 +47,18 @@ class BudgetCell: UITableViewCell, TableCell {
     guard let viewModel = viewModel as? BudgetCellViewModel else { return }
     periodTypeLabel.text = viewModel.period
     categoryLabel.text = viewModel.category
-    amountLabel.text = viewModel.amount
+    amountLabel.text = viewModel.maxAmount
+    if let maxWidth = maxWidthConstraint?.layoutConstraints[0].constant {
+      var currentWidth = (viewModel.progress * 100 * maxWidth) / 100
+      if currentWidth > maxWidth {
+        currentWidth = maxWidth
+      }
+      
+      UIView.animate(withDuration: 1.5) {
+        self.currentWidthConstraint?.layoutConstraints[0].constant = currentWidth
+        self.layoutIfNeeded()
+      }
+    }
   }
   
   // MARK: - Setup
@@ -56,6 +75,10 @@ class BudgetCell: UITableViewCell, TableCell {
   
   private func setupContainerView() {
     contentView.addSubview(containerView)
+    containerView.layer.cornerRadius = 24
+    containerView.backgroundColor = .accent
+    containerView.layer.borderColor = UIColor.baseBlack.cgColor
+    containerView.layer.borderWidth = 0.5
     containerView.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview().inset(16)
       make.leading.trailing.equalToSuperview().inset(24)
@@ -65,16 +88,15 @@ class BudgetCell: UITableViewCell, TableCell {
   private func setupStackView() {
     containerView.addSubview(stackView)
     stackView.axis = .vertical
-    stackView.spacing = 6
+    stackView.spacing = 10
     stackView.distribution = .fill
     stackView.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(16)
+      make.center.equalToSuperview()
     }
   }
   
   private func setupPeriodTypeLabel() {
     stackView.addArrangedSubview(periodTypeLabel)
-    periodTypeLabel.text = "На месяц"
     periodTypeLabel.textColor = .baseWhite
     periodTypeLabel.textAlignment = .left
   }
@@ -85,13 +107,14 @@ class BudgetCell: UITableViewCell, TableCell {
     containerProgressView.layer.cornerRadius = 10
     containerProgressView.snp.makeConstraints { make in
       make.height.equalTo(20)
+      maxWidthConstraint = make.width.equalTo(275).constraint
     }
     containerProgressView.addSubview(progressView)
     progressView.backgroundColor = .baseWhite
     progressView.layer.cornerRadius = 10
     progressView.snp.makeConstraints { make in
       make.top.bottom.leading.equalToSuperview()
-      make.width.equalTo(200)
+      currentWidthConstraint = make.width.equalTo(defaultWidth).constraint
     }
   }
   
@@ -104,14 +127,12 @@ class BudgetCell: UITableViewCell, TableCell {
   
   private func setupCategoryLabel() {
     bottomStackView.addArrangedSubview(categoryLabel)
-    categoryLabel.text = "Продукты"
     categoryLabel.textColor = .baseWhite
     categoryLabel.textAlignment = .left
   }
   
   private func setupAmountLabel() {
     bottomStackView.addArrangedSubview(amountLabel)
-    amountLabel.text = "Осталось: 200$"
     amountLabel.textColor = .baseWhite
     amountLabel.textAlignment = .right
   }

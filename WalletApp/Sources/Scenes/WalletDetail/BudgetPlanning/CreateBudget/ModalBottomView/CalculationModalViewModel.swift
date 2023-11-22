@@ -17,7 +17,7 @@ class CalculationModalViewModel {
   // MARK: - Properties
   weak var delegate: CalculationModalViewModelDelegate?
   
-  private let calculation: [[CalculationModalViewType]] = [
+  private let calculation: [[ModalCalculationViewTypes]] = [
     [.seven, .eight, .nine],
     [.four, .five, .six],
     [.one, .two, .three],
@@ -33,16 +33,16 @@ class CalculationModalViewModel {
     return calculation[section].count
   }
   
-  func configureCellViewModel(at indexPath: IndexPath) -> ElementCollectionCellViewModel {
-    let cellViewModel = ElementCollectionCellViewModel(type: calculation[indexPath.section][indexPath.row])
+  func configureCellViewModel(at indexPath: IndexPath) -> ModalCalculationCellViewModel {
+    let cellViewModel = ModalCalculationCellViewModel(type: calculation[indexPath.section][indexPath.row])
     cellViewModel.delegate = self
     return cellViewModel
   }
 }
 
 // MARK: - ElementCollectionCellViewModelDelegate
-extension CalculationModalViewModel: ElementCollectionCellViewModelDelegate {
-  func cellViewModelDidSelect(_ viewModel: ElementCollectionCellViewModel, type: CalculationModalViewType) {
+extension CalculationModalViewModel: ModalCalculationCellViewModelDelegate {
+  func cellViewModelDidSelect(_ viewModel: ModalCalculationCellViewModel, type: ModalCalculationViewTypes) {
     switch type {
     case .zero, .one, .two, .three, .four, .five, .six, .seven, .eight, .nine:
       self.delegate?.viewModelDidRequestToChangeAmount(self, amount: type.stringValue)

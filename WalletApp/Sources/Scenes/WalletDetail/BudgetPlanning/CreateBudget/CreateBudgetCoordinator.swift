@@ -89,7 +89,7 @@ extension CreateBudgetCoordinator: CreateBudgetViewModelDelegate {
   func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel) {
     createBudgetNavigation?.viewControllers = []
     createBudgetNavigation = nil
-    navigationController.dismiss(animated: true)
+    navigationController.dismiss(animated: false)
     delegate?.coordinatorSuccessfullyCreateBudget(self)
   }
 }

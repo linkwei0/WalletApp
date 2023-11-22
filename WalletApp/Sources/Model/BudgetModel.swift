@@ -11,7 +11,8 @@ import CoreData
 struct BudgetModel: Domain {
   let id: Int
   var walletID: Int
-  var amount: Decimal
+  var maxAmount: Decimal
+  var currentAmount: Decimal
   var beginPeriod: Date?
   var endPeriod: Date?
   var name: String
@@ -21,7 +22,8 @@ struct BudgetModel: Domain {
     let budget = CDBudget(context: context)
     budget.id = Int64(id)
     budget.walletID = Int64(walletID)
-    budget.amount = NSDecimalNumber(decimal: amount)
+    budget.maxAmount = NSDecimalNumber(decimal: maxAmount)
+    budget.currentAmount = NSDecimalNumber(decimal: currentAmount)
     budget.beginDate = beginPeriod
     budget.endDate = endPeriod
     budget.name = name
@@ -32,6 +34,7 @@ struct BudgetModel: Domain {
 
 extension BudgetModel {
   static func makeCleanModel() -> BudgetModel {
-    return BudgetModel(id: UUID().hashValue, walletID: UUID().hashValue, amount: 0, name: "", category: .food)
+    return BudgetModel(id: UUID().hashValue, walletID: UUID().hashValue, 
+                       maxAmount: 0, currentAmount: 0, name: "", category: .food)
   }
 }

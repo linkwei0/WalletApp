@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum CalculationModalViewType {
+enum ModalCalculationViewTypes {
   case zero, one, two, three, four, five, six,
        seven, eight, nine, point, previousValue
   
@@ -70,22 +70,22 @@ enum CalculationModalViewType {
   }
 }
 
-protocol ElementCollectionCellViewModelDelegate: AnyObject {
-  func cellViewModelDidSelect(_ viewModel: ElementCollectionCellViewModel, type: CalculationModalViewType)
+protocol ModalCalculationCellViewModelDelegate: AnyObject {
+  func cellViewModelDidSelect(_ viewModel: ModalCalculationCellViewModel, type: ModalCalculationViewTypes)
 }
 
-class ElementCollectionCellViewModel {
+class ModalCalculationCellViewModel {
   // MARK: - Properties
-  weak var delegate: ElementCollectionCellViewModelDelegate?
+  weak var delegate: ModalCalculationCellViewModelDelegate?
   
   var iconImage: UIImage? {
     return type.iconImage
   }
   
-  private let type: CalculationModalViewType
+  private let type: ModalCalculationViewTypes
   
   // MARK: - Init
-  init(type: CalculationModalViewType) {
+  init(type: ModalCalculationViewTypes) {
     self.type = type
   }
   
