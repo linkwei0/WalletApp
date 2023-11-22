@@ -13,7 +13,7 @@ class SelectPeriodViewController: UIViewController {
   
   private let tableView = UITableView()
   
-  private let viewModel: SelectPeriodViewModel
+  let viewModel: SelectPeriodViewModel
   
   // MARK: - Init
   init(viewModel: SelectPeriodViewModel) {

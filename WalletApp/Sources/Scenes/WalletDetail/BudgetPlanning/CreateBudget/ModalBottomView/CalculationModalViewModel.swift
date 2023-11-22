@@ -17,7 +17,7 @@ class CalculationModalViewModel {
   // MARK: - Properties
   weak var delegate: CalculationModalViewModelDelegate?
   
-  private let calculation: [[ModalCalculationViewTypes]] = [
+  private let modalBottomCalculation: [[ModalCalculationViewTypes]] = [
     [.seven, .eight, .nine],
     [.four, .five, .six],
     [.one, .two, .three],
@@ -26,15 +26,15 @@ class CalculationModalViewModel {
   
   // MARK: - Public methods
   func numberOfSections() -> Int {
-    return calculation.count
+    return modalBottomCalculation.count
   }
   
   func numberOfRowsInSection(section: Int) -> Int {
-    return calculation[section].count
+    return modalBottomCalculation[section].count
   }
   
   func configureCellViewModel(at indexPath: IndexPath) -> ModalCalculationCellViewModel {
-    let cellViewModel = ModalCalculationCellViewModel(type: calculation[indexPath.section][indexPath.row])
+    let cellViewModel = ModalCalculationCellViewModel(type: modalBottomCalculation[indexPath.section][indexPath.row])
     cellViewModel.delegate = self
     return cellViewModel
   }

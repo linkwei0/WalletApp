@@ -12,10 +12,9 @@ protocol ProfileFactoryProtocol {
 }
 
 struct ProfileFactory: ProfileFactoryProtocol {
+  let useCaseProvider: UseCaseProviderProtocol
+
   func makeModule() -> ProfileViewController {
-    let remoteDataSource = RemoteDataSource()
-    let localDataSource = LocalDataSource(coreDataStack: CoreDataStack())
-    let useCaseProvider = UseCaseProvider(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
     let interactor = ProfileInteractor(useCaseProvider: useCaseProvider)
     let viewModel = ProfileViewModel(interactor: interactor)
     let viewController = ProfileViewController(viewModel: viewModel)

@@ -13,7 +13,7 @@ class SelectCategoryViewController: BaseViewController {
   
   private let tableView = UITableView()
   
-  private let viewModel: SelectCategoryViewModel
+  let viewModel: SelectCategoryViewModel
   
   // MARK: - Init
   init(viewModel: SelectCategoryViewModel) {

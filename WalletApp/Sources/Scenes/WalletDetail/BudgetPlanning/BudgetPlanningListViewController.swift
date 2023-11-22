@@ -14,7 +14,7 @@ class BudgetPlanningListViewController: UIViewController {
   
   private let dataSource = TableViewDataSource()
   
-  private let viewModel: BudgetPlanningListViewModel
+  let viewModel: BudgetPlanningListViewModel
   
   // MARK: - Init
   init(viewModel: BudgetPlanningListViewModel) {

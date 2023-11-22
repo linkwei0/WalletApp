@@ -58,4 +58,13 @@ enum CreateWalletForm: Int, CaseIterable {
       return true
     }
   }
+  
+  var isNumberType: Bool {
+    switch self {
+    case .name, .currency:
+      return false
+    case .balance:
+      return true
+    }
+  }
 }

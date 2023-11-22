@@ -32,11 +32,11 @@ class OperationEditViewModel {
   private var operation: OperationModel
   
   private let currentOperationAmount: Decimal
-  private let operationEditType: [OperationEditCellType] = [.category, .amount, .info]
-  private let interactor: OperationEditInteractor
+  private let operationEditType: [OperationEditCellTypes] = [.category, .amount, .info]
+  private let interactor: OperationEditInteractorProtocol
   
   // MARK: - Init
-  init(interactor: OperationEditInteractor, wallet: WalletModel, operation: OperationModel) {
+  init(interactor: OperationEditInteractorProtocol, wallet: WalletModel, operation: OperationModel) {
     self.interactor = interactor
     self.wallet = wallet
     self.operation = operation

@@ -68,7 +68,7 @@ class CreateBudgetCell: UITableViewCell, TableCell {
     nameTextField.textColor = .baseBlack
     nameTextField.textAlignment = .left
     nameTextField.isHidden = true
-    nameTextField.placeholder = "Введите название"
+    nameTextField.placeholder = R.string.walletDetail.createBudgetCellTextfieldPlaceholder()
     nameTextField.addTarget(self, action: #selector(changeTextField(_:)), for: .editingChanged)
     nameTextField.delegate = self
     nameTextField.snp.makeConstraints { make in

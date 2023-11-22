@@ -13,6 +13,7 @@ struct BudgetPlanningCoordinatorConfiguration {
 
 class BudgetPlanningListCoordinator: ConfigurableCoordinator {
   typealias Configuration = BudgetPlanningCoordinatorConfiguration
+  typealias Factory = HasBudgetPlanningFactory
   
   // MARK: - Properties
   var onNeedsToUpdateBudgets: (() -> Void)?
@@ -24,12 +25,14 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
   let appFactory: AppFactory
   
   private let configuration: Configuration
+  private let factory: Factory
   
   // MARK: - Init
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
     self.configuration = configuration
+    self.factory = appFactory
   }
   
   // MARK: - Start
@@ -38,20 +41,15 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
   }
   
   private func showBudgetListScreen(animated: Bool) {
-    let remoteDataSource = RemoteDataSource()
-    let localDataSource = LocalDataSource(coreDataStack: CoreDataStack())
-    let useCase = UseCaseProvider(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
-    let interactor = BudgetPlanningListInteractor(useCaseProvider: useCase)
-    let viewModel = BudgetPlanningListViewModel(interactor: interactor, walletID: configuration.walletID)
-    let viewController = BudgetPlanningListViewController(viewModel: viewModel)
-    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus.circle.fill"),
+    let viewController = factory.budgetPlanningFactory.makeModule(with: configuration.walletID)
+    viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.plusButton),
                                                                        style: .done, target: self,
                                                                        action: #selector(showCreateBudgetScreen))
-    onNeedsToUpdateBudgets = { [weak viewModel] in
+    onNeedsToUpdateBudgets = { [weak viewModel = viewController.viewModel] in
       viewModel?.updateBudgets()
     }
     addPopObserver(for: viewController)
-    viewController.title = "Планирование бюджета"
+    viewController.title = R.string.walletDetail.budgetPlanningTitle()
     navigationController.pushViewController(viewController, animated: animated)
   }
   
@@ -66,4 +64,8 @@ extension BudgetPlanningListCoordinator: CreateBudgetCoordinatorDelegate {
   func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator) {
     onNeedsToUpdateBudgets?()
   }
+}
+
+private extension Constants {
+  static let plusButton = "plus.circle.fill"
 }

@@ -13,6 +13,7 @@ struct OperationListCoordinatorConfiguration {
 
 class OperationListCoordinator: ConfigurableCoordinator {
   typealias Configuration = OperationListCoordinatorConfiguration
+  typealias Factory = HasOperationListFactory
   
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
@@ -21,12 +22,14 @@ class OperationListCoordinator: ConfigurableCoordinator {
   let appFactory: AppFactory
   
   private let configuration: Configuration
+  private let factory: Factory
   
   required init(navigationController: NavigationController, appFactory: AppFactory,
                 configuration: OperationListCoordinatorConfiguration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
     self.configuration = configuration
+    self.factory = appFactory
   }
   
   func start(_ animated: Bool) {
@@ -34,9 +37,9 @@ class OperationListCoordinator: ConfigurableCoordinator {
   }
   
   private func showOperationsScreen(animated: Bool) {
-    let viewModel = OperationListViewModel(operations: configuration.operations)
-    let viewController = OperationListViewController(viewModel: viewModel)
-    viewController.navigationItem.title = "Операции"
+    let viewController = factory.operationListFactory.makeModule(with: configuration.operations)
+    viewController.navigationItem.title = R.string.walletDetail.operationListTitle()
+    addPopObserver(for: viewController)
     navigationController.pushViewController(viewController, animated: animated)
   }
 }

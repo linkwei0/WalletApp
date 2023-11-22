@@ -10,9 +10,13 @@ import Foundation
 class BudgetCellViewModel {
   // MARK: - Properties
   var period: String {
-    if let begin = budget.beginPeriod, let end = budget.endPeriod, 
-        let countOfDays = Calendar.current.dateComponents([.day], from: begin, to: end).day {
-      return "На \(countOfDays) дней"
+    if let beginDate = budget.beginPeriod, let endDate = budget.endPeriod,
+        let countOfDays = beginDate.interval(to: endDate).day {
+      if countOfDays > numberOfDaysInWeek {
+        return SelectPeriodTypes.monthly.title
+      } else {
+        return SelectPeriodTypes.weekly.title
+      }
     }
     return ""
   }
@@ -26,14 +30,12 @@ class BudgetCellViewModel {
   }
   
   var progress: CGFloat {
-    let diffValue = budget.currentAmount / budget.maxAmount
-    if diffValue < 1 {
-      let result = NSDecimalNumber(decimal: diffValue).doubleValue
-      return CGFloat(result)
-    } else {
-      return 1
-    }
+    let percentValue = CGFloat(NSDecimalNumber(decimal: budget.currentAmount / budget.maxAmount).doubleValue)
+    return percentValue < maxPercent ? percentValue : maxPercent
   }
+  
+  private let numberOfDaysInWeek = 7
+  private let maxPercent: CGFloat = 1
   
   private let budget: BudgetModel
   

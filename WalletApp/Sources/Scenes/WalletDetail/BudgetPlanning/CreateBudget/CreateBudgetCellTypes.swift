@@ -15,9 +15,9 @@ enum CreateBudgetCellTypes: CaseIterable {
     case .amount, .name:
       return ""
     case .period:
-      return "Выберите период"
+      return R.string.walletDetail.createBudgetCellTypesPeriodTitle()
     case .category:
-      return "Выберите категорию"
+      return R.string.walletDetail.createBudgetCellTypesCategoryTitle()
     }
   }
   

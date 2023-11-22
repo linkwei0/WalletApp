@@ -1176,12 +1176,14 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.operationEdit` struct is generated, and contains static references to 2 localization keys.
+    /// This `R.string.operationEdit` struct is generated, and contains static references to 3 localization keys.
     struct operationEdit {
       /// Value: Значение операции
       static let operationEditPlaceholderAmount = Rswift.StringResource(key: "operation.edit.placeholder.amount", tableName: "OperationEdit", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Изменить
       static let operationEditButtonEdit = Rswift.StringResource(key: "operation.edit.button.edit", tableName: "OperationEdit", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Общее значение операции
+      static let operationEditCellTypesPlaceholder = Rswift.StringResource(key: "operation.edit.cell.types.placeholder", tableName: "OperationEdit", bundle: R.hostingBundle, locales: [], comment: nil)
 
       /// Value: Значение операции
       static func operationEditPlaceholderAmount(preferredLanguages: [String]? = nil) -> String {
@@ -1207,6 +1209,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("operation.edit.button.edit", tableName: "OperationEdit", bundle: bundle, comment: "")
+      }
+
+      /// Value: Общее значение операции
+      static func operationEditCellTypesPlaceholder(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("operation.edit.cell.types.placeholder", tableName: "OperationEdit", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "OperationEdit", preferredLanguages: preferredLanguages) else {
+          return "operation.edit.cell.types.placeholder"
+        }
+
+        return NSLocalizedString("operation.edit.cell.types.placeholder", tableName: "OperationEdit", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}
@@ -1263,14 +1278,122 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.walletDetail` struct is generated, and contains static references to 3 localization keys.
+    /// This `R.string.walletDetail` struct is generated, and contains static references to 18 localization keys.
     struct walletDetail {
+      /// Value: Больше
+      static let defaultFooterViewTitle = Rswift.StringResource(key: "default.footer.view.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Введите название
+      static let createBudgetCellTextfieldPlaceholder = Rswift.StringResource(key: "create.budget.cell.textfield.placeholder", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Выберите категорию
+      static let createBudgetCellTypesCategoryTitle = Rswift.StringResource(key: "create.budget.cell.types.category.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Выберите категорию
+      static let createBudgetSelectCategoryTitle = Rswift.StringResource(key: "create.budget.select.category.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Выберите период
+      static let createBudgetCellTypesPeriodTitle = Rswift.StringResource(key: "create.budget.cell.types.period.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Выберите период
+      static let createBudgetSelectPeriodTitle = Rswift.StringResource(key: "create.budget.select.period.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Доход
       static let walletDetailBottomBarIncomeTitle = Rswift.StringResource(key: "wallet.detail.bottom.bar.income.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Категория
+      static let monthCardViewCategory = Rswift.StringResource(key: "month.card.view.category", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: На месяц
+      static let selectPeriodTypesMonthlyTitle = Rswift.StringResource(key: "select.period.types.monthly.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: На неделю
+      static let selectPeriodTypesWeeklyTitle = Rswift.StringResource(key: "select.period.types.weekly.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Новый бюджет
+      static let createBudgetTitle = Rswift.StringResource(key: "create.budget.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Операции
+      static let operationListTitle = Rswift.StringResource(key: "operation.list.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Планирование бюджета
+      static let budgetPlanningTitle = Rswift.StringResource(key: "budget.planning.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Профиль
       static let walletDetailBottomBarProfileTitle = Rswift.StringResource(key: "wallet.detail.bottom.bar.profile.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Расход
       static let walletDetailBottomBarExpenseTitle = Rswift.StringResource(key: "wallet.detail.bottom.bar.expense.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Создать бюджет
+      static let createBudgetButtonCreateTitle = Rswift.StringResource(key: "create.budget.button.create.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: дохода
+      static let monthCardViewTitleIncome = Rswift.StringResource(key: "month.card.view.title.income", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: расхода
+      static let monthCardViewTitleExpense = Rswift.StringResource(key: "month.card.view.title.expense", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: Больше
+      static func defaultFooterViewTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("default.footer.view.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "default.footer.view.title"
+        }
+
+        return NSLocalizedString("default.footer.view.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Введите название
+      static func createBudgetCellTextfieldPlaceholder(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.cell.textfield.placeholder", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.cell.textfield.placeholder"
+        }
+
+        return NSLocalizedString("create.budget.cell.textfield.placeholder", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Выберите категорию
+      static func createBudgetCellTypesCategoryTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.cell.types.category.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.cell.types.category.title"
+        }
+
+        return NSLocalizedString("create.budget.cell.types.category.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Выберите категорию
+      static func createBudgetSelectCategoryTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.select.category.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.select.category.title"
+        }
+
+        return NSLocalizedString("create.budget.select.category.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Выберите период
+      static func createBudgetCellTypesPeriodTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.cell.types.period.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.cell.types.period.title"
+        }
+
+        return NSLocalizedString("create.budget.cell.types.period.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Выберите период
+      static func createBudgetSelectPeriodTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.select.period.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.select.period.title"
+        }
+
+        return NSLocalizedString("create.budget.select.period.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
 
       /// Value: Доход
       static func walletDetailBottomBarIncomeTitle(preferredLanguages: [String]? = nil) -> String {
@@ -1283,6 +1406,84 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("wallet.detail.bottom.bar.income.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Категория
+      static func monthCardViewCategory(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("month.card.view.category", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "month.card.view.category"
+        }
+
+        return NSLocalizedString("month.card.view.category", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: На месяц
+      static func selectPeriodTypesMonthlyTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("select.period.types.monthly.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "select.period.types.monthly.title"
+        }
+
+        return NSLocalizedString("select.period.types.monthly.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: На неделю
+      static func selectPeriodTypesWeeklyTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("select.period.types.weekly.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "select.period.types.weekly.title"
+        }
+
+        return NSLocalizedString("select.period.types.weekly.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Новый бюджет
+      static func createBudgetTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.title"
+        }
+
+        return NSLocalizedString("create.budget.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Операции
+      static func operationListTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("operation.list.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "operation.list.title"
+        }
+
+        return NSLocalizedString("operation.list.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Планирование бюджета
+      static func budgetPlanningTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("budget.planning.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "budget.planning.title"
+        }
+
+        return NSLocalizedString("budget.planning.title", tableName: "WalletDetail", bundle: bundle, comment: "")
       }
 
       /// Value: Профиль
@@ -1309,6 +1510,45 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("wallet.detail.bottom.bar.expense.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Создать бюджет
+      static func createBudgetButtonCreateTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("create.budget.button.create.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "create.budget.button.create.title"
+        }
+
+        return NSLocalizedString("create.budget.button.create.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: дохода
+      static func monthCardViewTitleIncome(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("month.card.view.title.income", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "month.card.view.title.income"
+        }
+
+        return NSLocalizedString("month.card.view.title.income", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: расхода
+      static func monthCardViewTitleExpense(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("month.card.view.title.expense", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "month.card.view.title.expense"
+        }
+
+        return NSLocalizedString("month.card.view.title.expense", tableName: "WalletDetail", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

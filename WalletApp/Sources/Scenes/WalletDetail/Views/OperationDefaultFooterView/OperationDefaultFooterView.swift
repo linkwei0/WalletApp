@@ -59,7 +59,7 @@ class OperationDefaultFooterView: UITableViewHeaderFooterView, TableFooterView {
   }
   
   private func setupMoreOperationsLabel() {
-    moreOperationsLabel.text = "Больше"
+    moreOperationsLabel.text = R.string.walletDetail.defaultFooterViewTitle()
     moreOperationsLabel.textColor = .baseWhite
     moreOperationsLabel.textAlignment = .center
   }

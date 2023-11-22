@@ -10,12 +10,10 @@ protocol WalletDetailFactoryProtocol {
 }
 
 struct WalletDetailFactory: WalletDetailFactoryProtocol {
+  let useCaseProvider: UseCaseProviderProtocol
+  
   func makeModule(with wallet: WalletModel) -> WalletDetailViewController {
-    let coreDataStack = CoreDataStack()
-    let localDataSource = LocalDataSource(coreDataStack: coreDataStack)
-    let remoteDataSource = RemoteDataSource()
-    let useCase = UseCaseProvider(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
-    let interactor = WalletDetailInteractor(useCaseProvider: useCase)
+    let interactor = WalletDetailInteractor(useCaseProvider: useCaseProvider)
     let viewModel = WalletDetailViewModel(interactor: interactor, wallet: wallet)
     let walletDetailVC = WalletDetailViewController(viewModel: viewModel)
     return walletDetailVC

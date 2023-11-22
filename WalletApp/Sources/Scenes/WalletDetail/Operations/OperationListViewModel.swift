@@ -37,11 +37,8 @@ class OperationListViewModel: TableViewModel {
       }
     }
     
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd.MM.yy"
-    
-    var sortedDateInterval: [DateInterval] = Array(operationsDateDict.keys).sorted(by: >)
-    
+    let dateFormatter = DateFormatter.dayMonthYearDisplay
+    let sortedDateInterval: [DateInterval] = Array(operationsDateDict.keys).sorted(by: >)
     for dateInterval in sortedDateInterval {
       if operationsDateDict[dateInterval]?.isEmpty == false {
         let headerOperationDate = dateFormatter.string(from: dateInterval.start)

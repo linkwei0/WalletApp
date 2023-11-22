@@ -6,3 +6,4 @@
 "operation.edit.placeholder.amount" = "Значение операции";
 
 "operation.edit.button.edit" = "Изменить";
+"operation.edit.cell.types.placeholder" = "Общее значение операции";

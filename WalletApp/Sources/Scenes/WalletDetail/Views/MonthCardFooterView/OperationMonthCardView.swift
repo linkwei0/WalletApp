@@ -15,6 +15,8 @@ class OperationMonthCardView: UIView {
   private let categoryLabel = Label(textStyle: .bodyBold)
   private let amountLabel = Label(textStyle: .footnoteBold)
   
+  private let maxCharsCount: Int = 8
+  
   // MARK: - Init
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -33,10 +35,10 @@ class OperationMonthCardView: UIView {
   
   // MARK: - Configure
   func configure(with viewModel: OperationMonthCardViewModel?) {
-    titleLabel.text = "Категория" + " " + (viewModel?.title ?? "")
+    titleLabel.text = R.string.walletDetail.monthCardViewCategory() + " " + (viewModel?.title ?? "")
     titleLabel.textColor = viewModel?.titleTextColor
     categoryLabel.text = viewModel?.category
-    amountLabel.text = viewModel?.totalAmount.maxLength(to: 8)
+    amountLabel.text = viewModel?.totalAmount.maxLength(to: maxCharsCount)
   }
   
   // MARK: - Setup

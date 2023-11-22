@@ -14,7 +14,7 @@ class CreateBudgetViewController: BaseViewController {
   
   private let dataSource = TableViewDataSource()
   
-  private let viewModel: CreateBudgetViewModel
+   let viewModel: CreateBudgetViewModel
   
   // MARK: - Init
   init(viewModel: CreateBudgetViewModel) {
@@ -55,7 +55,7 @@ class CreateBudgetViewController: BaseViewController {
   
   private func setupCreateButton() {
     view.addSubview(createButton)
-    createButton.setTitle("Создать бюджет", for: .normal)
+    createButton.setTitle(R.string.walletDetail.createBudgetButtonCreateTitle(), for: .normal)
     createButton.setTitleColor(.baseWhite, for: .normal)
     createButton.titleLabel?.font = UIFont.bodyBold ?? .boldSystemFont(ofSize: 16)
     createButton.layer.cornerRadius = 12

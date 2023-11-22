@@ -65,7 +65,7 @@ extension CreateWalletViewModel: CreateWalletCellViewModelDelegate {
   }
   
   func createWalletCellViewModelDidChangeSegmentedControl(_ viewModel: CreateWalletCellViewModel,
-                                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl) {
+                                          with selectedCurrency: CurrencyModelView.CreateWalletCurrencySegmentedControl) {
     switch selectedCurrency {
     case .rub:
       wallet.currency = CurrencyModel(value: 1,

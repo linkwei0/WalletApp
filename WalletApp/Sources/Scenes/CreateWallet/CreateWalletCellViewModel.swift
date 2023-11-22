@@ -31,6 +31,20 @@ protocol CreateWalletCellViewModelDelegate: AnyObject {
 }
 
 class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
+  private enum NumberCharsInRow {
+    case name
+    case balance
+    
+    var maxCharsCount: Int {
+      switch self {
+      case .name:
+        return 20
+      case .balance:
+        return 10
+      }
+    }
+  }
+  
   // MARK: - Properties
   weak var delegate: CreateWalletCellViewModelDelegate?
   
@@ -55,7 +69,7 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
   }
   
   var keyboardType: UIKeyboardType {
-    return tag == 2 ? .numberPad : .default
+    return form.isNumberType ? .numberPad : .default
   }
   
   private let form: CreateWalletForm
@@ -77,13 +91,12 @@ class CreateWalletCellViewModel: CreateWalletCellViewModelProtocol {
   }
   
   func getMaxCharsInTextField(_ tagTextField: Int, newString: String) -> Bool {
-    switch tagTextField {
-    case 0:
-      return newString.count <= 20 ? true : false
-    case 1:
-      return newString.count <= 5 ? true : false
-    case 2:
-      return newString.count <= 10 ? true : false
+    guard let rowType = CreateWalletForm(rawValue: tagTextField) else { return false }
+    switch rowType {
+    case .name:
+      return newString.count <= NumberCharsInRow.name.maxCharsCount ? true : false
+    case .balance:
+      return newString.count <= NumberCharsInRow.balance.maxCharsCount ? true : false
     default:
       return false
     }

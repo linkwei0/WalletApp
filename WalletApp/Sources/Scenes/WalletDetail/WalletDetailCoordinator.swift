@@ -53,10 +53,10 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
       strongSelf.delegate?.walletDetailCoordinatorSuccessfullyUpdatedOperation(strongSelf)
     }
     walletDetailVC.title = configuration.wallet.name
-    walletDetailVC.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "target"),
+    walletDetailVC.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.rightBarButtonTarget),
                                                                        style: .done, target: self,
                                                                        action: #selector(showBudgetPlanning))
-    navigationController.addPopObserver(for: walletDetailVC, coordinator: self)
+    addPopObserver(for: walletDetailVC)
     navigationController.pushViewController(walletDetailVC, animated: animated)
   }
   
@@ -117,4 +117,8 @@ extension WalletDetailCoordinator: OperationEditCoordinatorDelegate {
   func operationEditCoordinatorSuccessfullyEdited(_ coordinator: OperationEditCoordinator) {
     onNeedsToUpdateWallet?()
   }
+}
+
+private extension Constants {
+  static let rightBarButtonTarget = "target"
 }

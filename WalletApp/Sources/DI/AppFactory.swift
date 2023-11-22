@@ -5,6 +5,7 @@
 
 import Foundation
 
+// MARK: - Protocols
 protocol HasWalletsFactory {
   var walletsFactory: WalletsFactoryProtocol { get }
 }
@@ -37,7 +38,20 @@ protocol HasUseCaseProviderFactory {
   var useCaseProviderFactory: UseCaseProviderFactoryProtocol { get }
 }
 
+protocol HasOperationListFactory {
+  var operationListFactory: OperationListFactoryProtocol { get }
+}
+
+protocol HasBudgetPlanningFactory {
+  var budgetPlanningFactory: BudgetPlanningFactoryProtocol { get }
+}
+
+protocol HasCreateBudgetFactory {
+  var createBudgetFactory: CreateBudgetFactoryProtocol { get }
+}
+
 final class AppFactory {
+  // MARK: - DI
   private let walletsFactoryService: WalletsFactory
   private let createWalletFactoryService: CreateWalletFactory
   private let walletDetailFactoryService: WalletDetailFactory
@@ -45,17 +59,26 @@ final class AppFactory {
   private let expenseFactoryService: ExpenseFactory
   private let operationEditFactoryService: OperationEditFactory
   private let profileFactoryService: ProfileFactory
+  private let operationListFactoryService: OperationListFactory
+  private let budgetPlanningFactoryService: BudgetPlanningFactory
+  private let createBudgetFactoryService: CreateBudgetFactory
   
   private let useCaseProviderFacotryService = UseCaseProviderFactory()
   
+  // MARK: - Init
   init() {
-    walletsFactoryService = WalletsFactory()
-    createWalletFactoryService = CreateWalletFactory()
-    walletDetailFactoryService = WalletDetailFactory()
-    incomeFactoryService = IncomeFactory()
-    expenseFactoryService = ExpenseFactory()
-    operationEditFactoryService = OperationEditFactory()
-    profileFactoryService = ProfileFactory()
+    let useCaseProvider = useCaseProviderFacotryService.makeUseCaseProvider()
+    
+    walletsFactoryService = WalletsFactory(useCaseProvider: useCaseProvider)
+    createWalletFactoryService = CreateWalletFactory(useCaseProvider: useCaseProvider)
+    walletDetailFactoryService = WalletDetailFactory(useCaseProvider: useCaseProvider)
+    incomeFactoryService = IncomeFactory(useCaseProvider: useCaseProvider)
+    expenseFactoryService = ExpenseFactory(useCaseProvider: useCaseProvider)
+    operationEditFactoryService = OperationEditFactory(useCaseProvider: useCaseProvider)
+    profileFactoryService = ProfileFactory(useCaseProvider: useCaseProvider)
+    operationListFactoryService = OperationListFactory()
+    budgetPlanningFactoryService = BudgetPlanningFactory(useCaseProvider: useCaseProvider)
+    createBudgetFactoryService = CreateBudgetFactory(useCaseProvider: useCaseProvider)
   }
 }
 
@@ -108,8 +131,30 @@ extension AppFactory: HasProfileFactory {
   }
 }
 
+// MARK: - HasUseCaseProviderFactory
 extension AppFactory: HasUseCaseProviderFactory {
   var useCaseProviderFactory: UseCaseProviderFactoryProtocol {
     return useCaseProviderFacotryService
+  }
+}
+
+// MARK: - HasOperationListFactory
+extension AppFactory: HasOperationListFactory {
+  var operationListFactory: OperationListFactoryProtocol {
+    return operationListFactoryService
+  }
+}
+
+// MARK: - HasBudgetPlanningFactory
+extension AppFactory: HasBudgetPlanningFactory {
+  var budgetPlanningFactory: BudgetPlanningFactoryProtocol {
+    return budgetPlanningFactoryService
+  }
+}
+
+// MARK: - HasCreateBudgetFactory
+extension AppFactory: HasCreateBudgetFactory {
+  var createBudgetFactory: CreateBudgetFactoryProtocol {
+    return createBudgetFactoryService
   }
 }

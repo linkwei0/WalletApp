@@ -65,7 +65,7 @@ enum ModalCalculationViewTypes {
     case .point:
       return R.image.commaButton()
     case .previousValue:
-      return UIImage(systemName: "arrow.clockwise")
+      return UIImage(systemName: Constants.previousArrowImage)
     }
   }
 }
@@ -93,4 +93,8 @@ class ModalCalculationCellViewModel {
   func select() {
     delegate?.cellViewModelDidSelect(self, type: type)
   }
+}
+
+private extension Constants {
+  static let previousArrowImage = "arrow.clockwise"
 }

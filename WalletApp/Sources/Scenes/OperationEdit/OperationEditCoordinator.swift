@@ -62,14 +62,11 @@ extension OperationEditCoordinator: OperationEditViewModelDelegate {
     navigationController.popViewController(animated: true)
   }
   
-  func operationEditViewModelDidRequestToShowCategoryScreen(_ viewModel: OperationEditViewModel,
-                                                            wallet: WalletModel,
+  func operationEditViewModelDidRequestToShowCategoryScreen(_ viewModel: OperationEditViewModel, wallet: WalletModel,
                                                             operation: OperationModel) {
-    let interactor = CalculationInteractor(useCaseProvider: factory.useCaseProviderFactory.makeUseCaseProvider())
-    let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet, operation: operation)
-    let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
+    let categoryPickerController = factory.operationEditFactory.makeCategoryPicker(wallet, with: operation)
     categoryPickerController.modalPresentationStyle = .overCurrentContext
-    categoryViewModel.onNeedsToUpdateOperation = { [weak viewModel] wallet, operation in
+    categoryPickerController.viewModel.onNeedsToUpdateOperation = { [weak viewModel] wallet, operation in
       viewModel?.onDidUpdateOperationCategory?(wallet, operation)
     }
     navigationController.present(categoryPickerController, animated: false)

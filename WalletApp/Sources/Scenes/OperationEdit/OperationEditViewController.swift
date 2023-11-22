@@ -57,7 +57,7 @@ class OperationEditViewController: BaseViewController {
   
   private func setupEditButton() {
     view.addSubview(editButton)
-    editButton.setTitle("Изменить", for: .normal)
+    editButton.setTitle(R.string.operationEdit.operationEditButtonEdit(), for: .normal)
     editButton.setTitleColor(.baseWhite, for: .normal)
     editButton.titleLabel?.font = UIFont.bodyBold ?? .boldSystemFont(ofSize: 16)
     editButton.layer.cornerRadius = 12

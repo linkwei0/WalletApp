@@ -17,7 +17,7 @@ class CategoryPickerViewController: BaseViewController {
   private let cancelButton = UIButton(type: .system)
   private let bottomSpaceView = UIView()
   
-  private let viewModel: CategoryPickerViewModel
+  let viewModel: CategoryPickerViewModel
   
   // MARK: - Init
   init(viewModel: CategoryPickerViewModel) {

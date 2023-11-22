@@ -13,6 +13,7 @@ protocol CreateBudgetCoordinatorDelegate: AnyObject {
 
 class CreateBudgetCoordinator: ConfigurableCoordinator {
   typealias Configuration = BudgetPlanningCoordinatorConfiguration
+  typealias Factory = HasCreateBudgetFactory
   
   // MARK: - Properties
   weak var delegate: CreateBudgetCoordinatorDelegate?
@@ -29,12 +30,14 @@ class CreateBudgetCoordinator: ConfigurableCoordinator {
   private weak var createBudgetNavigation: NavigationController?
   
   private let configuration: Configuration
+  private let factory: Factory
   
   // MARK: - Init
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
     self.configuration = configuration
+    self.factory = appFactory
   }
   
   // MARK: - Start
@@ -43,27 +46,22 @@ class CreateBudgetCoordinator: ConfigurableCoordinator {
   }
   
   private func showCreateBudgetScreen(animated: Bool) {
-    let localDataSource = LocalDataSource(coreDataStack: CoreDataStack())
-    let remoteDataSource = RemoteDataSource()
-    let useCaseProvider = UseCaseProvider(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
-    let interactor = CreateBudgetInteractor(useCaseProvider: useCaseProvider)
-    let viewModel = CreateBudgetViewModel(interactor: interactor, walletID: configuration.walletID)
-    viewModel.delegate = self
-    let viewController = CreateBudgetViewController(viewModel: viewModel)
+    let viewController = factory.createBudgetFactory.makeModule(with: configuration.walletID)
+    viewController.viewModel.delegate = self
+    viewController.navigationItem.title = R.string.walletDetail.createBudgetTitle()
+    addPopObserver(for: viewController)
     
     let createBudgetNavigation = NavigationController()
     createBudgetNavigation.viewControllers = [viewController]
-    createBudgetNavigation.addPopObserver(for: viewController, coordinator: self)
-    addPopObserver(for: viewController)
-    viewController.navigationItem.title = "Новый бюджет"
-    onNeedsToUpdatePeriodBudget = { [weak viewModel] periodType in
+    
+    onNeedsToUpdatePeriodBudget = { [weak viewModel = viewController.viewModel] periodType in
       viewModel?.didSelectPeriodOfBudget(periodType: periodType)
     }
-    onNeedsToUpdateCategory = { [weak viewModel] expenseType in
+    onNeedsToUpdateCategory = { [weak viewModel = viewController.viewModel] expenseType in
       viewModel?.didSelectCategoryOfBudget(expenseType: expenseType)
     }
+    
     self.createBudgetNavigation = createBudgetNavigation
-//    addPopObserver(for: createBudgetNavigation)
     navigationController.present(createBudgetNavigation, animated: animated)
   }
 }
@@ -71,18 +69,16 @@ class CreateBudgetCoordinator: ConfigurableCoordinator {
 // MARK: - CreateBudgetViewModelDelegate
 extension CreateBudgetCoordinator: CreateBudgetViewModelDelegate {
   func viewModelDidRequestToShowSelectPeriodScreen(_ viewModel: CreateBudgetViewModel) {
-    let selectPeriodVM = SelectPeriodViewModel()
-    selectPeriodVM.delegate = self
-    let selectPeriodVC = SelectPeriodViewController(viewModel: selectPeriodVM)
-    selectPeriodVC.navigationItem.title = "Выберите период"
+    let selectPeriodVC = factory.createBudgetFactory.makePeriodModule()
+    selectPeriodVC.viewModel.delegate = self
+    selectPeriodVC.navigationItem.title = R.string.walletDetail.createBudgetSelectPeriodTitle()
     createBudgetNavigation?.pushViewController(selectPeriodVC, animated: true)
   }
   
   func viewModelDidRequestToShowSelectCategoryScreen(_ viewModel: CreateBudgetViewModel) {
-    let selectCategoryVM = SelectCategoryViewModel()
-    selectCategoryVM.delegate = self
-    let selectCategoryVC = SelectCategoryViewController(viewModel: selectCategoryVM)
-    selectCategoryVC.navigationItem.title = "Выберите категорию"
+    let selectCategoryVC = factory.createBudgetFactory.makeCategoryModule()
+    selectCategoryVC.viewModel.delegate = self
+    selectCategoryVC.navigationItem.title = R.string.walletDetail.createBudgetSelectCategoryTitle()
     createBudgetNavigation?.pushViewController(selectCategoryVC, animated: true)
   }
   

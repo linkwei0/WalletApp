@@ -10,7 +10,7 @@ import UIKit
 class OperationMonthCardViewModel {
   // MARK: - Properties
   var title: String {
-    return isIncomeCard ? "дохода" : "расхода"
+    return isIncomeCard ? R.string.walletDetail.monthCardViewTitleIncome() : R.string.walletDetail.monthCardViewTitleExpense()
   }
   
   var category: String {

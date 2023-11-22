@@ -52,11 +52,11 @@ class OperationEditCellViewModel {
   private var charsCounter: Int = 0
   
   private let operation: OperationModel
-  private let type: OperationEditCellType
+  private let type: OperationEditCellTypes
   private let currencyCode: String
   
   // MARK: - Init
-  init(with operation: OperationModel, type: OperationEditCellType, currencyCode: String) {
+  init(with operation: OperationModel, type: OperationEditCellTypes, currencyCode: String) {
     self.operation = operation
     self.type = type
     self.currencyCode = currencyCode
@@ -78,7 +78,7 @@ extension OperationEditCellViewModel: OperationEditCellViewModelStringsProtocol 
   }
   
   var placeholderContentTextField: String {
-    return type.placeholderContentTextField
+    return type.textFieldPlaceholder
   }
   
   var textContentTextField: String {

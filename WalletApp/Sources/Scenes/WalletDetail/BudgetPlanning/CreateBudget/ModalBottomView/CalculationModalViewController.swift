@@ -85,7 +85,6 @@ class CalculationModalViewController: BaseViewController {
     collectionView.delegate = self
     collectionView.register(ModalCalculationCell.self, forCellWithReuseIdentifier: ModalCalculationCell.reuseIdentifiable)
     collectionView.snp.makeConstraints { make in
-//      make.edges.equalToSuperview()
       make.top.equalToSuperview().inset(24)
       make.leading.trailing.equalToSuperview().inset(16)
       make.bottom.equalToSuperview()
@@ -175,7 +174,8 @@ extension CalculationModalViewController: UICollectionViewDataSource {
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ModalCalculationCell.reuseIdentifiable,
-                                                        for: indexPath) as? ModalCalculationCell else { return UICollectionViewCell() }
+                                                        for: indexPath) as? ModalCalculationCell else {
+      return UICollectionViewCell() }
     cell.configure(with: viewModel.configureCellViewModel(at: indexPath))
     return cell
   }
@@ -186,7 +186,8 @@ extension CalculationModalViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
     let width = (view.frame.width - 60) / 3
-    return CGSize(width: width, height: width / 2)
+    let height = width / 2
+    return CGSize(width: width, height: height)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,

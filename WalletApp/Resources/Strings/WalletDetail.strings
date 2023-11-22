@@ -6,3 +6,24 @@
 "wallet.detail.bottom.bar.income.title" = "Доход";
 "wallet.detail.bottom.bar.expense.title" = "Расход";
 "wallet.detail.bottom.bar.profile.title" = "Профиль";
+
+"month.card.view.category" = "Категория";
+"month.card.view.title.income" = "дохода";
+"month.card.view.title.expense" = "расхода";
+
+"default.footer.view.title" = "Больше";
+
+"operation.list.title" = "Операции";
+
+"budget.planning.title" = "Планирование бюджета";
+
+"create.budget.title" = "Новый бюджет";
+"create.budget.select.period.title" = "Выберите период";
+"create.budget.select.category.title" = "Выберите категорию";
+"create.budget.button.create.title" = "Создать бюджет";
+"create.budget.cell.textfield.placeholder" = "Введите название";
+"create.budget.cell.types.period.title" = "Выберите период";
+"create.budget.cell.types.category.title" = "Выберите категорию";
+
+"select.period.types.weekly.title" = "На неделю";
+"select.period.types.monthly.title" = "На месяц";

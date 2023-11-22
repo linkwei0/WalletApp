@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum OperationEditCellType {
+enum OperationEditCellTypes {
   case category, amount, info
   
-  var placeholderContentTextField: String {
+  var textFieldPlaceholder: String {
     switch self {
     case .amount:
-      return "Общее значение операции"
+      return R.string.operationEdit.operationEditCellTypesPlaceholder()
     default:
       return ""
     }

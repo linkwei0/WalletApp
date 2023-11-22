@@ -29,4 +29,9 @@ extension Date {
     guard let result = Calendar.current.dateInterval(of: .day, for: self) else { return DateInterval() }
     return result
   }
+  
+  func interval(to endDate: Date) -> DateComponents {
+    let result = Calendar.current.dateComponents([.day], from: self, to: endDate)
+    return result
+  }
 }

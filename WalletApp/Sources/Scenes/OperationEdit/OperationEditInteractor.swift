@@ -7,7 +7,11 @@
 
 import Foundation
 
-class OperationEditInteractor {
+protocol OperationEditInteractorProtocol {
+  func editOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void)
+}
+
+class OperationEditInteractor: OperationEditInteractorProtocol {
   private let operationUseCase: OperationUseCaseProtocol
   
   init(useCaseProvider: UseCaseProviderProtocol) {

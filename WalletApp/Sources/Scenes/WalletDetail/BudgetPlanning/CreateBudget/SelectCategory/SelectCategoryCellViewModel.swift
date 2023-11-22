@@ -19,7 +19,7 @@ class SelectCategoryCellViewModel: SelectCategoryCellViewModelProtocol {
   }
   
   var arrow: UIImage? {
-    return UIImage(systemName: "arrowshape.forward.fill")
+    return UIImage(systemName: Constants.arrowString)
   }
   
   var name: String {
@@ -31,4 +31,8 @@ class SelectCategoryCellViewModel: SelectCategoryCellViewModelProtocol {
   init(_ expenseType: ExpenseCategoryTypes) {
     self.expenseType = expenseType
   }
+}
+
+private extension Constants {
+  static let arrowString = "arrowshape.forward.fill"
 }

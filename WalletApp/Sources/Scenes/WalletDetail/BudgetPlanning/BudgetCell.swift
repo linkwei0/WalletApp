@@ -20,6 +20,7 @@ class BudgetCell: UITableViewCell, TableCell {
   private let categoryLabel = Label(textStyle: .body)
   
   private let defaultWidth: CGFloat = 0
+  private let maxPercent: CGFloat = 100
   
   private var maxWidthConstraint: Constraint?
   private var currentWidthConstraint: Constraint?
@@ -48,12 +49,12 @@ class BudgetCell: UITableViewCell, TableCell {
     periodTypeLabel.text = viewModel.period
     categoryLabel.text = viewModel.category
     amountLabel.text = viewModel.maxAmount
+    
     if let maxWidth = maxWidthConstraint?.layoutConstraints[0].constant {
-      var currentWidth = (viewModel.progress * 100 * maxWidth) / 100
+      var currentWidth = (viewModel.progress * maxPercent * maxWidth) / maxPercent
       if currentWidth > maxWidth {
         currentWidth = maxWidth
       }
-      
       UIView.animate(withDuration: 1.5) {
         self.currentWidthConstraint?.layoutConstraints[0].constant = currentWidth
         self.layoutIfNeeded()
@@ -79,6 +80,7 @@ class BudgetCell: UITableViewCell, TableCell {
     containerView.backgroundColor = .accent
     containerView.layer.borderColor = UIColor.baseBlack.cgColor
     containerView.layer.borderWidth = 0.5
+    containerView.addShadow(offset: CGSize(width: 8, height: 8), radius: 14, color: .shade3)
     containerView.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview().inset(16)
       make.leading.trailing.equalToSuperview().inset(24)

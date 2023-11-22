@@ -13,18 +13,18 @@ enum SelectPeriodTypes: CaseIterable {
   var title: String {
     switch self {
     case .weekly:
-      return "На неделю"
+      return R.string.walletDetail.selectPeriodTypesWeeklyTitle()
     case .monthly:
-      return "На месяц"
+      return R.string.walletDetail.selectPeriodTypesMonthlyTitle()
     }
   }
   
   var arrow: UIImage? {
     switch self {
     case .weekly:
-      return UIImage(systemName: "arrowshape.forward.fill")
+      return UIImage(systemName: Constants.arrowString)
     case .monthly:
-      return UIImage(systemName: "arrowshape.forward.fill")
+      return UIImage(systemName: Constants.arrowString)
     }
   }
 }
@@ -48,4 +48,8 @@ class SelectPeriodCellViewModel: SelectPeriodCellViewModelProtocol {
   init(_ periodType: SelectPeriodTypes) {
     self.periodType = periodType
   }
+}
+
+private extension Constants {
+  static let arrowString = "arrowshape.forward.fill"
 }
