@@ -48,7 +48,6 @@ class SelectCategoryViewController: BaseViewController {
     }
     dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
     tableView.dataSource = dataSource
-    tableView.reloadData()
   }
 }
 

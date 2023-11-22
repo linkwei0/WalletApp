@@ -32,4 +32,9 @@ class UseCaseProvider: UseCaseProviderProtocol {
     let remoteDataSource = remoteDataSource.profileDataSource()
     return ProfileRepository(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
   }
+  
+  func budgetUseCase() -> BudgetUseCaseProtocol {
+    let localDataSource = localDataSource.budgetLocalDataSource()
+    return BudgetRepository(localDataSource: localDataSource)
+  }
 }

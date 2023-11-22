@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class ExpressionViewModel: SimpleViewStateProcessable {
+final class ExpressionViewModel: SimpleViewStateProccessable {
   // MARK: - Properties
   var cellViewModels: [OperationCellViewModelProtocol] {
     return operations.compactMap { OperationCellViewModel($0) }

@@ -8,10 +8,11 @@ import UIKit
 protocol WalletsViewModelDelegate: AnyObject {
   func walletsViewModelDidRequestToShowWalletDetail(_ viewModel: WalletsViewModel, wallet: WalletModel)
   func walletsViewModelDidRequestToShowAddNewWallet(_ viewModel: WalletsViewModel, currencyRates: CurrencyRates)
-  func walletsViewModelDidRequestToShowEditWallet(_ viewModel: WalletsViewModel, wallet: WalletModel, currencyRates: CurrencyRates)
+  func walletsViewModelDidRequestToShowEditWallet(_ viewModel: WalletsViewModel, wallet: WalletModel, 
+                                                  currencyRates: CurrencyRates)
 }
 
-final class WalletsViewModel: SimpleViewStateProcessable {
+final class WalletsViewModel: SimpleViewStateProccessable {
   // MARK: - Properties
   weak var delegate: WalletsViewModelDelegate?
   

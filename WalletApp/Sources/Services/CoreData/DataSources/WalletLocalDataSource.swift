@@ -32,9 +32,9 @@ class WalletLocalDataSource: WalletLocalDataSourceProtocol {
                                                           type: CDWallet.self,
                                                           context: coreDataStack.writeContext).first {
       let existedWalletOperations = coreDataStack.getObjectByValue(columnName: #keyPath(CDOperation.walletId),
-                                                      value: String(wallet.id),
-                                                      type: CDOperation.self,
-                                                      context: coreDataStack.writeContext)
+                                                                   value: String(wallet.id),
+                                                                   type: CDOperation.self,
+                                                                   context: coreDataStack.writeContext)
       existedWalletOperations.forEach { operation in
         let currencyRate = wallet.currency.value
         let operationValue: Decimal = operation.amount?.decimalValue ?? 0

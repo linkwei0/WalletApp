@@ -7,8 +7,16 @@
 
 import Foundation
 
-class CreateBudgetCoordinator: Coordinator {
+protocol CreateBudgetCoordinatorDelegate: AnyObject {
+  func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator)
+}
+
+class CreateBudgetCoordinator: ConfigurableCoordinator {
+  typealias Configuration = BudgetPlanningCoordinatorConfiguration
+  
   // MARK: - Properties
+  weak var delegate: CreateBudgetCoordinatorDelegate?
+  
   var onNeedsToUpdatePeriodBudget: ((SelectPeriodTypes) -> Void)?
   var onNeedsToUpdateCategory: ((ExpenseCategoryTypes) -> Void)?
   
@@ -20,10 +28,13 @@ class CreateBudgetCoordinator: Coordinator {
   
   private weak var createBudgetNavigation: NavigationController?
   
+  private let configuration: Configuration
+  
   // MARK: - Init
-  required init(navigationController: NavigationController, appFactory: AppFactory) {
+  required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
+    self.configuration = configuration
   }
   
   // MARK: - Start
@@ -32,7 +43,11 @@ class CreateBudgetCoordinator: Coordinator {
   }
   
   private func showCreateBudgetScreen(animated: Bool) {
-    let viewModel = CreateBudgetViewModel()
+    let localDataSource = LocalDataSource(coreDataStack: CoreDataStack())
+    let remoteDataSource = RemoteDataSource()
+    let useCaseProvider = UseCaseProvider(localDataSource: localDataSource, remoteDataSource: remoteDataSource)
+    let interactor = CreateBudgetInteractor(useCaseProvider: useCaseProvider)
+    let viewModel = CreateBudgetViewModel(interactor: interactor, walletID: configuration.walletID)
     viewModel.delegate = self
     let viewController = CreateBudgetViewController(viewModel: viewModel)
     
@@ -45,15 +60,11 @@ class CreateBudgetCoordinator: Coordinator {
       viewModel?.didSelectPeriodOfBudget(periodType: periodType)
     }
     onNeedsToUpdateCategory = { [weak viewModel] expenseType in
-      viewModel?.didSelectCategoryOfBudget(expeseType: expenseType)
+      viewModel?.didSelectCategoryOfBudget(expenseType: expenseType)
     }
     self.createBudgetNavigation = createBudgetNavigation
 //    addPopObserver(for: createBudgetNavigation)
     navigationController.present(createBudgetNavigation, animated: animated)
-  }
-  
-  deinit {
-    print("Coordinator deinit!")
   }
 }
 
@@ -74,15 +85,20 @@ extension CreateBudgetCoordinator: CreateBudgetViewModelDelegate {
     selectCategoryVC.navigationItem.title = "Выберите категорию"
     createBudgetNavigation?.pushViewController(selectCategoryVC, animated: true)
   }
+  
+  func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel) {
+    createBudgetNavigation?.viewControllers = []
+    createBudgetNavigation = nil
+    navigationController.dismiss(animated: true)
+    delegate?.coordinatorSuccessfullyCreateBudget(self)
+  }
 }
 
 // MARK: - SelectPeriodViewModelDelegate
 extension CreateBudgetCoordinator: SelectPeriodViewModelDelegate {
   func viewModelSuccessfullySelectedPeriod(_ viewModel: SelectPeriodViewModel, periodType: SelectPeriodTypes) {
     onNeedsToUpdatePeriodBudget?(periodType)
-//    print("Before", createBudgetNavigation?.viewControllers)
     createBudgetNavigation?.popToRootViewController(animated: true)
-//    print("After", createBudgetNavigation?.viewControllers)
   }
 }
 

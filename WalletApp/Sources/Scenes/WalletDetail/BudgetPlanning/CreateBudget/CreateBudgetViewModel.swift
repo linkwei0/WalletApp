@@ -10,9 +10,37 @@ import Foundation
 protocol CreateBudgetViewModelDelegate: AnyObject {
   func viewModelDidRequestToShowSelectPeriodScreen(_ viewModel: CreateBudgetViewModel)
   func viewModelDidRequestToShowSelectCategoryScreen(_ viewModel: CreateBudgetViewModel)
+  func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel)
 }
 
 class CreateBudgetViewModel: TableViewModel {
+  private enum CellNumberRows {
+    case amount
+    case period
+    case name
+    case category
+    
+    var raw: Int {
+      switch self {
+      case .amount:
+        return 0
+      case .period:
+        return 1
+      case .name:
+        return 2
+      case .category:
+        return 3
+      }
+    }
+    
+    var section: Int {
+      switch self {
+      case .amount, .period, .name, .category:
+        return 0
+      }
+    }
+  }
+  
   // MARK: - Properties
   weak var delegate: CreateBudgetViewModelDelegate?
   
@@ -25,13 +53,20 @@ class CreateBudgetViewModel: TableViewModel {
   private(set) var sectionViewModels: [TableSectionViewModel] = []
   private(set) var itemViewModels: [TableCellViewModel] = []
   
+  private var currentAmount: Int = 0
   private var budgetAmountArr: [String] = []
+  private var budgetModel = BudgetModel.makeCleanModel()
   
+  private let walletID: Int
   private let budgetCellTypes: [CreateBudgetCellTypes] = CreateBudgetCellTypes.allCases
   private let maxBudgetLength: Int = 8
   
+  private let interactor: CreateBudgetInteractorProtocol
+  
   // MARK: - Init
-  init() {
+  init(interactor: CreateBudgetInteractor, walletID: Int) {
+    self.interactor = interactor
+    self.walletID = walletID
     calculationModalViewModel.delegate = self
   }
   
@@ -42,14 +77,32 @@ class CreateBudgetViewModel: TableViewModel {
   
   func didSelectPeriodOfBudget(periodType: SelectPeriodTypes) {
     let cellViewModel = CreateBudgetCellViewModel(.period, periodType: periodType)
-    let periodRow = IndexPath(row: 1, section: 0)
+    let periodRow = IndexPath(row: CellNumberRows.period.raw, section: CellNumberRows.period.section)
+    updatePeriodBudgetModel(periodType)
     updateCellViewModel(at: periodRow, with: cellViewModel)
   }
   
-  func didSelectCategoryOfBudget(expeseType: ExpenseCategoryTypes) {
-    let cellViewModel = CreateBudgetCellViewModel(.category, categoryType: expeseType)
-    let categoryRow = IndexPath(row: 3, section: 0)
+  func didSelectCategoryOfBudget(expenseType: ExpenseCategoryTypes) {
+    let cellViewModel = CreateBudgetCellViewModel(.category, categoryType: expenseType)
+    let categoryRow = IndexPath(row: CellNumberRows.category.raw, section: CellNumberRows.category.section)
+    updateCategoryBudgetModel(expenseType)
     updateCellViewModel(at: categoryRow, with: cellViewModel)
+  }
+  
+  func didTapCreateButton() {
+    if !budgetAmountArr.isEmpty && !budgetModel.name.isEmpty && budgetModel.endPeriod != nil {
+      let amount = Decimal(string: budgetAmountArr.joined()) ?? 0
+      budgetModel.amount = amount
+      budgetModel.walletID = walletID
+      interactor.saveBudget(for: walletID, budget: budgetModel) { result in
+        switch result {
+        case .success:
+          self.delegate?.viewModelSuccessfullyCreateBudget(self)
+        case .failure(let error):
+          print("Failed to save budget with error - \(error)")
+        }
+      }
+    }
   }
   
   // MARK: - Private methods
@@ -68,10 +121,23 @@ class CreateBudgetViewModel: TableViewModel {
     onNeedsUpdate?()
   }
   
-  deinit {
-    print("VM")
+  private func updateCategoryBudgetModel(_ expenseType: ExpenseCategoryTypes) {
+    budgetModel.category = expenseType
   }
   
+  private func updatePeriodBudgetModel(_ period: SelectPeriodTypes) {
+    let beginDate = Date()
+    let endDate: Date?
+    switch period {
+    case .weekly:
+      endDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: beginDate)
+    case .monthly:
+      endDate = Calendar.current.date(byAdding: .month, value: 1, to: beginDate)
+    }
+    budgetModel.beginPeriod = beginDate
+    budgetModel.endPeriod = endDate
+  }
+    
   private func updateCellViewModel(at indexPath: IndexPath, with cellViewModel: CreateBudgetCellViewModel) {
     cellViewModel.delegate = self
     sectionViewModels[indexPath.section].update(at: indexPath.row, with: cellViewModel)
@@ -92,6 +158,10 @@ extension CreateBudgetViewModel: CreateBudgetCellViewModelDelegate {
   func cellViewModelDidRequestToSelectCategoryScreen(_ viewModel: CreateBudgetCellViewModel) {
     delegate?.viewModelDidRequestToShowSelectCategoryScreen(self)
   }
+  
+  func cellViewModelDidRequestToUpdateName(_ viewModel: CreateBudgetCellViewModel, with text: String) {
+    budgetModel.name = text
+  }
 }
 
 // MARK: - CalculationModalViewModelDelegate
@@ -101,7 +171,7 @@ extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
     if budgetAmountArr.count < maxBudgetLength {
       budgetAmountArr.append(amount)
       let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
-      let amountBudgetRow = IndexPath(row: 0, section: 0)
+      let amountBudgetRow = IndexPath(row: CellNumberRows.amount.raw, section: CellNumberRows.amount.section)
       updateCellViewModel(at: amountBudgetRow, with: cellViewModel)
     }
   }
@@ -110,7 +180,7 @@ extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
     if !budgetAmountArr.isEmpty {
       budgetAmountArr.removeLast()
       let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
-      let amountBudgetRow = IndexPath(row: 0, section: 0)
+      let amountBudgetRow = IndexPath(row: CellNumberRows.amount.raw, section: CellNumberRows.amount.section)
       updateCellViewModel(at: amountBudgetRow, with: cellViewModel)
     }
   }
@@ -122,7 +192,7 @@ extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
       budgetAmountArr.append(".")
     }
     let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
-    let amountBudgetRow = IndexPath(row: 0, section: 0)
+    let amountBudgetRow = IndexPath(row: CellNumberRows.amount.raw, section: CellNumberRows.amount.section)
     updateCellViewModel(at: amountBudgetRow, with: cellViewModel)
   }
 }

@@ -11,6 +11,7 @@ protocol CreateBudgetCellViewModelDelegate: AnyObject {
   func cellViewModelDidRequestToShowModalBottomView(_ viewModel: CreateBudgetCellViewModel)
   func cellViewModelDidRequestToSelectPeriodScreen(_ viewModel: CreateBudgetCellViewModel)
   func cellViewModelDidRequestToSelectCategoryScreen(_ viewModel: CreateBudgetCellViewModel)
+  func cellViewModelDidRequestToUpdateName(_ viewModel: CreateBudgetCellViewModel, with text: String)
 }
 
 class CreateBudgetCellViewModel {
@@ -38,8 +39,6 @@ class CreateBudgetCellViewModel {
     }
     return type.placeholderText
   }
-  
-  
     
   var categoryText: String? {
     return categoryType != nil ? categoryType?.title : type.placeholderText
@@ -76,6 +75,12 @@ class CreateBudgetCellViewModel {
       break
     case .category:
       delegate?.cellViewModelDidRequestToSelectCategoryScreen(self)
+    }
+  }
+  
+  func changeTextField(_ text: String) {
+    if !text.isEmpty {
+      delegate?.cellViewModelDidRequestToUpdateName(self, with: text)
     }
   }
 }

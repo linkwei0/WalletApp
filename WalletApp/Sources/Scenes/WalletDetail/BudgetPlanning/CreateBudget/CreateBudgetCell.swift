@@ -69,6 +69,8 @@ class CreateBudgetCell: UITableViewCell, TableCell {
     nameTextField.textAlignment = .left
     nameTextField.isHidden = true
     nameTextField.placeholder = "Введите название"
+    nameTextField.addTarget(self, action: #selector(changeTextField(_:)), for: .editingChanged)
+    nameTextField.delegate = self
     nameTextField.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview()
       make.leading.trailing.equalToSuperview().inset(16)
@@ -105,5 +107,18 @@ class CreateBudgetCell: UITableViewCell, TableCell {
       make.top.bottom.trailing.equalToSuperview()
       make.leading.equalToSuperview().inset(16)
     }
+  }
+  
+  // MARK: - Actions
+  @objc private func changeTextField(_ textField: UITextField) {
+    viewModel?.changeTextField(textField.text ?? "")
+  }
+}
+
+// MARK: - UITextFieldDelegate
+extension CreateBudgetCell: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
   }
 }

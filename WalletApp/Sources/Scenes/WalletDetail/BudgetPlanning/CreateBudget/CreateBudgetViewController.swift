@@ -38,6 +38,8 @@ class CreateBudgetViewController: BaseViewController {
   private func setup() {
     setupTableView()
     setupCreateButton()
+    setupGestureRecognizer()
+    
   }
   
   private func setupTableView() {
@@ -68,9 +70,19 @@ class CreateBudgetViewController: BaseViewController {
     }
   }
   
+  private func setupGestureRecognizer() {
+    let tap = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+    tap.cancelsTouchesInView = false
+    view.addGestureRecognizer(tap)
+  }
+  
   // MARK: - Actions
   @objc private func didTapCreateButton() {
-    print("Create new budget!")
+    viewModel.didTapCreateButton()
+  }
+  
+  @objc private func hideKeyboard() {
+    tableView.endEditing(true)
   }
   
   // MARK: - Private methods
@@ -80,10 +92,6 @@ class CreateBudgetViewController: BaseViewController {
   
   private func updateRow(at indexPath: IndexPath) {
     self.tableView.reloadRows(at: [indexPath], with: .none)
-  }
-  
-  deinit {
-    print("VC")
   }
   
   private func showCalculationModelView() {

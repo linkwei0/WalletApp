@@ -25,4 +25,8 @@ class LocalDataSource: LocalDataSourceProtocol {
   func profileDataSource() -> ProfileLocalDataSourceProtocol {
     return ProfileLocalDataSource(coreDataStack: coreDataStack)
   }
+  
+  func budgetLocalDataSource() -> BudgetLocalDataSourceProtocol {
+    return BudgetLocalDataSource(coreDataStack: coreDataStack)
+  }
 }

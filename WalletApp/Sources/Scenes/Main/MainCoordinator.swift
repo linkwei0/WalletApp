@@ -18,15 +18,15 @@ final class MainCoordinator: Coordinator {
   }
   
   func start(_ animated: Bool) {
-//    showBankScreen(animated: animated)
-    showTest(animated: animated)
+    showWalletsScreen(animated: animated)
+//    showTest(animated: animated)
   }
   
   private func showTest(animated: Bool) {
-    show(BudgetPlanningListCoordinator.self, animated: animated)
+    show(BudgetPlanningListCoordinator.self, configuration: BudgetPlanningCoordinatorConfiguration(walletID: 1), animated: animated)
   }
   
-  private func showBankScreen(animated: Bool) {
+  private func showWalletsScreen(animated: Bool) {
     show(WalletsCoordinator.self, animated: animated)
   }
 }

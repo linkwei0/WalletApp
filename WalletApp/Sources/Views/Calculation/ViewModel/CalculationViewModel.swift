@@ -16,7 +16,7 @@ protocol CalculationViewModelCategoryDelegate: AnyObject {
                                                         operation: OperationModel)
 }
 
-final class CalculationViewModel: SimpleViewStateProcessable {
+final class CalculationViewModel: SimpleViewStateProccessable {
   // MARK: - Properties
   private enum Sign: String {
     case minus = "-", plus = "+", multiply = "x", divide = "/"

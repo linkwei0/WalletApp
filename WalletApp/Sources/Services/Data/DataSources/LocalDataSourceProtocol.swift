@@ -11,4 +11,5 @@ protocol LocalDataSourceProtocol {
   func operationDataSource() -> OperationLocalDataSourceProtocol
   func walletDataSource() -> WalletLocalDataSourceProtocol
   func profileDataSource() -> ProfileLocalDataSourceProtocol
+  func budgetLocalDataSource() -> BudgetLocalDataSourceProtocol
 }

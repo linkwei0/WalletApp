@@ -14,7 +14,7 @@ protocol WalletDetailViewModelDelegate: AnyObject {
   func walletDetailViewModelDidRequestToShowOperationsScreen(_ viewModel: WalletDetailViewModel, operations: [OperationModel])
 }
 
-class WalletDetailViewModel: TableViewModel, SimpleViewStateProcessable {
+class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
   // MARK: - Properties
   weak var delegate: WalletDetailViewModelDelegate?
   
