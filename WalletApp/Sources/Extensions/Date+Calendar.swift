@@ -34,4 +34,18 @@ extension Date {
     let result = Calendar.current.dateComponents([.day], from: self, to: endDate)
     return result
   }
+  
+  func numberOfDays(_ date: Date) -> Int {
+    let result = Calendar.current.numberOfDaysBetween(self, date)
+    return result
+  }
+}
+
+private extension Calendar {
+  func numberOfDaysBetween(_ from: Date, _ to: Date) -> Int {
+    let fromDate = startOfDay(for: from)
+    let toDate = startOfDay(for: to)
+    let numberOfDays = dateComponents([.day], from: fromDate, to: toDate).day
+    return numberOfDays ?? 0
+  }
 }

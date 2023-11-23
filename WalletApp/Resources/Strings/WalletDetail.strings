@@ -27,3 +27,11 @@
 
 "select.period.types.weekly.title" = "На неделю";
 "select.period.types.monthly.title" = "На месяц";
+
+"budget.detail.title" = "Подробнее";
+"budget.detail.row.name" = "Название";
+"budget.detail.row.category" = "Категория";
+"budget.detail.row.period" = "Период";
+"budget.detail.row.spent" = "Потрачено";
+
+"budget.detail.view.model.to" = "из";

@@ -57,7 +57,7 @@ class CalculationModalViewController: BaseViewController {
   
   private func setupDimmedView() {
     view.addSubview(dimmedView)
-    dimmedView.backgroundColor = .black
+    dimmedView.backgroundColor = .baseBlack
     dimmedView.alpha = maxDimmedAlpha
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleCloseAction))
     dimmedView.addGestureRecognizer(tapGesture)
@@ -69,7 +69,7 @@ class CalculationModalViewController: BaseViewController {
   
   private func setupContainerView() {
     view.addSubview(containerView)
-    containerView.backgroundColor = .white
+    containerView.backgroundColor = .baseWhite
     containerView.layer.cornerRadius = 16
     containerView.clipsToBounds = true
     containerView.snp.makeConstraints { make in

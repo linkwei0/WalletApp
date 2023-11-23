@@ -132,6 +132,10 @@
 		AD4FF02D2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF02C2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift */; };
 		AD4FF02F2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF02E2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift */; };
 		AD4FF0312B0F4A99002ED608 /* Decimal+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */; };
+		AD4FF0342B0F4F28002ED608 /* BudgetDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0332B0F4F27002ED608 /* BudgetDetailViewModel.swift */; };
+		AD4FF0362B0F4F36002ED608 /* BudgetDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0352B0F4F36002ED608 /* BudgetDetailViewController.swift */; };
+		AD4FF0382B0F4F57002ED608 /* BudgetDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0372B0F4F57002ED608 /* BudgetDetailCoordinator.swift */; };
+		AD4FF03E2B0FA231002ED608 /* BudgetDetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF03D2B0FA231002ED608 /* BudgetDetailFactory.swift */; };
 		AD5A38C42AF2302900028127 /* ProfileLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5A38C32AF2302900028127 /* ProfileLocalDataSource.swift */; };
 		AD5A38C62AF2311800028127 /* ProfileRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5A38C52AF2311800028127 /* ProfileRemoteDataSource.swift */; };
 		AD5A38C82AF2318000028127 /* ProfileClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5A38C72AF2318000028127 /* ProfileClientProtocol.swift */; };
@@ -347,6 +351,10 @@
 		AD4FF02C2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanningHeaderView.swift; sourceTree = "<group>"; };
 		AD4FF02E2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanninHeaderViewModel.swift; sourceTree = "<group>"; };
 		AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Compare.swift"; sourceTree = "<group>"; };
+		AD4FF0332B0F4F27002ED608 /* BudgetDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailViewModel.swift; sourceTree = "<group>"; };
+		AD4FF0352B0F4F36002ED608 /* BudgetDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailViewController.swift; sourceTree = "<group>"; };
+		AD4FF0372B0F4F57002ED608 /* BudgetDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailCoordinator.swift; sourceTree = "<group>"; };
+		AD4FF03D2B0FA231002ED608 /* BudgetDetailFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailFactory.swift; sourceTree = "<group>"; };
 		AD5A38C32AF2302900028127 /* ProfileLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLocalDataSource.swift; sourceTree = "<group>"; };
 		AD5A38C52AF2311800028127 /* ProfileRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRemoteDataSource.swift; sourceTree = "<group>"; };
 		AD5A38C72AF2318000028127 /* ProfileClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileClientProtocol.swift; sourceTree = "<group>"; };
@@ -775,6 +783,7 @@
 				AD4FF02C2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift */,
 				AD4FF02E2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift */,
 				AD2AA2BB2B05016300458E5E /* CreateBudget */,
+				AD4FF0322B0F4F17002ED608 /* BudgetDetail */,
 			);
 			path = BudgetPlanning;
 			sourceTree = "<group>";
@@ -909,6 +918,16 @@
 				AD402D1D2AFA366800CBAA03 /* MonthCardFooterView */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		AD4FF0322B0F4F17002ED608 /* BudgetDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AD4FF0372B0F4F57002ED608 /* BudgetDetailCoordinator.swift */,
+				AD4FF0352B0F4F36002ED608 /* BudgetDetailViewController.swift */,
+				AD4FF0332B0F4F27002ED608 /* BudgetDetailViewModel.swift */,
+			);
+			path = BudgetDetail;
 			sourceTree = "<group>";
 		};
 		AD5A38CD2AF2348C00028127 /* Data */ = {
@@ -1095,6 +1114,7 @@
 				AD4FF0262B0E4819002ED608 /* OperationListFactory.swift */,
 				AD4FF0282B0E48F2002ED608 /* BudgetPlanningFactory.swift */,
 				AD4FF02A2B0E4BC9002ED608 /* CreateBudgetFactory.swift */,
+				AD4FF03D2B0FA231002ED608 /* BudgetDetailFactory.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -1536,6 +1556,7 @@
 				AD39A12C2AE661A800A27DD2 /* Endpoint.swift in Sources */,
 				0495C6BB0F2B4D81DC0BF49F /* ExpenseCoordinator.swift in Sources */,
 				AD5A38C42AF2302900028127 /* ProfileLocalDataSource.swift in Sources */,
+				AD4FF03E2B0FA231002ED608 /* BudgetDetailFactory.swift in Sources */,
 				AD2AA2C72B06200600458E5E /* CalculationModalViewController.swift in Sources */,
 				6EE05B5E9B884EF82B2BCB68 /* ExpenseViewController.swift in Sources */,
 				A0C222671D8F18AEB8C92BE8 /* ExpenseViewModel.swift in Sources */,
@@ -1573,6 +1594,7 @@
 				AD7B53FF2ADD7D47009D73FB /* WalletDetailViewController.swift in Sources */,
 				ADD8863F2AE153C700E24D0E /* AppFactory.swift in Sources */,
 				92548FB621DDCA5C3C11AE02 /* NavigationController.swift in Sources */,
+				AD4FF0362B0F4F36002ED608 /* BudgetDetailViewController.swift in Sources */,
 				AD3E6A752B0CB23B00A210C3 /* BudgetLocalDataSourceProtocol.swift in Sources */,
 				ADC4E73F2AD6872500756F2D /* CurrencyView.swift in Sources */,
 				ADC4E7472AD699C200756F2D /* R.generated.swift in Sources */,
@@ -1609,9 +1631,11 @@
 				AD6A63882ADC0009008E7429 /* WalletLocalDataSource.swift in Sources */,
 				ADC94C752AEFA40600B182E6 /* EmptyStateViewModel.swift in Sources */,
 				AD7B53FB2ADD4A29009D73FB /* WalletCell.swift in Sources */,
+				AD4FF0382B0F4F57002ED608 /* BudgetDetailCoordinator.swift in Sources */,
 				ADC94C8B2AF0EE6A00B182E6 /* OperationEditCellTypes.swift in Sources */,
 				C071E784EC8B55A207F5AF44 /* TextStyle.swift in Sources */,
 				885DBA7256AD72998966EF9D /* OperationModel.swift in Sources */,
+				AD4FF0342B0F4F28002ED608 /* BudgetDetailViewModel.swift in Sources */,
 				ADC4E74B2AD6A14600756F2D /* CreateWalletCoordinator.swift in Sources */,
 				7D68D159743EF1535B851D35 /* OperationItemView.swift in Sources */,
 				0672F7DDEDE7BC49BA9F849D /* OperationCellViewModel.swift in Sources */,

@@ -74,7 +74,8 @@ extension BudgetPlanningListCoordinator: CreateBudgetCoordinatorDelegate {
 // MARK: - BudgetPlanningListViewModelDelegate
 extension BudgetPlanningListCoordinator: BudgetPlanningListViewModelDelegate {
   func viewModelDidRequestToShowBudgetDetail(_ viewModel: BudgetPlanningListViewModel, budget: BudgetModel) {
-    print("Show detail with \(budget.name)")
+    let configuration = BudgetDetailCoordinatorConfiguration(budget: budget, currencyCode: configuration.currency.code)
+    show(BudgetDetailCoordinator.self, configuration: configuration, animated: false)
   }
 }
 
