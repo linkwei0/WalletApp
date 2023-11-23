@@ -27,6 +27,8 @@ class CategoryPickerViewModel {
   private var wallet: WalletModel
   private var operation: OperationModel
   
+  private let walletBalanceBound: Decimal = 0
+  
   private let interactor: CalculationInteractorProtocol
   private let operationType: OperationType
   
@@ -79,8 +81,16 @@ class CategoryPickerViewModel {
       wallet.balance += operation.amount
       wallet.totalEarned += operation.amount
     } else {
-      wallet.balance -= operation.amount
-      wallet.totalSpent += operation.amount
+      if operation.amount.isLess(than: wallet.balance) {
+        wallet.balance -= operation.amount
+        wallet.totalSpent += operation.amount
+        if wallet.balance.isLess(than: walletBalanceBound) {
+          wallet.balance = walletBalanceBound
+        }
+      } else {
+        wallet.balance = walletBalanceBound
+        wallet.totalSpent += operation.amount
+      }
     }
   }
   

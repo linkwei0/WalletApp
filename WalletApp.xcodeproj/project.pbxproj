@@ -129,6 +129,9 @@
 		AD4FF0272B0E4819002ED608 /* OperationListFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0262B0E4819002ED608 /* OperationListFactory.swift */; };
 		AD4FF0292B0E48F2002ED608 /* BudgetPlanningFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0282B0E48F2002ED608 /* BudgetPlanningFactory.swift */; };
 		AD4FF02B2B0E4BC9002ED608 /* CreateBudgetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF02A2B0E4BC9002ED608 /* CreateBudgetFactory.swift */; };
+		AD4FF02D2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF02C2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift */; };
+		AD4FF02F2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF02E2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift */; };
+		AD4FF0312B0F4A99002ED608 /* Decimal+Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */; };
 		AD5A38C42AF2302900028127 /* ProfileLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5A38C32AF2302900028127 /* ProfileLocalDataSource.swift */; };
 		AD5A38C62AF2311800028127 /* ProfileRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5A38C52AF2311800028127 /* ProfileRemoteDataSource.swift */; };
 		AD5A38C82AF2318000028127 /* ProfileClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5A38C72AF2318000028127 /* ProfileClientProtocol.swift */; };
@@ -341,6 +344,9 @@
 		AD4FF0262B0E4819002ED608 /* OperationListFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationListFactory.swift; sourceTree = "<group>"; };
 		AD4FF0282B0E48F2002ED608 /* BudgetPlanningFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanningFactory.swift; sourceTree = "<group>"; };
 		AD4FF02A2B0E4BC9002ED608 /* CreateBudgetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetFactory.swift; sourceTree = "<group>"; };
+		AD4FF02C2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanningHeaderView.swift; sourceTree = "<group>"; };
+		AD4FF02E2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetPlanninHeaderViewModel.swift; sourceTree = "<group>"; };
+		AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+Compare.swift"; sourceTree = "<group>"; };
 		AD5A38C32AF2302900028127 /* ProfileLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLocalDataSource.swift; sourceTree = "<group>"; };
 		AD5A38C52AF2311800028127 /* ProfileRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRemoteDataSource.swift; sourceTree = "<group>"; };
 		AD5A38C72AF2318000028127 /* ProfileClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileClientProtocol.swift; sourceTree = "<group>"; };
@@ -760,12 +766,14 @@
 		AD2AA2B42B04FD9B00458E5E /* BudgetPlanning */ = {
 			isa = PBXGroup;
 			children = (
-				AD2AA2B52B04FDB900458E5E /* BudgetPlanningListViewModel.swift */,
-				AD2AA2B72B04FDCB00458E5E /* BudgetPlanningListViewController.swift */,
 				AD2AA2B92B04FE1E00458E5E /* BudgetPlanningListCoordinator.swift */,
+				AD2AA2B72B04FDCB00458E5E /* BudgetPlanningListViewController.swift */,
+				AD2AA2B52B04FDB900458E5E /* BudgetPlanningListViewModel.swift */,
 				AD3E6A7A2B0CBDD500A210C3 /* BudgetPlanningListInteractor.swift */,
 				AD3E6A7E2B0CC13000A210C3 /* BudgetCell.swift */,
 				AD3E6A7C2B0CC10C00A210C3 /* BudgetCellViewModel.swift */,
+				AD4FF02C2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift */,
+				AD4FF02E2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift */,
 				AD2AA2BB2B05016300458E5E /* CreateBudget */,
 			);
 			path = BudgetPlanning;
@@ -1160,6 +1168,7 @@
 				AD402D192AFA342200CBAA03 /* UIView+Gradient.swift */,
 				AD3E6A512B0B6FCF00A210C3 /* Int+StringSeparator.swift */,
 				ADFF47692B0E35C800A6E3DA /* DateFormatter+Format.swift */,
+				AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1449,6 +1458,7 @@
 				ADC4E7512AD715C300756F2D /* CreateWalletViewModel.swift in Sources */,
 				AD39A1262AE6604000A27DD2 /* WalletClientProtocol.swift in Sources */,
 				AD752C192AE671780092A43D /* RemoteDataSource.swift in Sources */,
+				AD4FF0312B0F4A99002ED608 /* Decimal+Compare.swift in Sources */,
 				5C5D3F68141ED5E3E2B33308 /* WalletBottomBarItemType.swift in Sources */,
 				099623F224408A81BF4BD06D /* WalletBottomBarItemView.swift in Sources */,
 				AD5A38D92AF2353D00028127 /* LocalDataSourceProtocol.swift in Sources */,
@@ -1456,6 +1466,7 @@
 				044AAA06414C985EC6A28DDE /* WalletsCoordinator.swift in Sources */,
 				AD3E6A7F2B0CC13000A210C3 /* BudgetCell.swift in Sources */,
 				786DF378C499D27B8F7C1FDC /* WalletsViewController.swift in Sources */,
+				AD4FF02F2B0F3F0D002ED608 /* BudgetPlanninHeaderViewModel.swift in Sources */,
 				AD3E6A662B0C8AD400A210C3 /* SelectCategoryCellViewModel.swift in Sources */,
 				36CD83708440C93FAF278B0A /* WalletsViewModel.swift in Sources */,
 				AD752C252AE7B4AA0092A43D /* CategoryPickerViewModel.swift in Sources */,
@@ -1494,6 +1505,7 @@
 				AD5A38C62AF2311800028127 /* ProfileRemoteDataSource.swift in Sources */,
 				AD2AA2B82B04FDCB00458E5E /* BudgetPlanningListViewController.swift in Sources */,
 				91D4D38840085B3742C96D93 /* CalculationViewModel.swift in Sources */,
+				AD4FF02D2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift in Sources */,
 				5BFAFF00AA40762B10C217B0 /* CommonButton.swift in Sources */,
 				ADC94C892AF0E32600B182E6 /* OperationEditInteractor.swift in Sources */,
 				ADC94C7A2AEFAF3100B182E6 /* ProfileInteractor.swift in Sources */,

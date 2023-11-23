@@ -37,6 +37,8 @@ final class CalculationViewModel: SimpleViewStateProccessable {
     [.previousValue, .zero, .point, .equal]
   ]
   
+  private let maxNumberLength: Int = 7
+  
   private let wallet: WalletModel
   private let interactor: CalculationInteractorProtocol
   
@@ -83,7 +85,7 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   
   // MARK: - Private methods
   private func handleTappedCalculatorButton(with itemType: CalculationItemType) {
-    if expressionViewModel.currentValue.value.count <= 7 {
+    if expressionViewModel.currentValue.value.count <= maxNumberLength {
       if itemType.isNumber {
         expressionViewModel.currentValue.value += itemType.stringValue
       }

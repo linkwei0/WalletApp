@@ -62,7 +62,8 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
   
   // MARK: - Private methods
   @objc private func showBudgetPlanning() {
-    let configuration = BudgetPlanningCoordinatorConfiguration(walletID: configuration.wallet.id)
+    let configuration = BudgetPlanningCoordinatorConfiguration(walletID: configuration.wallet.id,
+                                                               currency: configuration.wallet.currency)
     show(BudgetPlanningListCoordinator.self, configuration: configuration, animated: true)
   }
 }

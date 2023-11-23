@@ -16,8 +16,9 @@ class BudgetCell: UITableViewCell, TableCell {
   private let containerProgressView = UIView()
   private let progressView = UIView()
   private let bottomStackView = UIStackView()
-  private let amountLabel = Label(textStyle: .bodyBold)
+  private let remainderAmountLabel = Label(textStyle: .bodyBold)
   private let categoryLabel = Label(textStyle: .body)
+  private let currencyLabel = Label(textStyle: .bodyBold)
   
   private let defaultWidth: CGFloat = 0
   private let maxPercent: CGFloat = 100
@@ -48,7 +49,8 @@ class BudgetCell: UITableViewCell, TableCell {
     guard let viewModel = viewModel as? BudgetCellViewModel else { return }
     periodTypeLabel.text = viewModel.period
     categoryLabel.text = viewModel.category
-    amountLabel.text = viewModel.maxAmount
+    remainderAmountLabel.text = viewModel.remainderBudget
+    currencyLabel.text = viewModel.currencyTitle
     
     if let maxWidth = maxWidthConstraint?.layoutConstraints[0].constant {
       var currentWidth = (viewModel.progress * maxPercent * maxWidth) / maxPercent
@@ -64,7 +66,7 @@ class BudgetCell: UITableViewCell, TableCell {
   
   // MARK: - Setup
   private func setup() {
-    selectionStyle = .none
+    setupBackground()
     setupContainerView()
     setupStackView()
     setupPeriodTypeLabel()
@@ -72,6 +74,12 @@ class BudgetCell: UITableViewCell, TableCell {
     setupBottomStackView()
     setupCategoryLabel()
     setupAmountLabel()
+    setupCurrencyLabel()
+  }
+  
+  private func setupBackground() {
+    selectionStyle = .none
+    backgroundColor = .clear
   }
   
   private func setupContainerView() {
@@ -80,7 +88,7 @@ class BudgetCell: UITableViewCell, TableCell {
     containerView.backgroundColor = .accent
     containerView.layer.borderColor = UIColor.baseBlack.cgColor
     containerView.layer.borderWidth = 0.5
-    containerView.addShadow(offset: CGSize(width: 8, height: 8), radius: 14, color: .shade3)
+    containerView.addShadow(offset: CGSize(width: 0, height: 4), radius: 24, color: .zeroBlack, opacity: 0.1)
     containerView.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview().inset(16)
       make.leading.trailing.equalToSuperview().inset(24)
@@ -123,19 +131,37 @@ class BudgetCell: UITableViewCell, TableCell {
   private func setupBottomStackView() {
     stackView.addArrangedSubview(bottomStackView)
     bottomStackView.axis = .horizontal
-    bottomStackView.spacing = 12
-    bottomStackView.distribution = .fillEqually
+    bottomStackView.spacing = 4
+    bottomStackView.snp.makeConstraints { make in
+      make.bottom.leading.trailing.equalToSuperview()
+    }
   }
   
   private func setupCategoryLabel() {
     bottomStackView.addArrangedSubview(categoryLabel)
     categoryLabel.textColor = .baseWhite
     categoryLabel.textAlignment = .left
+    
+    let spacer = UIView()
+    spacer.backgroundColor = .clear
+    bottomStackView.addArrangedSubview(spacer)
   }
   
   private func setupAmountLabel() {
-    bottomStackView.addArrangedSubview(amountLabel)
-    amountLabel.textColor = .baseWhite
-    amountLabel.textAlignment = .right
+    bottomStackView.addArrangedSubview(remainderAmountLabel)
+    remainderAmountLabel.textColor = .baseWhite
+    remainderAmountLabel.textAlignment = .right
+    remainderAmountLabel.snp.makeConstraints { make in
+      make.width.equalTo(150)
+    }
+  }
+  
+  private func setupCurrencyLabel() {
+    bottomStackView.addArrangedSubview(currencyLabel)
+    currencyLabel.textColor = .baseWhite
+    currencyLabel.textAlignment = .left
+    currencyLabel.snp.makeConstraints { make in
+      make.top.bottom.trailing.equalToSuperview()
+    }
   }
 }

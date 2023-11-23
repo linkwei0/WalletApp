@@ -46,6 +46,7 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   
   // MARK: - Setup
   private func setup() {
+    backgroundColor = .red
     setupTitleLabel()
     setupTotalValueLabel()
     setupTopLine()

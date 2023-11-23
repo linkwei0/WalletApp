@@ -24,6 +24,7 @@ class BudgetLocalDataSource: BudgetLocalDataSourceProtocol {
     guard let currentWallet = coreDataStack.getObjectByValue(columnName: "id", value: String(walletID),
                                                              type: CDWallet.self,
                                                              context: coreDataStack.writeContext).first else { return }
+    if currentWallet.budgets?.count ?? 0 > 3 { return }
     guard let budgetCD = budget.makePersistent(context: coreDataStack.writeContext) else { return }
     currentWallet.addToBudgets(budgetCD)
     

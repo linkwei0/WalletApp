@@ -43,10 +43,13 @@ class BudgetPlanningListViewController: UIViewController {
     view.addSubview(tableView)
     tableView.rowHeight = 150
     tableView.separatorStyle = .none
+    tableView.register(BudgetPlanningHeaderView.self, 
+                       forHeaderFooterViewReuseIdentifier: BudgetPlanningHeaderView.reuseIdentifiable)
     tableView.register(BudgetCell.self, forCellReuseIdentifier: BudgetCell.reuseIdentifiable)
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
+    dataSource.delegate = self
     dataSource.setup(tableView: tableView, viewModel: viewModel)
   }
   
@@ -76,5 +79,16 @@ class BudgetPlanningListViewController: UIViewController {
         self?.reloadTableView()
       }
     }
+  }
+}
+
+// MARK: - TableViewDataSourceDelegate
+extension BudgetPlanningListViewController: TableViewDataSourceDelegate {
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
+    return 40
+  }
+  
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
+    return 0
   }
 }

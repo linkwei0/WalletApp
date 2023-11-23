@@ -9,6 +9,7 @@ import UIKit
 
 struct BudgetPlanningCoordinatorConfiguration {
   let walletID: Int
+  let currency: CurrencyModel
 }
 
 class BudgetPlanningListCoordinator: ConfigurableCoordinator {
@@ -41,10 +42,14 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
   }
   
   private func showBudgetListScreen(animated: Bool) {
-    let viewController = factory.budgetPlanningFactory.makeModule(with: configuration.walletID)
+    let viewController = factory.budgetPlanningFactory.makeModule(with: configuration.walletID, currency: configuration.currency)
     viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: Constants.plusButton),
                                                                        style: .done, target: self,
                                                                        action: #selector(showCreateBudgetScreen))
+    viewController.viewModel.delegate = self
+    viewController.viewModel.onNeedsToUpdateRightBarButton = { isEnabled in
+      viewController.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+    }
     onNeedsToUpdateBudgets = { [weak viewModel = viewController.viewModel] in
       viewModel?.updateBudgets()
     }
@@ -63,6 +68,13 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
 extension BudgetPlanningListCoordinator: CreateBudgetCoordinatorDelegate {
   func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator) {
     onNeedsToUpdateBudgets?()
+  }
+}
+
+// MARK: - BudgetPlanningListViewModelDelegate
+extension BudgetPlanningListCoordinator: BudgetPlanningListViewModelDelegate {
+  func viewModelDidRequestToShowBudgetDetail(_ viewModel: BudgetPlanningListViewModel, budget: BudgetModel) {
+    print("Show detail with \(budget.name)")
   }
 }
 
