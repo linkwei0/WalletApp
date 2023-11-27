@@ -14,6 +14,6 @@ extension CDBudget: Persistent {
     
     return BudgetModel(id: Int(id), walletID: Int(walletID), maxAmount: maxAmount, currentAmount: currentAmount,
                        beginPeriod: beginDate, endPeriod: endDate, name: name,
-                       category: ExpenseCategoryTypes(rawValue: category))
+                       category: ExpenseCategoryTypes(rawValue: category), isNotifiable: isNotifiable)
   }
 }

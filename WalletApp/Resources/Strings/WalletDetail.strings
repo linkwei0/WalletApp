@@ -10,6 +10,10 @@
 "month.card.view.category" = "Категория";
 "month.card.view.title.income" = "дохода";
 "month.card.view.title.expense" = "расхода";
+"month.card.view.top.month.title" = "Топ месяца";
+
+"wallet.detail.empty.view.title" = "Упс!";
+"wallet.detail.empty.view.subtitle" = "У кошелька нет операций";
 
 "default.footer.view.title" = "Больше";
 

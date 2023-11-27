@@ -22,7 +22,7 @@ final class BudgetRepository: BudgetUseCaseProtocol {
     localDataSource.getBudgets(for: walletID, completion: completion)
   }
   
-  func updateBudget(for walletID: Int, with operation: OperationModel) {
-    localDataSource.updateBudget(for: walletID, with: operation)
+  func updateBudget(for walletID: Int, with operation: OperationModel, completion: @escaping (Result<BudgetModel?, Error>) -> Void) {
+    localDataSource.updateBudget(for: walletID, with: operation, completion: completion)
   }
 }

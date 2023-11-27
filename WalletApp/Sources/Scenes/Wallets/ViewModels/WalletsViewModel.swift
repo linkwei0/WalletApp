@@ -31,17 +31,20 @@ final class WalletsViewModel: SimpleViewStateProccessable {
   let balanceViewModel = BalanceViewModel()
   let currencyViewModel = CurrencyViewModel()
   
-  private var currencyRates: CurrencyRates?
+  private var currencyRates: CurrencyRates
       
   private(set) var viewState: Bindable<SimpleViewState<WalletModel>> = Bindable(.initial)
   
   private(set) var emptyStateViewModel: EmptyStateViewModel?
   
-  private let interactor: WalletsInteractor
+  private let interactor: WalletsInteractorProtocol
+  
+  private let currencyRateByDefault: Decimal = 1
   
   // MARK: - Init
-  init(interactor: WalletsInteractor) {
+  init(interactor: WalletsInteractorProtocol) {
     self.interactor = interactor
+    currencyRates = CurrencyRates(usd: currencyRateByDefault, euro: currencyRateByDefault)
   }
   
   // MARK: - Public methods
@@ -56,12 +59,21 @@ final class WalletsViewModel: SimpleViewStateProccessable {
   }
   
   func addNewPersonWallet() {
-    delegate?.walletsViewModelDidRequestToShowAddNewWallet(self, currencyRates: currencyRates ?? CurrencyRates(usd: 1, euro: 1))
+    delegate?.walletsViewModelDidRequestToShowAddNewWallet(self, currencyRates: currencyRates)
   }
   
   func showSelectedWallet(at index: Int) {
     let wallet = viewState.value.currentEntities[index]
     delegate?.walletsViewModelDidRequestToShowWalletDetail(self, wallet: wallet)
+  }
+  
+  func didSwipeToDelete(at indexPath: IndexPath) {
+    deleteWallet(at: indexPath)
+  }
+  
+  func didSwipeToEdit(at indexPath: IndexPath) {
+    delegate?.walletsViewModelDidRequestToShowEditWallet(self, wallet: viewState.value.currentEntities[indexPath.row], 
+                                                         currencyRates: currencyRates)
   }
   
   // MARK: - Private methods
@@ -72,7 +84,7 @@ final class WalletsViewModel: SimpleViewStateProccessable {
         self.viewState.value = self.processResult(wallets)
         self.configureBalanceModel(with: wallets)
         if wallets.isEmpty {
-          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.triangle.fill"),
+          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: Constants.emptyImage),
                                                          imageSize: CGSize(width: 120, height: 120),
                                                          title: R.string.wallets.walletsEmptyViewTitle(),
                                                          subtitle: R.string.wallets.walletsEmptyViewSubtitle())
@@ -95,9 +107,21 @@ final class WalletsViewModel: SimpleViewStateProccessable {
     }
   }
   
+  private func deleteWallet(at indexPath: IndexPath) {
+    let walletID = viewState.value.currentEntities[indexPath.row].id
+    interactor.deleteWallet(with: walletID) { result in
+      switch result {
+      case .success:
+        self.updateWallets()
+      case .failure(let error):
+        print("Failed delete wallet with \(error)")
+      }
+    }
+  }
+  
   private func updateCurrencyRates(_ currencies: [CurrencyModel]) {
-    var euroRate: Decimal = 1
-    var usdRate: Decimal = 1
+    var euroRate: Decimal = currencyRateByDefault
+    var usdRate: Decimal = currencyRateByDefault
 
     currencies.forEach { currency in
       guard let currencyType = CurrencyModelView.WalletsCurrencyType(rawValue: currency.code) else { return }
@@ -151,7 +175,10 @@ final class WalletsViewModel: SimpleViewStateProccessable {
 // MARK: - WalletCellViewModelDelegate
 extension WalletsViewModel: WalletCellViewModelDelegate {
   func cellViewModelDidLongTap(_ viewModel: WalletCellViewModel, wallet: WalletModel) {
-    delegate?.walletsViewModelDidRequestToShowEditWallet(self, wallet: wallet,
-                                                         currencyRates: currencyRates ?? CurrencyRates(usd: 1, euro: 1))
+    delegate?.walletsViewModelDidRequestToShowEditWallet(self, wallet: wallet, currencyRates: currencyRates)
   }
+}
+
+private extension Constants {
+  static let emptyImage = "exclamationmark.triangle.fill"
 }

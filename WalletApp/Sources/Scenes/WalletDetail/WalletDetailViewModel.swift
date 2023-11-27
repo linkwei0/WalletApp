@@ -36,6 +36,9 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
   private var wallet: WalletModel
   private let interactor: WalletDetailInteractor
   
+  private let firstDaysTo: Int = 4
+  private let isPositiveNumbers: Int = 0
+  
   // MARK: - Init
   init(interactor: WalletDetailInteractor, wallet: WalletModel) {
     self.interactor = interactor
@@ -89,10 +92,10 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
         self.configureSections(operationsByDate)
         self.configureBalanceModel(with: sortedOperations)
         if operations.isEmpty {
-          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.circle.fill"),
+          self.emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: Constants.emptyImage),
                                                          imageSize: CGSize(width: 120, height: 120),
-                                                         title: "Упс!",
-                                                         subtitle: "У кошелька нет операций")
+                                                         title: R.string.walletDetail.walletDetailEmptyViewTitle(),
+                                                         subtitle: R.string.walletDetail.walletDetailEmptyViewSubtitle())
         }
       case .failure(let error):
         print("Failed to get operations \(error)")
@@ -100,50 +103,50 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
     }
   }
   
-  private func configureSections(_ operationsByDate: [OperationDateType: [OperationModel]]) {
-    operationsByDate.forEach { date, operations in
+  private func configureSections(_ operationsByDate: [OperationSectionContainer]) {
+    sectionViewModels.removeAll()
+    
+    operationsByDate.forEach { operationContainer in
       var amountOfDateOperations: Int = 0
-      
-      let itemViewModels = operations.map { operation in
+
+      let cellViewModels = operationContainer.opertions.map { operation in
         let operationValue = NSDecimalNumber(decimal: operation.amount).intValue
         amountOfDateOperations = operation.type.isIncome ? amountOfDateOperations + operationValue
         : amountOfDateOperations - operationValue
-        let itemViewModel = OperationCellViewModel(operation)
-        itemViewModel.delegate = self
-        return itemViewModel
+        let cellViewModel = OperationCellViewModel(operation)
+        cellViewModel.delegate = self
+        return cellViewModel
       }
       
-      if !itemViewModels.isEmpty {
-        let headerTotalAmount = amountOfDateOperations >= 0 ? "+\(amountOfDateOperations.makeDigitSeparator())"
+      if !cellViewModels.isEmpty {
+        let headerTotalAmount = amountOfDateOperations >= isPositiveNumbers ? "+\(amountOfDateOperations.makeDigitSeparator())"
         : "-\(amountOfDateOperations.makeDigitSeparator())"
-        let headerViewModel = OperationHeaderViewModel(title: date.title, totalValue: headerTotalAmount,
+        let headerViewModel = OperationHeaderViewModel(title: operationContainer.date.title, totalValue: headerTotalAmount,
                                                        isFirstSection: self.sectionViewModels.isEmpty)
         let footerViewModel = OperationDefaultFooterViewModel()
         footerViewModel.delegate = self
         let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
-        let partOfItemViewModels = Array(itemViewModels.prefix(4))
+        let partOfItemViewModels = Array(cellViewModels.prefix(firstDaysTo))
         section.append(cellViewModels: partOfItemViewModels)
         self.sectionViewModels.append(section)
       }
     }
     
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
-    let headerViewModel = OperationHeaderViewModel(title: "Топ месяца")
+    let headerViewModel = OperationHeaderViewModel(title: R.string.walletDetail.monthCardViewTopMonthTitle())
     let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
     sectionViewModels.append(section)
-  }
-  
-  private func configureOperationsByDate(_ operations: [OperationModel]) -> [OperationDateType: [OperationModel]] {
-    sectionViewModels.removeAll()
-    
-    var dateOfOperations: [OperationDateType: [OperationModel]] = [:]
-    for operation in operations {
-      if operation.date.isToday() { dateOfOperations[.today, default: []].append(operation) }
-      if operation.date.isYesterday() { dateOfOperations[.yesterday, default: []].append(operation) }
-      if operation.date.isLastWeek() { dateOfOperations[.lastWeek, default: []].append(operation) }
     }
+  
+  private func configureOperationsByDate(_ operations: [OperationModel]) -> [OperationSectionContainer] {
+    var operationsToday = OperationSectionContainer(date: .today, opertions: [])
+    var operationsYesteraday = OperationSectionContainer(date: .yesterday, opertions: [])
     
-    return dateOfOperations
+    for operation in operations {
+      if operation.date.isToday() { operationsToday.opertions.append(operation) }
+      if operation.date.isYesterday() { operationsYesteraday.opertions.append(operation) }
+    }
+    return [operationsToday, operationsYesteraday]
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {
@@ -169,4 +172,13 @@ extension WalletDetailViewModel: OperationDefaultFooterViewModelDelegate {
   func defaultFooterViewModelDidTapMoreOperations(_ viewModel: OperationDefaultFooterViewModel) {
     delegate?.walletDetailViewModelDidRequestToShowOperationsScreen(self, operations: operations)
   }
+}
+
+struct OperationSectionContainer {
+  let date: OperationDateType
+  var opertions: [OperationModel]
+}
+
+private extension Constants {
+  static let emptyImage = "exclamationmark.circle.fill"
 }

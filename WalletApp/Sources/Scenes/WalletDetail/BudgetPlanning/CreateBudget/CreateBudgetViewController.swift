@@ -47,6 +47,7 @@ class CreateBudgetViewController: BaseViewController {
     tableView.rowHeight = 80
     tableView.separatorStyle = .none
     tableView.register(CreateBudgetCell.self, forCellReuseIdentifier: CreateBudgetCell.reuseIdentifiable)
+    tableView.register(NotificationSwitcherCell.self, forCellReuseIdentifier: NotificationSwitcherCell.reuseIdentifiable)
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }

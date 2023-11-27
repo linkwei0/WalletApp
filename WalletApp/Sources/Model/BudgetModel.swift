@@ -17,6 +17,7 @@ struct BudgetModel: Domain {
   var endPeriod: Date?
   var name: String
   var category: ExpenseCategoryTypes?
+  var isNotifiable: Bool
   
   func makePersistent(context: NSManagedObjectContext) -> CDBudget? {
     let budget = CDBudget(context: context)
@@ -28,13 +29,14 @@ struct BudgetModel: Domain {
     budget.endDate = endPeriod
     budget.name = name
     budget.category = category?.title
+    budget.isNotifiable = isNotifiable
     return budget
   }
 }
 
 extension BudgetModel {
   static func makeCleanModel() -> BudgetModel {
-    return BudgetModel(id: UUID().hashValue, walletID: UUID().hashValue, 
-                       maxAmount: 0, currentAmount: 0, name: "", category: .food)
+    return BudgetModel(id: UUID().hashValue, walletID: UUID().hashValue, maxAmount: 0,
+                       currentAmount: 0, name: "", category: .food, isNotifiable: false)
   }
 }

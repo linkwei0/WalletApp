@@ -5,8 +5,14 @@
 
 import Foundation
 
+protocol CategoryPickerViewModelDelegate: AnyObject {
+  func viewModelDidRequestToNotificationUser(_ viewModel: CategoryPickerViewModel, title: String, subtitle: String)
+}
+
 class CategoryPickerViewModel {
   // MARK: - Properties
+  weak var delegate: CategoryPickerViewModelDelegate?
+  
   var onNeedsToUpdateOperation: ((_ wallet: WalletModel, _ operation: OperationModel) -> Void)?
   
   private(set) var operationAmountValue: Bindable<String> = Bindable("")
@@ -102,6 +108,7 @@ class CategoryPickerViewModel {
     interactor.saveOperation(for: wallet, operation: operation) { result in
       switch result {
       case .success:
+        self.updateWalletBudgets(with: operation)
         self.onNeedsToUpdateOperation?(self.wallet, operation)
         self.isCreateOperation.value = true
       case .failure(let error):
@@ -109,6 +116,22 @@ class CategoryPickerViewModel {
         self.wallet.totalEarned = walletPreviousTotalEarned
         self.wallet.totalSpent = walletPreviousTotalSpent
         print("Failed to save operation for \(self.wallet.id) with \(error)")
+      }
+    }
+  }
+  
+  private func updateWalletBudgets(with operation: OperationModel) {
+    interactor.updateBudgets(for: wallet.id, with: operation) { result in
+      switch result {
+      case .success(let budget):
+        if let budget = budget {
+          self.delegate?.viewModelDidRequestToNotificationUser(self, 
+                                                               title: R.string.categoryPicker.categoryPickerNotificationTitle(),
+                                                               subtitle: "\("'\(budget.name)'")" +
+                                                               R.string.categoryPicker.categoryPickerNotificationSubtitle())
+        }
+      case .failure(let error):
+        print("Failed to update budget after operation with \(error)")
       }
     }
   }

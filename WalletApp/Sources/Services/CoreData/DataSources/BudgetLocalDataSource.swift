@@ -36,20 +36,24 @@ class BudgetLocalDataSource: BudgetLocalDataSourceProtocol {
     }
   }
     
-  func updateBudget(for walletID: Int, with operation: OperationModel) {
+  func updateBudget(for walletID: Int, with operation: OperationModel, 
+                    completion: @escaping (Result<BudgetModel?, Error>) -> Void) {
     let budgets = coreDataStack.getObjectByValue(columnName: #keyPath(CDBudget.walletID), value: String(walletID),
                                                  type: CDBudget.self, context: coreDataStack.writeContext)
-    budgets.forEach { budget in
-      if budget.category == operation.category, let currentAmount = budget.currentAmount?.decimalValue {
-        let newCurrentAmount = currentAmount + operation.amount
-        budget.currentAmount = NSDecimalNumber(decimal: newCurrentAmount)
+    
+    var budgetModel: BudgetModel?
+    budgets.filter { $0.isNotifiable && $0.category == operation.category }.forEach { budget in
+      if let maxAmount = budget.maxAmount?.decimalValue, let currentAmount = budget.currentAmount?.decimalValue {
+        if maxAmount <= currentAmount { budgetModel = budget.makeDomain() }
       }
     }
     
     do {
       try coreDataStack.saveWriteContext()
+      completion(.success(budgetModel))
     } catch {
       print("Failed to save operation in budgets with error \(error)")
+      completion(.failure(error))
     }
   }
 }

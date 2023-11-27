@@ -6,6 +6,7 @@
         <attribute name="currentAmount" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isNotifiable" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="maxAmount" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="walletID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

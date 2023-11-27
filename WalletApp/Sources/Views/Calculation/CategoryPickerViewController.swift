@@ -83,7 +83,7 @@ class CategoryPickerViewController: BaseViewController {
   
   private func setupTitleLabel() {
     containerView.addSubview(titleLabel)
-    titleLabel.text = "Категории"
+    titleLabel.text = R.string.categoryPicker.categoryPickerContainerTitle()
     titleLabel.textColor = .baseBlack
     titleLabel.snp.makeConstraints { make in
       make.top.leading.equalToSuperview().inset(16)
@@ -92,7 +92,7 @@ class CategoryPickerViewController: BaseViewController {
   
   private func setupCancelButton() {
     containerView.addSubview(cancelButton)
-    cancelButton.setTitle("Закрыть", for: .normal)
+    cancelButton.setTitle(R.string.categoryPicker.categoryPickerCancenlBtnTitle(), for: .normal)
     cancelButton.setTitleColor(.accentDark, for: .normal)
     cancelButton.addTarget(self, action: #selector(closeCategoryPicker), for: .touchUpInside)
     cancelButton.snp.makeConstraints { make in

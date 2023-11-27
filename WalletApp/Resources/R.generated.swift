@@ -751,7 +751,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.string` struct is generated, and contains static references to 7 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 8 localization tables.
   struct string {
     /// This `R.string.balance` struct is generated, and contains static references to 9 localization keys.
     struct balance {
@@ -1050,6 +1050,72 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
+    /// This `R.string.categoryPicker` struct is generated, and contains static references to 4 localization keys.
+    struct categoryPicker {
+      /// Value: Граница пройдена
+      static let categoryPickerNotificationTitle = Rswift.StringResource(key: "category.picker.notification.title", tableName: "CategoryPicker", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Закрыть
+      static let categoryPickerCancenlBtnTitle = Rswift.StringResource(key: "category.picker.cancenl.btn.title", tableName: "CategoryPicker", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Категории
+      static let categoryPickerContainerTitle = Rswift.StringResource(key: "category.picker.container.title", tableName: "CategoryPicker", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: перешел границу в 80%
+      static let categoryPickerNotificationSubtitle = Rswift.StringResource(key: "category.picker.notification.subtitle", tableName: "CategoryPicker", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: Граница пройдена
+      static func categoryPickerNotificationTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("category.picker.notification.title", tableName: "CategoryPicker", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "CategoryPicker", preferredLanguages: preferredLanguages) else {
+          return "category.picker.notification.title"
+        }
+
+        return NSLocalizedString("category.picker.notification.title", tableName: "CategoryPicker", bundle: bundle, comment: "")
+      }
+
+      /// Value: Закрыть
+      static func categoryPickerCancenlBtnTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("category.picker.cancenl.btn.title", tableName: "CategoryPicker", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "CategoryPicker", preferredLanguages: preferredLanguages) else {
+          return "category.picker.cancenl.btn.title"
+        }
+
+        return NSLocalizedString("category.picker.cancenl.btn.title", tableName: "CategoryPicker", bundle: bundle, comment: "")
+      }
+
+      /// Value: Категории
+      static func categoryPickerContainerTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("category.picker.container.title", tableName: "CategoryPicker", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "CategoryPicker", preferredLanguages: preferredLanguages) else {
+          return "category.picker.container.title"
+        }
+
+        return NSLocalizedString("category.picker.container.title", tableName: "CategoryPicker", bundle: bundle, comment: "")
+      }
+
+      /// Value: перешел границу в 80%
+      static func categoryPickerNotificationSubtitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("category.picker.notification.subtitle", tableName: "CategoryPicker", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "CategoryPicker", preferredLanguages: preferredLanguages) else {
+          return "category.picker.notification.subtitle"
+        }
+
+        return NSLocalizedString("category.picker.notification.subtitle", tableName: "CategoryPicker", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
     /// This `R.string.createWallet` struct is generated, and contains static references to 8 localization keys.
     struct createWallet {
       /// Value: Баланс
@@ -1278,7 +1344,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.walletDetail` struct is generated, and contains static references to 24 localization keys.
+    /// This `R.string.walletDetail` struct is generated, and contains static references to 27 localization keys.
     struct walletDetail {
       /// Value: Больше
       static let defaultFooterViewTitle = Rswift.StringResource(key: "default.footer.view.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -1322,6 +1388,12 @@ struct R: Rswift.Validatable {
       static let walletDetailBottomBarExpenseTitle = Rswift.StringResource(key: "wallet.detail.bottom.bar.expense.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Создать бюджет
       static let createBudgetButtonCreateTitle = Rswift.StringResource(key: "create.budget.button.create.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Топ месяца
+      static let monthCardViewTopMonthTitle = Rswift.StringResource(key: "month.card.view.top.month.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: У кошелька нет операций
+      static let walletDetailEmptyViewSubtitle = Rswift.StringResource(key: "wallet.detail.empty.view.subtitle", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Упс!
+      static let walletDetailEmptyViewTitle = Rswift.StringResource(key: "wallet.detail.empty.view.title", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: дохода
       static let monthCardViewTitleIncome = Rswift.StringResource(key: "month.card.view.title.income", tableName: "WalletDetail", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: из
@@ -1602,6 +1674,45 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("create.budget.button.create.title", tableName: "WalletDetail", bundle: bundle, comment: "")
       }
 
+      /// Value: Топ месяца
+      static func monthCardViewTopMonthTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("month.card.view.top.month.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "month.card.view.top.month.title"
+        }
+
+        return NSLocalizedString("month.card.view.top.month.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: У кошелька нет операций
+      static func walletDetailEmptyViewSubtitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallet.detail.empty.view.subtitle", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "wallet.detail.empty.view.subtitle"
+        }
+
+        return NSLocalizedString("wallet.detail.empty.view.subtitle", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
+      /// Value: Упс!
+      static func walletDetailEmptyViewTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallet.detail.empty.view.title", tableName: "WalletDetail", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "WalletDetail", preferredLanguages: preferredLanguages) else {
+          return "wallet.detail.empty.view.title"
+        }
+
+        return NSLocalizedString("wallet.detail.empty.view.title", tableName: "WalletDetail", bundle: bundle, comment: "")
+      }
+
       /// Value: дохода
       static func monthCardViewTitleIncome(preferredLanguages: [String]? = nil) -> String {
         guard let preferredLanguages = preferredLanguages else {
@@ -1644,14 +1755,18 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.wallets` struct is generated, and contains static references to 3 localization keys.
+    /// This `R.string.wallets` struct is generated, and contains static references to 5 localization keys.
     struct wallets {
       /// Value: Добавить кошелек
       static let walletsButtonAddTitle = Rswift.StringResource(key: "wallets.button.add.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Изменить
+      static let walletsActionEditTitle = Rswift.StringResource(key: "wallets.action.edit.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Нет кошелька
       static let walletsEmptyViewTitle = Rswift.StringResource(key: "wallets.empty.view.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один
       static let walletsEmptyViewSubtitle = Rswift.StringResource(key: "wallets.empty.view.subtitle", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Удалить
+      static let walletsActionDeleteTitle = Rswift.StringResource(key: "wallets.action.delete.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
 
       /// Value: Добавить кошелек
       static func walletsButtonAddTitle(preferredLanguages: [String]? = nil) -> String {
@@ -1664,6 +1779,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("wallets.button.add.title", tableName: "Wallets", bundle: bundle, comment: "")
+      }
+
+      /// Value: Изменить
+      static func walletsActionEditTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallets.action.edit.title", tableName: "Wallets", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wallets", preferredLanguages: preferredLanguages) else {
+          return "wallets.action.edit.title"
+        }
+
+        return NSLocalizedString("wallets.action.edit.title", tableName: "Wallets", bundle: bundle, comment: "")
       }
 
       /// Value: Нет кошелька
@@ -1690,6 +1818,19 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("wallets.empty.view.subtitle", tableName: "Wallets", bundle: bundle, comment: "")
+      }
+
+      /// Value: Удалить
+      static func walletsActionDeleteTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallets.action.delete.title", tableName: "Wallets", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wallets", preferredLanguages: preferredLanguages) else {
+          return "wallets.action.delete.title"
+        }
+
+        return NSLocalizedString("wallets.action.delete.title", tableName: "Wallets", bundle: bundle, comment: "")
       }
 
       fileprivate init() {}

@@ -118,6 +118,13 @@ class CreateBudgetViewModel: TableViewModel {
       section.append(cellViewModels: itemViewModels)
       sectionViewModels.append(section)
     }
+    
+    let itemViewModel = NotificationSwitcherCellViewModel()
+    itemViewModel.delegate = self
+    let section = TableSectionViewModel()
+    section.append(itemViewModel)
+    sectionViewModels.append(section)
+    
     onNeedsUpdate?()
   }
   
@@ -194,5 +201,12 @@ extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
     let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
     let amountBudgetRow = IndexPath(row: CellNumberRows.amount.raw, section: CellNumberRows.amount.section)
     updateCellViewModel(at: amountBudgetRow, with: cellViewModel)
+  }
+}
+
+// MARK: - NotificationSwitcherCellViewModelDelegate
+extension CreateBudgetViewModel: NotificationSwitcherCellViewModelDelegate {
+  func cellViewModelDidChangeSwitcher(_ viewModel: NotificationSwitcherCellViewModel, isOn: Bool) {
+    budgetModel.isNotifiable = isOn
   }
 }

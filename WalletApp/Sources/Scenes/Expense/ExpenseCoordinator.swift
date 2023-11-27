@@ -28,7 +28,7 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
   
   private let factory: Factory
   private let configuration: Configuration
-  
+    
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
@@ -54,10 +54,12 @@ final class ExpenseCoordinator: ConfigurableCoordinator {
   }
 }
 
+// MARK: - ExpenseViewModelDelegate
 extension ExpenseCoordinator: ExpenseViewModelDelegate {
   func expenseViewModelDidRequestToShowCategoryView(_ viewModel: ExpenseViewModel, interactor: CalculationInteractorProtocol,
                                                     wallet: WalletModel, operation: OperationModel) {
     let categoryViewModel = CategoryPickerViewModel(interactor: interactor, wallet: wallet, operation: operation)
+    categoryViewModel.delegate = self
     let categoryPickerController = CategoryPickerViewController(viewModel: categoryViewModel)
     categoryPickerController.modalPresentationStyle = .overCurrentContext
     categoryViewModel.onNeedsToUpdateOperation = { [weak viewModel] wallet, _ in
@@ -68,5 +70,12 @@ extension ExpenseCoordinator: ExpenseViewModelDelegate {
   
   func expenseViewModelDidRequestToBackWalletDetail(_ viewModel: ExpenseViewModel) {
     delegate?.expenseCoordinatorDidUpdateWallet(self)
+  }
+}
+
+// MARK: - CategoryPickerViewModelDelegate
+extension ExpenseCoordinator: CategoryPickerViewModelDelegate, BannerShowing {
+  func viewModelDidRequestToNotificationUser(_ viewModel: CategoryPickerViewModel, title: String, subtitle: String) {
+    showBanner(title: title, subTitle: subtitle, style: .warning)
   }
 }

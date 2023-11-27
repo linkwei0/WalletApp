@@ -1,0 +1,9 @@
+/* 
+  CategoryPicker.strings
+  WalletApp
+*/
+
+"category.picker.container.title" = "Категории";
+"category.picker.cancenl.btn.title" = "Закрыть";
+"category.picker.notification.title" = "Граница пройдена";
+"category.picker.notification.subtitle" = "перешел границу в 80%";

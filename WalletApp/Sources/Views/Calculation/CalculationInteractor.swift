@@ -20,6 +20,10 @@ class CalculationInteractor: CalculationInteractorProtocol {
   
   func saveOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {
     operationsUseCase.saveOperation(for: wallet, operation: operation, completion: completion)
-    budgetUseCase.updateBudget(for: wallet.id, with: operation)
+  }
+  
+  func updateBudgets(for walletID: Int, with operation: OperationModel, 
+                     completion: @escaping (Result<BudgetModel?, Error>) -> Void) {
+    budgetUseCase.updateBudget(for: walletID, with: operation, completion: completion)
   }
 }

@@ -10,7 +10,6 @@ import Foundation
 enum OperationDateType: CaseIterable {
   case today
   case yesterday
-  case lastWeek
   
   var title: String {
     switch self {
@@ -18,8 +17,6 @@ enum OperationDateType: CaseIterable {
       return "Сегодня"
     case .yesterday:
       return "Вчера"
-    case .lastWeek:
-      return "Неделя"
     }
   }
 }

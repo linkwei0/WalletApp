@@ -40,6 +40,7 @@ class BudgetDetailCoordinator: ConfigurableCoordinator {
     let viewController = factory.budgetDetailFactory.makeModule(budget: configuration.budget, 
                                                                 currencyCode: configuration.currencyCode)
     viewController.modalPresentationStyle = .overCurrentContext
+    addPopObserver(for: viewController)
     navigationController.present(viewController, animated: animated)
   }
 }

@@ -154,6 +154,14 @@ class WalletsViewController: BaseViewController {
     }
   }
   
+  private func didSwipeToDelete(at indexPath: IndexPath) {
+    viewModel.didSwipeToDelete(at: indexPath)
+  }
+  
+  private func didSwipeToEdit(at indexPath: IndexPath) {
+    viewModel.didSwipeToEdit(at: indexPath)
+  }
+  
   // MARK: - Bindables
   private func setupBindables() {
     viewModel.viewState.bind { [weak self] state in
@@ -183,5 +191,27 @@ extension WalletsViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
     return 80
+  }
+  
+  func tableView(_ tableView: UITableView, 
+                 trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let editAction = UIContextualAction(style: .normal, title: R.string.wallets.walletsActionEditTitle()) { _, _, handler in
+      self.didSwipeToEdit(at: indexPath)
+      handler(true)
+    }
+    let deleteAction = UIContextualAction(style: .destructive, title: R.string.wallets.walletsActionDeleteTitle()) { _, _, handler in
+      self.didSwipeToDelete(at: indexPath)
+      handler(true)
+    }
+    deleteAction.backgroundColor = .accentRed
+    editAction.backgroundColor = .accent
+    
+    let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+    swipeConfiguration.performsFirstActionWithFullSwipe = false
+    return swipeConfiguration
+  }
+  
+  func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    return .none
   }
 }
