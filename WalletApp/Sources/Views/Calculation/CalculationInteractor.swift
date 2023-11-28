@@ -14,8 +14,8 @@ class CalculationInteractor: CalculationInteractorProtocol {
     self.budgetUseCase = useCaseProvider.budgetUseCase()
   }
   
-  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
-    operationsUseCase.getOperations(for: wallet, completion: completion)
+  func getOperations(for walletID: Int, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
+    operationsUseCase.getOperations(for: walletID, completion: completion)
   }
   
   func saveOperation(for wallet: WalletModel, operation: OperationModel, completion: @escaping (Result<Void, Error>) -> Void) {

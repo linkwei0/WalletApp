@@ -53,7 +53,7 @@ extension TableViewDataSource: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension TableViewDataSource: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    viewModel?.sectionViewModels[indexPath.section].cellViewModels[indexPath.row].select()
+    viewModel?.sectionViewModels[indexPath.section].cellViewModels[indexPath.row].select(indexPath: indexPath)
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

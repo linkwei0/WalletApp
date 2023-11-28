@@ -5,7 +5,7 @@
 
 import UIKit
 
-class BankBottomBarView: UIView {
+class WalletBottomBarView: UIView {
   // MARK: - Properties
   
   var onDidSelectItem: ((_ itemType: WalletBottomBarItemType) -> Void)?

@@ -58,6 +58,11 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
                                                                        action: #selector(showBudgetPlanning))
     addPopObserver(for: walletDetailVC)
     navigationController.pushViewController(walletDetailVC, animated: animated)
+//    let useCaseProviderFactory = appFactory.useCaseProviderFactory
+//    let interactor = WalletDetailInteractor(useCaseProvider: useCaseProviderFactory.makeUseCaseProvider())
+//    let viewModel = TestDetailViewModel(interactor: interactor, wallet: configuration.wallet)
+//    let viewController = TestDetailViewController(viewModel: viewModel)
+//    navigationController.pushViewController(viewController, animated: animated)
   }
   
   // MARK: - Private methods

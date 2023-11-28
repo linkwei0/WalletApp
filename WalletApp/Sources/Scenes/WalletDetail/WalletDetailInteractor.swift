@@ -6,7 +6,7 @@
 import Foundation
 
 protocol WalletDetailInteractorProtocol {
-  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void)
+  func getOperations(for walletID: Int, completion: @escaping (Result<[OperationModel], Error>) -> Void)
   func getWallet(by walletID: Int, completion: @escaping (Result<WalletModel, Error>) -> Void)
 }
 
@@ -19,8 +19,8 @@ class WalletDetailInteractor: WalletDetailInteractorProtocol {
     self.operationsUseCase = useCaseProvider.operationUseCase()
   }
   
-  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
-    operationsUseCase.getOperations(for: wallet, completion: completion)
+  func getOperations(for walletID: Int, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
+    operationsUseCase.getOperations(for: walletID, completion: completion)
   }
   
   func getWallet(by walletID: Int, completion: @escaping (Result<WalletModel, Error>) -> Void) {

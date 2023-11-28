@@ -65,7 +65,7 @@ class CreateBudgetCellViewModel {
   }
   
   // MARK: - Public methods
-  func select() {
+  func select(indexPath: IndexPath) {
     switch type {
     case .amount:
       delegate?.cellViewModelDidRequestToShowModalBottomView(self)

@@ -12,8 +12,8 @@ final class OperationRepository: OperationUseCaseProtocol {
     self.localDataSource = localDataSource
   }
   
-  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
-    localDataSource.getOperations(for: wallet) { result in
+  func getOperations(for walletID: Int, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
+    localDataSource.getOperations(for: walletID) { result in
       let operations = try? result.get()
       completion(.success(operations ?? []))
     }

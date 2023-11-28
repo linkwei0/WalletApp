@@ -44,7 +44,7 @@ class OperationLastSectionFooterView: UITableViewHeaderFooterView, TableFooterVi
     [expenseCardMonthView, incomeCardMonthView].forEach { stackView.addArrangedSubview($0) }
     stackView.snp.makeConstraints { make in
       make.leading.trailing.equalToSuperview().inset(12)
-      make.top.equalToSuperview()
+      make.top.equalToSuperview().inset(10)
       make.height.equalTo(80)
     }
   }

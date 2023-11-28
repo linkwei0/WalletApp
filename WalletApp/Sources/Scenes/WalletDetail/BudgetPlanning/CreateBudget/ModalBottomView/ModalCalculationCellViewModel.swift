@@ -90,7 +90,7 @@ class ModalCalculationCellViewModel {
   }
   
   // MARK: - Public methods
-  func select() {
+  func select(indexPath: IndexPath) {
     delegate?.cellViewModelDidSelect(self, type: type)
   }
 }

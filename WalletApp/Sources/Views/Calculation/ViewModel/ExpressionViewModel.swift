@@ -40,7 +40,7 @@ final class ExpressionViewModel: SimpleViewStateProccessable {
   
   // MARK: - Private methods
   private func fetchOperations() {
-    interactor.getOperations(for: wallet) { result in
+    interactor.getOperations(for: wallet.id) { result in
       switch result {
       case .success(let operations):
         self.viewState.value = self.processResult(operations)

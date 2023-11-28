@@ -50,7 +50,7 @@ class OperationCellViewModel: OperationCellViewModelProtocol {
     self.operation = operation
   }
   
-  func select() {
+  func select(indexPath: IndexPath) {
     delegate?.operationCellViewModel(self, didSelect: operation)
   }
 }

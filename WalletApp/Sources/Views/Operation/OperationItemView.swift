@@ -69,19 +69,25 @@ class OperationItemView: UIView, Configurable {
     amountLabel.text = (viewModel.isIncome ? "+" : "-") + viewModel.amount.maxLength(to: 7)
     amountLabel.textColor = viewModel.isIncome ? .incomeBtnColor : .expenseColor
     categoryImageView.image = viewModel.category.image
+    categoryImageView.tintColor = viewModel.isIncome ? .incomeBtnColor : .expenseColor
   }
   
   // MARK: - Setup
   private func setup() {
-    backgroundColor = .baseWhite
+    setupBackground()
     setupStackView()
     setupTitleLabel()
     setupCategoryImageView()
     setupAmountLabel()
   }
   
+  private func setupBackground() {
+    backgroundColor = .clear
+  }
+  
   private func setupTitleLabel() {
     titleLabel.textAlignment = .left
+    titleLabel.textColor = .baseBlack
     titleLabel.numberOfLines = 0
   }
   
@@ -95,6 +101,7 @@ class OperationItemView: UIView, Configurable {
   
   private func setupAmountLabel() {
     amountLabel.textAlignment = .right
+    amountLabel.textColor = .baseBlack
     amountLabel.numberOfLines = 0
   }
   
@@ -102,12 +109,12 @@ class OperationItemView: UIView, Configurable {
     addSubview(stackView)
     stackView.axis = .horizontal
     stackView.distribution = .fillEqually
-    stackView.spacing = 16
+    stackView.spacing = 4
     
     [titleLabel, categoryImageView, amountLabel].forEach { stackView.addArrangedSubview($0) }
     
     stackView.snp.makeConstraints { make in
-      make.top.bottom.equalToSuperview().inset(4)
+      make.top.bottom.equalToSuperview().inset(2)
       make.leading.trailing.equalToSuperview().inset(16)
     }
   }

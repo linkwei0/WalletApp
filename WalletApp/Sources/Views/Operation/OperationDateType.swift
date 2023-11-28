@@ -14,9 +14,9 @@ enum OperationDateType: CaseIterable {
   var title: String {
     switch self {
     case .today:
-      return "Сегодня"
+      return R.string.walletDetail.walletOperationDateTypeToday()
     case .yesterday:
-      return "Вчера"
+      return R.string.walletDetail.walletOperationDateTypeYesterday()
     }
   }
 }

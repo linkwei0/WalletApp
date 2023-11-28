@@ -12,9 +12,9 @@ final class OperationLocalDataSource: OperationLocalDataSourceProtocol {
     self.coreDataStack = coreDataStack
   }
   
-  func getOperations(for wallet: WalletModel, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
+  func getOperations(for walletID: Int, completion: @escaping (Result<[OperationModel], Error>) -> Void) {
     let operations = coreDataStack.getObjectByValue(columnName: #keyPath(CDOperation.walletId),
-                                                    value: String(wallet.id), type: CDOperation.self)
+                                                    value: String(walletID), type: CDOperation.self)
     completion(.success(operations.compactMap { $0.makeDomain() }))
   }
   

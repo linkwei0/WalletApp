@@ -7,6 +7,9 @@
 "wallet.detail.bottom.bar.expense.title" = "Расход";
 "wallet.detail.bottom.bar.profile.title" = "Профиль";
 
+"wallet.operation.date.type.today" = "Недавнее";
+"wallet.operation.date.type.yesterday" = "Вчера";
+
 "month.card.view.category" = "Категория";
 "month.card.view.title.income" = "дохода";
 "month.card.view.title.expense" = "расхода";
@@ -15,7 +18,7 @@
 "wallet.detail.empty.view.title" = "Упс!";
 "wallet.detail.empty.view.subtitle" = "У кошелька нет операций";
 
-"default.footer.view.title" = "Больше";
+"default.footer.view.title" = "Показать больше";
 
 "operation.list.title" = "Операции";
 

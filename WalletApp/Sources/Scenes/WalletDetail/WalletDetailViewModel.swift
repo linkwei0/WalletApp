@@ -83,7 +83,7 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
   }
   
   private func fetchOperations() {
-    interactor.getOperations(for: wallet) { result in
+    interactor.getOperations(for: wallet.id) { result in
       switch result {
       case .success(let operations):
         let sortedOperations = operations.sorted { $0.date > $1.date }
@@ -103,42 +103,22 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
     }
   }
   
-  private func configureSections(_ operationsByDate: [OperationSectionContainer]) {
+  private func configureSections(_ operationsByDate: [WalletDetailCellViewModel]) {
     sectionViewModels.removeAll()
     
-    operationsByDate.forEach { operationContainer in
-      var amountOfDateOperations: Int = 0
-
-      let cellViewModels = operationContainer.opertions.map { operation in
-        let operationValue = NSDecimalNumber(decimal: operation.amount).intValue
-        amountOfDateOperations = operation.type.isIncome ? amountOfDateOperations + operationValue
-        : amountOfDateOperations - operationValue
-        let cellViewModel = OperationCellViewModel(operation)
-        cellViewModel.delegate = self
-        return cellViewModel
-      }
-      
-      if !cellViewModels.isEmpty {
-        let headerTotalAmount = amountOfDateOperations >= isPositiveNumbers ? "+\(amountOfDateOperations.makeDigitSeparator())"
-        : "-\(amountOfDateOperations.makeDigitSeparator())"
-        let headerViewModel = OperationHeaderViewModel(title: operationContainer.date.title, totalValue: headerTotalAmount,
-                                                       isFirstSection: self.sectionViewModels.isEmpty)
-        let footerViewModel = OperationDefaultFooterViewModel()
-        footerViewModel.delegate = self
-        let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
-        let partOfItemViewModels = Array(cellViewModels.prefix(firstDaysTo))
-        section.append(cellViewModels: partOfItemViewModels)
-        self.sectionViewModels.append(section)
-      }
+    sectionViewModels.removeAll()
+    operationsByDate.forEach { sectionContainer in
+      let section = TableSectionViewModel()
+      section.append(sectionContainer)
+      sectionViewModels.append(section)
     }
-    
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
     let headerViewModel = OperationHeaderViewModel(title: R.string.walletDetail.monthCardViewTopMonthTitle())
     let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
-    sectionViewModels.append(section)
+    sectionViewModels.append(section)    
     }
   
-  private func configureOperationsByDate(_ operations: [OperationModel]) -> [OperationSectionContainer] {
+  private func configureOperationsByDate(_ operations: [OperationModel]) -> [WalletDetailCellViewModel] {
     var operationsToday = OperationSectionContainer(date: .today, opertions: [])
     var operationsYesteraday = OperationSectionContainer(date: .yesterday, opertions: [])
     
@@ -146,7 +126,10 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
       if operation.date.isToday() { operationsToday.opertions.append(operation) }
       if operation.date.isYesterday() { operationsYesteraday.opertions.append(operation) }
     }
-    return [operationsToday, operationsYesteraday]
+    let testDetailCellViewModelTODAY = WalletDetailCellViewModel(operations: operationsToday.opertions, dateType: .today)
+    let testDetailCellViewModelYESTERDAY = WalletDetailCellViewModel(operations: operationsYesteraday.opertions, dateType: .yesterday)
+
+    return [testDetailCellViewModelTODAY, testDetailCellViewModelYESTERDAY]
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {

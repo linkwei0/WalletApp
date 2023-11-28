@@ -9,8 +9,8 @@ class WalletDetailViewController: BaseViewController {
   // MARK: - Properties
   private let balanceView: BalanceView
   private let emptyStateView = EmptyStateView()
-  private let operationsTableView = UITableView(frame: .zero, style: .grouped)
-  private let bottomBarView: BankBottomBarView
+  private let tableView = UITableView(frame: .zero, style: .grouped)
+  private let bottomBarView: WalletBottomBarView
   
   private let dataSource = TableViewDataSource()
   
@@ -20,7 +20,7 @@ class WalletDetailViewController: BaseViewController {
   init(viewModel: WalletDetailViewModel) {
     self.viewModel = viewModel
     self.balanceView = BalanceView(viewModel: viewModel.balanceViewModel)
-    self.bottomBarView = BankBottomBarView(configuration: viewModel.bottomBarConfiguration)
+    self.bottomBarView = WalletBottomBarView(configuration: viewModel.bottomBarConfiguration)
     super.init(nibName: nil, bundle: nil)
   }
   
@@ -38,6 +38,7 @@ class WalletDetailViewController: BaseViewController {
     
   // MARK: - Setup
   private func setup() {
+    view.backgroundColor = .systemGroupedBackground
     setupBalanceView()
     setupOperationsTableView()
     setupEmptyStateView()
@@ -53,25 +54,21 @@ class WalletDetailViewController: BaseViewController {
   }
   
   private func setupOperationsTableView() {
-    view.addSubview(operationsTableView)
-    operationsTableView.separatorStyle = .none
-    operationsTableView.showsVerticalScrollIndicator = false
-    operationsTableView.estimatedRowHeight = 50
-    operationsTableView.rowHeight = UITableView.automaticDimension
-    operationsTableView.backgroundColor = .clear
-    operationsTableView.register(OperationHeaderView.self,
-                                 forHeaderFooterViewReuseIdentifier: OperationHeaderView.reuseIdentifiable)
-    operationsTableView.register(OperationLastSectionFooterView.self,
-                                 forHeaderFooterViewReuseIdentifier: OperationLastSectionFooterView.reuseIdentifiable)
-    operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
-    operationsTableView.register(OperationDefaultFooterView.self,
-                                 forHeaderFooterViewReuseIdentifier: OperationDefaultFooterView.reuseIdentifiable)
-    operationsTableView.snp.makeConstraints { make in
+    view.addSubview(tableView)
+    tableView.separatorStyle = .none
+    tableView.showsVerticalScrollIndicator = false
+    tableView.rowHeight = 190
+//    tableView.rowHeight = UITableView.automaticDimension
+    tableView.backgroundColor = .clear
+    tableView.register(WalletDetailCell.self, forCellReuseIdentifier: WalletDetailCell.reuseIdentifiable)
+    tableView.register(OperationLastSectionFooterView.self,
+                       forHeaderFooterViewReuseIdentifier: OperationLastSectionFooterView.reuseIdentifiable)
+    tableView.snp.makeConstraints { make in
       make.top.equalTo(balanceView.snp.bottom)
       make.leading.trailing.bottom.equalToSuperview()
     }
     dataSource.delegate = self
-    dataSource.setup(tableView: operationsTableView, viewModel: viewModel)
+    dataSource.setup(tableView: tableView, viewModel: viewModel)
   }
   
   private func setupEmptyStateView() {
@@ -97,22 +94,22 @@ class WalletDetailViewController: BaseViewController {
   
   // MARK: - Private methods
   private func reloadTableView() {
-    dataSource.update(with: viewModel)
+    tableView.reloadData()
   }
   
   private func configureWalletDetailTableView(with state: SimpleViewState<OperationModel>) {
     switch state {
     case .initial:
       emptyStateView.isHidden = true
-      operationsTableView.isHidden = true
+      tableView.isHidden = true
     case .populated:
       emptyStateView.isHidden = true
-      operationsTableView.isHidden = false
+      tableView.isHidden = false
     case .empty:
       if let emptyViewModel = viewModel.emptyStateViewModel {
         emptyStateView.configure(with: emptyViewModel)
         emptyStateView.isHidden = false
-        operationsTableView.isHidden = true
+        tableView.isHidden = true
       }
     case .error(let error):
       // TODO: - Error view
@@ -120,7 +117,7 @@ class WalletDetailViewController: BaseViewController {
         emptyStateView.configure(with: emptyViewModel)
       }
       emptyStateView.isHidden = false
-      operationsTableView.isHidden = true
+      tableView.isHidden = true
     }
   }
   
@@ -139,10 +136,10 @@ class WalletDetailViewController: BaseViewController {
 // MARK: - TableViewDataSourceDelegate
 extension WalletDetailViewController: TableViewDataSourceDelegate {
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
-    return viewModel.isLastSection(section) ? 60 : 50
+    return viewModel.isLastSection(section) ? 0 : 16
   }
   
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
-    return viewModel.isLastSection(section) ? 160 : 50
+    return viewModel.isLastSection(section) ? 160 : 0
   }
 }
