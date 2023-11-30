@@ -105,12 +105,12 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
   
   private func configureSections(_ operationsByDate: [WalletDetailCellViewModel]) {
     sectionViewModels.removeAll()
-    
-    sectionViewModels.removeAll()
     operationsByDate.forEach { sectionContainer in
-      let section = TableSectionViewModel()
-      section.append(sectionContainer)
-      sectionViewModels.append(section)
+      if !sectionContainer.isEmpty {
+        let section = TableSectionViewModel()
+        section.append(sectionContainer)
+        sectionViewModels.append(section)
+      }
     }
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
     let headerViewModel = OperationHeaderViewModel(title: R.string.walletDetail.monthCardViewTopMonthTitle())
@@ -119,17 +119,17 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
     }
   
   private func configureOperationsByDate(_ operations: [OperationModel]) -> [WalletDetailCellViewModel] {
-    var operationsToday = OperationSectionContainer(date: .today, opertions: [])
-    var operationsYesteraday = OperationSectionContainer(date: .yesterday, opertions: [])
+    var operationsToday: [OperationModel] = []
+    var operationsYesterday: [OperationModel] = []
     
     for operation in operations {
-      if operation.date.isToday() { operationsToday.opertions.append(operation) }
-      if operation.date.isYesterday() { operationsYesteraday.opertions.append(operation) }
+      if operation.date.isToday() { operationsToday.append(operation) }
+      if operation.date.isYesterday() { operationsYesterday.append(operation) }
     }
-    let testDetailCellViewModelTODAY = WalletDetailCellViewModel(operations: operationsToday.opertions, dateType: .today)
-    let testDetailCellViewModelYESTERDAY = WalletDetailCellViewModel(operations: operationsYesteraday.opertions, dateType: .yesterday)
-
-    return [testDetailCellViewModelTODAY, testDetailCellViewModelYESTERDAY]
+    let detailCellViewModelToday = WalletDetailCellViewModel(operations: operationsToday, dateType: .today)
+    let detailCellViewModelYesterday = WalletDetailCellViewModel(operations: operationsYesterday, dateType: .yesterday)
+    [detailCellViewModelToday, detailCellViewModelYesterday].forEach { $0.delegate = self }
+    return [detailCellViewModelToday, detailCellViewModelYesterday]
   }
   
   private func configureBalanceModel(with operations: [OperationModel]) {
@@ -143,16 +143,13 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
   }
 }
 
-// MARK: - OperationCellViewModelDelegate
-extension WalletDetailViewModel: OperationCellViewModelDelegate {
-  func operationCellViewModel(_ viewModel: OperationCellViewModel, didSelect operation: OperationModel) {
+// MARK: - WalletDetailCellViewModelDelegate
+extension WalletDetailViewModel: WalletDetailCellViewModelDelegate {
+  func cellViewModelDidSelect(_ viewModel: WalletDetailCellViewModel, didSelect operation: OperationModel) {
     delegate?.walletDetailViewModelDidRequestToShowOperationEdit(self, wallet: wallet, operation: operation)
   }
-}
-
-// MARK: - OperationDefaultFooterViewModelDelegate
-extension WalletDetailViewModel: OperationDefaultFooterViewModelDelegate {
-  func defaultFooterViewModelDidTapMoreOperations(_ viewModel: OperationDefaultFooterViewModel) {
+  
+  func cellViewModelDidRequestToShowMoreOperations(_ viewModel: WalletDetailCellViewModel) {
     delegate?.walletDetailViewModelDidRequestToShowOperationsScreen(self, operations: operations)
   }
 }

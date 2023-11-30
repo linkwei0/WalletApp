@@ -143,7 +143,7 @@ class WalletDetailCell: UITableViewCell, TableCell {
   
   // MARK: - Actions
   @objc private func didTapMoreButton() {
-    print("Did tap more button")
+    viewModel?.didTapShowMoreButton()
   }
   
   // MARK: - Private methods

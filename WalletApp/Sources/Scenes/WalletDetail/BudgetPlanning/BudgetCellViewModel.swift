@@ -66,7 +66,7 @@ extension BudgetCellViewModel: TableCellViewModel {
     return BudgetCell.reuseIdentifiable
   }
   
-  func select(indexPath: IndexPath) {
+  func select() {
     delegate?.cellViewModelDidTap(self, budget: budget)
   }
 }

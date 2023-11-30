@@ -64,7 +64,6 @@ class ModalCalculationCell: UICollectionViewCell {
   
   // MARK: - Actions
   @objc private func didTapOnElement() {
-    let dummyIndexPath = IndexPath(item: 0, section: 0)
-    viewModel?.select(indexPath: dummyIndexPath)
+    viewModel?.select()
   }
 }

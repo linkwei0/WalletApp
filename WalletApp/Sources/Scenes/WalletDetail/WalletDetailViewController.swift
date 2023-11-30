@@ -38,11 +38,15 @@ class WalletDetailViewController: BaseViewController {
     
   // MARK: - Setup
   private func setup() {
-    view.backgroundColor = .systemGroupedBackground
+    setupBackground()
     setupBalanceView()
     setupOperationsTableView()
     setupEmptyStateView()
     setupBottomBarView()
+  }
+  
+  private func setupBackground() {
+    view.backgroundColor = .systemGroupedBackground
   }
   
   private func setupBalanceView() {
@@ -63,6 +67,7 @@ class WalletDetailViewController: BaseViewController {
     tableView.register(WalletDetailCell.self, forCellReuseIdentifier: WalletDetailCell.reuseIdentifiable)
     tableView.register(OperationLastSectionFooterView.self,
                        forHeaderFooterViewReuseIdentifier: OperationLastSectionFooterView.reuseIdentifiable)
+    tableView.register(OperationHeaderView.self, forHeaderFooterViewReuseIdentifier: OperationHeaderView.reuseIdentifiable)
     tableView.snp.makeConstraints { make in
       make.top.equalTo(balanceView.snp.bottom)
       make.leading.trailing.bottom.equalToSuperview()
@@ -136,7 +141,7 @@ class WalletDetailViewController: BaseViewController {
 // MARK: - TableViewDataSourceDelegate
 extension WalletDetailViewController: TableViewDataSourceDelegate {
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
-    return viewModel.isLastSection(section) ? 0 : 16
+    return viewModel.isLastSection(section) ? 50 : 10
   }
   
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {

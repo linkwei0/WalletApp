@@ -7,8 +7,19 @@
 
 import Foundation
 
+protocol WalletDetailCellViewModelDelegate: AnyObject {
+  func cellViewModelDidSelect(_ viewModel: WalletDetailCellViewModel, didSelect operation: OperationModel)
+  func cellViewModelDidRequestToShowMoreOperations(_ viewModel: WalletDetailCellViewModel)
+}
+
 class WalletDetailCellViewModel: TableViewModel {
   // MARK: - Properties
+  weak var delegate: WalletDetailCellViewModelDelegate?
+  
+  var isEmpty: Bool {
+    return operations.isEmpty
+  }
+  
   var date: String {
     return dateType.title
   }
@@ -25,10 +36,8 @@ class WalletDetailCellViewModel: TableViewModel {
   
   var sectionViewModels: [TableSectionViewModel] {
     let cellViewModels = operations.map { operation in
-      let operationValue = NSDecimalNumber(decimal: operation.amount).intValue
-      amountOfDateOperations = operation.type.isIncome ? amountOfDateOperations + operationValue
-      : amountOfDateOperations - operationValue
       let cellViewModel = OperationCellViewModel(operation)
+      cellViewModel.delegate = self
       return cellViewModel
     }
     let section = TableSectionViewModel()
@@ -36,7 +45,11 @@ class WalletDetailCellViewModel: TableViewModel {
     return [section]
   }
   
-  private var amountOfDateOperations: Int = 0
+  private var amountOfDateOperations: Int {
+    var amount: Decimal = 0
+    operations.forEach { amount += $0.amount }
+    return NSDecimalNumber(decimal: amount).intValue
+  }
   
   private let isPositiveNumbers: Int = 0
   
@@ -48,6 +61,11 @@ class WalletDetailCellViewModel: TableViewModel {
     self.operations = operations
     self.dateType = dateType
   }
+  
+  // MARK: - Public methods
+  func didTapShowMoreButton() {
+    delegate?.cellViewModelDidRequestToShowMoreOperations(self)
+  }
 }
 
 // MARK: - TableCellViewModel
@@ -55,8 +73,11 @@ extension WalletDetailCellViewModel: TableCellViewModel {
   var tableReuseIdentifier: String {
     return WalletDetailCell.reuseIdentifiable
   }
-  
-  func select(indexPath: IndexPath) {
-    print("Selected \(operations[indexPath.row])")
+}
+
+// MARK: - OperationCellViewModelDelegate
+extension WalletDetailCellViewModel: OperationCellViewModelDelegate {
+  func operationCellViewModel(_ viewModel: OperationCellViewModel, didSelect operation: OperationModel) {
+    delegate?.cellViewModelDidSelect(self, didSelect: operation)
   }
 }

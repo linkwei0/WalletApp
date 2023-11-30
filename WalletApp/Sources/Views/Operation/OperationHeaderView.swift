@@ -46,7 +46,6 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   
   // MARK: - Setup
   private func setup() {
-    backgroundColor = .red
     setupTitleLabel()
     setupTotalValueLabel()
     setupTopLine()
@@ -55,11 +54,11 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   
   private func setupTopLine() {
     contentView.addSubview(topLine)
-    topLine.backgroundColor = .accent
+    topLine.backgroundColor = .shade3
     topLine.snp.makeConstraints { make in
       make.top.equalTo(titleLabel.snp.top)
       make.leading.trailing.equalToSuperview()
-      make.height.equalTo(0.3)
+      make.height.equalTo(0.4)
     }
   }
   
@@ -79,11 +78,11 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   
   private func setupBottomLine() {
     contentView.addSubview(bottomLine)
-    bottomLine.backgroundColor = .accent
+    bottomLine.backgroundColor = .shade3
     bottomLine.snp.makeConstraints { make in
       make.bottom.equalTo(titleLabel.snp.bottom)
       make.leading.trailing.equalToSuperview()
-      make.height.equalTo(0.3)
+      make.height.equalTo(0.4)
     }
   }
 }

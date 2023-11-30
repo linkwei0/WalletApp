@@ -8,7 +8,7 @@ import Foundation
 protocol OperationCellViewModelProtocol: TableCellViewModel {
   var name: String { get }
   var amount: String { get }
-  var category: ExpenseCategoryTypes { get }
+  var category: CategoryTypesProtocol { get }
   var isIncome: Bool { get }
   var date: Date? { get }
 }
@@ -18,6 +18,7 @@ protocol OperationCellViewModelDelegate: AnyObject {
 }
 
 class OperationCellViewModel: OperationCellViewModelProtocol {
+  // MARK: - Properties
   weak var delegate: OperationCellViewModelDelegate?
   
   var tableReuseIdentifier: String {
@@ -32,8 +33,12 @@ class OperationCellViewModel: OperationCellViewModelProtocol {
     return NSDecimalNumber(decimal: operation.amount).intValue.makeDigitSeparator()
   }
   
-  var category: ExpenseCategoryTypes {
-    return ExpenseCategoryTypes(rawValue: operation.category) ?? ExpenseCategoryTypes.food
+  var category: CategoryTypesProtocol {
+    if operation.type.isIncome {
+      return IncomeCategoryTypes(rawValue: operation.category) ?? .salary
+    } else {
+      return ExpenseCategoryTypes(rawValue: operation.category) ?? ExpenseCategoryTypes.food
+    }
   }
   
   var date: Date? {
@@ -46,11 +51,13 @@ class OperationCellViewModel: OperationCellViewModelProtocol {
   
   private let operation: OperationModel
   
+  // MARK: - Init
   init(_ operation: OperationModel) {
     self.operation = operation
   }
   
-  func select(indexPath: IndexPath) {
+  // MARK: - Public methods
+  func select() {
     delegate?.operationCellViewModel(self, didSelect: operation)
   }
 }

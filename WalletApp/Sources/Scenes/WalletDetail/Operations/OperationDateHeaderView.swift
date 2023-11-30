@@ -9,7 +9,7 @@ import UIKit
 
 class OperationDateHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   // MARK: - Properties
-  private let operationDateLabel = Label(textStyle: .bodyBold)
+  private let operationDateLabel = Label(textStyle: .header2)
   
   // MARK: - Init
   override init(reuseIdentifier: String?) {

@@ -28,11 +28,6 @@ class OperationMonthCardView: UIView {
     setup()
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    containerView.applyGradient(startColor: .accentDark, endColor: .accentFaded)
-  }
-  
   // MARK: - Configure
   func configure(with viewModel: OperationMonthCardViewModel?) {
     titleLabel.text = R.string.walletDetail.monthCardViewCategory() + " " + (viewModel?.title ?? "")
@@ -49,17 +44,20 @@ class OperationMonthCardView: UIView {
     setupAmountLabel()
     setupStackView()
   }
+  
   private func setupContainer() {
     addSubview(containerView)
+    containerView.layer.cornerRadius = 12
+    containerView.backgroundColor = .baseWhite
+    containerView.addShadow(offset: CGSize(width: 0, height: 8), radius: 24, color: .zeroBlack, opacity: 0.15)
     containerView.snp.makeConstraints { make in
-      make.top.equalToSuperview().inset(8)
-      make.leading.trailing.bottom.equalToSuperview()
+      make.edges.equalToSuperview()
     }
   }
   
   private func setupTitleLabel() {
     containerView.addSubview(titleLabel)
-    titleLabel.textColor = .baseWhite
+    titleLabel.textColor = .baseBlack
     titleLabel.textAlignment = .left
     titleLabel.snp.makeConstraints { make in
       make.top.equalToSuperview().inset(8)
@@ -69,13 +67,13 @@ class OperationMonthCardView: UIView {
   
   private func setupCategoryLabel() {
     containerView.addSubview(categoryLabel)
-    categoryLabel.textColor = .baseWhite
+    categoryLabel.textColor = .baseBlack
     categoryLabel.textAlignment = .left
   }
   
   private func setupAmountLabel() {
     containerView.addSubview(amountLabel)
-    amountLabel.textColor = .baseWhite
+    amountLabel.textColor = .baseBlack
     amountLabel.numberOfLines = 1
     amountLabel.textAlignment = .left
   }

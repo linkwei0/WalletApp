@@ -11,11 +11,11 @@ protocol TableCell {
 
 protocol TableCellViewModel {
   var tableReuseIdentifier: String { get }
-  func select(indexPath: IndexPath)
+  func select()
 }
 
 extension TableCellViewModel {
-  func select(indexPath: IndexPath) {}
+  func select() {}
 }
 
 protocol TableHeaderView {

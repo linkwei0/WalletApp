@@ -9,7 +9,7 @@ import UIKit
 
 class OperationListViewController: BaseViewController {
   // MARK: - Properties
-  private let tableView = UITableView()
+  private let tableView = UITableView(frame: .zero, style: .grouped)
   
   private let dataSource = TableViewDataSource()
   private let viewModel: OperationListViewModel
@@ -38,10 +38,11 @@ class OperationListViewController: BaseViewController {
   
   private func setupTableView() {
     view.addSubview(tableView)
-    tableView.estimatedRowHeight = UITableView.automaticDimension
-    tableView.separatorStyle = .none
-    tableView.rowHeight = 40
-    tableView.showsVerticalScrollIndicator = false
+    tableView.rowHeight = 50
+    tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    tableView.separatorColor = .shade3
+    tableView.showsVerticalScrollIndicator = true
+    tableView.backgroundColor = .clear
     tableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
     tableView.register(OperationDateHeaderView.self,
                        forHeaderFooterViewReuseIdentifier: OperationDateHeaderView.reuseIdentifiable)
@@ -56,10 +57,10 @@ class OperationListViewController: BaseViewController {
 // MARK: - TableViewDataSourceDelegate
 extension OperationListViewController: TableViewDataSourceDelegate {
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
-    return 40
+    return 60
   }
   
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
-    return 0
+    return 50
   }
 }
