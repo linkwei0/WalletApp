@@ -14,10 +14,9 @@ class CategoryPickerViewModel {
   weak var delegate: CategoryPickerViewModelDelegate?
   
   var onNeedsToUpdateOperation: ((_ wallet: WalletModel, _ operation: OperationModel) -> Void)?
-  
-  private(set) var operationAmountValue: Bindable<String> = Bindable("")
-  private(set) var isCreateOperation: Bindable<Bool> = Bindable(false)
-  
+  var onNeedsToUpdateAmountLabel: ((String) -> Void)?
+  var onNeedsToDismissController: (() -> Void)?
+    
   private let expenseCategories: [[ExpenseCategoryTypes]] =
   [
     [.food, .house, .car],
@@ -43,12 +42,14 @@ class CategoryPickerViewModel {
     self.interactor = interactor
     self.wallet = wallet
     self.operation = operation
-    self.operationAmountValue.value = NSDecimalNumber(decimal: operation.amount).stringValue
-    + (CurrencyModelView.WalletsCurrencyType(rawValue: wallet.currency.code) ?? .rub).title
     self.operationType = operation.type
   }
   
   // MARK: - Public methods
+  func viewIsReady() {
+    getAmountValue()
+  }
+  
   func numberOfSections() -> Int {
     return operationType.isIncome ? incomeCategories.count : expenseCategories.count
   }
@@ -77,11 +78,17 @@ class CategoryPickerViewModel {
       operation.name = category.title
       operation.category = category.title
       onNeedsToUpdateOperation?(wallet, operation)
-      isCreateOperation.value = true
+      onNeedsToDismissController?()
     }
   }
   
   // MARK: - Private methods
+  private func getAmountValue() {
+    let currencySign = (CurrencyModelView.WalletsCurrencyType(rawValue: wallet.currency.code) ?? .rub).title
+    let amountValue = NSDecimalNumber(decimal: operation.amount).intValue.makeDigitSeparator()
+    onNeedsToUpdateAmountLabel?(amountValue + " " + currencySign)
+  }
+  
   private func changeWalletBalance(with operation: OperationModel) {
     if operationType.isIncome {
       wallet.balance += operation.amount
@@ -110,7 +117,7 @@ class CategoryPickerViewModel {
       case .success:
         self.updateWalletBudgets(with: operation)
         self.onNeedsToUpdateOperation?(self.wallet, operation)
-        self.isCreateOperation.value = true
+        self.onNeedsToDismissController?()
       case .failure(let error):
         self.wallet.balance = walletPreviousBalance
         self.wallet.totalEarned = walletPreviousTotalEarned

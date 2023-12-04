@@ -12,6 +12,7 @@ class OperationListViewController: BaseViewController {
   private let tableView = UITableView(frame: .zero, style: .grouped)
   
   private let dataSource = TableViewDataSource()
+  
   private let viewModel: OperationListViewModel
   
   // MARK: - Init
@@ -28,12 +29,29 @@ class OperationListViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
+    setupBindables()
     viewModel.viewIsReady()
   }
   
   // MARK: - Setup
   private func setup() {
     setupTableView()
+    setupRightBarButton()
+  }
+  
+  private func setupRightBarButton() {
+    let action = { (action: UIAction) in
+      self.viewModel.didChangeSort(with: action.title)
+    }
+    var menuItems: [UIMenuElement] = []
+    viewModel.sortedTypesList.forEach { menuItems.append(UIAction(title: $0, handler: action)) }
+    let menu = UIMenu(options: .displayInline, children: menuItems)
+    
+    if #available(iOS 14.0, *) {
+      let rightBarButton = UIBarButtonItem(image: UIImage(systemName: Constants.rightBarButtonImage))
+      rightBarButton.menu = menu
+      navigationItem.rightBarButtonItem = rightBarButton
+    }
   }
   
   private func setupTableView() {
@@ -46,11 +64,26 @@ class OperationListViewController: BaseViewController {
     tableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
     tableView.register(OperationDateHeaderView.self,
                        forHeaderFooterViewReuseIdentifier: OperationDateHeaderView.reuseIdentifiable)
+    tableView.register(OperationHeaderView.self, forHeaderFooterViewReuseIdentifier: OperationHeaderView.reuseIdentifiable)
     tableView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
     dataSource.delegate = self
     dataSource.setup(tableView: tableView, viewModel: viewModel)
+  }
+  
+  // MARK: - Private methods
+  private func reloadTableView() {
+    tableView.reloadData()
+  }
+  
+  // MARK: - Bindables
+  private func setupBindables() {
+    viewModel.onNeedsToUpdateTableView = { [weak self] in
+      DispatchQueue.main.async {
+        self?.reloadTableView()
+      }
+    }
   }
 }
 
@@ -63,4 +96,8 @@ extension OperationListViewController: TableViewDataSourceDelegate {
   func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
     return 50
   }
+}
+
+private extension Constants {
+  static let rightBarButtonImage = "list.bullet"
 }

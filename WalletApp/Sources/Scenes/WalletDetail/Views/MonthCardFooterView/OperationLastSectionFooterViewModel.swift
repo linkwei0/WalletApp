@@ -11,9 +11,6 @@ class OperationLastSectionFooterViewModel {
   // MARK: - Properties
   private(set) var incomeCardViewModel: OperationMonthCardViewModel?
   private(set) var expenseCardViewModel: OperationMonthCardViewModel?
-
-  private var incomeOperationViewModels: [OperationModel] = []
-  private var expenseOperationViewModels: [OperationModel] = []
   
   private let operations: [OperationModel]
 
@@ -25,20 +22,22 @@ class OperationLastSectionFooterViewModel {
   
   // MARK: - Private methods
   private func configureCardViewModels(operations: [OperationModel]) {
+    var incomeOperations: [OperationModel] = []
+    var expenseOperations: [OperationModel] = []
     operations.forEach { operation in
       
       if operation.date.isCurrentMonth() {
         switch operation.type {
         case .income:
-          incomeOperationViewModels.append(operation)
+          incomeOperations.append(operation)
         case .expense:
-          expenseOperationViewModels.append(operation)
+          expenseOperations.append(operation)
         }
       }
-      
-      incomeCardViewModel = OperationMonthCardViewModel(operations: incomeOperationViewModels)
-      expenseCardViewModel = OperationMonthCardViewModel(operations: expenseOperationViewModels)
     }
+    
+    incomeCardViewModel = OperationMonthCardViewModel(operations: incomeOperations, isIncome: true)
+    expenseCardViewModel = OperationMonthCardViewModel(operations: expenseOperations, isIncome: false)
   }
 }
 

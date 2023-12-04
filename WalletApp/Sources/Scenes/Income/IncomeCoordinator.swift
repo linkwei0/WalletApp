@@ -43,10 +43,11 @@ final class IncomeCoordinator: ConfigurableCoordinator {
   private func showIncomeScreen(animated: Bool) {
     let incomeVC = factory.incomeFactory.makeModule(with: configuration.wallet)
     incomeVC.viewModel.delegate = self
-    let currency = CurrencyModelView.WalletsCurrencyType(rawValue: self.configuration.wallet.currency.code) ?? .rub
-    incomeVC.navigationItem.title = NSDecimalNumber(decimal: configuration.wallet.balance).stringValue + currency.title
+    let currency = CurrencyModelView.WalletsCurrencyType(rawValue: configuration.wallet.currency.code) ?? .rub
+    let walletBalance = NSDecimalNumber(decimal: configuration.wallet.balance).intValue.makeDigitSeparator()
+    incomeVC.navigationItem.title = walletBalance + " " + currency.title
     incomeVC.viewModel.onDidCreateOperation = { [weak viewModel = incomeVC.viewModel] wallet in
-      incomeVC.navigationItem.title = NSDecimalNumber(decimal: wallet.balance).stringValue + currency.title
+      incomeVC.navigationItem.title = NSDecimalNumber(decimal: wallet.balance).intValue.makeDigitSeparator() + " " + currency.title
       viewModel?.calculationViewModel.updateOperations()
     }
     addPopObserver(for: incomeVC)

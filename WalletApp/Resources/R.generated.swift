@@ -1785,8 +1785,10 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.wallets` struct is generated, and contains static references to 5 localization keys.
+    /// This `R.string.wallets` struct is generated, and contains static references to 6 localization keys.
     struct wallets {
+      /// Value: Все средства
+      static let walletsBalanceViewTitle = Rswift.StringResource(key: "wallets.balance.view.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Добавить кошелек
       static let walletsButtonAddTitle = Rswift.StringResource(key: "wallets.button.add.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Изменить
@@ -1797,6 +1799,19 @@ struct R: Rswift.Validatable {
       static let walletsEmptyViewSubtitle = Rswift.StringResource(key: "wallets.empty.view.subtitle", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Удалить
       static let walletsActionDeleteTitle = Rswift.StringResource(key: "wallets.action.delete.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
+
+      /// Value: Все средства
+      static func walletsBalanceViewTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallets.balance.view.title", tableName: "Wallets", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wallets", preferredLanguages: preferredLanguages) else {
+          return "wallets.balance.view.title"
+        }
+
+        return NSLocalizedString("wallets.balance.view.title", tableName: "Wallets", bundle: bundle, comment: "")
+      }
 
       /// Value: Добавить кошелек
       static func walletsButtonAddTitle(preferredLanguages: [String]? = nil) -> String {

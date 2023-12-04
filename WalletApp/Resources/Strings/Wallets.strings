@@ -8,3 +8,4 @@
 "wallets.empty.view.subtitle" = "У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один";
 "wallets.action.edit.title" = "Изменить";
 "wallets.action.delete.title" = "Удалить";
+"wallets.balance.view.title" = "Все средства";

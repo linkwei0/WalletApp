@@ -15,6 +15,8 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   private let topLine = UIView()
   private let bottomLine = UIView()
   
+  private let maxCharsCount: Int = 10
+  
   // MARK: - Init
   override init(reuseIdentifier: String?) {
     super.init(reuseIdentifier: reuseIdentifier)
@@ -30,7 +32,11 @@ class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   func configure(with viewModel: TableHeaderViewModel) {
     guard let viewModel = viewModel as? OperationHeaderViewModel else { return }
     titleLabel.text = viewModel.title
-    totalValueLabel.text = viewModel.totalValue.maxLength(to: 10)
+    totalValueLabel.text = viewModel.totalValue.maxLength(to: maxCharsCount)
+    
+    titleLabel.font = viewModel.titleFont
+    topLine.backgroundColor = viewModel.topLineColor
+    bottomLine.backgroundColor = viewModel.bottomLineColor
     
     titleLabel.snp.remakeConstraints { make in
       make.top.equalToSuperview().inset(viewModel.topInset)

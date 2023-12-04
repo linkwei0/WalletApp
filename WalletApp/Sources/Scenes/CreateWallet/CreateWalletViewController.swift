@@ -52,7 +52,7 @@ class CreateWalletViewController: BaseViewController {
     createWalletFormTableView.dataSource = dataSource
     
     createWalletFormTableView.snp.makeConstraints { make in
-      make.top.leading.trailing.bottom.equalToSuperview()
+      make.edges.equalToSuperview()
     }
   }
   

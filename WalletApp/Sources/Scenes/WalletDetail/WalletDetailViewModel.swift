@@ -113,7 +113,7 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
       }
     }
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
-    let headerViewModel = OperationHeaderViewModel(title: R.string.walletDetail.monthCardViewTopMonthTitle())
+    let headerViewModel = OperationHeaderViewModel(title: R.string.walletDetail.monthCardViewTopMonthTitle(), type: .common)
     let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
     sectionViewModels.append(section)    
     }

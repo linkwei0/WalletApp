@@ -5,13 +5,14 @@
 //  Created by Артём Бацанов on 08.11.2023.
 //
 
-import Foundation
+import UIKit
 
 struct OperationListCoordinatorConfiguration {
   let operations: [OperationModel]
 }
 
 class OperationListCoordinator: ConfigurableCoordinator {
+  // MARK: - Properties
   typealias Configuration = OperationListCoordinatorConfiguration
   typealias Factory = HasOperationListFactory
   
@@ -24,6 +25,7 @@ class OperationListCoordinator: ConfigurableCoordinator {
   private let configuration: Configuration
   private let factory: Factory
   
+  // MARK: - Init
   required init(navigationController: NavigationController, appFactory: AppFactory,
                 configuration: OperationListCoordinatorConfiguration) {
     self.navigationController = navigationController
@@ -32,6 +34,7 @@ class OperationListCoordinator: ConfigurableCoordinator {
     self.factory = appFactory
   }
   
+  // MARK: - Start
   func start(_ animated: Bool) {
     showOperationsScreen(animated: animated)
   }

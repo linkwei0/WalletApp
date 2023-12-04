@@ -34,6 +34,7 @@ class CategoryPickerViewController: BaseViewController {
     super.viewDidLoad()
     setup()
     setupBindables()
+    viewModel.viewIsReady()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -168,15 +169,16 @@ class CategoryPickerViewController: BaseViewController {
   
   // MARK: - Bindables
   private func setupBindables() {
-    viewModel.operationAmountValue.bindAndFire { [weak self] amountValue in
+    viewModel.onNeedsToUpdateAmountLabel = { [weak self] amountValue in
       self?.amountLabel.text = amountValue
     }
-    viewModel.isCreateOperation.bind { [weak self] _ in
+    viewModel.onNeedsToDismissController = { [weak self] in
       self?.closeCategoryPicker()
     }
   }
 }
 
+// MARK: - UICollectionViewDataSource
 extension CategoryPickerViewController: UICollectionViewDataSource {
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     return viewModel.numberOfSections()
@@ -194,12 +196,14 @@ extension CategoryPickerViewController: UICollectionViewDataSource {
   }
 }
 
+// MARK: - UICollectionViewDelegate
 extension CategoryPickerViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     viewModel.didSelectedCategory(at: indexPath)
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension CategoryPickerViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -25,19 +25,21 @@ class OperationMonthCardViewModel {
     if operations.isEmpty {
       return .baseWhite
     }
-    return operations[0].type.isIncome ? .incomeBtnColor : .expenseColor
+    return isIncomeCard ? .incomeBtnColor : .expenseColor
   }
   
-  private var isIncomeCard: Bool
   private var amountResult: String = ""
   private var categoryResult: String = ""
   
   private let operations: [OperationModel]
+  private let isIncomeCard: Bool
+  
+  private let defaultCardAmount: String = "0"
   
   // MARK: - Init
-  init(operations: [OperationModel]) {
+  init(operations: [OperationModel], isIncome: Bool) {
     self.operations = operations
-    self.isIncomeCard = operations.first?.type == .income ? true : false
+    self.isIncomeCard = isIncome
     configureViewModelFields()
   }
   
@@ -61,9 +63,9 @@ class OperationMonthCardViewModel {
     }
 
     let incomeValue: String = maxIncomeValue != 0 ? "+" 
-    + NSDecimalNumber(decimal: maxIncomeValue).intValue.makeDigitSeparator() : "0"
-    let expenseValue: String = maxExpenseValue != 0 ? "-" 
-    + NSDecimalNumber(decimal: maxExpenseValue).intValue.makeDigitSeparator() : "0"
+    + NSDecimalNumber(decimal: maxIncomeValue).intValue.makeDigitSeparator() : defaultCardAmount
+    let expenseValue: String = maxExpenseValue != 0 ? "-"
+    + NSDecimalNumber(decimal: maxExpenseValue).intValue.makeDigitSeparator() : defaultCardAmount
     
     amountResult = isIncomeCard ? incomeValue : expenseValue
   }
