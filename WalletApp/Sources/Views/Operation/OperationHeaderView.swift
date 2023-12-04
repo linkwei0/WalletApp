@@ -9,7 +9,7 @@ import UIKit
 
 class OperationHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   // MARK: - Properties
-  private let titleLabel = Label(textStyle: .bodyBold)
+  private let titleLabel = Label(textStyle: .header2)
   private let totalValueLabel = Label(textStyle: .bodyBold)
   
   private let topLine = UIView()
