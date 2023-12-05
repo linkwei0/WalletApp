@@ -10,7 +10,7 @@ import Foundation
 class OperationListViewModel: TableViewModel {
   private enum SortedTypes: String, CaseIterable {
     case byCategory = "По категориям"
-    case byOperationType = "По операции"
+    case byOperationType = "По типу операции"
     case byValue = "По убыванию"
     case byDate = "По дате"
   }

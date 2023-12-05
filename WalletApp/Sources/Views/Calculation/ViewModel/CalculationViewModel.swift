@@ -9,6 +9,7 @@ protocol CalculationViewModelDelegate: AnyObject {
   func calculationViewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewModel, with supprtingValue: String,
                                                        sign: String)
   func calculationViewModelDidRequestToUpdateAfterEqual(_ viewModel: CalculationViewModel, with value: String)
+  func calculationViewModelDidRequestToUpdateCurrentValue(_ viewModel: CalculationViewModel, with value: String)
 }
 
 protocol CalculationViewModelCategoryDelegate: AnyObject {
@@ -87,7 +88,8 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   private func handleTappedCalculatorButton(with itemType: CalculationItemType) {
     if expressionViewModel.currentValue.value.count <= maxNumberLength {
       if itemType.isNumber {
-        expressionViewModel.currentValue.value += itemType.stringValue
+        //expressionViewModel.currentValue.value += itemType.stringValue
+        delegate?.calculationViewModelDidRequestToUpdateCurrentValue(self, with: itemType.stringValue)
       }
       
       if itemType.isSign && !expressionViewModel.currentValue.value.isEmpty {

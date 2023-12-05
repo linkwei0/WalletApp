@@ -65,4 +65,18 @@ extension ExpressionViewModel: CalculationViewModelDelegate {
     supprotingValue.value = ""
     previousSign.value = ""
   }
+  
+  func calculationViewModelDidRequestToUpdateCurrentValue(_ viewModel: CalculationViewModel, with value: String) {
+    var fullStr: String = ""
+    Array(currentValue.value).forEach { fullStr += String($0) }
+    let curFullValue = Double(fullStr + value) ?? 0
+    
+    if curFullValue.truncatingRemainder(dividingBy: 1) == 0 {
+      let strWithoutSpaces = (fullStr + value).components(separatedBy: " ").joined()
+      let actualValue = (Int(strWithoutSpaces) ?? 0).makeDigitSeparator()
+      currentValue.value = actualValue
+    } else {
+      currentValue.value += value
+    }
+  }
 }
