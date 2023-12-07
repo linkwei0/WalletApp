@@ -67,14 +67,12 @@ extension ExpressionViewModel: CalculationViewModelDelegate {
   }
   
   func calculationViewModelDidRequestToUpdateCurrentValue(_ viewModel: CalculationViewModel, with value: String) {
-    var fullStr: String = ""
-    Array(currentValue.value).forEach { fullStr += String($0) }
-    let curFullValue = Double(fullStr + value) ?? 0
+    let oldValue: String = currentValue.value.withoutSpaces()
+    let newValue = Double(oldValue + value) ?? 0
     
-    if curFullValue.truncatingRemainder(dividingBy: 1) == 0 {
-      let strWithoutSpaces = (fullStr + value).components(separatedBy: " ").joined()
-      let actualValue = (Int(strWithoutSpaces) ?? 0).makeDigitSeparator()
-      currentValue.value = actualValue
+    if newValue.truncatingRemainder(dividingBy: 1) == 0 {
+      let currenValue = Int(newValue).makeDigitSeparator()
+      currentValue.value = currenValue
     } else {
       currentValue.value += value
     }

@@ -79,6 +79,7 @@
 		AD2AA2CA2B06341300458E5E /* ModalCalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2C92B06341300458E5E /* ModalCalculationCell.swift */; };
 		AD2AA2CC2B06357F00458E5E /* CalculationModalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2CB2B06357F00458E5E /* CalculationModalViewModel.swift */; };
 		AD2AA2CE2B0651B300458E5E /* ModalCalculationCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2AA2CD2B0651B300458E5E /* ModalCalculationCellViewModel.swift */; };
+		AD3090112B20BA060004F33C /* String+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD3090102B20BA060004F33C /* String+Convert.swift */; };
 		AD39A1152AE3BC5A00A27DD2 /* IncomeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */; };
 		AD39A1172AE3BC6500A27DD2 /* ExpenseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */; };
 		AD39A1242AE65F7F00A27DD2 /* WalletRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */; };
@@ -305,6 +306,7 @@
 		AD2AA2C92B06341300458E5E /* ModalCalculationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCalculationCell.swift; sourceTree = "<group>"; };
 		AD2AA2CB2B06357F00458E5E /* CalculationModalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationModalViewModel.swift; sourceTree = "<group>"; };
 		AD2AA2CD2B0651B300458E5E /* ModalCalculationCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCalculationCellViewModel.swift; sourceTree = "<group>"; };
+		AD3090102B20BA060004F33C /* String+Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Convert.swift"; sourceTree = "<group>"; };
 		AD39A1142AE3BC5A00A27DD2 /* IncomeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeFactory.swift; sourceTree = "<group>"; };
 		AD39A1162AE3BC6500A27DD2 /* ExpenseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFactory.swift; sourceTree = "<group>"; };
 		AD39A1232AE65F7F00A27DD2 /* WalletRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRemoteDataSource.swift; sourceTree = "<group>"; };
@@ -1144,6 +1146,7 @@
 			children = (
 				6EB5696F7C04D727E7A2DF74 /* String+Subscript.swift */,
 				ADD8864B2AE2994600E24D0E /* String+Limit.swift */,
+				AD3090102B20BA060004F33C /* String+Convert.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -1572,6 +1575,7 @@
 				AD39A1172AE3BC6500A27DD2 /* ExpenseFactory.swift in Sources */,
 				AD3E6A6E2B0CA14300A210C3 /* CDBudget.swift in Sources */,
 				DF3FF8A6E7C1FC5CA770DDFF /* CoreDataStack.swift in Sources */,
+				AD3090112B20BA060004F33C /* String+Convert.swift in Sources */,
 				ADC94C872AF0E31300B182E6 /* OperationEditCellViewModel.swift in Sources */,
 				AD39A1242AE65F7F00A27DD2 /* WalletRemoteDataSource.swift in Sources */,
 				AD5A38CC2AF2321C00028127 /* ProfileRepository.swift in Sources */,

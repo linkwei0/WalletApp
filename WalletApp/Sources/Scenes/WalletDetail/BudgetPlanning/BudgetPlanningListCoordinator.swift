@@ -25,6 +25,8 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
   let navigationController: NavigationController
   let appFactory: AppFactory
   
+  private weak var createBudgetNavigation: NavigationController?
+  
   private let configuration: Configuration
   private let factory: Factory
   
@@ -47,8 +49,8 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
                                                                        style: .done, target: self,
                                                                        action: #selector(showCreateBudgetScreen))
     viewController.viewModel.delegate = self
-    viewController.viewModel.onNeedsToUpdateRightBarButton = { isEnabled in
-      viewController.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
+    viewController.viewModel.onNeedsToUpdateRightBarButton = { [weak viewController] isEnabled in
+      viewController?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
     }
     onNeedsToUpdateBudgets = { [weak viewModel = viewController.viewModel] in
       viewModel?.updateBudgets()

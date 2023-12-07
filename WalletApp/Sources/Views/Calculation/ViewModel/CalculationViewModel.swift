@@ -70,9 +70,10 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   
   func didTapCreateOperationButton() {
     guard !expressionViewModel.currentValue.value.isEmpty else { return }
+    let amount = expressionViewModel.currentValue.value.withoutSpaces()
     let operationType: OperationType = operationType == .income ? .income : .expense
     let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: "",
-                                   amount: Decimal(string: expressionViewModel.currentValue.value) ?? 0, category: "",
+                                   amount: Decimal(string: amount) ?? 0, category: "",
                                    date: Date(), type: operationType)
     calculationCategoryDelegate?.calculationViewModelDidRequestToShowCategoryView(self, wallet: wallet, operation: operation)
   }
@@ -88,7 +89,6 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   private func handleTappedCalculatorButton(with itemType: CalculationItemType) {
     if expressionViewModel.currentValue.value.count <= maxNumberLength {
       if itemType.isNumber {
-        //expressionViewModel.currentValue.value += itemType.stringValue
         delegate?.calculationViewModelDidRequestToUpdateCurrentValue(self, with: itemType.stringValue)
       }
       

@@ -23,7 +23,7 @@ class BudgetDetailViewController: BaseViewController {
   private let moreTitleLabel = Label(textStyle: .header1)
   private let nameLabel = Label(textStyle: .bodyBold)
   
-  private let viewModel: BudgetDetailViewModel
+  let viewModel: BudgetDetailViewModel
   
   // MARK: - Init
   init(viewModel: BudgetDetailViewModel) {
@@ -135,11 +135,11 @@ class BudgetDetailViewController: BaseViewController {
     dimmedView.alpha = maxDimmedAlpha
     UIView.animate(withDuration: 0.4) {
       self.dimmedView.alpha = 0
-    } completion: { _ in
-      self.dismiss(animated: false)
+    } completion: { [weak self] _ in
+      self?.viewModel.dismiss(animated: false)
     }
   }
-  
+    
   private func configureHStackView(text1: String?, text2: String?) {
     let hStackView = UIStackView()
     stackView.addArrangedSubview(hStackView)

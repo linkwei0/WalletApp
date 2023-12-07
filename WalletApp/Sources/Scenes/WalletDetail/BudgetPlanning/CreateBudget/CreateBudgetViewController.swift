@@ -34,12 +34,15 @@ class CreateBudgetViewController: BaseViewController {
     viewModel.viewIsReady()
   }
   
+  deinit {
+    viewModel.dismiss()
+  }
+  
   // MARK: - Setup
   private func setup() {
     setupTableView()
     setupCreateButton()
     setupGestureRecognizer()
-    
   }
   
   private func setupTableView() {

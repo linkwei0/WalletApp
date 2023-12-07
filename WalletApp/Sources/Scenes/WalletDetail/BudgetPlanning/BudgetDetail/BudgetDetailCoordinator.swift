@@ -40,7 +40,14 @@ class BudgetDetailCoordinator: ConfigurableCoordinator {
     let viewController = factory.budgetDetailFactory.makeModule(budget: configuration.budget, 
                                                                 currencyCode: configuration.currencyCode)
     viewController.modalPresentationStyle = .overCurrentContext
-    addPopObserver(for: viewController)
+    viewController.viewModel.delegate = self
     navigationController.present(viewController, animated: animated)
+  }
+}
+
+extension BudgetDetailCoordinator: BudgetDetailViewModelDelegate {
+  func viewModelDidRequestToDismiss(_ viewModel: BudgetDetailViewModel) {
+    navigationController.dismiss(animated: true)
+    onDidFinish?()
   }
 }

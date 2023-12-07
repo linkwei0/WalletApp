@@ -7,8 +7,14 @@
 
 import Foundation
 
+protocol BudgetDetailViewModelDelegate: AnyObject {
+  func viewModelDidRequestToDismiss(_ viewModel: BudgetDetailViewModel)
+}
+
 class BudgetDetailViewModel {
   // MARK: - Properties
+  weak var delegate: BudgetDetailViewModelDelegate?
+  
   var onNeedsUpdateView: (() -> Void)?
   
   var name: String {
@@ -60,5 +66,9 @@ class BudgetDetailViewModel {
   // MARK: - Public methods
   func viewIsReady() {
     onNeedsUpdateView?()
+  }
+  
+  func dismiss(animated: Bool) {
+    delegate?.viewModelDidRequestToDismiss(self)
   }
 }

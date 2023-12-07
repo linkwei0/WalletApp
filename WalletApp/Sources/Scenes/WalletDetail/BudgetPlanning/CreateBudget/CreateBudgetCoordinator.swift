@@ -49,10 +49,10 @@ class CreateBudgetCoordinator: ConfigurableCoordinator {
     let viewController = factory.createBudgetFactory.makeModule(with: configuration.walletID)
     viewController.viewModel.delegate = self
     viewController.navigationItem.title = R.string.walletDetail.createBudgetTitle()
-    addPopObserver(for: viewController)
     
     let createBudgetNavigation = NavigationController()
-    createBudgetNavigation.viewControllers = [viewController]
+    createBudgetNavigation.addPopObserver(for: viewController, coordinator: self)
+    createBudgetNavigation.pushViewController(viewController, animated: false)
     
     onNeedsToUpdatePeriodBudget = { [weak viewModel = viewController.viewModel] periodType in
       viewModel?.didSelectPeriodOfBudget(periodType: periodType)
@@ -83,10 +83,14 @@ extension CreateBudgetCoordinator: CreateBudgetViewModelDelegate {
   }
   
   func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel) {
-    createBudgetNavigation?.viewControllers = []
-    createBudgetNavigation = nil
-    navigationController.dismiss(animated: false)
+    navigationController.dismiss(animated: true)
     delegate?.coordinatorSuccessfullyCreateBudget(self)
+    onDidFinish?()
+  }
+  
+  func viewModelDidRequestToDismiss(_ viewModel: CreateBudgetViewModel) {
+    navigationController.dismiss(animated: false)
+    onDidFinish?()
   }
 }
 

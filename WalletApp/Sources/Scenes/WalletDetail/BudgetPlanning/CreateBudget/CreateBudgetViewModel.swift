@@ -11,6 +11,7 @@ protocol CreateBudgetViewModelDelegate: AnyObject {
   func viewModelDidRequestToShowSelectPeriodScreen(_ viewModel: CreateBudgetViewModel)
   func viewModelDidRequestToShowSelectCategoryScreen(_ viewModel: CreateBudgetViewModel)
   func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel)
+  func viewModelDidRequestToDismiss(_ viewModel: CreateBudgetViewModel)
 }
 
 class CreateBudgetViewModel: TableViewModel {
@@ -103,6 +104,10 @@ class CreateBudgetViewModel: TableViewModel {
         }
       }
     }
+  }
+  
+  func dismiss() {
+    delegate?.viewModelDidRequestToDismiss(self)
   }
   
   // MARK: - Private methods
