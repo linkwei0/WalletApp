@@ -61,8 +61,7 @@ class WalletDetailViewController: BaseViewController {
     view.addSubview(tableView)
     tableView.separatorStyle = .none
     tableView.showsVerticalScrollIndicator = false
-    tableView.rowHeight = 190
-//    tableView.rowHeight = UITableView.automaticDimension
+    tableView.rowHeight = UITableView.automaticDimension
     tableView.backgroundColor = .clear
     tableView.register(WalletDetailCell.self, forCellReuseIdentifier: WalletDetailCell.reuseIdentifiable)
     tableView.register(OperationLastSectionFooterView.self,

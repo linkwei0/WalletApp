@@ -19,6 +19,7 @@ class OperationDefaultFooterViewModel {
   }
 }
 
+// MARK: - TableFooterViewModel
 extension OperationDefaultFooterViewModel: TableFooterViewModel {
   var tableReuseIdentifier: String {
     return String(describing: OperationDefaultFooterView.reuseIdentifiable)

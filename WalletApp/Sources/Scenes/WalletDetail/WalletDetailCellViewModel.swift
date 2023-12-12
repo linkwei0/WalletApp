@@ -40,11 +40,13 @@ class WalletDetailCellViewModel: TableViewModel {
       cellViewModel.delegate = self
       return cellViewModel
     }
-    let section = TableSectionViewModel()
+    let footerViewModel = OperationDefaultFooterViewModel()
+    footerViewModel.delegate = self
+    let section = TableSectionViewModel(footerViewModel: footerViewModel)
     section.append(cellViewModels: cellViewModels)
     return [section]
   }
-  
+    
   private var amountOfDateOperations: Int {
     var amount: Decimal = 0
     operations.forEach { amount += $0.amount }
@@ -63,8 +65,8 @@ class WalletDetailCellViewModel: TableViewModel {
   }
   
   // MARK: - Public methods
-  func didTapShowMoreButton() {
-    delegate?.cellViewModelDidRequestToShowMoreOperations(self)
+  func numberOfRowsInSection(section: Int) -> Int {
+    return sectionViewModels[section].cellViewModels.count
   }
 }
 
@@ -79,5 +81,12 @@ extension WalletDetailCellViewModel: TableCellViewModel {
 extension WalletDetailCellViewModel: OperationCellViewModelDelegate {
   func operationCellViewModel(_ viewModel: OperationCellViewModel, didSelect operation: OperationModel) {
     delegate?.cellViewModelDidSelect(self, didSelect: operation)
+  }
+}
+
+// MARK: - OperationDefaultFooterViewModelDelegate
+extension WalletDetailCellViewModel: OperationDefaultFooterViewModelDelegate {
+  func defaultFooterViewModelDidTapMoreOperations(_ viewModel: OperationDefaultFooterViewModel) {
+    delegate?.cellViewModelDidRequestToShowMoreOperations(self)
   }
 }

@@ -9,6 +9,12 @@ import UIKit
 
 class WalletDetailCell: UITableViewCell, TableCell {
   // MARK: - Properties
+  private var viewModel: WalletDetailCellViewModel? {
+    didSet {
+      reloadTableView()
+    }
+  }
+
   private let containerView = UIView()
   private let stackView = UIStackView()
   private let separatorLine = UIView()
@@ -21,11 +27,8 @@ class WalletDetailCell: UITableViewCell, TableCell {
   
   private let dataSource = TableViewDataSource()
   
-  private var viewModel: WalletDetailCellViewModel? {
-    didSet {
-      reloadTableView()
-    }
-  }
+  private let minimumContainerViewHeight = 90
+  private let rowHeight: CGFloat = 44
   
   // MARK: - Init
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,6 +49,13 @@ class WalletDetailCell: UITableViewCell, TableCell {
     dateTypeLabel.text = viewModel.date
     amountOfDayLabel.text = viewModel.amountOfDay
     showMoreBottomButton.setTitle(viewModel.moreButtonTitle, for: .normal)
+    
+    let numberOfRows = viewModel.numberOfRowsInSection(section: 0)
+    containerView.snp.remakeConstraints { make in
+      make.top.bottom.equalToSuperview().inset(4)
+      make.leading.trailing.equalToSuperview().inset(16)
+      make.height.equalTo(minimumContainerViewHeight + (numberOfRows * Int(rowHeight))).priority(999)
+    }
   }
   
   // MARK: - Setup
@@ -58,10 +68,8 @@ class WalletDetailCell: UITableViewCell, TableCell {
     setupHeaderLabel()
     setupAmountLabel()
     setupTableView()
-    setupBottomStackView()
-    setupMoreBottomButton()
   }
-  
+    
   private func setupBackground() {
     backgroundColor = .clear
     selectionStyle = .none
@@ -75,6 +83,7 @@ class WalletDetailCell: UITableViewCell, TableCell {
     containerView.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview().inset(4)
       make.leading.trailing.equalToSuperview().inset(16)
+      make.height.equalTo(minimumContainerViewHeight)
     }
   }
   
@@ -83,7 +92,8 @@ class WalletDetailCell: UITableViewCell, TableCell {
     stackView.axis = .vertical
     stackView.spacing = 4
     stackView.snp.makeConstraints { make in
-      make.top.bottom.equalToSuperview().inset(6)
+      make.top.equalToSuperview().inset(6)
+      make.height.equalTo(40)
       make.leading.trailing.equalToSuperview().inset(12)
     }
   }
@@ -99,12 +109,14 @@ class WalletDetailCell: UITableViewCell, TableCell {
     headerStackView.addArrangedSubview(dateTypeLabel)
     dateTypeLabel.textColor = .baseBlack
     dateTypeLabel.textAlignment = .left
+    dateTypeLabel.numberOfLines = 0
   }
   
   private func setupAmountLabel() {
     headerStackView.addArrangedSubview(amountOfDayLabel)
     amountOfDayLabel.textColor = .baseBlack
     amountOfDayLabel.textAlignment = .right
+    amountOfDayLabel.numberOfLines = 0
   }
   
   private func setupSeparatorLine() {
@@ -116,39 +128,37 @@ class WalletDetailCell: UITableViewCell, TableCell {
   }
   
   private func setupTableView() {
-    stackView.addArrangedSubview(operationsTableView)
-    operationsTableView.rowHeight = 25
-    operationsTableView.separatorStyle = .none
+    containerView.addSubview(operationsTableView)
+    operationsTableView.rowHeight = rowHeight
     operationsTableView.backgroundColor = .clear
+    operationsTableView.separatorStyle = .none
     operationsTableView.showsVerticalScrollIndicator = false
-    operationsTableView.isScrollEnabled = false
     operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
-  }
-  
-  private func setupBottomStackView() {
-    stackView.addArrangedSubview(bottomStackView)
-    bottomStackView.axis = .horizontal
-    bottomStackView.spacing = 2
-    bottomStackView.distribution = .equalCentering
-    let spacerView = UIView()
-    bottomStackView.addArrangedSubview(spacerView)
-  }
-  
-  private func setupMoreBottomButton() {
-    bottomStackView.addArrangedSubview(showMoreBottomButton)
-    showMoreBottomButton.titleLabel?.textAlignment = .right
-    showMoreBottomButton.tintColor = .accent
-    showMoreBottomButton.addTarget(self, action: #selector(didTapMoreButton), for: .touchUpInside)
-  }
-  
-  // MARK: - Actions
-  @objc private func didTapMoreButton() {
-    viewModel?.didTapShowMoreButton()
+    operationsTableView.snp.makeConstraints { make in
+      make.top.equalTo(stackView.snp.bottom).offset(2)
+      make.leading.trailing.equalToSuperview()
+      make.bottom.equalToSuperview().offset(16)
+    }
+    
+    operationsTableView.register(OperationDefaultFooterView.self, 
+                                 forHeaderFooterViewReuseIdentifier: OperationDefaultFooterView.reuseIdentifiable)
+    dataSource.delegate = self
   }
   
   // MARK: - Private methods
   private func reloadTableView() {
     guard let viewModel = viewModel else { return }
     dataSource.setup(tableView: operationsTableView, viewModel: viewModel)
+  }
+}
+
+// MARK: - TableViewDataSourceDelegate
+extension WalletDetailCell: TableViewDataSourceDelegate {
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
+    return 0
+  }
+  
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
+    return 35
   }
 }

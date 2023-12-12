@@ -11,8 +11,10 @@ class OperationItemView: UIView, Configurable {
   // MARK: - Properties
   private let titleLabel = Label(textStyle: .body)
   private let categoryImageView = UIImageView()
-  private let amountLabel = Label(textStyle: .footnoteBold)
+  private let amountLabel = Label(textStyle: .body)
   private let stackView = UIStackView()
+  
+  private let maxCharsShowing: Int = 7
   
   // MARK: - Init
   init() {
@@ -28,7 +30,7 @@ class OperationItemView: UIView, Configurable {
   // MARK: - Configure
   func configure(with viewModel: OperationCellViewModel) {
     titleLabel.text = viewModel.name
-    amountLabel.text = (viewModel.isIncome ? "+" : "-") + viewModel.amount.maxLength(to: 7)
+    amountLabel.text = (viewModel.isIncome ? "+" : "-") + viewModel.amount.maxLength(to: maxCharsShowing)
     amountLabel.textColor = viewModel.isIncome ? .incomeBtnColor : .expenseColor
     categoryImageView.image = viewModel.category.image
     categoryImageView.tintColor = viewModel.isIncome ? .incomeBtnColor : .expenseColor
@@ -81,7 +83,7 @@ class OperationItemView: UIView, Configurable {
     }
     
     categoryImageView.snp.makeConstraints { make in
-      make.height.equalTo(20)
+      make.height.equalTo(25)
     }
   }
 }

@@ -10,9 +10,8 @@ import UIKit
 class OperationDefaultFooterView: UITableViewHeaderFooterView, TableFooterView {
   // MARK: - Properties
   private let containerView = UIView()
-  private let moreOperationsLabel = Label(textStyle: .footnote)
+  private let moreOperationsLabel = Label(textStyle: .body)
   private let arrowImageView = UIImageView()
-  private let stackView = UIStackView()
   
   private var viewModel: OperationDefaultFooterViewModel?
   
@@ -27,11 +26,6 @@ class OperationDefaultFooterView: UITableViewHeaderFooterView, TableFooterView {
     setup()
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    containerView.applyGradient(startColor: .accentDark, endColor: .accentFaded)
-  }
-  
   // MARK: - Configure
   func configure(with viewModel: TableFooterViewModel) {
     guard let viewModel = viewModel as? OperationDefaultFooterViewModel else { return }
@@ -41,7 +35,6 @@ class OperationDefaultFooterView: UITableViewHeaderFooterView, TableFooterView {
   // MARK: - Setup
   private func setup() {
     setupContainerView()
-    setupStackView()
     setupMoreOperationsLabel()
     setupArrowImageView()
   }
@@ -51,34 +44,31 @@ class OperationDefaultFooterView: UITableViewHeaderFooterView, TableFooterView {
     let tap = UITapGestureRecognizer(target: self, action: #selector(didTapMoreOperations))
     containerView.addGestureRecognizer(tap)
     containerView.snp.makeConstraints { make in
-      make.trailing.equalToSuperview().inset(12)
-      make.bottom.equalToSuperview().inset(8)
+      make.trailing.bottom.equalToSuperview()
       make.height.equalTo(30)
-      make.width.equalTo(80)
+      make.width.equalTo(160)
     }
   }
   
   private func setupMoreOperationsLabel() {
+    containerView.addSubview(moreOperationsLabel)
     moreOperationsLabel.text = R.string.walletDetail.defaultFooterViewTitle()
-    moreOperationsLabel.textColor = .baseWhite
-    moreOperationsLabel.textAlignment = .center
+    moreOperationsLabel.textColor = .accent
+    moreOperationsLabel.textAlignment = .right
+    moreOperationsLabel.snp.makeConstraints { make in
+      make.top.bottom.leading.equalToSuperview().inset(2)
+    }
   }
   
   private func setupArrowImageView() {
+    containerView.addSubview(arrowImageView)
     arrowImageView.image = R.image.redArrow()?.withRenderingMode(.alwaysTemplate)
-    arrowImageView.tintColor = .baseWhite
+    arrowImageView.tintColor = .accent
     arrowImageView.contentMode = .scaleAspectFit
-  }
-  
-  private func setupStackView() {
-    containerView.addSubview(stackView)
-    stackView.axis = .horizontal
-    stackView.spacing = 2
-    stackView.distribution = .equalCentering
-    [moreOperationsLabel, arrowImageView].forEach { stackView.addArrangedSubview($0) }
-    stackView.snp.makeConstraints { make in
-      make.top.bottom.equalToSuperview().inset(8)
-      make.leading.trailing.equalToSuperview().inset(10)
+    arrowImageView.snp.makeConstraints { make in
+      make.leading.equalTo(moreOperationsLabel.snp.trailing).offset(4)
+      make.centerY.equalTo(moreOperationsLabel.snp.centerY).offset(2)
+      make.size.equalTo(10)
     }
   }
   
