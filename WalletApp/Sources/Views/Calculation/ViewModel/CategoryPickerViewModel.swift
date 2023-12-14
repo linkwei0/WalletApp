@@ -132,8 +132,7 @@ class CategoryPickerViewModel {
       switch result {
       case .success(let budget):
         if let budget = budget {
-          self.delegate?.viewModelDidRequestToNotificationUser(self, 
-                                                               title: R.string.categoryPicker.categoryPickerNotificationTitle(),
+          self.delegate?.viewModelDidRequestToNotificationUser(self, title: R.string.categoryPicker.categoryPickerNotificationTitle(),
                                                                subtitle: "\("'\(budget.name)'")" +
                                                                R.string.categoryPicker.categoryPickerNotificationSubtitle())
         }

@@ -9,11 +9,14 @@ import Foundation
 
 protocol BudgetCellViewModelDelegate: AnyObject {
   func cellViewModelDidTap(_ viewModel: BudgetCellViewModel, budget: BudgetModel)
+  func cellViewMdodelDidRequestToDeleteBudget(_ viewModel: BudgetCellViewModel, budget: BudgetModel)
 }
 
 class BudgetCellViewModel {
   // MARK: - Properties
   weak var delegate: BudgetCellViewModelDelegate?
+  
+  var onNeedsToUpdateDeletionMode: (() -> Void)?
   
   var period: String {
     if let beginDate = budget.beginPeriod, let endDate = budget.endPeriod,
@@ -46,6 +49,8 @@ class BudgetCellViewModel {
     return currency.title
   }
   
+  private var deletionModeIsActive = false
+  
   private let numberOfDaysInWeek = 7
   private let maxPercent: CGFloat = 1
   private let budgetOutOfBounds: String = "0"
@@ -58,6 +63,15 @@ class BudgetCellViewModel {
     self.budget = budget
     self.currencyCode = currencyCode
   }
+  
+  // MARK: - Public methods
+  func didTapDeleteButton() {
+    delegate?.cellViewMdodelDidRequestToDeleteBudget(self, budget: budget)
+  }
+  
+  func deletionMode(isActive: Bool) {
+    deletionModeIsActive = isActive
+  }
 }
 
 // MARK: - TableCellViewModel
@@ -67,6 +81,11 @@ extension BudgetCellViewModel: TableCellViewModel {
   }
   
   func select() {
-    delegate?.cellViewModelDidTap(self, budget: budget)
+    if !deletionModeIsActive {
+      delegate?.cellViewModelDidTap(self, budget: budget)
+    } else {
+      onNeedsToUpdateDeletionMode?()
+      deletionMode(isActive: false)
+    }
   }
 }

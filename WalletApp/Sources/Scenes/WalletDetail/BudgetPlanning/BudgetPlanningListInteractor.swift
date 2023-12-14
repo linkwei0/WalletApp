@@ -9,6 +9,7 @@ import Foundation
 
 protocol BudgetPlanningListInteractorProtocol {
   func getBudgets(for walletID: Int, completion: @escaping (Result<[BudgetModel], Error>) -> Void)
+  func deleteBudget(with budgetID: Int, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 class BudgetPlanningListInteractor: BudgetPlanningListInteractorProtocol {
@@ -20,5 +21,9 @@ class BudgetPlanningListInteractor: BudgetPlanningListInteractorProtocol {
   
   func getBudgets(for walletID: Int, completion: @escaping (Result<[BudgetModel], Error>) -> Void) {
     budgetUseCase.getBudgets(for: walletID, completion: completion)
+  }
+  
+  func deleteBudget(with budgetID: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    budgetUseCase.deleteBudget(with: budgetID, completion: completion)
   }
 }

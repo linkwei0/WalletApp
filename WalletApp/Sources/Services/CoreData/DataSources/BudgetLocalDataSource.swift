@@ -40,11 +40,16 @@ class BudgetLocalDataSource: BudgetLocalDataSourceProtocol {
                     completion: @escaping (Result<BudgetModel?, Error>) -> Void) {
     let budgets = coreDataStack.getObjectByValue(columnName: #keyPath(CDBudget.walletID), value: String(walletID),
                                                  type: CDBudget.self, context: coreDataStack.writeContext)
-    
     var budgetModel: BudgetModel?
-    budgets.filter { $0.isNotifiable && $0.category == operation.category }.forEach { budget in
-      if let maxAmount = budget.maxAmount?.decimalValue, let currentAmount = budget.currentAmount?.decimalValue {
-        if maxAmount <= currentAmount { budgetModel = budget.makeDomain() }
+    budgets.filter { $0.category == operation.category }.forEach { budget in
+      let prevValue = budget.currentAmount?.decimalValue ?? 0
+      let newValue = prevValue + operation.amount
+      budget.currentAmount = NSDecimalNumber(decimal: newValue)
+
+      if let maxAmount = budget.maxAmount?.decimalValue, budget.isNotifiable {
+        if maxAmount <= newValue {
+          budgetModel = budget.makeDomain()
+        }
       }
     }
     
@@ -53,6 +58,15 @@ class BudgetLocalDataSource: BudgetLocalDataSourceProtocol {
       completion(.success(budgetModel))
     } catch {
       print("Failed to save operation in budgets with error \(error)")
+      completion(.failure(error))
+    }
+  }
+  
+  func deleteBudget(with budgetID: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    do {
+      try coreDataStack.deleteObjectByValue(columnName: "id", value: String(budgetID), type: CDBudget.self)
+      completion(.success(Void()))
+    } catch {
       completion(.failure(error))
     }
   }

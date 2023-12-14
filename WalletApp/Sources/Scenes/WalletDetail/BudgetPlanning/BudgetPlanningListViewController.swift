@@ -54,29 +54,25 @@ class BudgetPlanningListViewController: UIViewController {
   }
   
   // MARK: - Private methods
-  private func configureBudgetsTableView(with state: SimpleViewState<BudgetModel>) {
-    switch state {
-    case .initial:
-      break
-    case .populated:
-      print("Hide empty budgets view")
-    case .empty:
-      print("Show empty budgets view")
-    case .error(let error):
-      print("Show error budgets view")
-    }
-  }
-  
   private func reloadTableView() {
     tableView.reloadData()
   }
   
+  private func updateTableView(with indexPath: IndexPath) {
+    tableView.insertRows(at: [indexPath], with: .automatic)
+    tableView.reloadRows(at: [indexPath], with: .automatic)
+  }
+  
   // MARK: - Bindables
   private func setupBindables() {
-    viewModel.viewState.bind { [weak self] state in
+    viewModel.onNeedsToUpdateTableView = { [weak self] in
       DispatchQueue.main.async {
-        self?.configureBudgetsTableView(with: state)
         self?.reloadTableView()
+      }
+    }
+    viewModel.onNeedsToUpdateRowAtTableView = { [weak self] indexPath in
+      DispatchQueue.main.async {
+        self?.updateTableView(with: indexPath)
       }
     }
   }

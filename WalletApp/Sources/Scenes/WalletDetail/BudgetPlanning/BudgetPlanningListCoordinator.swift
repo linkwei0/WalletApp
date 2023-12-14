@@ -17,7 +17,7 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
   typealias Factory = HasBudgetPlanningFactory
   
   // MARK: - Properties
-  var onNeedsToUpdateBudgets: (() -> Void)?
+  var onNeedsToUpdateBudgets: ((BudgetModel) -> Void)?
   
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
@@ -52,8 +52,8 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
     viewController.viewModel.onNeedsToUpdateRightBarButton = { [weak viewController] isEnabled in
       viewController?.navigationItem.rightBarButtonItem?.isEnabled = isEnabled
     }
-    onNeedsToUpdateBudgets = { [weak viewModel = viewController.viewModel] in
-      viewModel?.updateBudgets()
+    onNeedsToUpdateBudgets = { [weak viewModel = viewController.viewModel] budget in
+      viewModel?.updateBudgets(with: budget)
     }
     addPopObserver(for: viewController)
     viewController.title = R.string.walletDetail.budgetPlanningTitle()
@@ -68,8 +68,8 @@ class BudgetPlanningListCoordinator: ConfigurableCoordinator {
 
 // MARK: - CreateBudgetCoordinatorDelegate
 extension BudgetPlanningListCoordinator: CreateBudgetCoordinatorDelegate {
-  func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator) {
-    onNeedsToUpdateBudgets?()
+  func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator, budget: BudgetModel) {
+    onNeedsToUpdateBudgets?(budget)
   }
 }
 

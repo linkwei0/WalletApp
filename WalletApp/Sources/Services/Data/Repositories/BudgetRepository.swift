@@ -22,7 +22,12 @@ final class BudgetRepository: BudgetUseCaseProtocol {
     localDataSource.getBudgets(for: walletID, completion: completion)
   }
   
-  func updateBudget(for walletID: Int, with operation: OperationModel, completion: @escaping (Result<BudgetModel?, Error>) -> Void) {
+  func updateBudget(for walletID: Int, with operation: OperationModel, 
+                    completion: @escaping (Result<BudgetModel?, Error>) -> Void) {
     localDataSource.updateBudget(for: walletID, with: operation, completion: completion)
+  }
+  
+  func deleteBudget(with budgetID: Int, completion: @escaping (Result<Void, Error>) -> Void) {
+    localDataSource.deleteBudget(with: budgetID, completion: completion)
   }
 }

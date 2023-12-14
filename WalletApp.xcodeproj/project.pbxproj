@@ -217,6 +217,7 @@
 		ADD8864A2AE1964700E24D0E /* BalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD886492AE1964700E24D0E /* BalanceModel.swift */; };
 		ADD8864C2AE2994600E24D0E /* String+Limit.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD8864B2AE2994600E24D0E /* String+Limit.swift */; };
 		ADDB01B82ADD35F200C12357 /* WalletsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDB01B72ADD35F200C12357 /* WalletsInteractor.swift */; };
+		ADF42C472B2B1F50004E074C /* TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF42C462B2B1F50004E074C /* TimeInterval.swift */; };
 		ADFF476A2B0E35C800A6E3DA /* DateFormatter+Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFF47692B0E35C800A6E3DA /* DateFormatter+Format.swift */; };
 		B1FEFBAD11A5578408F37AE5 /* ConfigurableCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E046F72F3D4F344D89C2C95 /* ConfigurableCoordinator.swift */; };
 		B4EBAB75CD93D7E3562362A6 /* CommonButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0521F503D27AC55ECB0F07C1 /* CommonButtonStyle.swift */; };
@@ -444,6 +445,7 @@
 		ADD886492AE1964700E24D0E /* BalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceModel.swift; sourceTree = "<group>"; };
 		ADD8864B2AE2994600E24D0E /* String+Limit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Limit.swift"; sourceTree = "<group>"; };
 		ADDB01B72ADD35F200C12357 /* WalletsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletsInteractor.swift; sourceTree = "<group>"; };
+		ADF42C462B2B1F50004E074C /* TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeInterval.swift; sourceTree = "<group>"; };
 		ADFF47692B0E35C800A6E3DA /* DateFormatter+Format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Format.swift"; sourceTree = "<group>"; };
 		AE650F183FCA63026D61EEB6 /* IncomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeCoordinator.swift; sourceTree = "<group>"; };
 		AE8E93D4714EB8B3645F5ABE /* NavigationBarHiding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarHiding.swift; sourceTree = "<group>"; };
@@ -1212,6 +1214,7 @@
 				AD3E6A512B0B6FCF00A210C3 /* Int+StringSeparator.swift */,
 				ADFF47692B0E35C800A6E3DA /* DateFormatter+Format.swift */,
 				AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */,
+				ADF42C462B2B1F50004E074C /* TimeInterval.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1447,7 +1450,6 @@
 		};
 		6B2956569DFAE78BD7104CDC /* R.Swift */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -1551,6 +1553,7 @@
 				AD39A1282AE6608B00A27DD2 /* WalletClient.swift in Sources */,
 				AD5A38C62AF2311800028127 /* ProfileRemoteDataSource.swift in Sources */,
 				AD2AA2B82B04FDCB00458E5E /* BudgetPlanningListViewController.swift in Sources */,
+				ADF42C472B2B1F50004E074C /* TimeInterval.swift in Sources */,
 				91D4D38840085B3742C96D93 /* CalculationViewModel.swift in Sources */,
 				AD4FF02D2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift in Sources */,
 				5BFAFF00AA40762B10C217B0 /* CommonButton.swift in Sources */,

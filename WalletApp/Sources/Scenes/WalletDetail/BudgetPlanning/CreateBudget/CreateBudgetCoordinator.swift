@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CreateBudgetCoordinatorDelegate: AnyObject {
-  func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator)
+  func coordinatorSuccessfullyCreateBudget(_ coordinator: CreateBudgetCoordinator, budget: BudgetModel)
 }
 
 class CreateBudgetCoordinator: ConfigurableCoordinator {
@@ -82,9 +82,9 @@ extension CreateBudgetCoordinator: CreateBudgetViewModelDelegate {
     createBudgetNavigation?.pushViewController(selectCategoryVC, animated: true)
   }
   
-  func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel) {
+  func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel, budget: BudgetModel) {
     navigationController.dismiss(animated: true)
-    delegate?.coordinatorSuccessfullyCreateBudget(self)
+    delegate?.coordinatorSuccessfullyCreateBudget(self, budget: budget)
     onDidFinish?()
   }
   

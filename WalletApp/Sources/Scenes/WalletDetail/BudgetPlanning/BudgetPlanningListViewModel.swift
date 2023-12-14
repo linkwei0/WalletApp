@@ -15,27 +15,16 @@ class BudgetPlanningListViewModel: TableViewModel, SimpleViewStateProccessable {
   // MARK: - Properties
   weak var delegate: BudgetPlanningListViewModelDelegate?
   
+  var onNeedsToUpdateTableView: (() -> Void)?
   var onNeedsToUpdateRightBarButton: ((Bool) -> Void)?
+  var onNeedsToUpdateRowAtTableView: ((IndexPath) -> Void)?
   
-  var sectionViewModels: [TableSectionViewModel] {
-    let cellViewModels = budgets.map { budget in
-      let cellViewModel = BudgetCellViewModel(budget, currencyCode: currency.code)
-      cellViewModel.delegate = self
-      return cellViewModel
-    }
-    let headerViewModel = BudgetPlanninHeaderViewModel(title: "\(budgets.count)/\(maxBudgetsForWallet)")
-    let section = TableSectionViewModel(headerViewModel: headerViewModel)
-    section.append(cellViewModels: cellViewModels)
-    return [section]
-  }
+  private(set) var sectionViewModels: [TableSectionViewModel] = []
   
-  var budgets: [BudgetModel] {
-    return viewState.value.currentEntities
-  }
-    
-  private(set) var viewState: Bindable<SimpleViewState<BudgetModel>> = Bindable(.initial)
+  private var budgets: [BudgetModel] = []
   
   private let maxBudgetsForWallet: Int = 3
+  private let indexFirstSection: Int = 0
   
   private let interactor: BudgetPlanningListInteractorProtocol
   private let walletID: Int
@@ -53,19 +42,56 @@ class BudgetPlanningListViewModel: TableViewModel, SimpleViewStateProccessable {
     fetchBudgets()
   }
   
-  func updateBudgets() {
-    fetchBudgets()
+  func updateBudgets(with budget: BudgetModel) {
+    configureNewCellViewModelAndUpdate(budget)
   }
-    
+  
   // MARK: - Private methods
   private func fetchBudgets() {
     interactor.getBudgets(for: walletID) { result in
       switch result {
       case .success(let budgets):
-        self.viewState.value = self.processResult(budgets)
+        self.budgets = budgets
         self.onNeedsToUpdateRightBarButton?(budgets.count <= self.maxBudgetsForWallet)
+        self.configureSectionViewModels(budgets: budgets)
       case .failure(let error):
         print("Failed to get budgets with error - \(error)")
+      }
+    }
+  }
+  
+  private func configureSectionViewModels(budgets: [BudgetModel]) {
+    sectionViewModels.removeAll()
+    let cellViewModels = budgets.map { budget in
+      let cellViewModel = BudgetCellViewModel(budget, currencyCode: currency.code)
+      cellViewModel.delegate = self
+      return cellViewModel
+    }
+    let headerViewModel = BudgetPlanninHeaderViewModel(title: "\(budgets.count)/\(maxBudgetsForWallet)")
+    let section = TableSectionViewModel(headerViewModel: headerViewModel)
+    if !cellViewModels.isEmpty {
+      section.append(cellViewModels: cellViewModels)
+      sectionViewModels.append(section)
+    }
+    onNeedsToUpdateTableView?()
+  }
+  
+  private func configureNewCellViewModelAndUpdate(_ budget: BudgetModel) {
+    let cellViewModel = BudgetCellViewModel(budget, currencyCode: currency.code)
+    cellViewModel.delegate = self
+    sectionViewModels[indexFirstSection].append(cellViewModel)
+    let rowIndex = sectionViewModels[indexFirstSection].cellViewModels.count - 1
+    let indexPath = IndexPath(row: rowIndex, section: indexFirstSection)
+    onNeedsToUpdateRowAtTableView?(indexPath)
+  }
+  
+  private func removeBudget(budget: BudgetModel) {
+    interactor.deleteBudget(with: budget.id) { result in
+      switch result {
+      case .success:
+        self.fetchBudgets()
+      case .failure(let error):
+        print("Failed to delete budget with error \(error)")
       }
     }
   }
@@ -75,5 +101,9 @@ class BudgetPlanningListViewModel: TableViewModel, SimpleViewStateProccessable {
 extension BudgetPlanningListViewModel: BudgetCellViewModelDelegate {
   func cellViewModelDidTap(_ viewModel: BudgetCellViewModel, budget: BudgetModel) {
     delegate?.viewModelDidRequestToShowBudgetDetail(self, budget: budget)
+  }
+  
+  func cellViewMdodelDidRequestToDeleteBudget(_ viewModel: BudgetCellViewModel, budget: BudgetModel) {
+    removeBudget(budget: budget)
   }
 }

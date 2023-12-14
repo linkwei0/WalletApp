@@ -10,7 +10,7 @@ import Foundation
 protocol CreateBudgetViewModelDelegate: AnyObject {
   func viewModelDidRequestToShowSelectPeriodScreen(_ viewModel: CreateBudgetViewModel)
   func viewModelDidRequestToShowSelectCategoryScreen(_ viewModel: CreateBudgetViewModel)
-  func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel)
+  func viewModelSuccessfullyCreateBudget(_ viewModel: CreateBudgetViewModel, budget: BudgetModel)
   func viewModelDidRequestToDismiss(_ viewModel: CreateBudgetViewModel)
 }
 
@@ -98,7 +98,7 @@ class CreateBudgetViewModel: TableViewModel {
       interactor.saveBudget(for: walletID, budget: budgetModel) { result in
         switch result {
         case .success:
-          self.delegate?.viewModelSuccessfullyCreateBudget(self)
+          self.delegate?.viewModelSuccessfullyCreateBudget(self, budget: self.budgetModel)
         case .failure(let error):
           print("Failed to save budget with error - \(error)")
         }

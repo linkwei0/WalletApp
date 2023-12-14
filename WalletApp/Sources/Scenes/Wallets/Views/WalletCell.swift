@@ -36,13 +36,11 @@ class WalletCell: UITableViewCell {
     setupBackground()
     setupNameLabel()
     setupCurrencyLabel()
-    
   }
   
   private func setupBackground() {
     selectionStyle = .none
     let longTap = UILongPressGestureRecognizer(target: self, action: #selector(didLongTap(_:)))
-//    longTap.numberOfTapsRequired = 1
     longTap.minimumPressDuration = 1
     longTap.delaysTouchesBegan = true
     contentView.addGestureRecognizer(longTap)
