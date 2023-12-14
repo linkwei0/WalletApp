@@ -207,12 +207,12 @@ extension CategoryPickerViewController: UICollectionViewDelegate {
 extension CategoryPickerViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                       sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let size = (self.view.frame.width - 110) / 3
+    let size = (self.view.frame.width - 60) / 3
     return CGSize(width: size, height: size)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
                       insetForSectionAt section: Int) -> UIEdgeInsets {
-    return UIEdgeInsets(top: 10, left: 24, bottom: 10, right: 24)
+    return UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)
   }
 }

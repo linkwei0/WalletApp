@@ -15,7 +15,7 @@ class OperationMonthCardView: UIView {
   private let categoryLabel = Label(textStyle: .bodyBold)
   private let amountLabel = Label(textStyle: .footnoteBold)
   
-  private let maxCharsCount: Int = 8
+  private let maxCharsCount: Int = 16
   
   // MARK: - Init
   override init(frame: CGRect) {

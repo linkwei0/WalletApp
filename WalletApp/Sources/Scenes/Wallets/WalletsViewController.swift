@@ -18,7 +18,6 @@ class WalletsViewController: BaseViewController {
   let viewModel: WalletsViewModel
   
   // MARK: - Init
-  
   init(viewModel: WalletsViewModel) {
     self.viewModel = viewModel
     self.balanceView = BalanceView(viewModel: viewModel.balanceViewModel)
@@ -31,7 +30,6 @@ class WalletsViewController: BaseViewController {
   }
   
   // MARK: - Lifecycle
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
@@ -40,21 +38,11 @@ class WalletsViewController: BaseViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)    
-    balanceView.alpha = 0.0
-    currencyView.alpha = 0.0
-    addWalletButton.alpha = 0.0
-    navigationController?.navigationBar.alpha = 0.0
-    UIView.animate(withDuration: 0.45, delay: 0.0, options: .curveLinear) {
-      self.navigationController?.navigationBar.alpha = 1.0
-      self.balanceView.alpha = 1.0
-      self.currencyView.alpha = 1.0
-      self.addWalletButton.alpha = 1.0
-    }
+    super.viewWillAppear(animated)
+    showBalanceAnimation()
   }
   
   // MARK: - Setups
-  
   private func setup() {
     setupBalanceView()
     setupCurrenciesView()
@@ -65,7 +53,6 @@ class WalletsViewController: BaseViewController {
   
   private func setupBalanceView() {
     view.addSubview(balanceView)
-    
     balanceView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
       make.height.equalTo(115)
@@ -125,6 +112,18 @@ class WalletsViewController: BaseViewController {
   }
   
   // MARK: - Private methods
+  private func showBalanceAnimation() {
+    self.balanceView.alpha = 0
+    let anim = CABasicAnimation(keyPath: Constants.balancePositionYAnimation)
+    anim.duration = 0.4
+    anim.fromValue = -50
+    anim.toValue = 115 / 2
+    balanceView.layer.add(anim, forKey: Constants.balanceNameAnimation)
+    UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseOut) {
+      self.balanceView.alpha = 1
+    }
+  }
+  
   private func reloadTableView() {
     dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
     walletsTableView.dataSource = dataSource
@@ -199,7 +198,8 @@ extension WalletsViewController: UITableViewDelegate {
       self.didSwipeToEdit(at: indexPath)
       handler(true)
     }
-    let deleteAction = UIContextualAction(style: .destructive, title: R.string.wallets.walletsActionDeleteTitle()) { _, _, handler in
+    let deleteAction = UIContextualAction(style: .destructive, 
+                                          title: R.string.wallets.walletsActionDeleteTitle()) { _, _, handler in
       self.didSwipeToDelete(at: indexPath)
       handler(true)
     }
@@ -214,4 +214,10 @@ extension WalletsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
     return .none
   }
+}
+
+// MARK: - Constants
+private extension Constants {
+  static let balanceNameAnimation = "showTop"
+  static let balancePositionYAnimation = "position.y"
 }

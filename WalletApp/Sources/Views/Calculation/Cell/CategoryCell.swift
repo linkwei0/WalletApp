@@ -9,7 +9,7 @@ class CategoryCell: UICollectionViewCell {
   // MARK: - Properties
   private let containerView = UIView()
   private let categoryImageView = UIImageView()
-  private let titleLabel = Label(textStyle: .footnoteBold)
+  private let titleLabel = Label(textStyle: .body)
   
   // MARK: - Init
   override init(frame: CGRect) {
@@ -38,8 +38,8 @@ class CategoryCell: UICollectionViewCell {
   
   private func setupContainerView() {
     contentView.addSubview(containerView)
-    containerView.layer.cornerRadius = 16
-    containerView.layer.borderWidth = 1.0
+    containerView.layer.cornerRadius = 12
+    containerView.layer.borderWidth = 0.7
     containerView.backgroundColor = .accent
     containerView.layer.borderColor = UIColor.baseBlack.cgColor
     containerView.snp.makeConstraints { make in
@@ -53,16 +53,18 @@ class CategoryCell: UICollectionViewCell {
     categoryImageView.contentMode = .scaleAspectFit
     categoryImageView.tintColor = .baseWhite
     categoryImageView.snp.makeConstraints { make in
-      make.edges.equalToSuperview().inset(12)
+      make.top.equalToSuperview().inset(12)
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(55)
     }
   }
   
   private func setupTitleLabel() {
     containerView.addSubview(titleLabel)
-    titleLabel.textColor = .baseBlack
+    titleLabel.textColor = .baseWhite
     titleLabel.textAlignment = .center
     titleLabel.snp.makeConstraints { make in
-      make.top.equalTo(categoryImageView.snp.bottom).offset(-4)
+      make.top.equalTo(categoryImageView.snp.bottom).offset(12)
       make.leading.trailing.equalToSuperview().inset(10)
     }
   }

@@ -88,7 +88,8 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
       case .success(let operations):
         let sortedOperations = operations.sorted { $0.date > $1.date }
         self.viewState.value = self.processResult(sortedOperations)
-        let operationsByDate = self.configureOperationsByDate(sortedOperations)
+        let visibleOperations = Array(sortedOperations.prefix(4))
+        let operationsByDate = self.configureOperationsByDate(visibleOperations)
         self.configureSections(operationsByDate)
         self.configureBalanceModel(with: sortedOperations)
         if operations.isEmpty {
