@@ -913,8 +913,8 @@
 			isa = PBXGroup;
 			children = (
 				AD402D242AFB785700CBAA03 /* OperationListCoordinator.swift */,
-				AD402D262AFB785F00CBAA03 /* OperationListViewModel.swift */,
 				AD402D282AFB786800CBAA03 /* OperationListViewController.swift */,
+				AD402D262AFB785F00CBAA03 /* OperationListViewModel.swift */,
 				AD402D2A2AFB7DEE00CBAA03 /* OperationDateHeaderView.swift */,
 				AD402D2C2AFB7DF900CBAA03 /* OperationDateHeaderViewModel.swift */,
 			);

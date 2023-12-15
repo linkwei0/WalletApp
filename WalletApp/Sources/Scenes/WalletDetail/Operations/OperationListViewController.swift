@@ -56,7 +56,8 @@ class OperationListViewController: BaseViewController {
   
   private func setupTableView() {
     view.addSubview(tableView)
-    tableView.rowHeight = 50
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = 44
     tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     tableView.separatorColor = .shade3
     tableView.showsVerticalScrollIndicator = true

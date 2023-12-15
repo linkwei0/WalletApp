@@ -26,6 +26,7 @@ class OperationDateHeaderView: UITableViewHeaderFooterView, TableHeaderView {
   func configure(with viewModel: TableHeaderViewModel) {
     guard let viewModel = viewModel as? OperationDateHeaderViewModel else { return }
     operationDateLabel.text = viewModel.date
+    operationDateLabel.font = viewModel.titleFont
   }
   
   // MARK: - Setup
@@ -39,7 +40,7 @@ class OperationDateHeaderView: UITableViewHeaderFooterView, TableHeaderView {
     operationDateLabel.textColor = .baseBlack
     operationDateLabel.snp.makeConstraints { make in
       make.leading.equalToSuperview().inset(16)
-      make.top.bottom.equalToSuperview().inset(8)
+      make.centerY.equalToSuperview()
     }
   }
 }

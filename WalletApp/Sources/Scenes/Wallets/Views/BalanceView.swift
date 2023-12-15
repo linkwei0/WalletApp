@@ -71,7 +71,7 @@ class BalanceView: UIView {
     addSubview(stackView)
     
     stackView.snp.makeConstraints { make in
-      make.top.equalToSuperview()
+      make.bottom.equalToSuperview().inset(8)
       make.leading.trailing.equalToSuperview().inset(16)
     }
   }

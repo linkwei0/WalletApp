@@ -5,7 +5,7 @@
 
 import UIKit
 
-class WalletsViewController: BaseViewController {
+class WalletsViewController: BaseViewController, NavigationBarHiding {
   // MARK: - Properties
   private var dataSource: SimpleTableViewDataSoruce<WalletCellViewModelProtocol>?
   
@@ -55,7 +55,7 @@ class WalletsViewController: BaseViewController {
     view.addSubview(balanceView)
     balanceView.snp.makeConstraints { make in
       make.top.leading.trailing.equalToSuperview()
-      make.height.equalTo(115)
+      make.height.equalTo(215)
     }
   }
   
@@ -115,11 +115,11 @@ class WalletsViewController: BaseViewController {
   private func showBalanceAnimation() {
     self.balanceView.alpha = 0
     let anim = CABasicAnimation(keyPath: Constants.balancePositionYAnimation)
-    anim.duration = 0.4
-    anim.fromValue = -50
-    anim.toValue = 115 / 2
+    anim.duration = 0.6
+    anim.fromValue = -215
+    anim.toValue = 215 / 2
     balanceView.layer.add(anim, forKey: Constants.balanceNameAnimation)
-    UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseOut) {
+    UIView.animate(withDuration: 0.85, delay: 0, options: .curveEaseOut) {
       self.balanceView.alpha = 1
     }
   }

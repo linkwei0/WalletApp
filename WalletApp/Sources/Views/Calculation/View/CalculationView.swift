@@ -38,10 +38,15 @@ class CalculationView: UIView {
   
   // MARK: - Setup
   private func setup() {
+    setupBackground()
     setupContainerView()
     setupAddButton()
     setupCollectionView()
     setupExpressionView()
+  }
+  
+  private func setupBackground() {
+    backgroundColor = .clear
   }
   
   private func setupContainerView() {

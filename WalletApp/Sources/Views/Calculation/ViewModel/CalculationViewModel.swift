@@ -6,10 +6,13 @@
 import Foundation
 
 protocol CalculationViewModelDelegate: AnyObject {
-  func calculationViewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewModel, with supprtingValue: String,
-                                                       sign: String)
-  func calculationViewModelDidRequestToUpdateAfterEqual(_ viewModel: CalculationViewModel, with value: String)
-  func calculationViewModelDidRequestToUpdateCurrentValue(_ viewModel: CalculationViewModel, with value: String)
+  func viewModelDidRequestToUpdateAllValues(_ viewModel: CalculationViewModel, currentValue: String,
+                                            prevValue: String, sign: String)
+  func viewModelDidRequestToShowResult(_ viewModel: CalculationViewModel, _ result: String)
+  func viewModelDidRequestToAddNewNumber(_ viewModel: CalculationViewModel, with value: String)
+  func viewModelDidRequestToUpdateFractionalStatus(_ viewModel: CalculationViewModel, isFractional: Bool)
+  func viewModelDidRequestToDropLastNumber(_ viewModel: CalculationViewModel)
+  func viewModelDidRequestToToggleSign(_ viewModel: CalculationViewModel, _ currentValue: String)
 }
 
 protocol CalculationViewModelCategoryDelegate: AnyObject {
@@ -69,8 +72,8 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   }
   
   func didTapCreateOperationButton() {
-    guard !expressionViewModel.currentValue.value.isEmpty else { return }
-    let amount = expressionViewModel.currentValue.value.withoutSpaces()
+    guard !expressionViewModel.currentValue.isEmpty else { return }
+    let amount = expressionViewModel.currentValue
     let operationType: OperationType = operationType == .income ? .income : .expense
     let operation = OperationModel(id: UUID().hashValue, walletId: wallet.id, name: "",
                                    amount: Decimal(string: amount) ?? 0, category: "",
@@ -79,22 +82,21 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   }
   
   func updateOperations() {
-    expressionViewModel.currentValue.value = ""
-    expressionViewModel.supprotingValue.value = ""
-    expressionViewModel.previousSign.value = ""
+    resetAllValues()
     expressionViewModel.updateOperations()
   }
   
   // MARK: - Private methods
   private func handleTappedCalculatorButton(with itemType: CalculationItemType) {
-    if expressionViewModel.currentValue.value.count <= maxNumberLength {
+    if expressionViewModel.currentValue.count <= maxNumberLength {
       if itemType.isNumber {
-        delegate?.calculationViewModelDidRequestToUpdateCurrentValue(self, with: itemType.stringValue)
+        delegate?.viewModelDidRequestToAddNewNumber(self, with: itemType.stringValue)
       }
       
-      if itemType.isSign && !expressionViewModel.currentValue.value.isEmpty {
+      if itemType.isSign && !expressionViewModel.currentValue.isEmpty {
         let resultValue = handleTappedArithmeticSign()
-        delegate?.calculationViewModelDidRequestToUpdateAllValues(self, with: resultValue, sign: itemType.stringValue)
+        delegate?.viewModelDidRequestToUpdateAllValues(self, currentValue: "", prevValue: resultValue,
+                                                       sign: itemType.stringValue)
       }
       
       if itemType.isPoint {
@@ -110,9 +112,9 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   
   private func handleTappedArithmeticSign() -> String {
     var resultValue: Double
-    let supportingValue = Double(expressionViewModel.supprotingValue.value) ?? 0
-    let currentValue = Double(expressionViewModel.currentValue.value) ?? 0
-    let sign = Sign(rawValue: expressionViewModel.previousSign.value) ?? .plus
+    let supportingValue = Double(expressionViewModel.previousValue) ?? 0
+    let currentValue = Double(expressionViewModel.currentValue) ?? 0
+    let sign = Sign(rawValue: expressionViewModel.sign) ?? .plus
     
     switch sign {
     case .plus:
@@ -129,8 +131,10 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   }
   
   private func handleTappedPointSign() {
-    if !expressionViewModel.currentValue.value.contains(CalculationItemType.point.stringValue) {
-      expressionViewModel.currentValue.value += expressionViewModel.currentValue.value.isEmpty ? "0." : "."
+    if !expressionViewModel.currentValue.contains(CalculationItemType.point.stringValue) {
+      delegate?.viewModelDidRequestToUpdateFractionalStatus(self, isFractional: true)
+      let value = expressionViewModel.currentValue.isEmpty ? "0." : "."
+      delegate?.viewModelDidRequestToAddNewNumber(self, with: value)
     }
   }
   
@@ -138,38 +142,36 @@ final class CalculationViewModel: SimpleViewStateProccessable {
     guard let resultValue = Double(resultValue) else { return }
     
     if resultValue.truncatingRemainder(dividingBy: 1) == 0 {
-      delegate?.calculationViewModelDidRequestToUpdateAfterEqual(self, with: String(Int(resultValue)))
+      delegate?.viewModelDidRequestToShowResult(self, String(Int(resultValue)))
     } else {
       let resultRoundedNumber = round(resultValue * 1000) / 1000
-      delegate?.calculationViewModelDidRequestToUpdateAfterEqual(self, with: String(resultRoundedNumber))
+      delegate?.viewModelDidRequestToShowResult(self, String(resultRoundedNumber))
     }
   }
   
   private func resetAllValues() {
-    expressionViewModel.currentValue.value = ""
-    expressionViewModel.supprotingValue.value = ""
-    expressionViewModel.previousSign.value = ""
+    delegate?.viewModelDidRequestToUpdateAllValues(self, currentValue: "", prevValue: "", sign: "")
   }
   
   private func backToPreviousValue() {
-    if !expressionViewModel.currentValue.value.isEmpty {
-      expressionViewModel.currentValue.value = String(expressionViewModel.currentValue.value.dropLast())
+    if !expressionViewModel.currentValue.isEmpty {
+      delegate?.viewModelDidRequestToDropLastNumber(self)
     }
   }
   
   private func toggleSignOfCurrentValue() {
-    if !expressionViewModel.currentValue.value.isEmpty {
-      expressionViewModel.currentValue.value = String(-(Int(expressionViewModel.currentValue.value) ?? 0))
+    if !expressionViewModel.currentValue.isEmpty {
+      delegate?.viewModelDidRequestToToggleSign(self, String(-(Int(expressionViewModel.currentValue) ?? 0)))
     }
   }
   
   private func handleTappedPercent() {
-    if !expressionViewModel.currentValue.value.isEmpty && !expressionViewModel.supprotingValue.value.isEmpty {
-      if expressionViewModel.previousSign.value == CalculationItemType.multiply.stringValue {
-        let percentValue = (Double(expressionViewModel.currentValue.value) ?? 0) / 100
-        let resultValue = (Double(expressionViewModel.supprotingValue.value) ?? 0) * percentValue
+    if !expressionViewModel.currentValue.isEmpty && !expressionViewModel.previousValue.isEmpty {
+      if expressionViewModel.sign == CalculationItemType.multiply.stringValue {
+        let percentValue = (Double(expressionViewModel.currentValue) ?? 0) / 100
+        let resultValue = (Double(expressionViewModel.previousValue) ?? 0) * percentValue
         resetAllValues()
-        expressionViewModel.currentValue.value = String(round(resultValue * 1000) / 1000)
+        delegate?.viewModelDidRequestToShowResult(self, String(round(resultValue * 1000) / 1000))
       }
     }
   }

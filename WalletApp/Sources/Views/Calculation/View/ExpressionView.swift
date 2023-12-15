@@ -14,15 +14,15 @@ protocol CustomCalculationViewDelegate: AnyObject {
 class ExpressionView: UIView {
   // MARK: - Propeties
   weak var delegate: CustomCalculationViewDelegate?
-  
-  private var dataSource: SimpleTableViewDataSoruce<OperationCellViewModelProtocol>?
-  
+    
   private let stackView = UIStackView()
-  private let operationsTableView = UITableView()
+  private let tableView = UITableView(frame: .zero, style: .plain)
   private let containerView = UIView()
-  private let currentSignLabel = Label(textStyle: .header1)
-  private let previousValueLabel = Label(textStyle: .header1)
+  private let signLabel = Label(textStyle: .header1)
+  private let previousValueLabel = Label(textStyle: .header2)
   private let currentValueLabel = Label(textStyle: .header1)
+  
+  private let dataSource = TableViewDataSource()
   
   private let collectionType: CollectionType
   
@@ -35,6 +35,7 @@ class ExpressionView: UIView {
     super.init(frame: .zero)
     setup()
     bindToViewModel()
+    viewModel.getOperations()
   }
   
   required init?(coder: NSCoder) {
@@ -43,63 +44,73 @@ class ExpressionView: UIView {
   
   // MARK: - Setup
   private func setup() {
-    setupStackView()
+    setupBackground()
     setupOperationsTableView()
     setupContainerView()
+    setupStackView()
     setupCurrentSignLabel()
     setupSupportingValueLabel()
     setupCurrentValueLabel()
   }
   
-  private func setupStackView() {
-    addSubview(stackView)
-    stackView.axis = .vertical
-    stackView.spacing = 8
-    stackView.distribution = .fill
-    stackView.snp.makeConstraints { make in
-      make.top.bottom.equalToSuperview()
-      make.leading.trailing.equalToSuperview().inset(16)
-    }
+  private func setupBackground() {
+    backgroundColor = .clear
   }
   
   private func setupOperationsTableView() {
-    stackView.addArrangedSubview(operationsTableView)
-    operationsTableView.separatorStyle = .none
-    operationsTableView.rowHeight = 30
-    operationsTableView.backgroundColor = .baseWhite
-    operationsTableView.showsVerticalScrollIndicator = false
-    operationsTableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
+    addSubview(tableView)
+    tableView.separatorStyle = .none
+    tableView.rowHeight = 30
+    tableView.showsVerticalScrollIndicator = true
+    tableView.backgroundColor = .clear
+    tableView.register(OperationDateHeaderView.self,
+                       forHeaderFooterViewReuseIdentifier: OperationDateHeaderView.reuseIdentifiable)
+    tableView.register(OperationItemCell.self, forCellReuseIdentifier: OperationItemCell.reuseIdentifiable)
+    tableView.snp.makeConstraints { make in
+      make.top.equalToSuperview()
+      make.leading.trailing.equalToSuperview()
+      make.height.equalTo(300)
+    }
+    dataSource.setup(tableView: tableView, viewModel: viewModel)
+    dataSource.delegate = self
   }
   
   private func setupContainerView() {
-    stackView.addArrangedSubview(containerView)
+    addSubview(containerView)
     containerView.backgroundColor = .shade2
-    containerView.layer.cornerRadius = 16
+    containerView.layer.cornerRadius = 12
     containerView.snp.makeConstraints { make in
-      make.height.equalTo(60)
+      make.top.equalTo(tableView.snp.bottom).inset(4)
+      make.leading.trailing.equalToSuperview().inset(12)
+      make.bottom.equalToSuperview()
+    }
+  }
+  
+  private func setupStackView() {
+    containerView.addSubview(stackView)
+    stackView.axis = .horizontal
+    stackView.spacing = 4
+    stackView.distribution = .fillProportionally
+    stackView.snp.makeConstraints { make in
+      make.top.bottom.equalToSuperview()
+      make.leading.equalToSuperview().inset(8)
+      make.width.equalTo(120)
     }
   }
   
   private func setupCurrentSignLabel() {
-    containerView.addSubview(currentSignLabel)
-    currentSignLabel.textColor = .baseWhite
-    currentSignLabel.snp.makeConstraints { make in
-      make.top.bottom.equalToSuperview().inset(12)
-      make.leading.equalToSuperview().inset(8)
-      make.width.equalTo(17)
+    stackView.addArrangedSubview(signLabel)
+    signLabel.textColor = .baseWhite
+    signLabel.snp.makeConstraints { make in
+      make.centerY.equalToSuperview()
     }
   }
   
   private func setupSupportingValueLabel() {
-    containerView.addSubview(previousValueLabel)
+    stackView.addArrangedSubview(previousValueLabel)
     previousValueLabel.textColor = .baseWhite
     previousValueLabel.textAlignment = .left
     previousValueLabel.adjustsFontSizeToFitWidth = true
-    previousValueLabel.snp.makeConstraints { make in
-      make.leading.equalTo(currentSignLabel.snp.trailing).offset(6)
-      make.centerY.equalTo(currentSignLabel.snp.centerY)
-      make.width.equalToSuperview().multipliedBy(0.350)
-    }
   }
   
   private func setupCurrentValueLabel() {
@@ -110,52 +121,46 @@ class ExpressionView: UIView {
     currentValueLabel.clipsToBounds = true
     currentValueLabel.adjustsFontSizeToFitWidth = true
     currentValueLabel.snp.makeConstraints { make in
-      make.leading.equalTo(previousValueLabel.snp.trailing).inset(8)
-      make.centerY.equalTo(previousValueLabel.snp.centerY)
+      make.top.bottom.equalToSuperview().inset(4)
       make.trailing.equalToSuperview().inset(8)
     }
   }
   
   // MARK: - Private methods
   private func reloadTableView() {
-    dataSource = SimpleTableViewDataSoruce.make(for: viewModel.cellViewModels)
-    operationsTableView.dataSource = dataSource
-    operationsTableView.reloadData()
-  }
-  
-  private func configureOperationsTableView(with state: SimpleViewState<OperationModel>) {
-    switch state {
-    case .initial, .populated:
-      print("Hide empty view")
-    case .empty:
-      print("Present empty view")
-    case .error(let error):
-      print("Present error \(error)")
-    }
+    tableView.reloadData()
   }
   
   // MARK: - Bindables
   private func bindToViewModel() {
-    viewModel.currentValue.bind { [weak self] value in
+    viewModel.visibleCurrentValue.bind { [weak self] value in
       self?.currentValueLabel.text = value
     }
     
-    viewModel.supprotingValue.bind { [weak self] value in
+    viewModel.visiblePreviousValue.bind { [weak self] value in
       self?.previousValueLabel.text = value
     }
     
-    viewModel.previousSign.bind { [weak self] sign in
-      self?.currentSignLabel.text = sign
+    viewModel.visibleSign.bind { [weak self] sign in
+      self?.signLabel.text = sign
     }
     
-    viewModel.viewState.bind { [weak self] state in
+    viewModel.onNeedsToUpdateTableView = { [weak self] in
       guard let strongSelf = self else { return }
       DispatchQueue.main.async {
-        strongSelf.configureOperationsTableView(with: state)
         strongSelf.reloadTableView()
       }
     }
-    
-    viewModel.getOperations()
+  }
+}
+
+// MARK: - TableViewDataSourceDelegate
+extension ExpressionView: TableViewDataSourceDelegate {
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForHeaderInSection section: Int) -> CGFloat? {
+    return 30
+  }
+  
+  func tableViewDataSource(_ dateSource: TableViewDataSource, heightForFooterInSection section: Int) -> CGFloat? {
+    return 0
   }
 }

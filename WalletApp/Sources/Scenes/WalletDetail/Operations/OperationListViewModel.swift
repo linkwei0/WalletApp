@@ -102,7 +102,7 @@ class OperationListViewModel: TableViewModel {
     sectionViewModels.removeAll()
 
     let sortedByValue = operations.sorted { $0.amount > $1.amount }
-    var itemViewModels = sortedByValue.map { OperationCellViewModel($0) }
+    let itemViewModels = sortedByValue.map { OperationCellViewModel($0) }
     let headerViewModel = OperationHeaderViewModel(title: title, type: .list)
     let section = TableSectionViewModel(headerViewModel: headerViewModel)
     section.append(cellViewModels: itemViewModels)
@@ -130,7 +130,7 @@ class OperationListViewModel: TableViewModel {
     for dateInterval in sortedDateInterval {
       if operationsDateDict[dateInterval]?.isEmpty == false {
         let headerOperationDate = dateFormatter.string(from: dateInterval.start)
-        let headerViewModel = OperationDateHeaderViewModel(operationDate: headerOperationDate)
+        let headerViewModel = OperationDateHeaderViewModel(operationDate: headerOperationDate, type: .list)
         let section = TableSectionViewModel(headerViewModel: headerViewModel)
         section.append(cellViewModels: operationsDateDict[dateInterval] ?? [])
         sectionViewModels.append(section)
