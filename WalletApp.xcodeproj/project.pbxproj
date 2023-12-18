@@ -61,6 +61,9 @@
 		A9B31DC0B29D02EC3FE48703 /* WalletBottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0994BB84148B654BE1EE0 /* WalletBottomBarView.swift */; };
 		AA9AC91BEFAD8DB545955CEA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = C85B8CCA73C953BB0821C0EB /* Lottie */; };
 		AC3F89E71386C343F10A4591 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA05C2D338700AFB5DAC703C /* IncomeViewModel.swift */; };
+		AD0C94172B2CAF820079AEC6 /* CardDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C94162B2CAF820079AEC6 /* CardDetailViewModel.swift */; };
+		AD0C94192B2CAF900079AEC6 /* CardDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C94182B2CAF900079AEC6 /* CardDetailViewController.swift */; };
+		AD0C941B2B2CAFAD0079AEC6 /* CardDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0C941A2B2CAFAD0079AEC6 /* CardDetailCoordinator.swift */; };
 		AD175B4E2AF7809C008684F5 /* UseCaseProviderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD175B4D2AF7809C008684F5 /* UseCaseProviderFactory.swift */; };
 		AD1B71992AF6539A0078761C /* WalletDetail.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B71982AF6539A0078761C /* WalletDetail.strings */; };
 		AD1B719B2AF653C60078761C /* Balance.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD1B719A2AF653C60078761C /* Balance.strings */; };
@@ -289,6 +292,9 @@
 		A1D56D9F10D3F9A524EBE012 /* UIView+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Corners.swift"; sourceTree = "<group>"; };
 		AB32AF9179FCCBFFC1CA3C44 /* CalculationItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculationItemType.swift; sourceTree = "<group>"; };
 		AC2D02BBC63D962FAE5A32E0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AD0C94162B2CAF820079AEC6 /* CardDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewModel.swift; sourceTree = "<group>"; };
+		AD0C94182B2CAF900079AEC6 /* CardDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailViewController.swift; sourceTree = "<group>"; };
+		AD0C941A2B2CAFAD0079AEC6 /* CardDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailCoordinator.swift; sourceTree = "<group>"; };
 		AD175B4D2AF7809C008684F5 /* UseCaseProviderFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseProviderFactory.swift; sourceTree = "<group>"; };
 		AD1B71982AF6539A0078761C /* WalletDetail.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = WalletDetail.strings; sourceTree = "<group>"; };
 		AD1B719A2AF653C60078761C /* Balance.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Balance.strings; sourceTree = "<group>"; };
@@ -791,6 +797,16 @@
 			path = Income;
 			sourceTree = "<group>";
 		};
+		AD0C94152B2CAF6F0079AEC6 /* CardDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AD0C94162B2CAF820079AEC6 /* CardDetailViewModel.swift */,
+				AD0C94182B2CAF900079AEC6 /* CardDetailViewController.swift */,
+				AD0C941A2B2CAFAD0079AEC6 /* CardDetailCoordinator.swift */,
+			);
+			path = CardDetail;
+			sourceTree = "<group>";
+		};
 		AD2AA2B42B04FD9B00458E5E /* BudgetPlanning */ = {
 			isa = PBXGroup;
 			children = (
@@ -892,9 +908,10 @@
 		AD402D1D2AFA366800CBAA03 /* MonthCardFooterView */ = {
 			isa = PBXGroup;
 			children = (
-				AD402D132AFA20FD00CBAA03 /* OperationMonthCardView.swift */,
+				AD0C94152B2CAF6F0079AEC6 /* CardDetail */,
 				AD402D152AFA238B00CBAA03 /* OperationLastSectionFooterView.swift */,
 				AD402D172AFA255400CBAA03 /* OperationLastSectionFooterViewModel.swift */,
+				AD402D132AFA20FD00CBAA03 /* OperationMonthCardView.swift */,
 				AD402D1B2AFA365800CBAA03 /* OperationMonthCardViewModel.swift */,
 			);
 			path = MonthCardFooterView;
@@ -1506,6 +1523,7 @@
 				AD39A1262AE6604000A27DD2 /* WalletClientProtocol.swift in Sources */,
 				AD752C192AE671780092A43D /* RemoteDataSource.swift in Sources */,
 				AD4FF0312B0F4A99002ED608 /* Decimal+Compare.swift in Sources */,
+				AD0C94172B2CAF820079AEC6 /* CardDetailViewModel.swift in Sources */,
 				5C5D3F68141ED5E3E2B33308 /* WalletBottomBarItemType.swift in Sources */,
 				099623F224408A81BF4BD06D /* WalletBottomBarItemView.swift in Sources */,
 				AD5A38D92AF2353D00028127 /* LocalDataSourceProtocol.swift in Sources */,
@@ -1519,11 +1537,13 @@
 				AD752C252AE7B4AA0092A43D /* CategoryPickerViewModel.swift in Sources */,
 				F27BBB51673E69BE2F80A194 /* BaseViewController.swift in Sources */,
 				ADC94C782AEFAEB400B182E6 /* ProfileViewModel.swift in Sources */,
+				AD0C94192B2CAF900079AEC6 /* CardDetailViewController.swift in Sources */,
 				AD402D322AFB9CD700CBAA03 /* WalletEditViewController.swift in Sources */,
 				AD4FF0402B0FA504002ED608 /* NotificationSwitcherCell.swift in Sources */,
 				ADD886462AE1595300E24D0E /* WalletDetailFactory.swift in Sources */,
 				ADC94C692AEE5A0F00B182E6 /* OperationHeaderViewModel.swift in Sources */,
 				AD3E6A5D2B0B7CE400A210C3 /* SelectPeriodCellViewModel.swift in Sources */,
+				AD0C941B2B2CAFAD0079AEC6 /* CardDetailCoordinator.swift in Sources */,
 				4281EFA05D73916291BC9362 /* Bindable.swift in Sources */,
 				AD5A38C82AF2318000028127 /* ProfileClientProtocol.swift in Sources */,
 				ADC94C6D2AEE635D00B182E6 /* OperationDateType.swift in Sources */,

@@ -112,22 +112,27 @@ final class CalculationViewModel: SimpleViewStateProccessable {
   
   private func handleTappedArithmeticSign() -> String {
     var resultValue: Double
-    let supportingValue = Double(expressionViewModel.previousValue) ?? 0
+    let prevValue = Double(expressionViewModel.previousValue) ?? 0
     let currentValue = Double(expressionViewModel.currentValue) ?? 0
     let sign = Sign(rawValue: expressionViewModel.sign) ?? .plus
     
     switch sign {
     case .plus:
-      resultValue = supportingValue + currentValue
+      resultValue = prevValue + currentValue
     case .minus:
-      resultValue = supportingValue - currentValue
+      resultValue = prevValue - currentValue
     case .multiply:
-      resultValue = supportingValue * currentValue
+      resultValue = prevValue * currentValue
     case .divide:
-      resultValue = supportingValue / currentValue
+      resultValue = prevValue / currentValue
     }
     
-    return String(resultValue)
+    if resultValue.truncatingRemainder(dividingBy: 1) == 0 {
+      return String(Int(resultValue))
+    } else {
+      let resultRoundedNumber = round(resultValue * 1000) / 1000
+      return String(resultRoundedNumber)
+    }
   }
   
   private func handleTappedPointSign() {

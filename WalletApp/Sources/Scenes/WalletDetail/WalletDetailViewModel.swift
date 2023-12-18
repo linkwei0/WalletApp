@@ -12,6 +12,8 @@ protocol WalletDetailViewModelDelegate: AnyObject {
   func walletDetailViewModelDidRequestToShowOperationEdit(_ viewModel: WalletDetailViewModel,
                                                           wallet: WalletModel, operation: OperationModel)
   func walletDetailViewModelDidRequestToShowOperationsScreen(_ viewModel: WalletDetailViewModel, operations: [OperationModel])
+  func walletDetailViewModelDidRequestToShowCardOperationList(_ viewModel: WalletDetailViewModel, categoryName: String,
+                                                              operations: [OperationModel])
 }
 
 class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
@@ -114,6 +116,7 @@ class WalletDetailViewModel: TableViewModel, SimpleViewStateProccessable {
       }
     }
     let footerViewModel = OperationLastSectionFooterViewModel(operations: operations)
+    footerViewModel.delegate = self
     let headerViewModel = OperationHeaderViewModel(title: R.string.walletDetail.monthCardViewTopMonthTitle(), type: .common)
     let section = TableSectionViewModel(headerViewModel: headerViewModel, footerViewModel: footerViewModel)
     sectionViewModels.append(section)    
@@ -160,6 +163,17 @@ struct OperationSectionContainer {
   var opertions: [OperationModel]
 }
 
+// MARK: - OperationLastSectionFooterViewModelDelegate
+extension WalletDetailViewModel: OperationLastSectionFooterViewModelDelegate {
+  func footerViewModelDidRequestToShowOperationList(_ viewModel: OperationLastSectionFooterViewModel, categoryName: String,
+                                                    operations: [OperationModel]) {
+    let topCategoryCardOperations = operations.filter { $0.category == categoryName }
+    delegate?.walletDetailViewModelDidRequestToShowCardOperationList(self, categoryName: categoryName, 
+                                                                     operations: topCategoryCardOperations)
+  }
+}
+
+// MARK: - Constants
 private extension Constants {
   static let emptyImage = "exclamationmark.circle.fill"
 }

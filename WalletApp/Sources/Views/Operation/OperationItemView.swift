@@ -14,7 +14,7 @@ class OperationItemView: UIView, Configurable {
   private let amountLabel = Label(textStyle: .body)
   private let stackView = UIStackView()
   
-  private let maxCharsShowing: Int = 7
+  private let maxCharsShowing: Int = 10
   
   // MARK: - Init
   init() {
@@ -58,6 +58,7 @@ class OperationItemView: UIView, Configurable {
   private func setupCategoryImageView() {
     categoryImageView.contentMode = .scaleAspectFit
     categoryImageView.tintColor = .shade2
+    categoryImageView.clipsToBounds = true
     categoryImageView.snp.makeConstraints { make in
       make.top.bottom.equalToSuperview()
     }
@@ -78,12 +79,8 @@ class OperationItemView: UIView, Configurable {
     [titleLabel, categoryImageView, amountLabel].forEach { stackView.addArrangedSubview($0) }
     
     stackView.snp.makeConstraints { make in
-      make.centerY.equalToSuperview()
+      make.top.bottom.equalToSuperview().inset(4)
       make.leading.trailing.equalToSuperview().inset(16)
-    }
-    
-    categoryImageView.snp.makeConstraints { make in
-      make.height.equalTo(25)
     }
   }
 }

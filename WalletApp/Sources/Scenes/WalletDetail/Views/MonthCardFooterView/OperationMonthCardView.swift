@@ -17,6 +17,8 @@ class OperationMonthCardView: UIView {
   
   private let maxCharsCount: Int = 16
   
+  private var viewModel: OperationMonthCardViewModel?
+  
   // MARK: - Init
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -30,6 +32,7 @@ class OperationMonthCardView: UIView {
   
   // MARK: - Configure
   func configure(with viewModel: OperationMonthCardViewModel?) {
+    self.viewModel = viewModel
     titleLabel.text = R.string.walletDetail.monthCardViewCategory() + " " + (viewModel?.title ?? "")
     titleLabel.textColor = viewModel?.titleTextColor
     categoryLabel.text = viewModel?.category
@@ -38,11 +41,17 @@ class OperationMonthCardView: UIView {
   
   // MARK: - Setup
   private func setup() {
+    setupBackground()
     setupContainer()
     setupTitleLabel()
     setupCategoryLabel()
     setupAmountLabel()
     setupStackView()
+  }
+  
+  private func setupBackground() {
+    let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapCardView))
+    self.addGestureRecognizer(tapGestureRecognizer)
   }
   
   private func setupContainer() {
@@ -88,5 +97,10 @@ class OperationMonthCardView: UIView {
       make.bottom.equalToSuperview().inset(8)
       make.leading.trailing.equalToSuperview().inset(10)
     }
+  }
+  
+  // MARK: - Actions
+  @objc private func didTapCardView() {
+    viewModel?.didTapCardView()
   }
 }

@@ -7,8 +7,15 @@
 
 import Foundation
 
+protocol OperationLastSectionFooterViewModelDelegate: AnyObject {
+  func footerViewModelDidRequestToShowOperationList(_ viewModel: OperationLastSectionFooterViewModel, categoryName: String,
+                                                    operations: [OperationModel])
+}
+
 class OperationLastSectionFooterViewModel {
   // MARK: - Properties
+  weak var delegate: OperationLastSectionFooterViewModelDelegate?
+  
   private(set) var incomeCardViewModel: OperationMonthCardViewModel?
   private(set) var expenseCardViewModel: OperationMonthCardViewModel?
   
@@ -37,7 +44,9 @@ class OperationLastSectionFooterViewModel {
     }
     
     incomeCardViewModel = OperationMonthCardViewModel(operations: incomeOperations, isIncome: true)
+    incomeCardViewModel?.delegate = self
     expenseCardViewModel = OperationMonthCardViewModel(operations: expenseOperations, isIncome: false)
+    expenseCardViewModel?.delegate = self
   }
 }
 
@@ -45,5 +54,13 @@ class OperationLastSectionFooterViewModel {
 extension OperationLastSectionFooterViewModel: TableFooterViewModel {
   var tableReuseIdentifier: String {
     OperationLastSectionFooterView.reuseIdentifiable
+  }
+}
+
+// MARK: - OperationMonthCardViewModelDelegate
+extension OperationLastSectionFooterViewModel: OperationMonthCardViewModelDelegate {
+  func cardViewModelDidRequestToShowOperationList(_ viewModel: OperationMonthCardViewModel, categoryName: String,
+                                                  operations: [OperationModel]) {
+    delegate?.footerViewModelDidRequestToShowOperationList(self, categoryName: categoryName, operations: operations)
   }
 }

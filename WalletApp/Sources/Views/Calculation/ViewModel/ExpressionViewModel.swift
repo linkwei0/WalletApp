@@ -5,7 +5,7 @@
 
 import Foundation
 
-final class ExpressionViewModel: TableViewModel { //: SimpleViewStateProccessable {
+final class ExpressionViewModel: TableViewModel {
   // MARK: - Properties
   var onNeedsToUpdateTableView: (() -> Void)?
   

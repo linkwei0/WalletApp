@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol OperationMonthCardViewModelDelegate: AnyObject {
+  func cardViewModelDidRequestToShowOperationList(_ viewModel: OperationMonthCardViewModel, categoryName: String,
+                                                  operations: [OperationModel])
+}
+
 class OperationMonthCardViewModel {
   // MARK: - Properties
+  weak var delegate: OperationMonthCardViewModelDelegate?
+  
   var title: String {
     return isIncomeCard ? R.string.walletDetail.monthCardViewTitleIncome() : R.string.walletDetail.monthCardViewTitleExpense()
   }
@@ -41,6 +48,11 @@ class OperationMonthCardViewModel {
     self.operations = operations
     self.isIncomeCard = isIncome
     configureViewModelFields()
+  }
+  
+  // MARK: - Public methods
+  func didTapCardView() {
+    delegate?.cardViewModelDidRequestToShowOperationList(self, categoryName: category, operations: operations)
   }
   
   // MARK: - Private methods

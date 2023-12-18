@@ -58,11 +58,6 @@ class WalletDetailCoordinator: ConfigurableCoordinator {
                                                                        action: #selector(showBudgetPlanning))
     addPopObserver(for: walletDetailVC)
     navigationController.pushViewController(walletDetailVC, animated: animated)
-//    let useCaseProviderFactory = appFactory.useCaseProviderFactory
-//    let interactor = WalletDetailInteractor(useCaseProvider: useCaseProviderFactory.makeUseCaseProvider())
-//    let viewModel = TestDetailViewModel(interactor: interactor, wallet: configuration.wallet)
-//    let viewController = TestDetailViewController(viewModel: viewModel)
-//    navigationController.pushViewController(viewController, animated: animated)
   }
   
   // MARK: - Private methods
@@ -101,6 +96,12 @@ extension WalletDetailCoordinator: WalletDetailViewModelDelegate {
   func walletDetailViewModelDidRequestToShowOperationsScreen(_ viewModel: WalletDetailViewModel, operations: [OperationModel]) {
     let configuration = OperationListCoordinatorConfiguration(operations: operations)
     show(OperationListCoordinator.self, configuration: configuration, animated: true)
+  }
+  
+  func walletDetailViewModelDidRequestToShowCardOperationList(_ viewModel: WalletDetailViewModel, categoryName: String,
+                                                              operations: [OperationModel]) {
+    let configuration = CardDetailCoordinatorConfiguration(categoryName: categoryName, operations: operations)
+    show(CardDetailCoordinator.self, configuration: configuration, animated: false)
   }
 }
 
