@@ -60,7 +60,10 @@ class CreateBudgetViewModel: TableViewModel {
   
   private let walletID: Int
   private let budgetCellTypes: [CreateBudgetCellTypes] = CreateBudgetCellTypes.allCases
-  private let maxBudgetLength: Int = 8
+  
+  private let maxBudgetLength: Int = 14
+  private let pointFraction: String = "."
+  private let zeroNumber: String = "0"
   
   private let interactor: CreateBudgetInteractorProtocol
   
@@ -179,7 +182,7 @@ extension CreateBudgetViewModel: CreateBudgetCellViewModelDelegate {
 // MARK: - CalculationModalViewModelDelegate
 extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
   func viewModelDidRequestToChangeAmount(_ viewModel: CalculationModalViewModel, amount: String) {
-    if !budgetAmountArr.isEmpty && budgetAmountArr[0] == "0" { return } //|| budgetAmountArr[1] != "." { return }
+    if !budgetAmountArr.isEmpty && budgetAmountArr[0] == zeroNumber { return }
     if budgetAmountArr.count < maxBudgetLength {
       budgetAmountArr.append(amount)
       let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
@@ -189,6 +192,12 @@ extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
   }
   
   func viewModelDidRequestToPreviousValue(_ viewModel: CalculationModalViewModel) {
+    if budgetAmountArr.onlyOneElement {
+      budgetAmountArr.removeLast()
+      let cellViewModel = CreateBudgetCellViewModel(.amount)
+      let amountBudgetRow = IndexPath(row: CellNumberRows.amount.raw, section: CellNumberRows.amount.section)
+      updateCellViewModel(at: amountBudgetRow, with: cellViewModel)
+    }
     if !budgetAmountArr.isEmpty {
       budgetAmountArr.removeLast()
       let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
@@ -198,10 +207,8 @@ extension CreateBudgetViewModel: CalculationModalViewModelDelegate {
   }
   
   func viewModelDidToRequestPoint(_ viewModel: CalculationModalViewModel) {
-    if budgetAmountArr.isEmpty {
-      budgetAmountArr.append("0.")
-    } else if !budgetAmountArr.isEmpty && !budgetAmountArr.contains(".") {
-      budgetAmountArr.append(".")
+    if !budgetAmountArr.isEmpty && !budgetAmountArr.contains(pointFraction) {
+      budgetAmountArr.append(pointFraction)
     }
     let cellViewModel = CreateBudgetCellViewModel(.amount, budgetAmountArr: budgetAmountArr)
     let amountBudgetRow = IndexPath(row: CellNumberRows.amount.raw, section: CellNumberRows.amount.section)

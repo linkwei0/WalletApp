@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension String {
+  var isFractional: Bool {
+    return self.contains(".")
+  }
+}

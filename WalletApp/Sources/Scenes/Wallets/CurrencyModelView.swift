@@ -13,12 +13,12 @@ struct CurrencyModelView {
     
     init?(rawValue: String) {
       switch rawValue {
-      case "EUR", "EURO":
-        self = .euro
-      case "USD":
-        self = .usd
-      case "RUB":
+      case Constants.rubTitle:
         self = .rub
+      case Constants.dollarTitle:
+        self = .usd
+      case Constants.euroTitle, "EUR":
+        self = .euro
       default:
         self = .rub
       }
@@ -38,11 +38,11 @@ struct CurrencyModelView {
     var iconImage: UIImage? {
       switch self {
       case .usd:
-        return UIImage(systemName: "dollarsign")
+        return UIImage(systemName: Constants.dollarImage)
       case .euro:
-        return UIImage(systemName: "eurosign")
+        return UIImage(systemName: Constants.euroImage)
       case .rub:
-        return UIImage(systemName: "rublesign")
+        return UIImage(systemName: Constants.rubImage)
       }
     }
   }
@@ -54,11 +54,11 @@ struct CurrencyModelView {
     
     init?(rawValue: String) {
       switch rawValue {
-      case "RUB":
+      case Constants.rubTitle:
         self = .rub
-      case "USD":
+      case Constants.dollarTitle:
         self = .usd
-      case "EURO", "EUR":
+      case Constants.euroTitle, "EUR":
         self = .euro
       default:
         self = .rub
@@ -68,22 +68,22 @@ struct CurrencyModelView {
     var iconImage: UIImage? {
       switch self {
       case .rub:
-        return UIImage(systemName: "rublesign")
+        return UIImage(systemName: Constants.rubImage)
       case .usd:
-        return UIImage(systemName: "dollarsign")
+        return UIImage(systemName: Constants.dollarImage)
       case .euro:
-        return UIImage(systemName: "eurosign")
+        return UIImage(systemName: Constants.euroImage)
       }
     }
     
     var currencyType: String {
       switch self {
       case .rub:
-        return "RUB"
+        return Constants.rubTitle
       case .usd:
-        return "USD"
+        return Constants.dollarTitle
       case .euro:
-        return "EURO"
+        return Constants.euroTitle
       }
     }
   }
@@ -93,4 +93,14 @@ struct CurrencyModelView {
 
   let code: String
   let description: String
+}
+
+private extension Constants {
+  static let dollarImage = "dollarsign"
+  static let euroImage = "eurosign"
+  static let rubImage = "rublesign"
+  
+  static let dollarTitle = "USD"
+  static let euroTitle = "EURO"
+  static let rubTitle = "RUB"
 }

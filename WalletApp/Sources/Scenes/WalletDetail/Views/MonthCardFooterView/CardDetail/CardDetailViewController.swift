@@ -27,7 +27,7 @@ class CardDetailViewController: BaseViewController, NavigationBarHiding {
   
   private let dataSource = TableViewDataSource()
   
-  private let viewModel: CardDetailViewModel
+  let viewModel: CardDetailViewModel
   
   // MARK: - Init
   init(viewModel: CardDetailViewModel) {

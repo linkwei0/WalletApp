@@ -52,7 +52,7 @@ class WalletEditViewController: BaseViewController {
   
   private func setupSaveButton() {
     view.addSubview(saveButton)
-    saveButton.setTitle("Сохранить изменения", for: .normal)
+    saveButton.setTitle(R.string.wallets.walletEditButtonTitle(), for: .normal)
     saveButton.setTitleColor(.baseWhite, for: .normal)
     saveButton.titleLabel?.font = UIFont.bodyBold ?? .boldSystemFont(ofSize: 16)
     saveButton.layer.cornerRadius = 12

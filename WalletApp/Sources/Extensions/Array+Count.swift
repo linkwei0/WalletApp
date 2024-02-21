@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+extension Array {
+  var onlyOneElement: Bool {
+    return self.count == 1
+  }
+}

@@ -54,6 +54,10 @@ protocol HasBudgetDetailFactory {
   var budgetDetailFactory: BudgetDetailFactoryProtocol { get }
 }
 
+protocol HasCardDetailFactory {
+  var cardDetailFactory: CardDetailFactoryProtocol { get }
+}
+
 final class AppFactory {
   // MARK: - DI
   private let walletsFactoryService: WalletsFactory
@@ -67,6 +71,7 @@ final class AppFactory {
   private let budgetPlanningFactoryService: BudgetPlanningFactory
   private let createBudgetFactoryService: CreateBudgetFactory
   private let budgetDetailFactoryService: BudgetDetailFactory
+  private let cardDetailFactoryService: CardDetailFactory
   
   private let useCaseProviderFacotryService = UseCaseProviderFactory()
   
@@ -85,6 +90,7 @@ final class AppFactory {
     budgetPlanningFactoryService = BudgetPlanningFactory(useCaseProvider: useCaseProvider)
     createBudgetFactoryService = CreateBudgetFactory(useCaseProvider: useCaseProvider)
     budgetDetailFactoryService = BudgetDetailFactory()
+    cardDetailFactoryService = CardDetailFactory()
   }
 }
 
@@ -169,5 +175,12 @@ extension AppFactory: HasCreateBudgetFactory {
 extension AppFactory: HasBudgetDetailFactory {
   var budgetDetailFactory: BudgetDetailFactoryProtocol {
     return budgetDetailFactoryService
+  }
+}
+
+// MARK: - HasCardDetailFactory
+extension AppFactory: HasCardDetailFactory {
+  var cardDetailFactory: CardDetailFactoryProtocol {
+    return cardDetailFactoryService
   }
 }

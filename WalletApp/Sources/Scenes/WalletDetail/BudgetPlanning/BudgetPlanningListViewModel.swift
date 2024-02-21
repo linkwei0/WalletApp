@@ -52,7 +52,7 @@ class BudgetPlanningListViewModel: TableViewModel, SimpleViewStateProccessable {
       switch result {
       case .success(let budgets):
         self.budgets = budgets
-        self.onNeedsToUpdateRightBarButton?(budgets.count <= self.maxBudgetsForWallet)
+        self.onNeedsToUpdateRightBarButton?(budgets.count < self.maxBudgetsForWallet)
         self.configureSectionViewModels(budgets: budgets)
       case .failure(let error):
         print("Failed to get budgets with error - \(error)")

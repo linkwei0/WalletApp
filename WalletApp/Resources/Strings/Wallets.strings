@@ -9,3 +9,6 @@
 "wallets.action.edit.title" = "Изменить";
 "wallets.action.delete.title" = "Удалить";
 "wallets.balance.view.title" = "Все средства";
+
+"wallet.edit.title" = "Редактирование кошелька";
+"wallet.edit.button.title" = "Сохранить изменения";

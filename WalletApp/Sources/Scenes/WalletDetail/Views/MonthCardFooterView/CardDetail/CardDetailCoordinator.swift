@@ -14,6 +14,7 @@ struct CardDetailCoordinatorConfiguration {
 
 class CardDetailCoordinator: ConfigurableCoordinator {
   typealias Configuration = CardDetailCoordinatorConfiguration
+  typealias Factory = HasCardDetailFactory
   
   var childCoordinator: [Coordinator] = []
   var onDidFinish: (() -> Void)?
@@ -22,10 +23,12 @@ class CardDetailCoordinator: ConfigurableCoordinator {
   let appFactory: AppFactory
   
   private let configuration: Configuration
+  private let factory: Factory
   
   required init(navigationController: NavigationController, appFactory: AppFactory, configuration: Configuration) {
     self.navigationController = navigationController
     self.appFactory = appFactory
+    self.factory = appFactory
     self.configuration = configuration
   }
   
@@ -34,9 +37,9 @@ class CardDetailCoordinator: ConfigurableCoordinator {
   }
   
   private func showCardDetailScreen(animated: Bool) {
-    let viewModel = CardDetailViewModel(categoryName: configuration.categoryName, operations: configuration.operations)
-    viewModel.delegate = self
-    let viewController = CardDetailViewController(viewModel: viewModel)
+    let viewController = factory.cardDetailFactory.makeModule(categoryName: configuration.categoryName,
+                                                              operations: configuration.operations)
+    viewController.viewModel.delegate = self
     viewController.modalPresentationStyle = .overCurrentContext
     navigationController.present(viewController, animated: animated)
   }

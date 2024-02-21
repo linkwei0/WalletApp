@@ -1785,7 +1785,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
 
-    /// This `R.string.wallets` struct is generated, and contains static references to 6 localization keys.
+    /// This `R.string.wallets` struct is generated, and contains static references to 8 localization keys.
     struct wallets {
       /// Value: Все средства
       static let walletsBalanceViewTitle = Rswift.StringResource(key: "wallets.balance.view.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
@@ -1795,6 +1795,10 @@ struct R: Rswift.Validatable {
       static let walletsActionEditTitle = Rswift.StringResource(key: "wallets.action.edit.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Нет кошелька
       static let walletsEmptyViewTitle = Rswift.StringResource(key: "wallets.empty.view.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Редактирование кошелька
+      static let walletEditTitle = Rswift.StringResource(key: "wallet.edit.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Сохранить изменения
+      static let walletEditButtonTitle = Rswift.StringResource(key: "wallet.edit.button.title", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один
       static let walletsEmptyViewSubtitle = Rswift.StringResource(key: "wallets.empty.view.subtitle", tableName: "Wallets", bundle: R.hostingBundle, locales: [], comment: nil)
       /// Value: Удалить
@@ -1850,6 +1854,32 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("wallets.empty.view.title", tableName: "Wallets", bundle: bundle, comment: "")
+      }
+
+      /// Value: Редактирование кошелька
+      static func walletEditTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallet.edit.title", tableName: "Wallets", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wallets", preferredLanguages: preferredLanguages) else {
+          return "wallet.edit.title"
+        }
+
+        return NSLocalizedString("wallet.edit.title", tableName: "Wallets", bundle: bundle, comment: "")
+      }
+
+      /// Value: Сохранить изменения
+      static func walletEditButtonTitle(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("wallet.edit.button.title", tableName: "Wallets", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Wallets", preferredLanguages: preferredLanguages) else {
+          return "wallet.edit.button.title"
+        }
+
+        return NSLocalizedString("wallet.edit.button.title", tableName: "Wallets", bundle: bundle, comment: "")
       }
 
       /// Value: У вас нет ни одого кошелька. Для работы приложения рекомендуется минимум один

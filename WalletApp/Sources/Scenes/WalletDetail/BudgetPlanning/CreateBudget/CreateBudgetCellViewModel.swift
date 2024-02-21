@@ -27,7 +27,7 @@ class CreateBudgetCellViewModel {
   }
   
   var amount: String? {
-    return budgetAmount
+    return budgetAmount.isFractional ? budgetAmount : budgetAmount.makeSpaces()
   }
   
   var title: String? {

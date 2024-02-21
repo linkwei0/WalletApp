@@ -23,7 +23,7 @@ class ProfileViewModel {
   
   // MARK: - Private methods
   private func fetchPerson() {
-    emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: "exclamationmark.circle.fill"),
+    emptyStateViewModel = EmptyStateViewModel(image: UIImage(systemName: Constants.emptyViewImage),
                                               imageSize: CGSize(width: 120, height: 120),
                                               title: R.string.profile.profileEmptyViewTitle(),
                                               subtitle: R.string.profile.profileEmptyViewSubtitle())
@@ -37,4 +37,9 @@ class ProfileViewModel {
       }
     }
   }
+}
+
+// MARK: - Constants
+private extension Constants {
+  static let emptyViewImage = "exclamationmark.circle.fill"
 }

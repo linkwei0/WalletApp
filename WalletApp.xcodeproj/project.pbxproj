@@ -173,6 +173,9 @@
 		AD7B53FD2ADD7D37009D73FB /* WalletDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7B53FC2ADD7D37009D73FB /* WalletDetailViewModel.swift */; };
 		AD7B53FF2ADD7D47009D73FB /* WalletDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7B53FE2ADD7D47009D73FB /* WalletDetailViewController.swift */; };
 		AD7B54012ADD9641009D73FB /* BalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7B54002ADD9641009D73FB /* BalanceViewModel.swift */; };
+		ADBF07202B308F2D0040314A /* Array+Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBF071F2B308F2D0040314A /* Array+Count.swift */; };
+		ADBF07222B3090020040314A /* String+Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBF07212B3090020040314A /* String+Bool.swift */; };
+		ADBF07242B3093250040314A /* CardDetailFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADBF07232B3093250040314A /* CardDetailFactory.swift */; };
 		ADC1E1AB2B14F1E0002ADC42 /* CategoryPicker.strings in Resources */ = {isa = PBXBuildFile; fileRef = ADC1E1AA2B14F1E0002ADC42 /* CategoryPicker.strings */; };
 		ADC1E1AD2B14F3B2002ADC42 /* BannerShowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC1E1AC2B14F3B2002ADC42 /* BannerShowing.swift */; };
 		ADC1E1B42B161D26002ADC42 /* WalletDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC1E1B32B161D26002ADC42 /* WalletDetailCell.swift */; };
@@ -404,6 +407,9 @@
 		AD7B53FC2ADD7D37009D73FB /* WalletDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewModel.swift; sourceTree = "<group>"; };
 		AD7B53FE2ADD7D47009D73FB /* WalletDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailViewController.swift; sourceTree = "<group>"; };
 		AD7B54002ADD9641009D73FB /* BalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewModel.swift; sourceTree = "<group>"; };
+		ADBF071F2B308F2D0040314A /* Array+Count.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Count.swift"; sourceTree = "<group>"; };
+		ADBF07212B3090020040314A /* String+Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Bool.swift"; sourceTree = "<group>"; };
+		ADBF07232B3093250040314A /* CardDetailFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailFactory.swift; sourceTree = "<group>"; };
 		ADC1E1AA2B14F1E0002ADC42 /* CategoryPicker.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = CategoryPicker.strings; sourceTree = "<group>"; };
 		ADC1E1AC2B14F3B2002ADC42 /* BannerShowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerShowing.swift; sourceTree = "<group>"; };
 		ADC1E1B32B161D26002ADC42 /* WalletDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletDetailCell.swift; sourceTree = "<group>"; };
@@ -1156,6 +1162,7 @@
 				AD4FF0282B0E48F2002ED608 /* BudgetPlanningFactory.swift */,
 				AD4FF02A2B0E4BC9002ED608 /* CreateBudgetFactory.swift */,
 				AD4FF03D2B0FA231002ED608 /* BudgetDetailFactory.swift */,
+				ADBF07232B3093250040314A /* CardDetailFactory.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -1166,6 +1173,7 @@
 				6EB5696F7C04D727E7A2DF74 /* String+Subscript.swift */,
 				ADD8864B2AE2994600E24D0E /* String+Limit.swift */,
 				AD3090102B20BA060004F33C /* String+Convert.swift */,
+				ADBF07212B3090020040314A /* String+Bool.swift */,
 			);
 			path = String;
 			sourceTree = "<group>";
@@ -1232,6 +1240,7 @@
 				ADFF47692B0E35C800A6E3DA /* DateFormatter+Format.swift */,
 				AD4FF0302B0F4A99002ED608 /* Decimal+Compare.swift */,
 				ADF42C462B2B1F50004E074C /* TimeInterval.swift */,
+				ADBF071F2B308F2D0040314A /* Array+Count.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1536,6 +1545,7 @@
 				36CD83708440C93FAF278B0A /* WalletsViewModel.swift in Sources */,
 				AD752C252AE7B4AA0092A43D /* CategoryPickerViewModel.swift in Sources */,
 				F27BBB51673E69BE2F80A194 /* BaseViewController.swift in Sources */,
+				ADBF07202B308F2D0040314A /* Array+Count.swift in Sources */,
 				ADC94C782AEFAEB400B182E6 /* ProfileViewModel.swift in Sources */,
 				AD0C94192B2CAF900079AEC6 /* CardDetailViewController.swift in Sources */,
 				AD402D322AFB9CD700CBAA03 /* WalletEditViewController.swift in Sources */,
@@ -1573,6 +1583,7 @@
 				AD39A1282AE6608B00A27DD2 /* WalletClient.swift in Sources */,
 				AD5A38C62AF2311800028127 /* ProfileRemoteDataSource.swift in Sources */,
 				AD2AA2B82B04FDCB00458E5E /* BudgetPlanningListViewController.swift in Sources */,
+				ADBF07222B3090020040314A /* String+Bool.swift in Sources */,
 				ADF42C472B2B1F50004E074C /* TimeInterval.swift in Sources */,
 				91D4D38840085B3742C96D93 /* CalculationViewModel.swift in Sources */,
 				AD4FF02D2B0F3E59002ED608 /* BudgetPlanningHeaderView.swift in Sources */,
@@ -1704,6 +1715,7 @@
 				AD5A38CA2AF231A100028127 /* ProfileClient.swift in Sources */,
 				AD5A38E42AF23AE500028127 /* ProfileFactory.swift in Sources */,
 				AD4FF02B2B0E4BC9002ED608 /* CreateBudgetFactory.swift in Sources */,
+				ADBF07242B3093250040314A /* CardDetailFactory.swift in Sources */,
 				AD3E6A552B0B758B00A210C3 /* SelectPeriodViewModel.swift in Sources */,
 				AD2AA2C52B0617EF00458E5E /* CreateBudgetCellViewModel.swift in Sources */,
 				667A41AAAFC278248AD66CDF /* UIFont+AppFonts.swift in Sources */,
