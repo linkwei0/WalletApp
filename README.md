@@ -3,11 +3,14 @@
   Pet-project with Clean Architecture. An application that allows you to create wallets/operations, select currencies, and manage expenses and income.
   MVVM is presentation layer. For network using URLSession. Local cache is CoreData.
   Business logic is usecases, interactors and etc like remote/local datasources.
+  Below you can find a small part of the application screens!
+
 
 <h2>Main technologies</h2>
 
 - UIKit
 - SnapKit
+- CoreData
 - R.swift
 - XcodeGen
 - SwiftLint
